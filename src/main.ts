@@ -1,19 +1,30 @@
 import "./styles.css";
 import type { SavedItem } from "./domain/savedItem";
 import { IndexedDbReadingListStore } from "./storage/indexedDbReadingListStore";
+import { requestPersistentStorage } from "./storage/requestPersistentStorage";
 import { formatSavedTime } from "./ui/formatSavedTime";
 
 const store = new IndexedDbReadingListStore();
+const UNDO_WINDOW_MS = 7_000;
+let undoTimer: number | undefined;
 
 const list = requireElement<HTMLUListElement>("article-list");
 const loadingState = requireElement<HTMLParagraphElement>("loading-state");
 const emptyState = requireElement<HTMLParagraphElement>("empty-state");
 const itemCount = requireElement<HTMLParagraphElement>("item-count");
-const statusMessage = requireElement<HTMLParagraphElement>("status-message");
+const listHeading = requireElement<HTMLHeadingElement>("list-heading");
+const statusMessage = requireElement<HTMLDivElement>("status-message");
 const errorMessage = requireElement<HTMLParagraphElement>("error-message");
 
 showShareResult();
 void refreshList();
+void requestPersistentStorage();
+
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    void refreshList();
+  }
+});
 
 async function refreshList(): Promise<void> {
   setBusy(true);
@@ -41,6 +52,7 @@ function renderItems(items: SavedItem[]): void {
 function createArticleRow(item: SavedItem): HTMLLIElement {
   const row = document.createElement("li");
   row.className = "article-row";
+  row.dataset.itemId = item.id;
 
   const content = document.createElement("div");
   content.className = "article-content";
@@ -82,11 +94,54 @@ async function deleteArticle(item: SavedItem, button: HTMLButtonElement): Promis
   try {
     await store.delete(item.id);
     await refreshList();
-    showStatus(`Deleted “${item.title}”.`);
+    showUndoStatus(item);
   } catch (error) {
     button.disabled = false;
     showError(readableError(error, "This article could not be deleted."));
   }
+}
+
+function showUndoStatus(item: SavedItem): void {
+  clearMessages();
+
+  const undoButton = document.createElement("button");
+  undoButton.className = "undo-action";
+  undoButton.type = "button";
+  undoButton.textContent = "Undo";
+  undoButton.addEventListener("click", () => {
+    clearUndoTimer();
+    undoButton.disabled = true;
+    void restoreArticle(item);
+  });
+
+  statusMessage.append(document.createTextNode(`Deleted “${item.title}”. `), undoButton);
+  undoButton.focus();
+  undoTimer = window.setTimeout(() => {
+    const undoHadFocus = document.activeElement === undoButton;
+    showStatus(`Deleted “${item.title}”.`);
+
+    if (undoHadFocus) {
+      listHeading.focus();
+    }
+  }, UNDO_WINDOW_MS);
+}
+
+async function restoreArticle(item: SavedItem): Promise<void> {
+  try {
+    await store.save(item);
+    await refreshList();
+    showStatus(`Restored “${item.title}”.`);
+    focusArticle(item.id);
+  } catch (error) {
+    showError(readableError(error, "This article could not be restored."));
+  }
+}
+
+function focusArticle(itemId: string): void {
+  const row = [...list.querySelectorAll<HTMLLIElement>(".article-row")].find(
+    (candidate) => candidate.dataset.itemId === itemId,
+  );
+  row?.querySelector<HTMLAnchorElement>(".article-link")?.focus();
 }
 
 function showShareResult(): void {
@@ -124,20 +179,30 @@ function setBusy(isBusy: boolean): void {
 }
 
 function clearMessages(): void {
-  statusMessage.textContent = "";
+  clearUndoTimer();
+  statusMessage.replaceChildren();
   errorMessage.textContent = "";
   errorMessage.hidden = true;
 }
 
 function showStatus(message: string): void {
+  clearUndoTimer();
   errorMessage.hidden = true;
   statusMessage.textContent = message;
 }
 
 function showError(message: string): void {
-  statusMessage.textContent = "";
+  clearUndoTimer();
+  statusMessage.replaceChildren();
   errorMessage.textContent = message;
   errorMessage.hidden = false;
+}
+
+function clearUndoTimer(): void {
+  if (undoTimer !== undefined) {
+    window.clearTimeout(undoTimer);
+    undoTimer = undefined;
+  }
 }
 
 function readableError(error: unknown, fallback: string): string {
