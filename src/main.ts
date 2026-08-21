@@ -1,17 +1,10 @@
 import "./styles.css";
-import {
-  createSavedItem,
-  SavedItemValidationError,
-  type SavedItem,
-} from "./domain/savedItem";
+import type { SavedItem } from "./domain/savedItem";
 import { IndexedDbReadingListStore } from "./storage/indexedDbReadingListStore";
 import { formatSavedTime } from "./ui/formatSavedTime";
 
 const store = new IndexedDbReadingListStore();
 
-const form = requireElement<HTMLFormElement>("add-form");
-const titleInput = requireElement<HTMLInputElement>("article-title");
-const urlInput = requireElement<HTMLInputElement>("article-url");
 const list = requireElement<HTMLUListElement>("article-list");
 const loadingState = requireElement<HTMLParagraphElement>("loading-state");
 const emptyState = requireElement<HTMLParagraphElement>("empty-state");
@@ -19,36 +12,8 @@ const itemCount = requireElement<HTMLParagraphElement>("item-count");
 const statusMessage = requireElement<HTMLParagraphElement>("status-message");
 const errorMessage = requireElement<HTMLParagraphElement>("error-message");
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  void saveArticle();
-});
-
+showShareResult();
 void refreshList();
-
-async function saveArticle(): Promise<void> {
-  clearMessages();
-
-  try {
-    const item = createSavedItem({
-      title: titleInput.value,
-      url: urlInput.value,
-    });
-
-    await store.save(item);
-    form.reset();
-    await refreshList();
-    showStatus(`Saved “${item.title}”.`);
-    titleInput.focus();
-  } catch (error) {
-    showError(readableError(error, "This article could not be saved."));
-
-    if (error instanceof SavedItemValidationError) {
-      const target = error.message.toLowerCase().includes("title") ? titleInput : urlInput;
-      target.focus();
-    }
-  }
-}
 
 async function refreshList(): Promise<void> {
   setBusy(true);
@@ -124,12 +89,37 @@ async function deleteArticle(item: SavedItem, button: HTMLButtonElement): Promis
   }
 }
 
+function showShareResult(): void {
+  const url = new URL(window.location.href);
+  const result = url.searchParams.get("share");
+
+  if (!result) {
+    return;
+  }
+
+  url.searchParams.delete("share");
+  window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+
+  if (result === "saved") {
+    showStatus("Article saved to Laters.");
+    return;
+  }
+
+  if (result === "invalid") {
+    showError("That shared item did not contain a valid article link.");
+    return;
+  }
+
+  if (result === "storage-error") {
+    showError("Laters could not save that article. Please try again.");
+  }
+}
+
 function setBusy(isBusy: boolean): void {
   list.setAttribute("aria-busy", String(isBusy));
-  form.querySelectorAll("input, button").forEach((control) => {
-    if (control instanceof HTMLInputElement || control instanceof HTMLButtonElement) {
-      control.disabled = isBusy;
-    }
+
+  list.querySelectorAll("button").forEach((button) => {
+    button.disabled = isBusy;
   });
 }
 

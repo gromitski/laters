@@ -109,14 +109,19 @@ Deferred items are not implied future commitments. They require evidence of a re
 
 ## Open product decisions
 
-- Which Android browser and minimum version define the initial support baseline?
-- If the share payload has no useful title, should Laters show the hostname, the URL or fetched page metadata?
 - If the same URL is shared again, should Laters create another item, move the existing item to the top or ignore the duplicate?
 - Should deletion be immediate, require confirmation or offer a brief undo action?
-- After a successful share, should Laters show the full list, a lightweight success screen or return control as quickly as the platform permits?
 - Should relative saved times update live, on focus or only when the list is rendered?
 
 These decisions should be resolved only when they affect the next implementation slice.
+
+## Accepted Slice 2 decisions
+
+- The initial support target is the current stable Chrome for Android; a minimum version will be recorded only when real-device or deployment evidence requires one.
+- Link shares use a `POST` Web Share Target handled by the service worker, followed by a `303` redirect to the reading list.
+- Android-style payloads may place the link in the shared text field, so Laters checks the explicit URL first and then extracts the first valid HTTP or HTTPS URL from text or title.
+- Titles use the shared title when useful, then useful surrounding text, then the hostname. Laters does not fetch page metadata.
+- A successful share opens the full reading list with an accessible confirmation. Invalid or failed shares show an accessible error without placing shared content in the redirect URL.
 
 ## Delivery slices
 

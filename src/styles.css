@@ -21,14 +21,12 @@ body {
     #f3efe7;
 }
 
-button,
-input {
+button {
   font: inherit;
 }
 
 button,
-a,
-input {
+a {
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -103,7 +101,6 @@ h2 {
   line-height: 1.55;
 }
 
-.capture,
 .reading-list {
   border: 1px solid #d9d1c3;
   border-radius: 1rem;
@@ -111,62 +108,11 @@ h2 {
   box-shadow: 0 1.25rem 4rem rgb(74 61 42 / 8%);
 }
 
-.capture {
-  display: grid;
-  gap: 1.5rem;
-  margin-bottom: 1.25rem;
-  padding: clamp(1.25rem, 5vw, 2rem);
-}
-
-.capture p:not(.section-kicker) {
-  margin-bottom: 0;
-  color: #655f56;
-  line-height: 1.5;
-}
-
-form {
-  display: grid;
-  gap: 1rem;
-}
-
-.field {
-  display: grid;
-  gap: 0.4rem;
-}
-
-label {
-  font-size: 0.875rem;
-  font-weight: 700;
-}
-
-input {
-  width: 100%;
-  min-height: 3rem;
-  border: 1px solid #afa696;
-  border-radius: 0.625rem;
-  padding: 0.7rem 0.8rem;
-  color: #25231f;
-  background: #fffefb;
-}
-
-input::placeholder {
-  color: #777066;
-}
-
-.primary-action,
 .delete-action {
   min-height: 2.75rem;
   border-radius: 999px;
   cursor: pointer;
   font-weight: 750;
-}
-
-.primary-action {
-  justify-self: start;
-  border: 1px solid #25231f;
-  padding: 0.6rem 1.15rem;
-  color: #fff;
-  background: #25231f;
 }
 
 .reading-list {
@@ -260,8 +206,7 @@ input::placeholder {
   background: #fff3ed;
 }
 
-button:disabled,
-input:disabled {
+button:disabled {
   cursor: wait;
   opacity: 0.6;
 }
@@ -308,12 +253,6 @@ footer {
   border: 0;
 }
 
-@media (min-width: 42rem) {
-  .capture {
-    grid-template-columns: minmax(0, 0.9fr) minmax(16rem, 1.1fr);
-  }
-}
-
 @media (max-width: 28rem) {
   .article-row {
     align-items: start;
@@ -326,7 +265,6 @@ footer {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .primary-action,
   .delete-action,
   .article-link {
     transition:

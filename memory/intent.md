@@ -40,12 +40,12 @@ The core job is intentionally narrow: capture a link at the moment it is discove
 - Accepted: saved-item data remains on the device and IndexedDB is its initial source of truth.
 - Accepted: Web Share Target input is untrusted and only valid HTTP or HTTPS article URLs may be saved.
 - Accepted: the app shell may work offline, but Laters does not make external articles available offline.
-- Assumed: the shared page title may be used when Android supplies it; fallback title behaviour remains to be decided.
-- Unknown: supported Android browser and minimum browser version.
+- Accepted: the initial browser target is the current stable Chrome for Android; the minimum version remains evidence-led.
+- Accepted: shared titles fall back to useful surrounding text and then the hostname without fetching page metadata.
+- Accepted: successful shares open the full reading list with an accessible status message.
 - Unknown: behaviour for duplicate URLs.
 - Unknown: whether deletion needs confirmation or a short undo opportunity.
 - Unknown: visual direction beyond a minimal, accessible interface.
-- Unknown: what screen or acknowledgement should follow a successful Android share.
 - Unknown: whether saved times update continuously or when the list is rendered or revisited.
 
 Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mvp-definition.md`.
