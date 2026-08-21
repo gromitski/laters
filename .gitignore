@@ -13,5 +13,9 @@ Thumbs.db
 # Logs and scratch output
 *.log
 
+# Dependencies and generated builds
+node_modules/
+dist/
+
 # Local overrides
 *.local

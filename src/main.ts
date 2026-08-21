@@ -1,0 +1,165 @@
+import "./styles.css";
+import {
+  createSavedItem,
+  SavedItemValidationError,
+  type SavedItem,
+} from "./domain/savedItem";
+import { IndexedDbReadingListStore } from "./storage/indexedDbReadingListStore";
+import { formatSavedTime } from "./ui/formatSavedTime";
+
+const store = new IndexedDbReadingListStore();
+
+const form = requireElement<HTMLFormElement>("add-form");
+const titleInput = requireElement<HTMLInputElement>("article-title");
+const urlInput = requireElement<HTMLInputElement>("article-url");
+const list = requireElement<HTMLUListElement>("article-list");
+const loadingState = requireElement<HTMLParagraphElement>("loading-state");
+const emptyState = requireElement<HTMLParagraphElement>("empty-state");
+const itemCount = requireElement<HTMLParagraphElement>("item-count");
+const statusMessage = requireElement<HTMLParagraphElement>("status-message");
+const errorMessage = requireElement<HTMLParagraphElement>("error-message");
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  void saveArticle();
+});
+
+void refreshList();
+
+async function saveArticle(): Promise<void> {
+  clearMessages();
+
+  try {
+    const item = createSavedItem({
+      title: titleInput.value,
+      url: urlInput.value,
+    });
+
+    await store.save(item);
+    form.reset();
+    await refreshList();
+    showStatus(`Saved “${item.title}”.`);
+    titleInput.focus();
+  } catch (error) {
+    showError(readableError(error, "This article could not be saved."));
+
+    if (error instanceof SavedItemValidationError) {
+      const target = error.message.toLowerCase().includes("title") ? titleInput : urlInput;
+      target.focus();
+    }
+  }
+}
+
+async function refreshList(): Promise<void> {
+  setBusy(true);
+
+  try {
+    const items = await store.listNewestFirst();
+    renderItems(items);
+  } catch (error) {
+    list.replaceChildren();
+    emptyState.hidden = true;
+    itemCount.textContent = "";
+    showError(readableError(error, "Your saved articles could not be loaded."));
+  } finally {
+    loadingState.hidden = true;
+    setBusy(false);
+  }
+}
+
+function renderItems(items: SavedItem[]): void {
+  list.replaceChildren(...items.map(createArticleRow));
+  emptyState.hidden = items.length > 0;
+  itemCount.textContent = `${items.length} ${items.length === 1 ? "item" : "items"}`;
+}
+
+function createArticleRow(item: SavedItem): HTMLLIElement {
+  const row = document.createElement("li");
+  row.className = "article-row";
+
+  const content = document.createElement("div");
+  content.className = "article-content";
+
+  const link = document.createElement("a");
+  link.className = "article-link";
+  link.href = item.url;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = item.title;
+
+  const newTabHint = document.createElement("span");
+  newTabHint.className = "visually-hidden";
+  newTabHint.textContent = " (opens in a new tab)";
+  link.append(newTabHint);
+
+  const meta = document.createElement("p");
+  meta.className = "article-meta";
+  meta.textContent = `Saved ${formatSavedTime(item.savedAt)}`;
+
+  const deleteButton = document.createElement("button");
+  deleteButton.className = "delete-action";
+  deleteButton.type = "button";
+  deleteButton.textContent = "Delete";
+  deleteButton.setAttribute("aria-label", `Delete “${item.title}”`);
+  deleteButton.addEventListener("click", () => {
+    void deleteArticle(item, deleteButton);
+  });
+
+  content.append(link, meta);
+  row.append(content, deleteButton);
+  return row;
+}
+
+async function deleteArticle(item: SavedItem, button: HTMLButtonElement): Promise<void> {
+  clearMessages();
+  button.disabled = true;
+
+  try {
+    await store.delete(item.id);
+    await refreshList();
+    showStatus(`Deleted “${item.title}”.`);
+  } catch (error) {
+    button.disabled = false;
+    showError(readableError(error, "This article could not be deleted."));
+  }
+}
+
+function setBusy(isBusy: boolean): void {
+  list.setAttribute("aria-busy", String(isBusy));
+  form.querySelectorAll("input, button").forEach((control) => {
+    if (control instanceof HTMLInputElement || control instanceof HTMLButtonElement) {
+      control.disabled = isBusy;
+    }
+  });
+}
+
+function clearMessages(): void {
+  statusMessage.textContent = "";
+  errorMessage.textContent = "";
+  errorMessage.hidden = true;
+}
+
+function showStatus(message: string): void {
+  errorMessage.hidden = true;
+  statusMessage.textContent = message;
+}
+
+function showError(message: string): void {
+  statusMessage.textContent = "";
+  errorMessage.textContent = message;
+  errorMessage.hidden = false;
+}
+
+function readableError(error: unknown, fallback: string): string {
+  return error instanceof Error && error.message ? error.message : fallback;
+}
+
+function requireElement<T extends HTMLElement>(id: string): T {
+  const element = document.getElementById(id);
+
+  if (!element) {
+    throw new Error(`Required element #${id} was not found.`);
+  }
+
+  return element as T;
+}

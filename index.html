@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f3efe7" />
+    <meta
+      name="description"
+      content="A minimal local-first list of articles to read later."
+    />
+    <title>Laters</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#saved-articles">Skip to saved articles</a>
+
+    <main class="shell">
+      <header class="masthead">
+        <p class="eyebrow">Your quiet reading queue</p>
+        <h1>Laters</h1>
+        <p class="intro">Save the link. Read it when you have the space.</p>
+      </header>
+
+      <section class="capture" aria-labelledby="capture-heading">
+        <div>
+          <p class="section-kicker">Slice 1 proof</p>
+          <h2 id="capture-heading">Add a test article</h2>
+          <p>
+            This temporary form proves local saving before Android Share arrives.
+          </p>
+        </div>
+
+        <form id="add-form" novalidate>
+          <div class="field">
+            <label for="article-title">Article title</label>
+            <input
+              id="article-title"
+              name="title"
+              type="text"
+              autocomplete="off"
+              maxlength="240"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="article-url">Article URL</label>
+            <input
+              id="article-url"
+              name="url"
+              type="url"
+              inputmode="url"
+              autocomplete="url"
+              placeholder="https://example.com/article"
+              required
+            />
+          </div>
+
+          <button class="primary-action" type="submit">Save article</button>
+        </form>
+      </section>
+
+      <section id="saved-articles" class="reading-list" aria-labelledby="list-heading">
+        <div class="list-heading-row">
+          <div>
+            <p class="section-kicker">Newest first</p>
+            <h2 id="list-heading">Saved articles</h2>
+          </div>
+          <p id="item-count" class="item-count" aria-live="polite"></p>
+        </div>
+
+        <p id="loading-state" class="state-card">Loading your saved articles…</p>
+        <p id="empty-state" class="state-card" hidden>
+          Nothing saved yet. Add a test article above; Android Share replaces this
+          temporary step in the next slice.
+        </p>
+        <ul id="article-list" class="articles" aria-label="Saved articles"></ul>
+      </section>
+
+      <p id="status-message" class="status-message" role="status" aria-live="polite"></p>
+      <p id="error-message" class="error-message" role="alert" hidden></p>
+
+      <footer>
+        Stored only in this browser. Clearing its data may remove your list.
+      </footer>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

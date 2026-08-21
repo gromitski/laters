@@ -6,7 +6,7 @@ Track the current state and next safe action for the Laters personal read-later 
 
 ## Lifecycle
 
-MVP defined; implementation has not started.
+Slice 1 implemented, verified and accepted; publication is in progress.
 
 ## What exists now
 
@@ -14,34 +14,38 @@ MVP defined; implementation has not started.
 - Canonical product intent in `memory/intent.md`.
 - Detailed MVP behaviour, acceptance criteria and delivery slices in `docs/mvp-definition.md`.
 - The original idea archived in `evidence/origin/2026-08-21-origin.md`.
-- No application code, package configuration, tests, deployment configuration or chosen frontend stack.
+- A framework-free TypeScript application built with Vite 8.
+- A small `ReadingListStore` contract with a native IndexedDB implementation.
+- An accessible responsive reading list with a temporary test-entry form, newest-first ordering, original-link opening and immediate deletion.
+- Focused automated tests for input validation, saved-time formatting, IndexedDB persistence, deterministic ordering and deletion.
+- No manifest, service worker, Android Share Target or deployment configuration yet.
 
 ## Active focus
 
-Prepare Slice 1: prove the local reading-list experience and storage boundary before Android Share integration.
+Prepare Slice 2: add installability, an offline application shell and Android Share capture.
 
 ## Active slice
 
-MVP definition is drafted and awaiting maintainer review.
+Slice 1 is complete. Slice 2 has not started.
 
 ## Blockers
 
-None for planning the first slice.
+None.
 
 ## Uncertainties
 
-- Frontend/PWA tooling and the Android browser-support baseline are not selected.
-- Web Share Target payload handling and fallback title behaviour need a focused design.
+- The Android browser-support baseline is not selected.
+- Web Share Target request handling, post-share behaviour and fallback title behaviour need a focused design.
 - Duplicate-save and delete-recovery behaviour are undecided.
 - Real-device Android acceptance will be required once an installable build exists.
 
 ## Next safe action
 
-Review the MVP definition, resolve only the open decisions that materially affect Slice 1, then select proportionate frontend/PWA tooling and implement the local reading-list proof described in that slice. Do not add deployment or Android Share Target handling until the local storage and list behaviour are verified.
+Publish the accepted Slice 1 work, then verify current Web Share Target behaviour in the chosen Android browser and implement Slice 2. Resolve only the title and post-share decisions that materially affect capture.
 
 ## Last meaningful update
 
-2026-08-21 — Initial Foundation committed; detailed MVP definition drafted for review.
+2026-08-21 — Slice 1 implemented, verified in automation and a local mobile-sized browser, and accepted for publication.
 
 ## Pointers
 
