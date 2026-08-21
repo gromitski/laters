@@ -1,0 +1,17 @@
+# Local editor state
+.obsidian/
+
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+
+# Logs and scratch output
+*.log
+
+# Local overrides
+*.local

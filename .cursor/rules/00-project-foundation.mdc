@@ -1,0 +1,33 @@
+---
+description: Read canonical project memory and work safely
+alwaysApply: true
+---
+
+# Project foundation
+
+Before substantial work:
+
+1. Read `memory/agreements.md`.
+2. Read `memory/now.md` when it exists.
+3. Read `memory/intent.md` when product intent or scope matters.
+4. Inspect repository and Git state before assumptions or changes.
+
+Follow Git identity and authority rules in `memory/agreements.md`. Use the configured privacy-safe Git identity. Inspect commit metadata before pushing. Do not expose identity values in repository content. Do not commit, push or perform destructive Git operations unless explicitly authorised.
+
+Do not expose personal or local-system information, secrets or private configuration.
+
+## Commit attribution
+
+- Do not add AI authorship or co-author metadata to commit subjects, bodies, trailers, author fields or committer fields.
+- Do not use Cursor, cursoragent, ChatGPT, Claude, Copilot, Gemini, Grok, OpenAI or another AI identity as author, committer or co-author.
+- Ordinary technical references to AI tools are allowed when they describe the project rather than claim authorship.
+- When `scripts/no-ai-attribution.mjs` exists, run `node scripts/no-ai-attribution.mjs install` in a fresh clone before the first commit or push.
+- After every commit or amend, run `node scripts/no-ai-attribution.mjs commit HEAD` and inspect the complete commit metadata.
+- If a commit operation adds attribution automatically, do not push. Recreate or amend the commit cleanly, verify it again, or stop and report.
+- Never treat a failed attribution check as an acceptable warning.
+
+Follow the **Human collaboration and delivery** contract in `memory/agreements.md`. Keep the maintainer in the product-owner and acceptance role rather than making them the default terminal operator. Run technical verification yourself where tools permit. When asked for an implementation prompt, provide one complete copy-pasteable Markdown prompt. Stop before unapproved costly work, new architecture, broad refactoring or test-harness expansion. Establish whether substantial work is an MVP, prototype or complete build before implementation.
+
+When `memory/now.md` points to a `specialist/` file, read that file for the active task. Pointers do not automatically mean every specialist file belongs in default context.
+
+Keep changes focused, verified and proportionate. Do not duplicate full agreements here — they live in `memory/agreements.md`.
