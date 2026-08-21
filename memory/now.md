@@ -6,7 +6,7 @@ Track the current state and next safe action for the Laters personal read-later 
 
 ## Lifecycle
 
-Slices 1 and 2 implemented; Slice 1 is published and Slice 2 awaits maintainer review.
+Slices 1 and 2 implemented and published.
 
 ## What exists now
 
@@ -25,11 +25,11 @@ Slices 1 and 2 implemented; Slice 1 is published and Slice 2 awaits maintainer r
 
 ## Active focus
 
-Review and accept Slice 2 before deployment selection or persistent-storage hardening.
+Select an HTTPS deployment route for Android acceptance before persistent-storage hardening.
 
 ## Active slice
 
-Slice 2 is implemented and locally verified but not committed.
+Slice 2 is complete.
 
 ## Blockers
 
@@ -40,15 +40,14 @@ None.
 - A minimum Chrome for Android version is not yet evidenced.
 - Duplicate-save and delete-recovery behaviour are undecided.
 - Android Share-menu registration and capture still need acceptance on an installed HTTPS build on a physical device.
-- The current PWA plugin emits a known upstream Vite 8 deprecation warning from its internal service-worker build configuration; the production build remains verified.
 
 ## Next safe action
 
-Review and commit Slice 2 if accepted. Then select an explicitly authorised HTTPS hosting route so the PWA can be installed for real-device Android acceptance; deployment is not yet authorised. Persistent-storage requesting and final resilience checks remain Slice 3.
+Select an explicitly authorised HTTPS hosting route so the PWA can be installed for real-device Android acceptance; deployment is not yet authorised. Persistent-storage requesting and final resilience checks remain Slice 3.
 
 ## Last meaningful update
 
-2026-08-22 — Slice 1 published. Slice 2 implemented with an installable manifest, offline shell and POST Android share capture; 24 automated tests, production build and offline browser reload passed.
+2026-08-22 — Slice 2 published with an installable manifest, offline shell and POST Android share capture; 24 automated tests, a warning-free production build and offline browser reload passed.
 
 ## Pointers
 
