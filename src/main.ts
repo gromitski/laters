@@ -6,6 +6,7 @@ import { registerServiceWorker } from "./pwa/registerServiceWorker";
 import { IndexedDbReadingListStore } from "./storage/indexedDbReadingListStore";
 import { requestPersistentStorage } from "./storage/requestPersistentStorage";
 import { shouldActivateArticleRow } from "./ui/articleRowActivation";
+import { createArticleShareData } from "./ui/articleShare";
 import { formatSavedTime } from "./ui/formatSavedTime";
 import { getBookmarkControlState } from "./ui/bookmarkPresentation";
 import { createReadingListEntries } from "./ui/readingListPresentation";
@@ -227,10 +228,7 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
 function shareArticle(item: SavedItem): void {
   clearFeedback();
 
-  const shareData: ShareData = {
-    title: item.title,
-    url: item.url,
-  };
+  const shareData = createArticleShareData(item.url);
 
   if (
     typeof navigator.share !== "function" ||

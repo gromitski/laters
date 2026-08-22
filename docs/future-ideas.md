@@ -13,7 +13,7 @@ Bidirectional Bookmark/Delete swipes and the long-press action sheet were delive
 [mobile interaction shell record](planning/mobile-interaction-shell-plan.md). Their appearance in the
 broader futures exploration does not bring the adjacent reading-time or sorting concepts into scope.
 User-initiated sharing was subsequently selected as a small extension to that sheet: it opens the
-system share chooser with the saved title and URL, without a provider integration. All entries below
+system share chooser with only the saved URL, without a provider integration. All entries below
 remain exploratory.
 
 ## Possibilities

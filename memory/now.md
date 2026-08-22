@@ -66,7 +66,7 @@ the focused action sheet. The first Android test's native outline, dictionary-se
 lower-page scroll-jump failures were corrected. The accepted Undo presentation is a white centre,
 neon-lime outside countdown ring and black glyph. No data migration, backend or new remote service
 was introduced. The next selected extension adds **Share this article** to that same menu and routes
-the saved title and URL to Android's system share sheet. The maintainer explicitly accepts its
+only the saved URL to Android's system share sheet. The maintainer explicitly accepts its
 long-press-only placement for this personal app. It is published in commit `8753b67`; GitHub Actions
 run `32597495286` passed and the public origin serves the matching production bundle.
 

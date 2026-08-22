@@ -56,7 +56,8 @@ behaviour to a new release.
 - While a bookmark mutation is pending, the row buttons and sliding action are disabled together.
 - Only one action sheet may be open at a time. Its Bookmark label reflects current state when opened.
 - Share this article immediately invokes the system share sheet from the activating tap with only the
-  saved title and URL. Cancellation is normal; Laters cannot select or observe the chosen target.
+  saved URL. The title is deliberately omitted because receiving apps may misinterpret combined
+  title-and-URL payloads. Cancellation is normal; Laters cannot select or observe the chosen target.
 - Right-click or the browser context-menu gesture opens the same menu outside touch use. Shift+F10
   and the Context Menu key provide a keyboard route from the semantic article link.
 - Reduced-motion preference disables action-sheet animation and retains the existing reduced-motion
