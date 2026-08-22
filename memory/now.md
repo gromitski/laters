@@ -64,7 +64,9 @@ tests, build, public audit and Pages deployment, and the public origin serves th
 hashes. The focused physical recheck remains pending. Release `v0.2.0` itself remains the previous
 tagged commit. A final Undo visual correction was then published in `e0bd63b`: its lime centre and
 green countdown ring are now explicit, and focus no longer adds a black outer halo. GitHub Actions
-run `32594218056` passed all verification and deployment jobs.
+run `32594218056` passed all verification and deployment jobs. The active refinement adds the
+maintainer-selected right-swipe Bookmark toggle, changes left-swipe Delete to warning red, and gives
+Undo a white centre with a neon-lime countdown ring.
 
 ## Blockers
 
@@ -80,9 +82,9 @@ None.
 
 ## Next safe action
 
-Repeat the focused physical checks against the published build for link focus, hold without Android
-selection UI and lower-page Delete/Undo without viewport movement. If those pass, complete the
-remaining shell acceptance and make a separate release decision.
+Publish and physically check the bidirectional swipe refinement: right swipe Bookmark or Remove,
+left swipe red Delete, and white-centred Undo with a neon-lime countdown. Recheck link focus, hold
+without Android selection UI and lower-page Delete/Undo without viewport movement at the same time.
 
 ## Last meaningful update
 

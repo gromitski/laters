@@ -9,9 +9,11 @@ part of release `v0.2.0` and has not yet passed physical Android acceptance.
 
 ## Product outcome
 
-Normal article rows keep all of their existing visible controls and gain two native-style shortcuts:
+Normal article rows keep all of their existing visible controls and gain three native-style shortcuts:
 
-- a horizontal swipe from right to left reveals a bright-lime Delete action, while a complete swipe
+- a horizontal swipe from left to right reveals a bright-lime Bookmark action, while a complete
+  swipe requests the same existing bookmark toggle;
+- a horizontal swipe from right to left reveals a warning-red Delete action, while a complete swipe
   requests the same existing Delete operation;
 - a touch long press opens a bottom action sheet containing Read now, Bookmark or Remove bookmark,
   Delete and Cancel.
@@ -45,8 +47,11 @@ behaviour to a new release.
   cancellation, or when a swipe begins. It does not start on the Star or visible Delete control.
 - A long press consumes the following synthetic click so it cannot also open the article.
 - Swipe movement greater than 6 px suppresses the row click that could otherwise follow the drag.
-- Partial swipe reveals Delete and leaves the user in control. Full swipe and tapping the revealed
-  action both call the existing `deleteArticle` path, including the existing seven-second Undo.
+- Partial right swipe reveals Bookmark or Remove and leaves the user in control. Full swipe and
+  tapping the revealed action both call the existing bookmark path. The label reflects current state.
+- Partial left swipe reveals Delete and leaves the user in control. Full swipe and tapping the
+  revealed action both call the existing `deleteArticle` path, including the existing seven-second
+  Undo.
 - While a bookmark mutation is pending, the row buttons and sliding action are disabled together.
 - Only one action sheet may be open at a time. Its Bookmark label reflects current state when opened.
 - Right-click or the browser context-menu gesture opens the same menu outside touch use. Shift+F10
@@ -128,6 +133,12 @@ lime centre and green countdown ring explicit and uses a darker green inner bord
 for accessible focus without an outer black halo. GitHub Actions run `32594218056` passed every build
 and deployment gate.
 
+The subsequent bidirectional-swipe refinement assigns the start-side action to Bookmark and retains
+Delete on the end side. Bookmark uses the established neon-lime surface; Delete uses the semantic
+warning-red `--danger-action` surface with black icon and text for contrast. Both reuse the same
+underlying actions as the visible controls. Undo keeps a white centre and uses neon lime only for its
+outside countdown ring.
+
 ## Physical Android acceptance after promotion to `main`
 
 Use the published GitHub Pages build in current stable Chrome for Android and confirm:
@@ -137,11 +148,14 @@ Use the published GitHub Pages build in current stable Chrome for Android and co
 3. holding title or non-control row space opens the sheet without also opening the article;
 4. small finger movement during the hold is tolerated, while deliberate movement cancels it;
 5. Star and visible Delete still work directly and do not trigger the long-press menu;
-6. a partial left swipe reveals Delete and can be closed without deleting;
-7. a complete left swipe deletes once and Undo restores the complete item;
-8. sheet Read, Bookmark or Remove bookmark, Delete, Cancel and backdrop dismissal all behave once;
-9. long titles, bookmarked rows and favicon fallback rows keep their accepted alignment and colour;
-10. closing and reopening the installed PWA preserves the existing list and bookmark state.
+6. a partial right swipe reveals lime Bookmark and can be closed without changing state;
+7. a complete right swipe bookmarks once; repeating it removes the bookmark once;
+8. a partial left swipe reveals red Delete and can be closed without deleting;
+9. a complete left swipe deletes once and Undo restores the complete item with a white-centred,
+   lime-countdown control;
+10. sheet Read, Bookmark or Remove bookmark, Delete, Cancel and backdrop dismissal all behave once;
+11. long titles, bookmarked rows and favicon fallback rows keep their accepted alignment and colour;
+12. closing and reopening the installed PWA preserves the existing list and bookmark state.
 
 Any accidental open/delete during scroll, double action, stuck row, inaccessible control, lost data,
 or persistent visual state is a failure and blocks release.

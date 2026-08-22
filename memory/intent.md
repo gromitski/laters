@@ -66,10 +66,11 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 
 ## Current post-v0.2.0 direction
 
-- Selected for test-ready implementation on `dev`: a pinned, selectively registered Ionic Core
-  swipe-row and action-sheet shell, with no application-framework migration.
-- Selected interactions: left swipe routes to the existing Delete/Undo behaviour; touch long press
-  opens Read, Bookmark or Remove bookmark, Delete and Cancel.
+- Selected and published from `main` for physical acceptance: a pinned, selectively registered Ionic
+  Core swipe-row and action-sheet shell, with no application-framework migration.
+- Selected interactions: right swipe routes to the existing Bookmark or Remove bookmark behaviour;
+  left swipe routes to the existing Delete/Undo behaviour; touch long press opens Read, Bookmark or
+  Remove bookmark, Delete and Cancel.
 - Accepted boundary: the existing title link, Star and visible Delete controls remain available, and
   no action may require a gesture.
 - Not yet accepted as released behaviour: the shell is published from `main` but still requires

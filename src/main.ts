@@ -10,7 +10,10 @@ import { formatSavedTime } from "./ui/formatSavedTime";
 import { getBookmarkControlState } from "./ui/bookmarkPresentation";
 import { createReadingListEntries } from "./ui/readingListPresentation";
 import { loadPublisherFavicon } from "./ui/loadPublisherFavicon";
-import { createMobileArticleShell } from "./ui/mobileArticleShell";
+import {
+  BOOKMARK_STATE_CHANGED_EVENT,
+  createMobileArticleShell,
+} from "./ui/mobileArticleShell";
 
 const store = new IndexedDbReadingListStore();
 const UNDO_WINDOW_MS = 7_000;
@@ -290,6 +293,9 @@ async function setArticleBookmarked(
   setRowActionsDisabled(row, true);
   setBookmarkPresentation(button, item, bookmarked);
   row.classList.toggle("is-bookmarked", bookmarked);
+  row.dispatchEvent(
+    new CustomEvent(BOOKMARK_STATE_CHANGED_EVENT, { detail: { bookmarked } }),
+  );
 
   try {
     const updatedItem = await store.setBookmarked(item.id, bookmarked);
@@ -300,6 +306,11 @@ async function setArticleBookmarked(
   } catch {
     setBookmarkPresentation(button, item, item.bookmarked === true);
     row.classList.toggle("is-bookmarked", item.bookmarked === true);
+    row.dispatchEvent(
+      new CustomEvent(BOOKMARK_STATE_CHANGED_EVENT, {
+        detail: { bookmarked: item.bookmarked === true },
+      }),
+    );
     showError("Laters could not update that bookmark. Please try again.");
     return undefined;
   } finally {
@@ -326,15 +337,15 @@ function setRowActionsDisabled(row: HTMLElement, disabled: boolean): void {
 
   const shell = row.closest(".article-row-shell");
   const slidingItem = shell?.querySelector<HTMLIonItemSlidingElement>("ion-item-sliding");
-  const swipeAction = shell?.querySelector<HTMLIonItemOptionElement>("ion-item-option");
+  const swipeActions = shell?.querySelectorAll<HTMLIonItemOptionElement>("ion-item-option");
 
   if (slidingItem) {
     slidingItem.disabled = disabled;
   }
 
-  if (swipeAction) {
+  swipeActions?.forEach((swipeAction) => {
     swipeAction.disabled = disabled;
-  }
+  });
 }
 
 function createGhostRow(item: SavedItem, isLeaving: boolean): HTMLLIElement {

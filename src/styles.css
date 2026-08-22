@@ -17,6 +17,7 @@
   --accent: #d0ff4f;
   --accent-ink: #8fbf00;
   --accent-text: #5b6b00;
+  --danger-action: #ff645c;
   --bookmark-wash: rgb(208 255 79 / 10%);
   --bookmark-wash-hover: rgb(208 255 79 / 24%);
   --focus: #101014;
@@ -213,7 +214,7 @@ h1 {
 .article-row-shell {
   overflow: hidden;
   border-top: 1px solid var(--hairline);
-  background: var(--accent);
+  background: var(--canvas);
 }
 
 .article-sliding-item {
@@ -300,8 +301,19 @@ h1 {
   box-shadow: inset 4px 0 0 var(--accent-ink);
 }
 
-.swipe-delete-action {
+.swipe-options-bookmark,
+.swipe-bookmark-action {
   --background: var(--accent);
+  background: var(--accent);
+}
+
+.swipe-options-delete,
+.swipe-delete-action {
+  --background: var(--danger-action);
+  background: var(--danger-action);
+}
+
+.swipe-action {
   --color: var(--text);
   min-width: 7rem;
   font-family: var(--font);
@@ -311,12 +323,12 @@ h1 {
   text-transform: uppercase;
 }
 
-.swipe-delete-action::part(native) {
+.swipe-action::part(native) {
   gap: 0.45rem;
   padding-inline: 1.25rem;
 }
 
-.swipe-delete-action::part(inner) {
+.swipe-action::part(inner) {
   flex-direction: row;
   gap: 0.45rem;
 }
@@ -324,6 +336,14 @@ h1 {
 .swipe-delete-icon {
   width: 17px;
   height: 17px;
+}
+
+.swipe-bookmark-icon {
+  width: 17px;
+  height: 17px;
+  background: currentColor;
+  -webkit-mask: url("/icons/bookmark-star-filled.svg") center / contain no-repeat;
+  mask: url("/icons/bookmark-star-filled.svg") center / contain no-repeat;
 }
 
 .article-row.is-leaving {
@@ -619,9 +639,9 @@ h1 {
 }
 
 .article-row.is-ghost .delete-action {
-  border-color: var(--accent-ink);
+  border-color: var(--hairline-strong);
   color: var(--text);
-  background: var(--accent);
+  background: var(--canvas);
 }
 
 .article-ghost {
@@ -641,7 +661,7 @@ h1 {
   position: absolute;
   width: 32px;
   height: 32px;
-  color: var(--accent-ink);
+  color: var(--accent);
   inset: -2px;
   pointer-events: none;
   transform: rotate(-90deg);

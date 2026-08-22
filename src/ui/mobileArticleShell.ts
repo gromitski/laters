@@ -15,6 +15,7 @@ const LONG_PRESS_MS = 500;
 const SWIPE_CLICK_SUPPRESSION_PX = 6;
 const ROW_CONTROL_SELECTOR = "button, ion-item-option";
 const SWIPE_STARTED_EVENT = "laters-swipe-started";
+export const BOOKMARK_STATE_CHANGED_EVENT = "laters-bookmark-state-changed";
 
 initialize({ mode: "md" });
 defineActionSheet();
@@ -61,14 +62,72 @@ export function createMobileArticleShell(
   item.lines = "none";
   item.append(articleRow);
 
-  const options = document.createElement("ion-item-options");
-  options.side = "end";
+  const deleteOptions = document.createElement("ion-item-options");
+  deleteOptions.className = "swipe-options swipe-options-delete";
+  deleteOptions.side = "end";
 
   const deleteOption = document.createElement("ion-item-option");
-  deleteOption.className = "swipe-delete-action";
+  deleteOption.className = "swipe-action swipe-delete-action";
   deleteOption.expandable = true;
   deleteOption.setAttribute("aria-label", `Delete “${actions.getTitle()}”`);
   deleteOption.append(createSwipeDeleteIcon(), document.createTextNode("Delete"));
+
+  const bookmarkOptions = document.createElement("ion-item-options");
+  bookmarkOptions.className = "swipe-options swipe-options-bookmark";
+  bookmarkOptions.side = "start";
+
+  const bookmarkOption = document.createElement("ion-item-option");
+  bookmarkOption.className = "swipe-action swipe-bookmark-action";
+  bookmarkOption.expandable = true;
+  const bookmarkLabel = document.createElement("span");
+  bookmarkOption.append(createSwipeBookmarkIcon(), bookmarkLabel);
+
+  const updateBookmarkOption = (bookmarked = actions.isBookmarked()): void => {
+    const isBookmarked = bookmarked;
+    bookmarkLabel.textContent = isBookmarked ? "Remove" : "Bookmark";
+    bookmarkOption.setAttribute(
+      "aria-label",
+      isBookmarked
+        ? `Remove bookmark from “${actions.getTitle()}”`
+        : `Bookmark “${actions.getTitle()}”`,
+    );
+  };
+  updateBookmarkOption();
+  articleRow.addEventListener(BOOKMARK_STATE_CHANGED_EVENT, (event) => {
+    const detail = (event as CustomEvent<{ bookmarked: boolean }>).detail;
+    updateBookmarkOption(detail.bookmarked);
+  });
+
+  let bookmarkChangeStarted = false;
+  const requestBookmarkChange = async (): Promise<void> => {
+    if (bookmarkChangeStarted) {
+      return;
+    }
+
+    bookmarkChangeStarted = true;
+    slidingItem.disabled = true;
+    bookmarkOption.disabled = true;
+    deleteOption.disabled = true;
+
+    try {
+      await actions.toggleBookmark();
+      updateBookmarkOption();
+      await slidingItem.close();
+    } finally {
+      bookmarkChangeStarted = false;
+      slidingItem.disabled = false;
+      bookmarkOption.disabled = false;
+      deleteOption.disabled = false;
+    }
+  };
+
+  bookmarkOption.addEventListener("click", () => {
+    void requestBookmarkChange();
+  });
+  bookmarkOptions.addEventListener("ionSwipe", () => {
+    void requestBookmarkChange();
+  });
+  bookmarkOptions.append(bookmarkOption);
 
   let deletionStarted = false;
   const requestDelete = (): void => {
@@ -78,14 +137,15 @@ export function createMobileArticleShell(
 
     deletionStarted = true;
     slidingItem.disabled = true;
+    bookmarkOption.disabled = true;
     deleteOption.disabled = true;
     void actions.delete();
   };
 
   deleteOption.addEventListener("click", requestDelete);
-  options.addEventListener("ionSwipe", requestDelete);
-  options.append(deleteOption);
-  slidingItem.append(item, options);
+  deleteOptions.addEventListener("ionSwipe", requestDelete);
+  deleteOptions.append(deleteOption);
+  slidingItem.append(bookmarkOptions, item, deleteOptions);
   shell.append(slidingItem);
 
   installSwipeClickGuard(shell, slidingItem);
@@ -329,5 +389,12 @@ function createSwipeDeleteIcon(): SVGSVGElement {
   const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
   path.setAttribute("d", "M6 6l12 12M18 6L6 18");
   icon.append(path);
+  return icon;
+}
+
+function createSwipeBookmarkIcon(): HTMLSpanElement {
+  const icon = document.createElement("span");
+  icon.className = "swipe-bookmark-icon";
+  icon.setAttribute("aria-hidden", "true");
   return icon;
 }
