@@ -6,7 +6,7 @@ Track the current state and next safe action for the Laters personal read-later 
 
 ## Lifecycle
 
-Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.in/`. The MVP baseline is ready for its first GitHub release.
+Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.in/`. The first GitHub release, `v0.1.0`, records the complete personal MVP baseline.
 
 ## What exists now
 
@@ -34,14 +34,15 @@ Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.
 - Complete physical-device MVP acceptance on Chrome for Android `151.0.7922.173`, including exact-URL duplicate refresh, persistence, deletion, Undo and the offline shell.
 - A Claude Design handoff that defines the implemented feature and state contract, icon deliverables, accessibility requirements and strict MVP scope boundary.
 - The accepted white/ink/lime identity, self-hosted Bricolage Grotesque typeface, supplied icon family, accessible icon-only Delete control and in-row seven-second Undo state.
+- A published `v0.1.0` GitHub release tagged at verified commit `de86359`.
 
 ## Active focus
 
-Document the accepted MVP, capture uncommitted future ideas and publish the first GitHub release without expanding application scope.
+Use the accepted MVP and evaluate possible additions only when normal use provides enough evidence for a new bounded slice.
 
 ## Active slice
 
-All MVP delivery slices are complete. The deployed Slice 6 design has been accepted by the maintainer in normal use. Release preparation targets `v0.1.0`, matching `package.json`.
+All MVP delivery slices are complete. The deployed design has been accepted by the maintainer in normal use, and `v0.1.0` is published as the first GitHub release.
 
 ## Blockers
 
@@ -55,11 +56,11 @@ None.
 
 ## Next safe action
 
-Verify the release documentation and repository checks, then publish the authorised `v0.1.0` GitHub release.
+Continue using the MVP. Treat `docs/future-ideas.md` as exploratory input rather than an active roadmap until the maintainer selects another bounded slice.
 
 ## Last meaningful update
 
-2026-08-22 — The maintainer confirmed the deployed Slice 6 design is working and accepted the result as a successful MVP. Eleven possible enhancements were recorded as exploratory rather than committed scope, and `v0.1.0` was selected for the first GitHub release. The maintainer also judged the AI Foundation and repository-led working method effective for fast, coherent delivery.
+2026-08-22 — The maintainer accepted the deployed result as a successful MVP and the verified `v0.1.0` GitHub release was published. Eleven possible enhancements remain exploratory rather than committed scope. The maintainer also judged the AI Foundation and repository-led working method effective for fast, coherent delivery.
 
 ## Pointers
 
@@ -71,3 +72,4 @@ Verify the release documentation and repository checks, then publish the authori
 - [Deployment](../docs/deployment.md)
 - [Claude Design handoff](../docs/claude-design-handoff.md)
 - [Slice 6 implementation plan](../docs/planning/slice-6-mvp-design-implementation-plan.md)
+- Published GitHub release: `v0.1.0`
