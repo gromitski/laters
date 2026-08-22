@@ -36,24 +36,23 @@ Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.
 - A Claude Design handoff that defines the implemented feature and state contract, icon deliverables, accessibility requirements and strict MVP scope boundary.
 - The accepted white/ink/lime identity, self-hosted Bricolage Grotesque typeface, supplied icon family, accessible icon-only Delete control and in-row seven-second Undo state.
 - A published `v0.1.0` GitHub release tagged at verified rewritten commit `0178fc9`.
+- Published and maintainer-accepted MVP 2.0 bookmarks with the bright-lime supplied star treatment.
+- Published and maintainer-accepted 22px publisher source markers with exact-origin favicon attempts,
+  deterministic local fallbacks and the refined 4px first-title-line alignment.
 
 ## Active focus
 
-Publish and verify the post-acceptance source-marker alignment correction for MVP 2.0 Slice 2.
+Publish and complete maintainer acceptance for MVP 2.0 Slice 3 whole-row opening.
 
 ## Active slice
 
-MVP 2.0 Slice 2 is published and its favicon/fallback behaviour passed maintainer testing. Every
-normal row renders the accepted 22px rounded-square deterministic source tile immediately and
-attempts the saved article origin's `/favicon.ico` with a no-referrer policy. A successfully decoded
-favicon fades over the tile; missing, blocked, slow or invalid icons leave the fallback visible. The
-stable fallback uses the first two ASCII letters or digits from the canonical hostname and FNV-1a UTF-8
-hashing into the accepted six-colour palette. No favicon cache, proxy, publisher mapping or stored
-data was added. Published testing found that vertically centring the marker against the full row
-looked wrong beside three-line titles. Top-aligning it to the title line box then placed its visible
-top edge slightly above the text, so the refined correction adds a 4px offset to align with the
-letterforms while Delete remains vertically centred. Whole-row pointer opening remains the later
-accepted Slice 3.
+MVP 2.0 Slice 3 adds a pointer convenience to normal article rows. A primary tap or click on
+non-interactive row space activates the existing semantic title link, preserving its exact URL and
+new-tab policy without adding another keyboard tab stop. Links, buttons, form controls, explicit
+interactive roles, prevented events, non-primary clicks and row text selection are excluded.
+Ghost/Undo rows receive no opening behaviour. The implementation relies on the browser's normal
+click-versus-scroll handling and adds no gesture thresholds, long press, swipe handling or
+framework.
 
 ## Blockers
 
@@ -67,15 +66,15 @@ None.
 
 ## Next safe action
 
-Confirm the authorised GitHub push and Pages workflow, then verify that the marker's top edge aligns
-with the visible top edge of the first title line for both one-line and multi-line titles.
+Confirm the authorised GitHub push and Pages workflow, then test row-space opening, the semantic
+title link, Bookmark, Delete, text selection, scrolling and Ghost/Undo on Android.
 
 ## Last meaningful update
 
-2026-08-22 — The first published alignment correction placed the marker at the top of the title's
-line box. Published testing of the initial 3px optical offset found that the marker still needed to
-move down by one pixel; the refined 4px offset is approved for the standing
-end-of-slice commit-and-push workflow.
+2026-08-22 — The maintainer accepted the final 4px Slice 2 marker alignment and authorised Slice 3.
+The focused row-activation event model and rejection tests are implemented without changing row
+semantics or introducing gesture machinery. The slice is approved for the standing end-of-slice
+verification, commit and push workflow.
 
 ## Pointers
 
@@ -90,4 +89,5 @@ end-of-slice commit-and-push workflow.
 - [Slice 6 implementation plan](../docs/planning/slice-6-mvp-design-implementation-plan.md)
 - [MVP 2.0 Slice 1 bookmark plan](../docs/planning/mvp-2-slice-1-bookmarks-plan.md)
 - [MVP 2.0 Slice 2 source marker plan](../docs/planning/mvp-2-slice-2-source-markers-plan.md)
+- [MVP 2.0 Slice 3 whole-row opening plan](../docs/planning/mvp-2-slice-3-whole-row-opening-plan.md)
 - Published GitHub release: `v0.1.0`

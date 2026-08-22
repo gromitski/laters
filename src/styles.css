@@ -231,6 +231,10 @@ h1 {
     filter 340ms ease;
 }
 
+.article-row:not(.is-ghost) {
+  cursor: pointer;
+}
+
 .article-row.is-bookmarked {
   background: var(--bookmark-wash);
 }

@@ -4,6 +4,7 @@ import { createSourceIdentity, type SourceIdentity } from "./domain/sourceIdenti
 import { registerServiceWorker } from "./pwa/registerServiceWorker";
 import { IndexedDbReadingListStore } from "./storage/indexedDbReadingListStore";
 import { requestPersistentStorage } from "./storage/requestPersistentStorage";
+import { shouldActivateArticleRow } from "./ui/articleRowActivation";
 import { formatSavedTime } from "./ui/formatSavedTime";
 import { getBookmarkControlState } from "./ui/bookmarkPresentation";
 import { createReadingListEntries } from "./ui/readingListPresentation";
@@ -12,6 +13,8 @@ import { loadPublisherFavicon } from "./ui/loadPublisherFavicon";
 const store = new IndexedDbReadingListStore();
 const UNDO_WINDOW_MS = 7_000;
 const ROW_COLLAPSE_MS = 460;
+const INTERACTIVE_ROW_TARGET_SELECTOR =
+  'a, button, input, select, textarea, [role="button"], [role="link"]';
 
 interface PendingDeletion {
   item: SavedItem;
@@ -119,6 +122,33 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
   newTabHint.textContent = " (opens in a new tab)";
   link.append(newTabHint);
 
+  let hadSelectionAtPointerDown = false;
+  row.addEventListener("pointerdown", () => {
+    hadSelectionAtPointerDown = selectionIntersectsRow(window.getSelection(), row);
+  });
+  row.addEventListener("pointercancel", () => {
+    hadSelectionAtPointerDown = false;
+  });
+  row.addEventListener("click", (event) => {
+    const target = event.target;
+    const selection = window.getSelection();
+    const hasSelectedText =
+      hadSelectionAtPointerDown || selectionIntersectsRow(selection, row);
+    hadSelectionAtPointerDown = false;
+
+    if (
+      shouldActivateArticleRow({
+        button: event.button,
+        defaultPrevented: event.defaultPrevented,
+        targetIsInteractive:
+          target instanceof Element && target.closest(INTERACTIVE_ROW_TARGET_SELECTOR) !== null,
+        hasSelectedText,
+      })
+    ) {
+      link.click();
+    }
+  });
+
   const meta = document.createElement("div");
   meta.className = "article-meta";
 
@@ -164,6 +194,16 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
   content.append(link, meta);
   row.append(sourceMarker, content, deleteButton);
   return row;
+}
+
+function selectionIntersectsRow(selection: Selection | null, row: HTMLLIElement): boolean {
+  if (!selection || selection.isCollapsed) {
+    return false;
+  }
+
+  return [selection.anchorNode, selection.focusNode].some(
+    (node) => node !== null && row.contains(node),
+  );
 }
 
 function createSourceMarker(source: SourceIdentity): HTMLSpanElement {
