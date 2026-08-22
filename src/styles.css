@@ -257,6 +257,7 @@ h1 {
   flex: none;
   align-self: flex-start;
   place-items: center;
+  margin-top: 3px;
   margin-right: 1px;
   overflow: hidden;
   border-radius: 6px;

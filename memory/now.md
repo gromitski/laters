@@ -50,8 +50,9 @@ favicon fades over the tile; missing, blocked, slow or invalid icons leave the f
 stable fallback uses the first two ASCII letters or digits from the canonical hostname and FNV-1a UTF-8
 hashing into the accepted six-colour palette. No favicon cache, proxy, publisher mapping or stored
 data was added. Published testing found that vertically centring the marker against the full row
-looked wrong beside three-line titles; the accepted correction aligns the marker to the top of the
-title block while Delete remains vertically centred. Whole-row pointer opening remains the later
+looked wrong beside three-line titles. Top-aligning it to the title line box then placed its visible
+top edge slightly above the text, so the refined correction adds a 3px offset to align with the
+letterforms while Delete remains vertically centred. Whole-row pointer opening remains the later
 accepted Slice 3.
 
 ## Blockers
@@ -66,15 +67,15 @@ None.
 
 ## Next safe action
 
-Confirm the authorised GitHub push and Pages workflow, then verify that the marker aligns with the
-first title line for both one-line and multi-line titles.
+Confirm the authorised GitHub push and Pages workflow, then verify that the marker's top edge aligns
+with the visible top edge of the first title line for both one-line and multi-line titles.
 
 ## Last meaningful update
 
-2026-08-22 — Published Slice 2 testing passed and the maintainer confirmed that the favicon and
-fallback treatment works well. One visual correction was requested: align the marker with the first
-title line rather than centring it against the full height of a multi-line row. The focused CSS
-change is approved for the standing end-of-slice commit-and-push workflow.
+2026-08-22 — The first published alignment correction placed the marker at the top of the title's
+line box, which left it visually two or three pixels above the visible text. The maintainer requested
+top-edge alignment with the letterforms; a focused 3px offset is approved for the standing
+end-of-slice commit-and-push workflow.
 
 ## Pointers
 
