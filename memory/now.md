@@ -48,16 +48,15 @@ completed bookmark, source-marker and whole-row-opening release.
 
 ## Active focus
 
-Maintain the accepted `v0.2.0` release and select any future product work through a new bounded
-decision rather than extending MVP 2.0 implicitly.
+Complete and physically accept the bounded post-v0.2.0 mobile interaction shell without changing the
+released MVP 2.0 data model or replacing its visible accessible controls.
 
 ## Active slice
 
-No implementation slice is active. MVP 2.0 is complete and released as `v0.2.0`. Persistent
-bookmarks, publisher source markers with deterministic fallbacks and safe whole-row pointer opening
-all passed automated, deployment and focused physical Android acceptance. The local-only data model,
-existing IndexedDB structure, newest-first ordering, share capture, Delete/Undo, update flow and
-offline shell remain intact.
+The mobile interaction shell is implemented and agent-verified on `dev`, using only the required
+Ionic Core swipe-row and action-sheet custom elements. It adds long-press actions and left-swipe
+Delete while retaining the title link, Star, visible Delete and existing Undo route. It is not yet on
+`main`, published or physically accepted. The released `v0.2.0` application remains unchanged.
 
 ## Blockers
 
@@ -66,21 +65,24 @@ None.
 ## Uncertainties
 
 - A minimum Chrome for Android version is not yet evidenced.
+- Physical Android testing has not yet proved long-press timing, touch-versus-scroll arbitration or
+  full-swipe completion for the new interaction shell.
 - Android's news feed may provide distinct rotating or tracking URLs for the same apparent article; exact-URL deduplication correctly retains these as separate items.
 - Some Android news-feed shares do not supply a useful article title. Remote title enrichment is a possible later product slice with privacy, security and reliability implications; it is not part of the current design handoff.
 
 ## Next safe action
 
-Do not begin another feature by default. If the maintainer chooses to pursue long press, an action
-sheet or swipe-to-delete, first run the bounded architecture investigation required by the MVP 2.0
-definition. Other ideas remain exploratory and need their own evidence and accepted scope.
+Commit and push the verified implementation to `dev`. When the maintainer authorises promotion,
+merge the exact tested change to `main`, allow GitHub Pages to publish it, then run the focused
+physical Android acceptance in the interaction-shell plan. Do not ask for visual testing while the
+change exists only on the unpublished `dev` branch.
 
 ## Last meaningful update
 
-2026-08-22 — The maintainer accepted Slice 3 and confirmed the complete MVP 2.0 experience works as
-intended. Release closure selected semantic version `v0.2.0`, reconciled stale planning language,
-updated the public feature and privacy description, recorded all three delivery slices and physical
-acceptance, and retained the separate architecture gate for any future gesture shell.
+2026-08-22 — The maintainer authorised the mobile-shell challenge on a separate `dev` branch. The
+bounded investigation selected a pinned, incremental Ionic Core integration rather than bespoke
+gesture and modal infrastructure or an application rewrite. Implementation and agent-owned checks
+are complete; promotion, publication and physical Android acceptance remain pending.
 
 ## Pointers
 
@@ -96,5 +98,6 @@ acceptance, and retained the separate architecture gate for any future gesture s
 - [MVP 2.0 Slice 1 bookmark plan](../docs/planning/mvp-2-slice-1-bookmarks-plan.md)
 - [MVP 2.0 Slice 2 source marker plan](../docs/planning/mvp-2-slice-2-source-markers-plan.md)
 - [MVP 2.0 Slice 3 whole-row opening plan](../docs/planning/mvp-2-slice-3-whole-row-opening-plan.md)
+- [Mobile interaction shell plan](../docs/planning/mobile-interaction-shell-plan.md)
 - [`v0.2.0` release record](../docs/releases/v0.2.0.md)
 - Published GitHub releases: `v0.1.0`, `v0.2.0`

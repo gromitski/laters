@@ -1,3 +1,4 @@
+import "@ionic/core/css/core.css";
 import "./styles.css";
 import type { SavedItem } from "./domain/savedItem";
 import { createSourceIdentity, type SourceIdentity } from "./domain/sourceIdentity";
@@ -9,6 +10,7 @@ import { formatSavedTime } from "./ui/formatSavedTime";
 import { getBookmarkControlState } from "./ui/bookmarkPresentation";
 import { createReadingListEntries } from "./ui/readingListPresentation";
 import { loadPublisherFavicon } from "./ui/loadPublisherFavicon";
+import { createMobileArticleShell } from "./ui/mobileArticleShell";
 
 const store = new IndexedDbReadingListStore();
 const UNDO_WINDOW_MS = 7_000;
@@ -95,9 +97,8 @@ function renderItems(animateEntries = false): void {
 function createArticleRow(item: SavedItem, animate: boolean, index: number): HTMLLIElement {
   let currentItem = item;
   const source = createSourceIdentity(item.url);
-  const row = document.createElement("li");
+  const row = document.createElement("div");
   row.className = "article-row";
-  row.dataset.itemId = item.id;
   row.classList.toggle("is-bookmarked", item.bookmarked === true);
 
   if (animate) {
@@ -193,10 +194,29 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
 
   content.append(link, meta);
   row.append(sourceMarker, content, deleteButton);
-  return row;
+  return createMobileArticleShell(row, item.id, {
+    getTitle: () => currentItem.title,
+    getHostname: () => source.hostname,
+    isBookmarked: () => currentItem.bookmarked === true,
+    canOpenMenu: () => list.getAttribute("aria-busy") !== "true",
+    read: () => link.click(),
+    toggleBookmark: async () => {
+      const updatedItem = await setArticleBookmarked(
+        currentItem,
+        currentItem.bookmarked !== true,
+        row,
+        bookmarkButton,
+      );
+
+      if (updatedItem) {
+        currentItem = updatedItem;
+      }
+    },
+    delete: () => deleteArticle(currentItem, deleteButton),
+  });
 }
 
-function selectionIntersectsRow(selection: Selection | null, row: HTMLLIElement): boolean {
+function selectionIntersectsRow(selection: Selection | null, row: HTMLElement): boolean {
   if (!selection || selection.isCollapsed) {
     return false;
   }
@@ -259,7 +279,7 @@ function createBookmarkIcon(source: string, stateClass: string): HTMLImageElemen
 async function setArticleBookmarked(
   item: SavedItem,
   bookmarked: boolean,
-  row: HTMLLIElement,
+  row: HTMLElement,
   button: HTMLButtonElement,
 ): Promise<SavedItem | undefined> {
   clearFeedback();
@@ -295,10 +315,22 @@ function setBookmarkPresentation(
   button.setAttribute("aria-label", state.label);
 }
 
-function setRowActionsDisabled(row: HTMLLIElement, disabled: boolean): void {
+function setRowActionsDisabled(row: HTMLElement, disabled: boolean): void {
   row.querySelectorAll<HTMLButtonElement>("button").forEach((action) => {
     action.disabled = disabled;
   });
+
+  const shell = row.closest(".article-row-shell");
+  const slidingItem = shell?.querySelector<HTMLIonItemSlidingElement>("ion-item-sliding");
+  const swipeAction = shell?.querySelector<HTMLIonItemOptionElement>("ion-item-option");
+
+  if (slidingItem) {
+    slidingItem.disabled = disabled;
+  }
+
+  if (swipeAction) {
+    swipeAction.disabled = disabled;
+  }
 }
 
 function createGhostRow(item: SavedItem, isLeaving: boolean): HTMLLIElement {
@@ -454,8 +486,8 @@ function focusArticle(itemId: string): void {
   findRow(itemId)?.querySelector<HTMLAnchorElement>(".article-link")?.focus();
 }
 
-function findRow(itemId: string): HTMLLIElement | undefined {
-  return [...list.querySelectorAll<HTMLLIElement>(".article-row")].find(
+function findRow(itemId: string): HTMLElement | undefined {
+  return [...list.querySelectorAll<HTMLElement>("[data-item-id]")].find(
     (candidate) => candidate.dataset.itemId === itemId,
   );
 }

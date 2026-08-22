@@ -61,8 +61,21 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 - Accepted and delivered in `v0.2.0`: persistent per-item bookmarks, publisher favicons with a deterministic local fallback, and a non-conflicting whole-row pointer action while preserving the title as the semantic link.
 - Accepted: bookmarks remain a state within the single newest-first queue; they do not add filtering, pinning, sorting, archive protection or another view.
 - Accepted: favicon attempts go directly to the saved publisher's conventional icon URL, never through a central favicon service; ordinary failures use a stable hostname-derived fallback.
-- Accepted: a direct star button provides the accessible MVP 2.0 bookmark interaction. Long press, action sheets and swipe-to-delete remain deferred until a bounded framework or interaction-library investigation.
+- Accepted and retained: a direct star button provides the accessible bookmark interaction; gestures must never be the only action route.
 - Accepted: do not build a bespoke multi-slice native-style gesture shell and do not introduce a general framework unless it demonstrably reduces the total complexity of the required interactions.
+
+## Current post-v0.2.0 direction
+
+- Selected for test-ready implementation on `dev`: a pinned, selectively registered Ionic Core
+  swipe-row and action-sheet shell, with no application-framework migration.
+- Selected interactions: left swipe routes to the existing Delete/Undo behaviour; touch long press
+  opens Read, Bookmark or Remove bookmark, Delete and Cancel.
+- Accepted boundary: the existing title link, Star and visible Delete controls remain available, and
+  no action may require a gesture.
+- Not yet accepted as released behaviour: the shell requires promotion to `main` and focused physical
+  Android testing before release acceptance.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.
+The selected interaction architecture, implementation constraints and pending device gates live in
+`docs/planning/mobile-interaction-shell-plan.md`.

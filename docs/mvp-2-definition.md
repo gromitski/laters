@@ -118,6 +118,13 @@ Before implementing long press, an action sheet or swipe-to-delete, run a bounde
 
 Do not build a custom multi-slice gesture system merely to avoid a dependency. Equally, do not migrate the application to a general framework unless the selected tool demonstrably solves the required interactions at lower total complexity.
 
+This gate was subsequently completed for the post-v0.2.0 mobile-shell work. The selected approach is
+a pinned, incremental use of Ionic Core's swipe-row and action-sheet custom elements, with no
+application-framework rewrite. Its implementation record, measured bundle cost, safeguards and
+pending physical-device acceptance are documented in the
+[mobile interaction shell plan](planning/mobile-interaction-shell-plan.md). This does not change the
+historical MVP 2.0 exclusions or the contents of release `v0.2.0`.
+
 ## Privacy, security and public-build boundaries
 
 - Saved URLs, titles and bookmark state remain local and are not logged or transmitted to Laters infrastructure.
