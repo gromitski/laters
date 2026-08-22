@@ -3,9 +3,9 @@
 ## Status
 
 The bounded architecture investigation and first implementation were completed on the `dev` branch
-on 2026-08-22. The implementation is technically verified but is not part of the released `v0.2.0`
-application and has not yet passed physical Android acceptance. GitHub Pages publishes only `main`,
-so maintainer testing begins only after the test-ready change is deliberately promoted to `main`.
+on 2026-08-22, then promoted unchanged to `main` in commit `72c44f7`. GitHub Actions passed every
+build and deployment gate and published the shell at `https://laters.dustyb.in/`. The change is not
+part of release `v0.2.0` and has not yet passed physical Android acceptance.
 
 ## Product outcome
 

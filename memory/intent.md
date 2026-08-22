@@ -72,8 +72,8 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   opens Read, Bookmark or Remove bookmark, Delete and Cancel.
 - Accepted boundary: the existing title link, Star and visible Delete controls remain available, and
   no action may require a gesture.
-- Not yet accepted as released behaviour: the shell requires promotion to `main` and focused physical
-  Android testing before release acceptance.
+- Not yet accepted as released behaviour: the shell is published from `main` but still requires
+  focused physical Android testing before release acceptance.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.

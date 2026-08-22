@@ -53,10 +53,12 @@ released MVP 2.0 data model or replacing its visible accessible controls.
 
 ## Active slice
 
-The mobile interaction shell is implemented and agent-verified on `dev`, using only the required
-Ionic Core swipe-row and action-sheet custom elements. It adds long-press actions and left-swipe
-Delete while retaining the title link, Star, visible Delete and existing Undo route. It is not yet on
-`main`, published or physically accepted. The released `v0.2.0` application remains unchanged.
+The mobile interaction shell was promoted unchanged from `dev` to `main` in commit `72c44f7`, using
+only the required Ionic Core swipe-row and action-sheet custom elements. GitHub Actions run
+`32592111240` passed tests, build, public audit and Pages deployment, and the promoted asset hashes
+are live at `https://laters.dustyb.in/`. It adds long-press actions and left-swipe Delete while
+retaining the title link, Star, visible Delete and existing Undo route. Physical Android acceptance
+and a release decision remain pending; release `v0.2.0` itself remains the previous tagged commit.
 
 ## Blockers
 
@@ -72,17 +74,15 @@ None.
 
 ## Next safe action
 
-Commit and push the verified implementation to `dev`. When the maintainer authorises promotion,
-merge the exact tested change to `main`, allow GitHub Pages to publish it, then run the focused
-physical Android acceptance in the interaction-shell plan. Do not ask for visual testing while the
-change exists only on the unpublished `dev` branch.
+Run the focused physical Android acceptance in the interaction-shell plan against the published
+GitHub Pages build. Record any defects as implementation follow-ups; if all gates pass, document
+acceptance and make a separate release decision.
 
 ## Last meaningful update
 
-2026-08-22 — The maintainer authorised the mobile-shell challenge on a separate `dev` branch. The
-bounded investigation selected a pinned, incremental Ionic Core integration rather than bespoke
-gesture and modal infrastructure or an application rewrite. Implementation and agent-owned checks
-are complete; promotion, publication and physical Android acceptance remain pending.
+2026-08-22 — The mobile interaction shell was promoted unchanged from `dev` to `main`. GitHub Actions
+passed all verification and deployment jobs, and the public origin serves the promoted build.
+Physical Android acceptance remains the sole product gate before a release decision.
 
 ## Pointers
 
