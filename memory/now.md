@@ -32,6 +32,7 @@ Slices 1 to 5 are complete and published at `https://laters.dustyb.in/`.
 - Physical-device installation, standalone launch, Android Share-menu discovery and valid capture verified on Chrome for Android `151.0.7922.173`.
 - A user-controlled service-worker update flow that preserves same-origin IndexedDB data and reloads only after the **Update** action is selected.
 - Complete physical-device MVP acceptance on Chrome for Android `151.0.7922.173`, including exact-URL duplicate refresh, persistence, deletion, Undo and the offline shell.
+- A Claude Design handoff that defines the implemented feature and state contract, icon deliverables, accessibility requirements and strict MVP scope boundary.
 
 ## Active focus
 
@@ -50,15 +51,16 @@ None.
 - A minimum Chrome for Android version is not yet evidenced.
 - The new update-available action still needs a deployed-version acceptance check.
 - Android's news feed may provide distinct rotating or tracking URLs for the same apparent article; exact-URL deduplication correctly retains these as separate items.
+- Some Android news-feed shares do not supply a useful article title. Remote title enrichment is a possible later product slice with privacy, security and reliability implications; it is not part of the current design handoff.
 - The replacement visual design and favicon package have not yet been supplied.
 
 ## Next safe action
 
-Continue using the personal MVP. On the next public-bundle deployment, confirm that Laters shows the **Update** action and retains saved data after applying it. Await the supplied design and favicon package before starting Slice 6.
+Continue using the personal MVP. When ready, give Claude Design the repository and point it to `docs/claude-design-handoff.md`. On the next public-bundle deployment, confirm that Laters shows the **Update** action and retains saved data after applying it.
 
 ## Last meaningful update
 
-2026-08-22 — Full real-device MVP acceptance passed on Chrome for Android `151.0.7922.173`. Exact normalised URLs deduplicate correctly; distinct Android news-feed URLs remain separate by design. The offline shell, persistence, deletion and Undo all passed, and saved data survived the transitional update deployment.
+2026-08-22 — Full real-device MVP acceptance passed on Chrome for Android `151.0.7922.173`, and the design handoff was prepared for Slice 6. News-feed title enrichment is recorded as a possible later product slice rather than part of the MVP design work.
 
 ## Pointers
 
@@ -67,3 +69,4 @@ Continue using the personal MVP. On the next public-bundle deployment, confirm t
 - [Original project idea](../evidence/origin/2026-08-21-origin.md)
 - [MVP definition](../docs/mvp-definition.md)
 - [Deployment](../docs/deployment.md)
+- [Claude Design handoff](../docs/claude-design-handoff.md)
