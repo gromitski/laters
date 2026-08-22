@@ -36,6 +36,12 @@ Record the tested Chrome version and any failure before expanding the browser-su
 
 Physical-device acceptance passed on Chrome for Android `151.0.7922.173`: installation, standalone launch, Share-menu discovery, valid capture, exact-URL duplicate refresh, newest-first ordering, reopening persistence, deletion, Undo and offline-shell behaviour all worked as intended. Original article navigation resumed normally after connectivity was restored.
 
+MVP 2.0 physical Android acceptance passed on 2026-08-22. It covered bookmark persistence and
+re-share retention, Delete/Undo with bookmarked items, publisher favicons and deterministic/offline
+fallbacks, narrow multi-line rows, corrected source-marker alignment, whole-row opening, the title
+link, Bookmark and Delete separation, scrolling, text selection and Ghost/Undo behaviour. The exact
+browser version was not separately re-recorded, so this does not broaden the existing support claim.
+
 Android's news feed was observed sharing distinct URLs for what appeared to be the same article, producing separate saved items. Laters intentionally deduplicates only the exact normalised URL; it does not currently follow redirects or guess that different tracking or rotating URLs identify the same article.
 
 ## Application updates and saved data

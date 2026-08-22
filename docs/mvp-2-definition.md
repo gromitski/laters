@@ -2,17 +2,19 @@
 
 ## Status
 
-MVP 2.0 is the accepted next product direction, not implementation authorisation. A fresh working thread will inspect this definition, prepare a handoff and agree delivery slices before code changes begin.
+MVP 2.0 was implemented in three bounded slices, published and accepted on 2026-08-22. It is
+released as `v0.2.0`; the durable release summary is in [`releases/v0.2.0.md`](releases/v0.2.0.md).
 
 The original MVP remains the accepted baseline in [`mvp-definition.md`](mvp-definition.md). The broader concepts under [`2026-08-22 Claude Futures Exploration`](2026-08-22%20Claude%20Futures%20Exploration/README.md) remain exploratory except where this document explicitly selects or supersedes them.
 
-MVP 2.0 is a product-stage name. It does not yet decide the next Git tag or release number.
+MVP 2.0 began as a product-stage name rather than a promised semantic version. Release closure
+subsequently selected the backward-compatible minor release `v0.2.0`.
 
 ## Outcome
 
 Make a short reading queue easier to scan and selectively retain without turning Laters into a bookmark manager or committing to a native-style gesture framework.
 
-MVP 2.0 should add three closely bounded improvements:
+MVP 2.0 delivered three closely bounded improvements:
 
 1. persistent per-article bookmarks with an immediately usable star button;
 2. recognisable source icons with a deterministic local fallback; and
@@ -152,9 +154,9 @@ Bookmark persistence failure must leave or restore the last confirmed state and 
 
 These remain exploratory and require later decisions. Visual proximity in the futures screens does not bring them into MVP 2.0.
 
-## Acceptance criteria
+## Acceptance criteria and result
 
-MVP 2.0 is ready for maintainer acceptance when:
+The maintainer accepted MVP 2.0 after these criteria were met:
 
 1. every normal row has a usable hollow/filled bookmark control with the accepted visual treatment;
 2. bookmark state survives closing, reopening and application updates without affecting ordering;
@@ -168,13 +170,18 @@ MVP 2.0 is ready for maintainer acceptance when:
 10. focused automated tests, the full existing test suite, type-check/build and public-build audit pass; and
 11. physical-device acceptance covers row tap, Bookmark, Delete, Undo, favicon success/fallback, persistence, re-share and update retention on the supported Android Chrome version.
 
-## Planning and handoff boundary
+## Delivery record
 
-No delivery slices are accepted by this document. The fresh MVP 2.0 thread must:
+The planning boundary was satisfied before implementation. The maintainer accepted three bounded
+delivery slices:
 
-1. read repository instructions and canonical memory;
-2. inspect current code, tests and this definition;
-3. challenge any requirement that conflicts with real browser behaviour or the existing accessibility contract;
-4. propose the smallest independently testable delivery slices;
-5. identify data-compatibility and physical-device gates; and
-6. obtain the maintainer's agreement before implementation.
+1. [persistent bookmarks](planning/mvp-2-slice-1-bookmarks-plan.md), initially published in
+   `1f1d0e1` with its accepted star and touch-hover correction in `6f8a527`;
+2. [publisher source markers](planning/mvp-2-slice-2-source-markers-plan.md), published in
+   `d807cba` with final first-title-line alignment in `6dc1771`; and
+3. [whole-row opening](planning/mvp-2-slice-3-whole-row-opening-plan.md), published in `c2c41f3`.
+
+The final release gate passed 66 automated tests, TypeScript and production builds, the public-build
+audit and GitHub Pages deployment. Focused physical Android testing accepted bookmark persistence
+and visuals, favicon and fallback behaviour, corrected source-marker alignment, row opening and the
+non-conflicting Bookmark, Delete, selection, scrolling and Undo paths.

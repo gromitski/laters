@@ -6,7 +6,9 @@ Track the current state and next safe action for the Laters personal read-later 
 
 ## Lifecycle
 
-Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.in/`. The public GitHub repository and first release, `v0.1.0`, record the complete personal MVP baseline.
+The original personal MVP and all three MVP 2.0 slices are implemented, published and accepted at
+`https://laters.dustyb.in/`. Release `v0.1.0` records the first-MVP baseline; `v0.2.0` records the
+completed bookmark, source-marker and whole-row-opening release.
 
 ## What exists now
 
@@ -39,20 +41,23 @@ Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.
 - Published and maintainer-accepted MVP 2.0 bookmarks with the bright-lime supplied star treatment.
 - Published and maintainer-accepted 22px publisher source markers with exact-origin favicon attempts,
   deterministic local fallbacks and the refined 4px first-title-line alignment.
+- Published and maintainer-accepted whole-row pointer opening that preserves the semantic title
+  link and excludes Bookmark, Delete, selection, scrolling and Ghost/Undo interactions.
+- A complete `v0.2.0` release record covering scope, privacy, data compatibility, verification,
+  physical Android acceptance and deliberately deferred work.
 
 ## Active focus
 
-Publish and complete maintainer acceptance for MVP 2.0 Slice 3 whole-row opening.
+Maintain the accepted `v0.2.0` release and select any future product work through a new bounded
+decision rather than extending MVP 2.0 implicitly.
 
 ## Active slice
 
-MVP 2.0 Slice 3 adds a pointer convenience to normal article rows. A primary tap or click on
-non-interactive row space activates the existing semantic title link, preserving its exact URL and
-new-tab policy without adding another keyboard tab stop. Links, buttons, form controls, explicit
-interactive roles, prevented events, non-primary clicks and row text selection are excluded.
-Ghost/Undo rows receive no opening behaviour. The implementation relies on the browser's normal
-click-versus-scroll handling and adds no gesture thresholds, long press, swipe handling or
-framework.
+No implementation slice is active. MVP 2.0 is complete and released as `v0.2.0`. Persistent
+bookmarks, publisher source markers with deterministic fallbacks and safe whole-row pointer opening
+all passed automated, deployment and focused physical Android acceptance. The local-only data model,
+existing IndexedDB structure, newest-first ordering, share capture, Delete/Undo, update flow and
+offline shell remain intact.
 
 ## Blockers
 
@@ -66,15 +71,16 @@ None.
 
 ## Next safe action
 
-Confirm the authorised GitHub push and Pages workflow, then test row-space opening, the semantic
-title link, Bookmark, Delete, text selection, scrolling and Ghost/Undo on Android.
+Do not begin another feature by default. If the maintainer chooses to pursue long press, an action
+sheet or swipe-to-delete, first run the bounded architecture investigation required by the MVP 2.0
+definition. Other ideas remain exploratory and need their own evidence and accepted scope.
 
 ## Last meaningful update
 
-2026-08-22 — The maintainer accepted the final 4px Slice 2 marker alignment and authorised Slice 3.
-The focused row-activation event model and rejection tests are implemented without changing row
-semantics or introducing gesture machinery. The slice is approved for the standing end-of-slice
-verification, commit and push workflow.
+2026-08-22 — The maintainer accepted Slice 3 and confirmed the complete MVP 2.0 experience works as
+intended. Release closure selected semantic version `v0.2.0`, reconciled stale planning language,
+updated the public feature and privacy description, recorded all three delivery slices and physical
+acceptance, and retained the separate architecture gate for any future gesture shell.
 
 ## Pointers
 
@@ -90,4 +96,5 @@ verification, commit and push workflow.
 - [MVP 2.0 Slice 1 bookmark plan](../docs/planning/mvp-2-slice-1-bookmarks-plan.md)
 - [MVP 2.0 Slice 2 source marker plan](../docs/planning/mvp-2-slice-2-source-markers-plan.md)
 - [MVP 2.0 Slice 3 whole-row opening plan](../docs/planning/mvp-2-slice-3-whole-row-opening-plan.md)
-- Published GitHub release: `v0.1.0`
+- [`v0.2.0` release record](../docs/releases/v0.2.0.md)
+- Published GitHub releases: `v0.1.0`, `v0.2.0`

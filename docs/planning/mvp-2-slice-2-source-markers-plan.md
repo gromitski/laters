@@ -2,7 +2,10 @@
 
 ## Status
 
-Implementation authorised on 2026-08-22. Commit, push and deployment remain separately gated.
+Implemented and published on 2026-08-22 in commit `d807cba`. Focused Android testing accepted the
+favicon and deterministic fallback behaviour. Follow-up optical-alignment corrections culminated in
+the accepted 4px first-title-line offset in commit `6dc1771`. This slice is complete and included in
+release `v0.2.0`.
 
 ## User-visible outcome
 

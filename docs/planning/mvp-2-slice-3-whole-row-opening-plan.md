@@ -2,8 +2,9 @@
 
 ## Status
 
-Implementation authorised on 2026-08-22. The repository's standing end-of-slice workflow
-authorises commit and push after verification so maintainer testing can use the published app.
+Implemented and published on 2026-08-22 in commit `c2c41f3`. Focused Android testing accepted row
+opening and confirmed that title, Bookmark, Delete, scrolling, text selection and Ghost/Undo remain
+non-conflicting. This slice is complete and included in release `v0.2.0`.
 
 ## User-visible outcome
 

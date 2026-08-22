@@ -5,11 +5,11 @@
 Implemented, verified and published on 2026-08-22 as the first bounded MVP 2.0 delivery slice.
 Commit `1f1d0e1` passed the automated test, build, public-audit and GitHub Pages deployment workflow.
 Focused physical Android acceptance passed the functional contract and identified the visual
-correction recorded below. That correction is verified and authorised for a local commit; push and
-deployment remain separately controlled.
+correction recorded below. That correction was published in commit `6f8a527` and accepted by the
+maintainer. This slice is complete and included in release `v0.2.0`.
 
-This slice adds persistent bookmark state and the metadata-line foundation. Publisher favicon
-loading and whole-row pointer opening remain separate later slices.
+This slice added persistent bookmark state and the metadata-line foundation. Publisher favicon
+loading and whole-row pointer opening were delivered separately in Slices 2 and 3.
 
 ## User-visible outcome
 

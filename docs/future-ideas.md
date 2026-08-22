@@ -6,7 +6,10 @@ These are observations collected after the successful personal MVP, not an accep
 
 The MVP should remain fast, local-first and focused. Public source code must never imply a public reading list, shared database or committed credentials.
 
-Bookmarks, source favicons and a non-conflicting whole-row pointer action have now been selected for MVP 2.0 definition and are governed by [`mvp-2-definition.md`](mvp-2-definition.md). Their appearance in the broader futures exploration does not bring the adjacent reading-time, sorting, sharing or gesture-shell concepts into scope. All other entries below remain exploratory.
+Bookmarks, source favicons and a non-conflicting whole-row pointer action were delivered and
+accepted in `v0.2.0`; their contract is governed by [`mvp-2-definition.md`](mvp-2-definition.md).
+Their appearance in the broader futures exploration does not bring the adjacent reading-time,
+sorting, sharing or gesture-shell concepts into scope. All other entries below remain exploratory.
 
 ## Possibilities
 
@@ -21,7 +24,7 @@ Bookmarks, source favicons and a non-conflicting whole-row pointer action have n
 | Swipe-away deletion | Makes clearing a phone list faster. | Must supplement rather than replace the visible X, preserve Undo, avoid accidental activation and work with scrolling, keyboard and assistive technology. |
 | Export | Provides portability and a recovery route before sync exists. | Choose a durable, privacy-safe format and define whether re-import, duplicates and timestamps are supported. Export must be explicitly user initiated. |
 | Optional article images | Adds visual recognition. | Must be controlled by one global toggle. Remote image fetching can add tracking, bandwidth, layout and caching concerns; useful fallbacks are required. |
-| Source favicons | Gives a quick source cue and is selected for MVP 2.0. | The accepted approach tries the publisher origin's `/favicon.ico` directly, never uses a central service and generates a stable hostname-derived fallback on any failure. See the MVP 2.0 definition. |
+| Source favicons | Gives a quick source cue and was delivered in `v0.2.0`. | The accepted approach tries the publisher origin's `/favicon.ico` directly, never uses a central service and generates a stable hostname-derived fallback on any failure. See the MVP 2.0 definition. |
 | More capture paths and bulk intake | Supports desktop use, manual capture, import or adding several links at once. | Identify a real workflow before choosing between browser sharing, an extension, paste/import or another platform integration. Bulk capture must validate input and explain duplicates and failures. |
 
 ## Related opportunity
@@ -30,4 +33,7 @@ Some Android news-feed shares do not provide a useful article title. Title enric
 
 ## Selected idea retained for context
 
-Bookmarking was added late to the visual exploration rather than the original possibilities table. MVP 2.0 selects only a persistent per-row bookmark toggle and its accepted hollow-star, filled-star and subtle-wash states. It does not select bookmark filtering, sorting, a separate view, long-press actions or future automatic-tidy behaviour.
+Bookmarking was added late to the visual exploration rather than the original possibilities table.
+Release `v0.2.0` delivers only a persistent per-row bookmark toggle and its accepted hollow-star,
+filled-star and subtle-wash states. It does not select bookmark filtering, sorting, a separate view,
+long-press actions or future automatic-tidy behaviour.
