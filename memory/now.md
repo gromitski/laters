@@ -51,7 +51,7 @@ stable fallback uses the first two ASCII letters or digits from the canonical ho
 hashing into the accepted six-colour palette. No favicon cache, proxy, publisher mapping or stored
 data was added. Published testing found that vertically centring the marker against the full row
 looked wrong beside three-line titles. Top-aligning it to the title line box then placed its visible
-top edge slightly above the text, so the refined correction adds a 3px offset to align with the
+top edge slightly above the text, so the refined correction adds a 4px offset to align with the
 letterforms while Delete remains vertically centred. Whole-row pointer opening remains the later
 accepted Slice 3.
 
@@ -73,8 +73,8 @@ with the visible top edge of the first title line for both one-line and multi-li
 ## Last meaningful update
 
 2026-08-22 — The first published alignment correction placed the marker at the top of the title's
-line box, which left it visually two or three pixels above the visible text. The maintainer requested
-top-edge alignment with the letterforms; a focused 3px offset is approved for the standing
+line box. Published testing of the initial 3px optical offset found that the marker still needed to
+move down by one pixel; the refined 4px offset is approved for the standing
 end-of-slice commit-and-push workflow.
 
 ## Pointers
