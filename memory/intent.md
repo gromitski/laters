@@ -52,5 +52,6 @@ The core job is intentionally narrow: capture a link at the moment it is discove
 - Accepted: no sensitive data, repository memory, local paths, source maps or unintended third-party resources may enter the deployed build.
 - Accepted: normal deployments must preserve saved articles in the same-origin IndexedDB database; application updates do not clear or replace reading-list data.
 - Accepted: when a new service worker is ready, Laters offers an accessible user-controlled update action rather than silently leaving the running interface stale or reloading during an interaction.
+- Accepted: duplicate identity is the exact normalised URL; Laters does not follow redirects or guess that distinct feed, tracking or rotating URLs represent the same article.
 
 Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mvp-definition.md`.

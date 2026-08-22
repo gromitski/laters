@@ -117,6 +117,7 @@ Deferred items are not implied future commitments. They require evidence of a re
 - Relative saved times update when the app loads and returns to the foreground, not on a continuous timer.
 - The current visual treatment remains a temporary accessible baseline until a dedicated design and favicon package is supplied.
 - Application updates are user-controlled: Laters announces a ready version and applies it through an explicit update action.
+- Duplicate identity is the exact normalised URL. Distinct redirect, tracking or rotating URLs are kept separately rather than merged using unreliable heuristics.
 
 ## Accepted Slice 2 decisions
 

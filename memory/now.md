@@ -6,7 +6,7 @@ Track the current state and next safe action for the Laters personal read-later 
 
 ## Lifecycle
 
-Slices 1 to 4 are complete and published at `https://laters.dustyb.in/`.
+Slices 1 to 5 are complete and published at `https://laters.dustyb.in/`.
 
 ## What exists now
 
@@ -31,14 +31,15 @@ Slices 1 to 4 are complete and published at `https://laters.dustyb.in/`.
 - Routine changes may be committed directly to `main`; pull requests are optional unless requested or useful for separate review.
 - Physical-device installation, standalone launch, Android Share-menu discovery and valid capture verified on Chrome for Android `151.0.7922.173`.
 - A user-controlled service-worker update flow that preserves same-origin IndexedDB data and reloads only after the **Update** action is selected.
+- Complete physical-device MVP acceptance on Chrome for Android `151.0.7922.173`, including exact-URL duplicate refresh, persistence, deletion, Undo and the offline shell.
 
 ## Active focus
 
-Complete the remaining real-device Chrome for Android acceptance checks and verify the update action after deployment.
+Use the accepted personal MVP and verify the visible update action on the next deployment that changes the public application bundle.
 
 ## Active slice
 
-Slice 5 real-device Android acceptance is partially complete; update handling is implemented and awaiting deployed-device verification.
+Slice 5 real-device Android acceptance is complete. Slice 6 design and launch readiness is deferred until the maintainer supplies the planned design and favicon package.
 
 ## Blockers
 
@@ -47,17 +48,17 @@ None.
 ## Uncertainties
 
 - A minimum Chrome for Android version is not yet evidenced.
-- Duplicate refresh, reopening persistence, deletion, undo and offline-shell behaviour still need physical-device acceptance.
 - The new update-available action still needs a deployed-version acceptance check.
+- Android's news feed may provide distinct rotating or tracking URLs for the same apparent article; exact-URL deduplication correctly retains these as separate items.
 - The replacement visual design and favicon package have not yet been supplied.
 
 ## Next safe action
 
-After the update-flow deployment, close and reopen the installed Android app once for the transitional activation. Then verify later updates through the in-app action and complete duplicate, persistence, deletion, undo and offline-shell checks.
+Continue using the personal MVP. On the next public-bundle deployment, confirm that Laters shows the **Update** action and retains saved data after applying it. Await the supplied design and favicon package before starting Slice 6.
 
 ## Last meaningful update
 
-2026-08-22 — Installation, standalone launch, Share-menu discovery and valid capture passed on Chrome for Android `151.0.7922.173`. A user-controlled update action is implemented and locally verified; normal same-origin deployments retain saved articles in IndexedDB.
+2026-08-22 — Full real-device MVP acceptance passed on Chrome for Android `151.0.7922.173`. Exact normalised URLs deduplicate correctly; distinct Android news-feed URLs remain separate by design. The offline shell, persistence, deletion and Undo all passed, and saved data survived the transitional update deployment.
 
 ## Pointers
 
