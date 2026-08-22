@@ -207,6 +207,7 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
     isBookmarked: () => currentItem.bookmarked === true,
     canOpenMenu: () => list.getAttribute("aria-busy") !== "true",
     read: () => link.click(),
+    share: () => shareArticle(currentItem),
     toggleBookmark: async () => {
       const updatedItem = await setArticleBookmarked(
         currentItem,
@@ -220,6 +221,31 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
       }
     },
     delete: () => deleteArticle(currentItem, deleteButton),
+  });
+}
+
+function shareArticle(item: SavedItem): void {
+  clearFeedback();
+
+  const shareData: ShareData = {
+    title: item.title,
+    url: item.url,
+  };
+
+  if (
+    typeof navigator.share !== "function" ||
+    (typeof navigator.canShare === "function" && !navigator.canShare(shareData))
+  ) {
+    showError("Sharing is not available in this browser.");
+    return;
+  }
+
+  void navigator.share(shareData).catch((error: unknown) => {
+    if (error instanceof DOMException && error.name === "AbortError") {
+      return;
+    }
+
+    showError("Laters could not open the share sheet. Please try again.");
   });
 }
 

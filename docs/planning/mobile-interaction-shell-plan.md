@@ -16,11 +16,12 @@ Normal article rows keep all of their existing visible controls and gain three n
 - a horizontal swipe from right to left reveals a warning-red Delete action, while a complete swipe
   requests the same existing Delete operation;
 - a touch long press opens a bottom action sheet containing Read now, Bookmark or Remove bookmark,
-  Delete and Cancel.
+  Share this article, Delete and Cancel.
 
 Quick tap still opens the article. The visible title link, Star and Delete button remain the primary,
-gesture-free ways to perform those actions. The action sheet deliberately does not add Share or Copy
-link because neither action has an accepted visible alternative or existing application behaviour.
+gesture-free ways to perform the original Read, Bookmark and Delete actions. For this personal app,
+the maintainer subsequently accepted Share as a long-press-only convenience rather than adding a
+per-row button. Copy link remains unselected.
 
 ## Architecture decision
 
@@ -54,6 +55,8 @@ behaviour to a new release.
   Undo.
 - While a bookmark mutation is pending, the row buttons and sliding action are disabled together.
 - Only one action sheet may be open at a time. Its Bookmark label reflects current state when opened.
+- Share this article immediately invokes the system share sheet from the activating tap with only the
+  saved title and URL. Cancellation is normal; Laters cannot select or observe the chosen target.
 - Right-click or the browser context-menu gesture opens the same menu outside touch use. Shift+F10
   and the Context Menu key provide a keyboard route from the semantic article link.
 - Reduced-motion preference disables action-sheet animation and retains the existing reduced-motion
@@ -63,6 +66,8 @@ behaviour to a new release.
 
 The shell adds no storage fields, migration, network service, analytics or remote API. Read,
 Bookmark, Delete and Undo continue through the existing functions and `ReadingListStore` boundary.
+Share uses the browser's standard Web Share API only after explicit user activation; Laters sends no
+data until the maintainer selects the action.
 Existing IndexedDB records and the same-origin update contract are unchanged. Ionic code is bundled
 locally; the public build does not load a component library from a CDN.
 
@@ -76,6 +81,8 @@ locally; the public build does not load a component library from a CDN.
   returns focus to the article title.
 - Delete is exposed as destructive; swipe is an enhancement and never the only deletion route.
 - Long press is an enhancement and never the only route to Read, Bookmark or Delete.
+- Share is deliberately available only through the long-press/context menu in this personal app.
+  This is an explicitly accepted exception to the otherwise gesture-free action rule.
 
 ## Measured implementation cost
 
@@ -92,12 +99,15 @@ primitives rather than hidden framework growth.
 - Public-build audit passed with no unintended secret, local-path, source-map or static third-party
   resource finding.
 - At a 360 px browser viewport, normal rows retained the accepted appearance and vertical page scroll.
-- Shift+F10 opened the correctly named action sheet; its four actions, focus containment, Escape
+- Shift+F10 opened the correctly named original action sheet; its actions, focus containment, Escape
   dismissal and focus restoration were verified.
 - Partial swipe revealed the bright-lime Delete action. Selecting it used the existing deletion path,
   and Undo restored the complete item.
 - Existing Bookmark state was changed through the sheet and restored during testing.
 - No browser console error or warning remained after component initialisation.
+- The post-v0.3.0 Share extension was browser-verified at 360px: **Share this article** appears between
+  Bookmark and Delete, selecting it dismisses the sheet and restores focus without a console error.
+  Opening Android's native chooser and completing a NotebookLM handoff remain physical-device gates.
 
 Browser emulation cannot prove physical touch long-press timing, finger scroll arbitration or Ionic's
 full-swipe threshold. Those are explicit device gates, not inferred passes.

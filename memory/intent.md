@@ -73,6 +73,9 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   Remove bookmark, Delete and Cancel.
 - Accepted boundary: the existing title link, Star and visible Delete controls remain available, and
   no action may require a gesture.
+- Accepted personal-app exception after `v0.3.0`: **Share this article** may live only in the
+  long-press/context menu. It opens the system share sheet with the saved title and URL; Laters does
+  not integrate with, select or observe NotebookLM or another destination.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.

@@ -55,7 +55,8 @@ mobile interaction shell.
 
 ## Active focus
 
-Review the remaining exploratory futures list and select only the next bounded product decision.
+Publish and physically verify the selected **Share this article** action from the long-press menu,
+then return to the remaining exploratory futures list.
 
 ## Active slice
 
@@ -64,7 +65,9 @@ Right swipe toggles Bookmark or Remove, left swipe reveals warning-red Delete, a
 the focused action sheet. The first Android test's native outline, dictionary-selection and
 lower-page scroll-jump failures were corrected. The accepted Undo presentation is a white centre,
 neon-lime outside countdown ring and black glyph. No data migration, backend or new remote service
-was introduced.
+was introduced. The next selected extension adds **Share this article** to that same menu and routes
+the saved title and URL to Android's system share sheet. The maintainer explicitly accepts its
+long-press-only placement for this personal app.
 
 ## Blockers
 
@@ -78,14 +81,14 @@ None.
 
 ## Next safe action
 
-Review `docs/future-ideas.md` with the maintainer and select, defer or reject the next bounded idea
-without treating the list as an accepted roadmap.
+Physically confirm that **Share this article** opens Android's chooser, that NotebookLM can receive a
+representative public article, and that cancelling returns safely to Laters.
 
 ## Last meaningful update
 
-2026-08-22 — The maintainer accepted the complete mobile interaction shell and its final Undo
-presentation for release `v0.3.0`. Canonical documentation now points to the remaining futures review
-as the next product decision.
+2026-08-22 — The maintainer selected a small post-v0.3.0 extension: **Share this article** in the
+long-press menu, using Android's chooser rather than a NotebookLM-specific integration. Long-press-
+only placement is explicitly accepted for this personal app.
 
 ## Pointers
 

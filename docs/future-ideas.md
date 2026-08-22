@@ -11,8 +11,10 @@ accepted in `v0.2.0`; their contract is governed by [`mvp-2-definition.md`](mvp-
 Bidirectional Bookmark/Delete swipes and the long-press action sheet were delivered and accepted in
 `v0.3.0`; their contract is governed by the
 [mobile interaction shell record](planning/mobile-interaction-shell-plan.md). Their appearance in the
-broader futures exploration does not bring the adjacent reading-time, sorting or sharing concepts
-into scope. All entries below remain exploratory.
+broader futures exploration does not bring the adjacent reading-time or sorting concepts into scope.
+User-initiated sharing was subsequently selected as a small extension to that sheet: it opens the
+system share chooser with the saved title and URL, without a provider integration. All entries below
+remain exploratory.
 
 ## Possibilities
 
@@ -20,7 +22,6 @@ into scope. All entries below remain exploratory.
 | --- | --- | --- |
 | Approximate reading time | Helps choose an article that fits the time available. | A reliable estimate usually needs article content or trustworthy metadata. Cross-origin access, extraction quality, privacy and failure fallbacks need investigation. |
 | Order by reading time | Makes quick reads easy to prioritise. | Depends on credible reading-time data. Newest-first should remain available and the default must not change without evidence. |
-| User-initiated sharing to NotebookLM or another LLM | Makes optional summarisation or further work convenient. | Prefer the device Share sheet or another explicit handoff. Never transmit saved URLs, titles or content automatically; provider capabilities and privacy terms vary. |
 | Cross-device sync | Makes the same list available elsewhere and reduces dependence on one browser. | Requires separate private identity and data infrastructure, migration and conflict handling. A public repository must contain neither user data nor live credentials. |
 | Dark mode with a toggle | Improves comfort and personal preference. | Consider system preference plus a local override, while preserving contrast, icons, theme metadata and splash behaviour. |
 | Folders and archive | Supports a larger or longer-lived collection. | Explicitly much later: both features risk turning a temporary reading tray into a system that needs organisation and maintenance. |

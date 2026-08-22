@@ -24,7 +24,7 @@ defineItemOption();
 defineItemOptions();
 defineItemSliding();
 
-type ArticleAction = "read" | "bookmark" | "delete";
+type ArticleAction = "read" | "bookmark" | "share" | "delete";
 
 interface ArticleShellActions {
   getTitle(): string;
@@ -32,6 +32,7 @@ interface ArticleShellActions {
   isBookmarked(): boolean;
   canOpenMenu(): boolean;
   read(): void;
+  share(): void;
   toggleBookmark(): Promise<void>;
   delete(): Promise<void>;
 }
@@ -340,6 +341,13 @@ async function showArticleActionSheet(
     {
       text: actions.isBookmarked() ? "Remove bookmark" : "Bookmark",
       data: { action: "bookmark" satisfies ArticleAction },
+    },
+    {
+      text: "Share this article",
+      data: { action: "share" satisfies ArticleAction },
+      handler: () => {
+        actions.share();
+      },
     },
     {
       text: "Delete",
