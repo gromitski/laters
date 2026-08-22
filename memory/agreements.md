@@ -48,6 +48,7 @@ Universal rules for humans and agents working on this project. Canonical vendor-
 - Run `node scripts/no-ai-attribution.mjs commit HEAD` after committing or amending. An attribution failure is a hard stop before push.
 - If an editor or agent automatically adds attribution, do not push it. Recreate or amend the commit with clean human authorship metadata and verify it again.
 - Never accept an attribution-check failure as a harmless warning.
+- Routine Laters work may be committed directly to `main`; a pull request is optional unless the maintainer requests one or a change warrants separate review. This branch workflow does not replace the explicit authorisation required above for committing, pushing, merging or deploying a particular task.
 
 ## Scope and implementation
 

@@ -23,11 +23,12 @@ Slices 1 to 4 are complete and published at `https://laters.dustyb.in/`.
 - A `POST` Android Web Share Target that validates shared data, supports URLs embedded in Android's text field, saves through the existing IndexedDB boundary and redirects to an accessible result state.
 - Accepted deployment and interaction decisions recorded in canonical intent and the MVP definition.
 - A GitHub Pages deployment workflow that tests, builds, audits and publishes only `dist/`.
-- The repository's Pages source is configured for GitHub Actions; no workflow deployment has run yet.
+- The repository's Pages source is configured for GitHub Actions and the production workflow has deployed successfully.
 - A repeatable public-build audit covering common secrets, personal data, local paths, source maps, repository documents, binary metadata and unintended external resources.
 - Duplicate shares refresh one item at the top, deletion offers an accessible seven-second undo action, relative times refresh on foregrounding, and persistent storage is requested non-fatally.
 - Maintained deployment guidance for `laters.dustyb.in` without recording the maintainer's personal DNS provider or account setup.
 - A live custom-domain deployment with an approved GitHub certificate and enforced HTTPS.
+- Routine changes may be committed directly to `main`; pull requests are optional unless requested or useful for separate review.
 
 ## Active focus
 
