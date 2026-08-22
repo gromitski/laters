@@ -38,15 +38,15 @@ Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.
 
 ## Active focus
 
-Prepare the accepted MVP repository for possible public visibility without publishing personal hosting-provider or account choices.
+Use the accepted MVP and evaluate possible additions only when normal use provides enough evidence for a new bounded slice.
 
 ## Active slice
 
-Current documentation has been cleaned of personal hosting-provider and GitHub-account setup details, and obsolete merged or superseded branches have been removed. Earlier reachable commits still contain the removed documentation and require an explicit history-rewrite decision before the repository is made public.
+All current files and reachable history have been cleaned of personal hosting-provider and unnecessary GitHub-account setup details. Obsolete merged or superseded branches have been removed, and the rewritten `main` and `v0.1.0` histories are ready for final public-readiness verification.
 
 ## Blockers
 
-- Repository history must either be sanitised with an explicitly authorised rewrite or consciously accepted before changing the repository to public visibility.
+None.
 
 ## Uncertainties
 
@@ -56,11 +56,11 @@ Current documentation has been cleaned of personal hosting-provider and GitHub-a
 
 ## Next safe action
 
-Keep the repository private while the maintainer decides whether to authorise rewriting and force-pushing the published history. Treat `docs/future-ideas.md` as exploratory input rather than an active roadmap until the maintainer selects another bounded slice.
+Complete the final public-readiness review before changing repository visibility. Treat `docs/future-ideas.md` as exploratory input rather than an active roadmap until the maintainer selects another bounded slice.
 
 ## Last meaningful update
 
-2026-08-22 — Current documentation was sanitised for possible public visibility and obsolete repository branches were removed. The remaining historical copies of personal hosting choices were identified as requiring a separate, explicitly authorised history rewrite before public release.
+2026-08-22 — Current documentation and reachable Git history were sanitised for possible public visibility, obsolete repository branches were removed, and the `v0.1.0` release history was repaired without changing the application build.
 
 ## Pointers
 
