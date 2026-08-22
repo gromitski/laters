@@ -39,19 +39,19 @@ Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.
 
 ## Active focus
 
-Obtain explicit authority before pushing and deploying the locally committed post-acceptance
-visual correction for MVP 2.0 Slice 1.
+Complete final physical Android confirmation of the published post-acceptance visual correction
+for MVP 2.0 Slice 1.
 
 ## Active slice
 
 MVP 2.0 Slice 1, persistent bookmarks and the metadata-line foundation, is published on `main` at
 commit `1f1d0e1`. Its automated and physical Android behaviour passed acceptance. Acceptance found
 two visual issues: touch-retained row hover obscured the true bookmark background, and the
-provisional star did not match the intended supplied artwork. Local `main` includes the verified
-correction pending push: hover treatments require real hover/fine-pointer capability, and the new
-Claude handoff's hollow and bright-lime filled star assets are integrated while its 22px
-rounded-square publisher fallback is retained for Slice 2. Publisher favicons and whole-row
-pointer opening remain later accepted slices.
+provisional star did not match the intended supplied artwork. The correction is published from
+commit `6f8a527`: hover treatments require real hover/fine-pointer capability, and the new Claude
+handoff's hollow and bright-lime filled star assets are integrated while its 22px rounded-square
+publisher fallback is retained for Slice 2. Publisher favicons and whole-row pointer opening
+remain later accepted slices.
 
 ## Blockers
 
@@ -65,16 +65,16 @@ None.
 
 ## Next safe action
 
-Obtain explicit authority before pushing and deploying the locally committed correction for final
-Android confirmation.
+Confirm the deployment workflow, then perform final Android checks for the corrected touch
+background and supplied star artwork before beginning Slice 2.
 
 ## Last meaningful update
 
 2026-08-22 — Physical Android acceptance passed the Slice 1 functional checks and found two visual
-defects. The locally committed correction prevents sticky touch-hover backgrounds and uses the
+defects. Correction commit `6f8a527` prevents sticky touch-hover backgrounds and uses the
 designer's supplied hollow/bright-lime star SVGs. The supplied 22px rounded-square fallback
 treatment is accepted for Slice 2; unsound caching, origin and registrable-domain advice was not
-adopted. Push and deployment remain unauthorised.
+adopted. The maintainer authorised commit and push for deployment and final Android confirmation.
 
 ## Pointers
 
