@@ -108,6 +108,8 @@ primitives rather than hidden framework growth.
 - The post-v0.3.0 Share extension was browser-verified at 360px: **Share this article** appears between
   Bookmark and Delete, selecting it dismisses the sheet and restores focus without a console error.
   Opening Android's native chooser and completing a NotebookLM handoff remain physical-device gates.
+- Commit `8753b67` published the Share extension. GitHub Actions run `32597495286` passed all tests,
+  build, public audit and Pages deployment jobs, and the public origin serves the matching bundle.
 
 Browser emulation cannot prove physical touch long-press timing, finger scroll arbitration or Ionic's
 full-swipe threshold. Those are explicit device gates, not inferred passes.
