@@ -137,7 +137,9 @@ The subsequent bidirectional-swipe refinement assigns the start-side action to B
 Delete on the end side. Bookmark uses the established neon-lime surface; Delete uses the semantic
 warning-red `--danger-action` surface with black icon and text for contrast. Both reuse the same
 underlying actions as the visible controls. Undo keeps a white centre and uses neon lime only for its
-outside countdown ring.
+outside countdown ring. Commit `e1595c7` published the refinement; GitHub Actions run `32594993861`
+passed all tests, build, public audit and Pages deployment jobs, and the public origin serves the
+matching production asset hashes.
 
 ## Physical Android acceptance after promotion to `main`
 

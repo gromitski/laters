@@ -64,9 +64,11 @@ tests, build, public audit and Pages deployment, and the public origin serves th
 hashes. The focused physical recheck remains pending. Release `v0.2.0` itself remains the previous
 tagged commit. A final Undo visual correction was then published in `e0bd63b`: its lime centre and
 green countdown ring are now explicit, and focus no longer adds a black outer halo. GitHub Actions
-run `32594218056` passed all verification and deployment jobs. The active refinement adds the
-maintainer-selected right-swipe Bookmark toggle, changes left-swipe Delete to warning red, and gives
-Undo a white centre with a neon-lime countdown ring.
+run `32594218056` passed all verification and deployment jobs. The maintainer-selected refinement is
+published in `e1595c7`: right swipe toggles Bookmark or Remove, left-swipe Delete uses warning red,
+and Undo has a white centre with a neon-lime countdown ring. GitHub Actions run `32594993861` passed
+all tests, build, public audit and Pages deployment jobs, and the public origin serves the matching
+production asset hashes. Focused physical acceptance remains pending.
 
 ## Blockers
 
@@ -82,17 +84,16 @@ None.
 
 ## Next safe action
 
-Publish and physically check the bidirectional swipe refinement: right swipe Bookmark or Remove,
-left swipe red Delete, and white-centred Undo with a neon-lime countdown. Recheck link focus, hold
-without Android selection UI and lower-page Delete/Undo without viewport movement at the same time.
+Physically check the published bidirectional swipe refinement: right swipe Bookmark or Remove, left
+swipe red Delete, and white-centred Undo with a neon-lime countdown. Recheck link focus, hold without
+Android selection UI and lower-page Delete/Undo without viewport movement at the same time.
 
 ## Last meaningful update
 
-2026-08-22 — The first physical Android shell test found three correction items despite the core
-interaction working: native link outline, dictionary-triggering touch selection and a serious
-lower-page Delete jump that could hide Undo. The focused fixes were published in `f55ba01` after all
-GitHub verification and deployment jobs passed. Final Undo styling was published in `e0bd63b` with
-another fully successful workflow; physical recheck remains pending.
+2026-08-22 — Bidirectional swipe actions and the revised Undo treatment were published in `e1595c7`.
+Right swipe now toggles Bookmark on a neon-lime action; left swipe retains Delete on a warning-red
+action; Undo is white-centred with a neon-lime countdown. GitHub Actions run `32594993861` passed and
+the matching assets are public. Physical Android acceptance remains pending.
 
 ## Pointers
 
