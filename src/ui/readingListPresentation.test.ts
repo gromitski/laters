@@ -32,4 +32,12 @@ describe("createReadingListEntries", () => {
       { item: pendingItem, isGhost: false },
     ]);
   });
+
+  it("keeps complete bookmark state on a deleted ghost item", () => {
+    const pendingItem = { ...item("bookmarked", 100), bookmarked: true };
+
+    expect(createReadingListEntries([], pendingItem)).toEqual([
+      { item: pendingItem, isGhost: true },
+    ]);
+  });
 });

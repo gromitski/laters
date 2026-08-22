@@ -17,6 +17,8 @@
   --accent: #d0ff4f;
   --accent-ink: #8fbf00;
   --accent-text: #5b6b00;
+  --bookmark-wash: rgb(208 255 79 / 10%);
+  --bookmark-wash-hover: rgb(208 255 79 / 24%);
   --focus: #101014;
   --success-bg: #f4ffd6;
   --success-line: #5b6b00;
@@ -237,6 +239,14 @@ h1 {
   background: var(--surface-hover);
 }
 
+.article-row.is-bookmarked {
+  background: var(--bookmark-wash);
+}
+
+.article-row.is-bookmarked:hover {
+  background: var(--bookmark-wash-hover);
+}
+
 .article-row.is-leaving {
   height: 0 !important;
   min-height: 0;
@@ -274,13 +284,75 @@ h1 {
 }
 
 .article-meta {
-  margin: 0.5625rem 0 0;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  margin: 0.125rem 0 0;
+}
+
+.article-meta-text {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem;
   color: var(--text-meta);
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   line-height: 1.2;
   text-transform: uppercase;
+}
+
+.article-hostname {
+  overflow-wrap: anywhere;
+}
+
+.article-meta-separator {
+  letter-spacing: 0;
+}
+
+.bookmark-action {
+  display: grid;
+  width: var(--target);
+  height: var(--target);
+  flex: none;
+  place-items: center;
+  margin-left: -0.75rem;
+  border: 0;
+  padding: 0;
+  color: #77727f;
+  background: transparent;
+  cursor: pointer;
+}
+
+.bookmark-icon {
+  width: 17px;
+  height: 17px;
+  fill: transparent;
+  transition:
+    color 180ms ease,
+    fill 180ms ease,
+    transform 180ms cubic-bezier(0.3, 0.9, 0.3, 1);
+}
+
+.bookmark-action:hover .bookmark-icon {
+  color: var(--text);
+  transform: scale(1.12);
+}
+
+.bookmark-action:active .bookmark-icon {
+  transform: scale(0.9);
+}
+
+.bookmark-action[aria-pressed="true"] .bookmark-icon {
+  fill: currentColor;
+  color: var(--accent-ink);
+}
+
+.bookmark-action:disabled {
+  cursor: wait;
+  opacity: 0.45;
 }
 
 .delete-action {
@@ -533,6 +605,7 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .article-row,
   .article-link,
+  .bookmark-icon,
   .delete-action,
   .icon-x,
   .icon-undo {

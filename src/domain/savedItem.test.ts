@@ -33,6 +33,33 @@ describe("createSavedItem", () => {
 });
 
 describe("isSavedItem", () => {
+  it.each([undefined, false, true])(
+    "accepts backward-compatible bookmark state %s",
+    (bookmarked) => {
+      expect(
+        isSavedItem({
+          id: "item-1",
+          title: "Article",
+          url: "https://example.com/article",
+          savedAt: 1,
+          ...(bookmarked === undefined ? {} : { bookmarked }),
+        }),
+      ).toBe(true);
+    },
+  );
+
+  it("rejects invalid persisted bookmark state", () => {
+    expect(
+      isSavedItem({
+        id: "item-1",
+        title: "Article",
+        url: "https://example.com/article",
+        savedAt: 1,
+        bookmarked: "yes",
+      }),
+    ).toBe(false);
+  });
+
   it("rejects invalid persisted data", () => {
     expect(
       isSavedItem({

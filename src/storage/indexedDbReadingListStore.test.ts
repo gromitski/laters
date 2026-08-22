@@ -44,6 +44,38 @@ describe("IndexedDbReadingListStore", () => {
 
     await expect(store.listNewestFirst()).resolves.toEqual([item("keep", 100)]);
   });
+
+  it("updates only bookmark state without changing order or article data", async () => {
+    const databaseName = createDatabaseName();
+    const store = new IndexedDbReadingListStore(databaseName);
+    const original = item("bookmark", 200);
+    await store.save(item("newer", 300));
+    await store.save(original);
+
+    await expect(store.setBookmarked("bookmark", true)).resolves.toEqual({
+      ...original,
+      bookmarked: true,
+    });
+    await expect(store.listNewestFirst()).resolves.toEqual([
+      item("newer", 300),
+      { ...original, bookmarked: true },
+    ]);
+
+    await expect(store.setBookmarked("bookmark", false)).resolves.toEqual({
+      ...original,
+      bookmarked: false,
+    });
+  });
+
+  it("does not create a bookmark record for an unknown identifier", async () => {
+    const databaseName = createDatabaseName();
+    const store = new IndexedDbReadingListStore(databaseName);
+
+    await expect(store.setBookmarked("missing", true)).rejects.toThrow(
+      "could not be found",
+    );
+    await expect(store.listNewestFirst()).resolves.toEqual([]);
+  });
 });
 
 function item(id: string, savedAt: number): SavedItem {

@@ -3,6 +3,7 @@ export interface SavedItem {
   url: string;
   title: string;
   savedAt: number;
+  bookmarked?: boolean;
 }
 
 export interface SavedItemInput {
@@ -60,7 +61,8 @@ export function isSavedItem(value: unknown): value is SavedItem {
     isArticleUrl(candidate.url) &&
     typeof candidate.savedAt === "number" &&
     Number.isFinite(candidate.savedAt) &&
-    candidate.savedAt >= 0
+    candidate.savedAt >= 0 &&
+    (candidate.bookmarked === undefined || typeof candidate.bookmarked === "boolean")
   );
 }
 

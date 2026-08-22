@@ -40,6 +40,32 @@ export class IndexedDbReadingListStore implements ReadingListStore {
     }
   }
 
+  async setBookmarked(id: string, bookmarked: boolean): Promise<SavedItem> {
+    if (!id) {
+      throw new Error("A saved article identifier is required.");
+    }
+
+    const database = await this.openDatabase();
+
+    try {
+      const transaction = database.transaction(ITEM_STORE, "readwrite");
+      const itemStore = transaction.objectStore(ITEM_STORE);
+      const currentItem = await waitForRequest(itemStore.get(id));
+
+      if (!isSavedItem(currentItem)) {
+        transaction.abort();
+        throw new Error("The saved article could not be found.");
+      }
+
+      const updatedItem = { ...currentItem, bookmarked };
+      itemStore.put(updatedItem);
+      await waitForTransaction(transaction);
+      return updatedItem;
+    } finally {
+      database.close();
+    }
+  }
+
   async delete(id: string): Promise<void> {
     if (!id) {
       throw new Error("A saved article identifier is required.");

@@ -36,7 +36,17 @@ export async function handleShareTargetRequest(
       (candidate) => candidate.url === item.url,
     );
 
-    await store.save(existingItem ? { ...item, id: existingItem.id } : item);
+    const refreshedItem = existingItem
+      ? {
+          ...item,
+          id: existingItem.id,
+          ...(existingItem.bookmarked === undefined
+            ? {}
+            : { bookmarked: existingItem.bookmarked }),
+        }
+      : item;
+
+    await store.save(refreshedItem);
     return shareResultRedirect(request.url, "saved");
   } catch {
     return shareResultRedirect(request.url, "storage-error");

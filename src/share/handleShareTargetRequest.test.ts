@@ -87,6 +87,59 @@ describe("handleShareTargetRequest", () => {
     expect(save.mock.calls[0]![0].savedAt).toBeGreaterThan(100);
   });
 
+  it.each([false, true])(
+    "preserves bookmark state %s when refreshing an existing URL",
+    async (bookmarked) => {
+      const save = vi.fn();
+      await handleShareTargetRequest(
+        createShareRequest({
+          title: "Updated title",
+          url: "https://example.com/existing",
+        }),
+        {
+          listNewestFirst: async () => [
+            {
+              id: "existing-id",
+              title: "Original title",
+              url: "https://example.com/existing",
+              savedAt: 100,
+              bookmarked,
+            },
+          ],
+          save,
+        },
+      );
+
+      expect(save).toHaveBeenCalledWith(
+        expect.objectContaining({
+          id: "existing-id",
+          title: "Updated title",
+          bookmarked,
+        }),
+      );
+    },
+  );
+
+  it("keeps a legacy duplicate without inventing bookmark data", async () => {
+    const save = vi.fn();
+    await handleShareTargetRequest(
+      createShareRequest({ url: "https://example.com/existing" }),
+      {
+        listNewestFirst: async () => [
+          {
+            id: "existing-id",
+            title: "Original title",
+            url: "https://example.com/existing",
+            savedAt: 100,
+          },
+        ],
+        save,
+      },
+    );
+
+    expect(save.mock.calls[0]![0]).not.toHaveProperty("bookmarked");
+  });
+
   it("reports a storage failure without exposing shared data in the redirect", async () => {
     const response = await handleShareTargetRequest(
       createShareRequest({ url: "https://example.com/private-path" }),

@@ -39,11 +39,17 @@ Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.
 
 ## Active focus
 
-Prepare a clean handoff for MVP 2.0 planning without beginning implementation.
+Publish the implemented and verified MVP 2.0 Slice 1 through the authorised push to `main`, then
+complete focused physical Android acceptance against the resulting production deployment.
 
 ## Active slice
 
-MVP 2.0 product scope is documented: persistent bookmark buttons, direct publisher favicons with deterministic local fallbacks, and whole-row pointer opening that cannot conflict with Bookmark or Delete. Native-style long press, action sheets, swipe-to-delete and framework selection are explicitly deferred to a separate investigation.
+MVP 2.0 Slice 1, persistent bookmarks and the metadata-line foundation, is implemented and
+verified. The maintainer has authorised commit and push to `main`; workflow completion and
+physical Android acceptance remain pending. Bookmark state is an optional backward-compatible
+saved-item field; a focused storage operation changes it without altering article data or
+ordering. Duplicate re-sharing and Delete/Undo preserve the state. Publisher favicons and
+whole-row pointer opening remain later accepted slices.
 
 ## Blockers
 
@@ -57,11 +63,14 @@ None.
 
 ## Next safe action
 
-In a fresh MVP 2.0 thread, provide a repository-grounded handoff from `docs/mvp-2-definition.md`, then agree bounded delivery slices before implementation.
+Commit and push the verified Slice 1 to `main`, confirm the automated workflow and Pages deployment,
+then provide the maintainer with focused Android visual and interaction checks.
 
 ## Last meaningful update
 
-2026-08-22 — The maintainer selected bookmarks, source favicons and non-conflicting whole-row opening for MVP 2.0 definition. A direct star button is the interim bookmark interaction; native-style long press and swipe await a focused framework decision rather than custom gesture development.
+2026-08-22 — MVP 2.0 Slice 1 was implemented and verified locally: 51 automated tests, production
+build and public-build audit passed, and focused 320px browser inspection confirmed target size,
+accessible state, layout and persistence. The maintainer then authorised commit and push to `main`.
 
 ## Pointers
 
@@ -74,4 +83,5 @@ In a fresh MVP 2.0 thread, provide a repository-grounded handoff from `docs/mvp-
 - [Deployment](../docs/deployment.md)
 - [Claude Design handoff](../docs/claude-design-handoff.md)
 - [Slice 6 implementation plan](../docs/planning/slice-6-mvp-design-implementation-plan.md)
+- [MVP 2.0 Slice 1 bookmark plan](../docs/planning/mvp-2-slice-1-bookmarks-plan.md)
 - Published GitHub release: `v0.1.0`

@@ -1,9 +1,11 @@
 import "./styles.css";
 import type { SavedItem } from "./domain/savedItem";
+import { normaliseSourceHostname } from "./domain/sourceIdentity";
 import { registerServiceWorker } from "./pwa/registerServiceWorker";
 import { IndexedDbReadingListStore } from "./storage/indexedDbReadingListStore";
 import { requestPersistentStorage } from "./storage/requestPersistentStorage";
 import { formatSavedTime } from "./ui/formatSavedTime";
+import { getBookmarkControlState } from "./ui/bookmarkPresentation";
 import { createReadingListEntries } from "./ui/readingListPresentation";
 
 const store = new IndexedDbReadingListStore();
@@ -87,9 +89,11 @@ function renderItems(animateEntries = false): void {
 }
 
 function createArticleRow(item: SavedItem, animate: boolean, index: number): HTMLLIElement {
+  let currentItem = item;
   const row = document.createElement("li");
   row.className = "article-row";
   row.dataset.itemId = item.id;
+  row.classList.toggle("is-bookmarked", item.bookmarked === true);
 
   if (animate) {
     row.classList.add("is-entering");
@@ -111,18 +115,113 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
   newTabHint.textContent = " (opens in a new tab)";
   link.append(newTabHint);
 
-  const meta = document.createElement("p");
+  const meta = document.createElement("div");
   meta.className = "article-meta";
-  meta.textContent = `Saved ${formatSavedTime(item.savedAt)}`;
+
+  const bookmarkButton = createBookmarkButton(item);
+  bookmarkButton.addEventListener("click", () => {
+    void (async () => {
+      const updatedItem = await setArticleBookmarked(
+        currentItem,
+        currentItem.bookmarked !== true,
+        row,
+        bookmarkButton,
+      );
+
+      if (updatedItem) {
+        currentItem = updatedItem;
+      }
+    })();
+  });
+
+  const metaText = document.createElement("span");
+  metaText.className = "article-meta-text";
+
+  const hostname = document.createElement("span");
+  hostname.className = "article-hostname";
+  hostname.textContent = normaliseSourceHostname(item.url);
+
+  const separator = document.createElement("span");
+  separator.className = "article-meta-separator";
+  separator.setAttribute("aria-hidden", "true");
+  separator.textContent = "·";
+
+  const savedTime = document.createElement("span");
+  savedTime.textContent = `Saved ${formatSavedTime(item.savedAt)}`;
+
+  metaText.append(hostname, separator, savedTime);
+  meta.append(bookmarkButton, metaText);
 
   const deleteButton = createIconButton(`Delete “${item.title}”`);
   deleteButton.addEventListener("click", () => {
-    void deleteArticle(item, deleteButton);
+    void deleteArticle(currentItem, deleteButton);
   });
 
   content.append(link, meta);
   row.append(content, deleteButton);
   return row;
+}
+
+function createBookmarkButton(item: SavedItem): HTMLButtonElement {
+  const button = document.createElement("button");
+  button.className = "bookmark-action";
+  button.type = "button";
+
+  const icon = createSvg("bookmark-icon", "0 0 24 24");
+  const star = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  star.setAttribute(
+    "d",
+    "m12 2.75 2.78 5.63 6.22.9-4.5 4.39 1.06 6.2L12 17.94l-5.56 2.93 1.06-6.2L3 9.28l6.22-.9L12 2.75Z",
+  );
+  icon.append(star);
+  button.append(icon);
+  setBookmarkPresentation(button, item, item.bookmarked === true);
+  return button;
+}
+
+async function setArticleBookmarked(
+  item: SavedItem,
+  bookmarked: boolean,
+  row: HTMLLIElement,
+  button: HTMLButtonElement,
+): Promise<SavedItem | undefined> {
+  clearFeedback();
+  setRowActionsDisabled(row, true);
+  setBookmarkPresentation(button, item, bookmarked);
+  row.classList.toggle("is-bookmarked", bookmarked);
+
+  try {
+    const updatedItem = await store.setBookmarked(item.id, bookmarked);
+    currentItems = currentItems.map((candidate) =>
+      candidate.id === updatedItem.id ? updatedItem : candidate,
+    );
+    return updatedItem;
+  } catch {
+    setBookmarkPresentation(button, item, item.bookmarked === true);
+    row.classList.toggle("is-bookmarked", item.bookmarked === true);
+    showError("Laters could not update that bookmark. Please try again.");
+    return undefined;
+  } finally {
+    if (list.getAttribute("aria-busy") !== "true") {
+      setRowActionsDisabled(row, false);
+    }
+  }
+}
+
+function setBookmarkPresentation(
+  button: HTMLButtonElement,
+  item: SavedItem,
+  bookmarked: boolean,
+): void {
+  const state = getBookmarkControlState(item.title, bookmarked);
+  button.setAttribute("aria-pressed", String(state.pressed));
+  button.setAttribute("aria-label", state.label);
+}
+
+function setRowActionsDisabled(row: HTMLLIElement, disabled: boolean): void {
+  row.querySelectorAll<HTMLButtonElement>("button").forEach((action) => {
+    action.disabled = disabled;
+  });
 }
 
 function createGhostRow(item: SavedItem, isLeaving: boolean): HTMLLIElement {
