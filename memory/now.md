@@ -42,11 +42,11 @@ Use the accepted MVP and evaluate possible additions only when normal use provid
 
 ## Active slice
 
-All current files and reachable history have been cleaned of personal hosting-provider and unnecessary GitHub-account setup details. Obsolete merged or superseded branches have been removed, and the rewritten `main` and `v0.1.0` histories are ready for final public-readiness verification.
+All current files and history reachable from `main` and `v0.1.0` have been cleaned of personal hosting-provider and unnecessary GitHub-account setup details. Obsolete branches were removed and the release was repaired, but GitHub still retains superseded commits through pull-request refs, historical Actions runs and direct commit lookup.
 
 ## Blockers
 
-None.
+- Do not make the repository public until the maintainer either accepts the residual visibility of superseded commits or explicitly authorises replacing the GitHub repository. A normal force-push cannot remove GitHub-managed pull-request refs, and GitHub generally does not purge non-sensitive historical data on request.
 
 ## Uncertainties
 
@@ -56,11 +56,11 @@ None.
 
 ## Next safe action
 
-Complete the final public-readiness review before changing repository visibility. Treat `docs/future-ideas.md` as exploratory input rather than an active roadmap until the maintainer selects another bounded slice.
+Keep the repository private while the maintainer chooses between accepting the residual historical exposure and replacing the GitHub repository with the sanitised history. Treat `docs/future-ideas.md` as exploratory input rather than an active roadmap until the maintainer selects another bounded slice.
 
 ## Last meaningful update
 
-2026-08-22 — Current documentation and reachable Git history were sanitised for possible public visibility, obsolete repository branches were removed, and the `v0.1.0` release history was repaired without changing the application build.
+2026-08-22 — Current documentation and branch/tag history were sanitised, obsolete branches were removed, and the `v0.1.0` release was repaired. Final verification found that GitHub-managed pull-request refs and historical Actions runs still retain superseded commits, so public visibility remains blocked pending a maintainer decision.
 
 ## Pointers
 
