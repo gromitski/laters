@@ -6,7 +6,7 @@ Track the current state and next safe action for the Laters personal read-later 
 
 ## Lifecycle
 
-Slices 1 to 5 are complete and published at `https://laters.dustyb.in/`.
+Slices 1 to 6 are implemented and published at `https://laters.dustyb.in/`. Physical-device acceptance of the Slice 6 design remains pending.
 
 ## What exists now
 
@@ -33,14 +33,15 @@ Slices 1 to 5 are complete and published at `https://laters.dustyb.in/`.
 - A user-controlled service-worker update flow that preserves same-origin IndexedDB data and reloads only after the **Update** action is selected.
 - Complete physical-device MVP acceptance on Chrome for Android `151.0.7922.173`, including exact-URL duplicate refresh, persistence, deletion, Undo and the offline shell.
 - A Claude Design handoff that defines the implemented feature and state contract, icon deliverables, accessibility requirements and strict MVP scope boundary.
+- The accepted white/ink/lime identity, self-hosted Bricolage Grotesque typeface, supplied icon family, accessible icon-only Delete control and in-row seven-second Undo state.
 
 ## Active focus
 
-Review the verified local Slice 6 MVP design, then stop before any commit, push or deployment.
+Complete the focused physical-device acceptance of the deployed Slice 6 design.
 
 ## Active slice
 
-Slice 5 real-device Android acceptance is complete. Slice 6A visual identity, Slice 6B in-row Undo and Slice 6C local verification are complete in the uncommitted worktree and documented in `docs/planning/slice-6-mvp-design-implementation-plan.md`.
+Slice 5 real-device Android acceptance is complete. Slice 6A visual identity, Slice 6B in-row Undo and Slice 6C local verification are committed, deployed and documented in `docs/planning/slice-6-mvp-design-implementation-plan.md`; focused Android acceptance remains.
 
 ## Blockers
 
@@ -55,11 +56,11 @@ None.
 
 ## Next safe action
 
-Review the verified Slice 6 worktree, then obtain separate authorisation before commit, push or deployment.
+On the installed Android PWA, apply the available update and confirm the retained list, new design, home-screen icon, white splash, Delete, Undo and expiry behaviour.
 
 ## Last meaningful update
 
-2026-08-22 — Slice 6 was implemented and verified locally: self-hosted typography and licence, supplied icons, white/ink/lime identity, accessible icon controls, and an in-row seven-second Undo state. All 35 tests, the production build, public-build audit, 320px long-title checks, wide layout, update flow, share status, invalid-share error and ghost-row presentation passed. Nothing has been committed or deployed.
+2026-08-22 — Slice 6 was implemented, verified, committed and deployed: self-hosted typography and licence, supplied icons, white/ink/lime identity, accessible icon controls, and an in-row seven-second Undo state. All 35 tests, the production build, public-build audit, 320px long-title checks, wide layout, update flow, share status, invalid-share error and ghost-row presentation passed. GitHub's verification and Pages deployment workflow completed successfully.
 
 ## Pointers
 
