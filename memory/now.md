@@ -39,17 +39,16 @@ Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.
 
 ## Active focus
 
-Publish the implemented and verified MVP 2.0 Slice 1 through the authorised push to `main`, then
-complete focused physical Android acceptance against the resulting production deployment.
+Complete focused physical Android acceptance for the published MVP 2.0 Slice 1 bookmark controls.
 
 ## Active slice
 
-MVP 2.0 Slice 1, persistent bookmarks and the metadata-line foundation, is implemented and
-verified. The maintainer has authorised commit and push to `main`; workflow completion and
-physical Android acceptance remain pending. Bookmark state is an optional backward-compatible
-saved-item field; a focused storage operation changes it without altering article data or
-ordering. Duplicate re-sharing and Delete/Undo preserve the state. Publisher favicons and
-whole-row pointer opening remain later accepted slices.
+MVP 2.0 Slice 1, persistent bookmarks and the metadata-line foundation, is published on `main` at
+commit `1f1d0e1`. Its automated test, production build, public-build audit and Pages deployment
+workflow passed. Physical Android acceptance remains pending. Bookmark state is an optional
+backward-compatible saved-item field; a focused storage operation changes it without altering
+article data or ordering. Duplicate re-sharing and Delete/Undo preserve the state. Publisher
+favicons and whole-row pointer opening remain later accepted slices.
 
 ## Blockers
 
@@ -63,14 +62,15 @@ None.
 
 ## Next safe action
 
-Commit and push the verified Slice 1 to `main`, confirm the automated workflow and Pages deployment,
-then provide the maintainer with focused Android visual and interaction checks.
+Have the maintainer complete the focused Android visual and interaction checks against
+`https://laters.dustyb.in/`, then record acceptance or any defect before beginning Slice 2.
 
 ## Last meaningful update
 
-2026-08-22 — MVP 2.0 Slice 1 was implemented and verified locally: 51 automated tests, production
-build and public-build audit passed, and focused 320px browser inspection confirmed target size,
-accessible state, layout and persistence. The maintainer then authorised commit and push to `main`.
+2026-08-22 — MVP 2.0 Slice 1 was published at commit `1f1d0e1`. The GitHub Actions workflow passed
+automated tests, production build, public-build audit and Pages deployment. Focused local browser
+inspection had already confirmed 320px target size, accessible state, layout and persistence;
+physical Android acceptance remains pending.
 
 ## Pointers
 

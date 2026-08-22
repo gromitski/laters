@@ -2,9 +2,9 @@
 
 ## Status
 
-Implemented and verified locally on 2026-08-22 as the first bounded MVP 2.0 delivery slice. The
-maintainer has authorised commit and push; production deployment and physical Android acceptance
-remain subject to the automated workflow and post-deployment checks.
+Implemented, verified and published on 2026-08-22 as the first bounded MVP 2.0 delivery slice.
+Commit `1f1d0e1` passed the automated test, build, public-audit and GitHub Pages deployment workflow.
+Focused physical Android acceptance remains pending.
 
 This slice adds persistent bookmark state and the metadata-line foundation. Publisher favicon
 loading and whole-row pointer opening remain separate later slices.
