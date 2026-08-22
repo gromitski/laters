@@ -39,18 +39,20 @@ Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.
 
 ## Active focus
 
-Publish MVP 2.0 Slice 2 through the GitHub Pages workflow, then complete focused maintainer testing
-against the live application.
+Publish and verify the post-acceptance source-marker alignment correction for MVP 2.0 Slice 2.
 
 ## Active slice
 
-MVP 2.0 Slice 2 is complete and approved for end-of-slice publication. Every normal row now renders
-the accepted 22px rounded-square deterministic source tile immediately and attempts
-the saved article origin's `/favicon.ico` with a no-referrer policy. A successfully decoded favicon
-fades over the tile; missing, blocked, slow or invalid icons leave the fallback visible. The stable
-fallback uses the first two ASCII letters or digits from the canonical hostname and FNV-1a UTF-8
+MVP 2.0 Slice 2 is published and its favicon/fallback behaviour passed maintainer testing. Every
+normal row renders the accepted 22px rounded-square deterministic source tile immediately and
+attempts the saved article origin's `/favicon.ico` with a no-referrer policy. A successfully decoded
+favicon fades over the tile; missing, blocked, slow or invalid icons leave the fallback visible. The
+stable fallback uses the first two ASCII letters or digits from the canonical hostname and FNV-1a UTF-8
 hashing into the accepted six-colour palette. No favicon cache, proxy, publisher mapping or stored
-data was added. Whole-row pointer opening remains the later accepted Slice 3.
+data was added. Published testing found that vertically centring the marker against the full row
+looked wrong beside three-line titles; the accepted correction aligns the marker to the top of the
+title block while Delete remains vertically centred. Whole-row pointer opening remains the later
+accepted Slice 3.
 
 ## Blockers
 
@@ -64,16 +66,15 @@ None.
 
 ## Next safe action
 
-Confirm the authorised GitHub push and Pages workflow, then provide the short physical Android
-checks for favicon success, deterministic fallback, offline behaviour and unchanged row actions.
+Confirm the authorised GitHub push and Pages workflow, then verify that the marker aligns with the
+first title line for both one-line and multi-line titles.
 
 ## Last meaningful update
 
-2026-08-22 — Source markers, deterministic identity tests and controlled favicon loading tests are
-complete. The full suite passes with 61 tests, the production build succeeds and the public-build
-audit passes. The maintainer clarified that every completed slice must be committed and pushed so
-testing can take place against the published application; the working agreement now records that
-standing end-of-slice workflow and the current Slice 2 push is authorised.
+2026-08-22 — Published Slice 2 testing passed and the maintainer confirmed that the favicon and
+fallback treatment works well. One visual correction was requested: align the marker with the first
+title line rather than centring it against the full height of a multi-line row. The focused CSS
+change is approved for the standing end-of-slice commit-and-push workflow.
 
 ## Pointers
 
