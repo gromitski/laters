@@ -2,7 +2,7 @@ import { createSavedItem, SavedItemValidationError } from "../domain/savedItem";
 import type { ReadingListStore } from "../storage/readingListStore";
 import { parseShareTarget } from "./parseShareTarget";
 
-type ShareCaptureStore = Pick<ReadingListStore, "save">;
+type ShareCaptureStore = Pick<ReadingListStore, "save" | "listNewestFirst">;
 
 export async function handleShareTargetRequest(
   request: Request,
@@ -32,7 +32,11 @@ export async function handleShareTargetRequest(
   }
 
   try {
-    await store.save(item);
+    const existingItem = (await store.listNewestFirst()).find(
+      (candidate) => candidate.url === item.url,
+    );
+
+    await store.save(existingItem ? { ...item, id: existingItem.id } : item);
     return shareResultRedirect(request.url, "saved");
   } catch {
     return shareResultRedirect(request.url, "storage-error");

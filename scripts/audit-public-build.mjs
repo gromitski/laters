@@ -1,0 +1,90 @@
+import { readdir, readFile, stat } from "node:fs/promises";
+import { extname, relative, resolve } from "node:path";
+
+const BUILD_DIRECTORY = resolve("dist");
+const TEXT_EXTENSIONS = new Set([".css", ".html", ".js", ".json", ".svg", ".webmanifest"]);
+const FORBIDDEN_FILE_NAMES = [
+  /^\.env(?:\.|$)/u,
+  /\.(?:key|map|md|p12|pem|pfx)$/iu,
+  /(?:^|\/)(?:\.github|docs|evidence|memory)(?:\/|$)/iu,
+  /(?:credential|secret)/iu,
+];
+const SENSITIVE_CONTENT = [
+  ["private key", /-----BEGIN (?:[A-Z]+ )?PRIVATE KEY-----/u],
+  ["GitHub token", /\bgh[opusr]_[A-Za-z0-9]{20,}\b/u],
+  ["AWS access key", /\bAKIA[0-9A-Z]{16}\b/u],
+  ["assigned secret", /\b(?:api[_-]?key|password|secret|token)\b\s*[:=]\s*["'][^"']{8,}["']/iu],
+  ["local Unix path", /\/(?:Users|home)\/[^/\s"']+/u],
+  ["local Windows path", /[A-Z]:\\Users\\[^\\\s"']+/iu],
+  ["private IPv4 address", /\b(?:10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})\b/u],
+  ["email address", /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/iu],
+  ["source map reference", /sourceMappingURL=/u],
+];
+const EXTERNAL_RESOURCE_CONTENT = [
+  ["external HTML resource", /<(?:iframe|img|link|script)\b[^>]*(?:href|src)=["']https?:\/\//iu],
+  ["external CSS resource", /url\(["']?https?:\/\//iu],
+  ["static third-party request", /\b(?:fetch|WebSocket|EventSource|sendBeacon)\s*\(\s*["']https?:\/\//u],
+];
+
+const files = await listFiles(BUILD_DIRECTORY);
+const findings = [];
+let totalBytes = 0;
+
+for (const file of files) {
+  const fileName = relative(BUILD_DIRECTORY, file);
+  const fileStat = await stat(file);
+  totalBytes += fileStat.size;
+
+  for (const pattern of FORBIDDEN_FILE_NAMES) {
+    if (pattern.test(fileName)) {
+      findings.push(`${fileName}: forbidden filename`);
+    }
+  }
+
+  const content = (await readFile(file)).toString("latin1");
+
+  for (const [label, pattern] of SENSITIVE_CONTENT) {
+    if (pattern.test(content)) {
+      findings.push(`${fileName}: ${label}`);
+    }
+  }
+
+  if (TEXT_EXTENSIONS.has(extname(file).toLowerCase())) {
+    for (const [label, pattern] of EXTERNAL_RESOURCE_CONTENT) {
+      if (pattern.test(content)) {
+        findings.push(`${fileName}: ${label}`);
+      }
+    }
+  }
+}
+
+if (findings.length > 0) {
+  console.error("Public build audit failed:");
+  findings.forEach((finding) => console.error(`- ${finding}`));
+  process.exitCode = 1;
+} else {
+  console.log(`Public build audit passed: ${files.length} files, ${totalBytes} bytes.`);
+}
+
+async function listFiles(directory) {
+  let entries;
+
+  try {
+    entries = await readdir(directory, { withFileTypes: true });
+  } catch (error) {
+    if (error && typeof error === "object" && "code" in error && error.code === "ENOENT") {
+      throw new Error("Build directory not found. Run npm run build first.");
+    }
+
+    throw error;
+  }
+
+  const nestedFiles = await Promise.all(
+    entries.map((entry) => {
+      const path = resolve(directory, entry.name);
+      return entry.isDirectory() ? listFiles(path) : [path];
+    }),
+  );
+
+  return nestedFiles.flat().sort();
+}

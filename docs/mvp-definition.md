@@ -33,7 +33,7 @@ The normal path should require no account, form filling, categorisation or follo
 - It accepts a shared article URL and uses a shared title when one is available and trustworthy.
 - It accepts only valid `http:` or `https:` destinations for saved article links.
 - Missing or invalid share data produces a clear, accessible failure state and does not create a corrupt item.
-- The exact share-target request method and URL extraction fallback will be selected after checking current browser behaviour and the chosen PWA tooling.
+- It receives form-encoded `POST` shares in the service worker, checks the explicit URL before Android-style text and title fallbacks, and redirects to an accessible result state.
 
 ### Local storage
 
@@ -68,7 +68,8 @@ The boundary exists to keep UI and browser storage concerns separate. It is not 
 - The interface must make external navigation predictable.
 - Deletion updates both IndexedDB and the visible list.
 - A failed deletion leaves the item visible and reports the failure accessibly.
-- Confirmation versus a short undo opportunity remains a product decision; the first implementation should not silently choose a complex recovery flow.
+- Deletion is immediate and offers a seven-second accessible undo action.
+- Restoring an item preserves its original saved position.
 
 ## Quality boundaries
 
@@ -86,7 +87,7 @@ The boundary exists to keep UI and browser storage concerns separate. It is not 
 The MVP is successful when, on the agreed supported Android browser:
 
 1. Laters can be installed and appears as a target for a shared article URL.
-2. A valid shared URL is stored once and appears in the list without requiring an account or network-backed service.
+2. A valid shared URL is stored once and appears in the list without requiring an account or network-backed service; sharing it again refreshes that item at the top without duplication.
 3. Several items remain available after closing and reopening the app and are ordered newest first.
 4. Each item has a useful title, saved time, original destination and accessible delete action.
 5. Opening an item navigates to the original URL.
@@ -107,13 +108,12 @@ The MVP is successful when, on the agreed supported Android browser:
 
 Deferred items are not implied future commitments. They require evidence of a real need before entering scope.
 
-## Open product decisions
+## Accepted interaction decisions
 
-- If the same URL is shared again, should Laters create another item, move the existing item to the top or ignore the duplicate?
-- Should deletion be immediate, require confirmation or offer a brief undo action?
-- Should relative saved times update live, on focus or only when the list is rendered?
-
-These decisions should be resolved only when they affect the next implementation slice.
+- Sharing an existing URL updates that item's useful title and saved time, moving it to the top without creating a duplicate.
+- Deletion is immediate and offers a brief accessible undo action.
+- Relative saved times update when the app loads and returns to the foreground, not on a continuous timer.
+- The current visual treatment remains a temporary accessible baseline until a dedicated design and favicon package is supplied.
 
 ## Accepted Slice 2 decisions
 
@@ -133,8 +133,18 @@ Select the smallest suitable frontend/PWA tooling, establish the saved-item type
 
 Add the web app manifest, service worker/application shell behaviour and Android Web Share Target. Validate incoming payloads and connect successful capture to the existing storage boundary.
 
-### Slice 3 — resilience and device acceptance
+### Slice 3 — deployment and public-build safety
 
-Add the persistent-storage request, focused failure handling and any missing automated checks. Complete a short real-device Android acceptance pass for installation, Share menu discovery, capture, reopening and deletion.
+Build and test through GitHub Actions, publish only the generated `dist/` artifact to GitHub Pages, and configure the dedicated `laters.dustyb.in` origin. Add a repeatable build audit for common secrets, personal data, local paths, source maps and unintended third-party resources.
 
-Deployment remains outside these slices until hosting is explicitly selected and authorised.
+### Slice 4 — resilience and interaction completion
+
+Request persistent storage non-fatally, refresh duplicate shares rather than creating copies, provide immediate deletion with a brief undo action, and update relative saved times when the app returns to the foreground.
+
+### Slice 5 — real-device Android acceptance
+
+Verify the production HTTPS installation, Share menu discovery, initial capture, duplicate refresh, reopening, persistence, offline shell, deletion and undo on the current stable Chrome for Android. Record the tested version and retain any unresolved platform limitation honestly.
+
+### Slice 6 — design and launch readiness
+
+Integrate the maintainer's supplied design and favicon package without weakening accessibility or the established interaction behaviour. Run a full repository public-readiness review, plus focused accessibility, performance and installability checks, before changing repository visibility.

@@ -115,6 +115,17 @@ h2 {
   font-weight: 750;
 }
 
+.undo-action {
+  border: 0;
+  padding: 0.25rem;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
 .reading-list {
   overflow: hidden;
 }
