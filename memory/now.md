@@ -26,7 +26,7 @@ Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.
 - The repository's Pages source is configured for GitHub Actions and the production workflow has deployed successfully.
 - A repeatable public-build audit covering common secrets, personal data, local paths, source maps, repository documents, binary metadata and unintended external resources.
 - Duplicate shares refresh one item at the top, deletion offers an accessible seven-second undo action, relative times refresh on foregrounding, and persistent storage is requested non-fatally.
-- Maintained deployment guidance for `laters.dustyb.in` without recording the maintainer's personal DNS provider or account setup.
+- Maintained deployment behaviour and physical-device acceptance guidance for `laters.dustyb.in` without recording the maintainer's personal DNS provider or account setup.
 - A live custom-domain deployment with an approved GitHub certificate and enforced HTTPS.
 - Routine changes may be committed directly to `main`; pull requests are optional unless requested or useful for separate review.
 - Physical-device installation, standalone launch, Android Share-menu discovery and valid capture verified on Chrome for Android `151.0.7922.173`.
@@ -38,15 +38,15 @@ Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.
 
 ## Active focus
 
-Use the accepted MVP and evaluate possible additions only when normal use provides enough evidence for a new bounded slice.
+Prepare the accepted MVP repository for possible public visibility without publishing personal hosting-provider or account choices.
 
 ## Active slice
 
-All MVP delivery slices are complete. The deployed design has been accepted by the maintainer in normal use, and `v0.1.0` is published as the first GitHub release.
+Current documentation has been cleaned of personal hosting-provider and GitHub-account setup details, and obsolete merged or superseded branches have been removed. Earlier reachable commits still contain the removed documentation and require an explicit history-rewrite decision before the repository is made public.
 
 ## Blockers
 
-None.
+- Repository history must either be sanitised with an explicitly authorised rewrite or consciously accepted before changing the repository to public visibility.
 
 ## Uncertainties
 
@@ -56,11 +56,11 @@ None.
 
 ## Next safe action
 
-Continue using the MVP. Treat `docs/future-ideas.md` as exploratory input rather than an active roadmap until the maintainer selects another bounded slice.
+Keep the repository private while the maintainer decides whether to authorise rewriting and force-pushing the published history. Treat `docs/future-ideas.md` as exploratory input rather than an active roadmap until the maintainer selects another bounded slice.
 
 ## Last meaningful update
 
-2026-08-22 — The maintainer accepted the deployed result as a successful MVP and the verified `v0.1.0` GitHub release was published. Eleven possible enhancements remain exploratory rather than committed scope. The maintainer also judged the AI Foundation and repository-led working method effective for fast, coherent delivery.
+2026-08-22 — Current documentation was sanitised for possible public visibility and obsolete repository branches were removed. The remaining historical copies of personal hosting choices were identified as requiring a separate, explicitly authorised history rewrite before public release.
 
 ## Pointers
 

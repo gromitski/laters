@@ -18,7 +18,6 @@ Current status: the production workflow is active, the custom domain resolves to
 
 The repository source, memory and evidence files are not part of the deployed artifact.
 
-
 ## Android acceptance
 
 Once HTTPS is active:
@@ -45,6 +44,6 @@ A newly deployed worker installs its complete application-shell cache, then wait
 
 The first deployment of this update mechanism is transitional: the previously deployed app has no update listener, so it cannot display the new button. Close the installed app after that deployment and reopen it to allow the waiting worker to become active. Later deployments use the in-app **Update** button normally.
 
-The transitional activation and retention of existing saved data passed on Chrome for Android `151.0.7922.173`. The visible **Update** action remains to be confirmed on the next deployment that changes the public application bundle.
+The transitional activation, retention of existing saved data and visible **Update** action passed on Chrome for Android `151.0.7922.173` across later application-bundle deployments.
 
 Normal deployments replace application files and service-worker caches without clearing the `laters` IndexedDB database. Saved articles therefore remain available across updates on the same `https://laters.dustyb.in` origin. Clearing site data, browser storage eviction, some uninstall behaviour or a faulty future database migration can still remove local-only data.

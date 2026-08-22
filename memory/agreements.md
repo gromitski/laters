@@ -50,6 +50,13 @@ Universal rules for humans and agents working on this project. Canonical vendor-
 - Never accept an attribution-check failure as a harmless warning.
 - Routine Laters work may be committed directly to `main`; a pull request is optional unless the maintainer requests one or a change warrants separate review. This branch workflow does not replace the explicit authorisation required above for committing, pushing, merging or deploying a particular task.
 
+## Branch and file hygiene
+
+- After work has landed on the intended branch, remove its local and remote task branches once the merged state is verified. Do not retain stale branches as an informal archive.
+- Treat stale, superseded or contradictory files as a maintenance issue. Flag them promptly for potential removal rather than silently leaving them in the active repository.
+- Do not delete a file merely because it is old. Distinguish active truth, useful historical evidence and genuinely obsolete material, then obtain any required authority before removal.
+- Keep valuable history in the designated evidence structure when it still explains the project; branches are not a substitute for maintained documentation or evidence.
+
 ## Scope and implementation
 
 - Make the smallest useful, testable change.
