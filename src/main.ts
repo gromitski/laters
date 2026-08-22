@@ -1,5 +1,6 @@
 import "./styles.css";
 import type { SavedItem } from "./domain/savedItem";
+import { registerServiceWorker } from "./pwa/registerServiceWorker";
 import { IndexedDbReadingListStore } from "./storage/indexedDbReadingListStore";
 import { requestPersistentStorage } from "./storage/requestPersistentStorage";
 import { formatSavedTime } from "./ui/formatSavedTime";
@@ -15,16 +16,32 @@ const itemCount = requireElement<HTMLParagraphElement>("item-count");
 const listHeading = requireElement<HTMLHeadingElement>("list-heading");
 const statusMessage = requireElement<HTMLDivElement>("status-message");
 const errorMessage = requireElement<HTMLParagraphElement>("error-message");
+const updateMessage = requireElement<HTMLDivElement>("update-message");
+const updateAction = requireElement<HTMLButtonElement>("update-action");
 
 showShareResult();
 void refreshList();
 void requestPersistentStorage();
+void registerServiceWorker(showUpdateAvailable);
 
 document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "visible") {
     void refreshList();
   }
 });
+
+function showUpdateAvailable(applyUpdate: () => void): void {
+  updateAction.addEventListener(
+    "click",
+    () => {
+      updateAction.disabled = true;
+      updateAction.textContent = "Updating…";
+      applyUpdate();
+    },
+    { once: true },
+  );
+  updateMessage.hidden = false;
+}
 
 async function refreshList(): Promise<void> {
   setBusy(true);

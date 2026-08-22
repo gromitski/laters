@@ -8,8 +8,7 @@ export default defineConfig({
       strategies: "injectManifest",
       srcDir: "src",
       filename: "sw.ts",
-      injectRegister: "auto",
-      registerType: "autoUpdate",
+      injectRegister: false,
       manifest: {
         name: "Laters",
         short_name: "Laters",

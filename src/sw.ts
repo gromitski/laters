@@ -12,10 +12,15 @@ declare const self: ServiceWorkerGlobalScope & {
 const SHARE_TARGET_PATH = "/share-target";
 const store = new IndexedDbReadingListStore();
 
-self.skipWaiting();
 clientsClaim();
 precacheAndRoute(self.__WB_MANIFEST);
 cleanupOutdatedCaches();
+
+self.addEventListener("message", (event) => {
+  if (event.data?.type === "SKIP_WAITING") {
+    void self.skipWaiting();
+  }
+});
 
 self.addEventListener("fetch", (event) => {
   const requestUrl = new URL(event.request.url);

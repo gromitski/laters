@@ -29,14 +29,16 @@ Slices 1 to 4 are complete and published at `https://laters.dustyb.in/`.
 - Maintained deployment guidance for `laters.dustyb.in` without recording the maintainer's personal DNS provider or account setup.
 - A live custom-domain deployment with an approved GitHub certificate and enforced HTTPS.
 - Routine changes may be committed directly to `main`; pull requests are optional unless requested or useful for separate review.
+- Physical-device installation, standalone launch, Android Share-menu discovery and valid capture verified on Chrome for Android `151.0.7922.173`.
+- A user-controlled service-worker update flow that preserves same-origin IndexedDB data and reloads only after the **Update** action is selected.
 
 ## Active focus
 
-Complete the real-device Chrome for Android acceptance pass.
+Complete the remaining real-device Chrome for Android acceptance checks and verify the update action after deployment.
 
 ## Active slice
 
-Slice 5 real-device Android acceptance is ready to begin.
+Slice 5 real-device Android acceptance is partially complete; update handling is implemented and awaiting deployed-device verification.
 
 ## Blockers
 
@@ -45,16 +47,17 @@ None.
 ## Uncertainties
 
 - A minimum Chrome for Android version is not yet evidenced.
-- Android Share-menu registration and capture still need acceptance on an installed HTTPS build on a physical device.
+- Duplicate refresh, reopening persistence, deletion, undo and offline-shell behaviour still need physical-device acceptance.
+- The new update-available action still needs a deployed-version acceptance check.
 - The replacement visual design and favicon package have not yet been supplied.
 
 ## Next safe action
 
-Install Laters from `https://laters.dustyb.in/` using the current stable Chrome for Android and complete the documented capture, duplicate, persistence, deletion, undo and offline-shell checks. Record the tested Chrome version and any failure.
+After the update-flow deployment, close and reopen the installed Android app once for the transitional activation. Then verify later updates through the in-app action and complete duplicate, persistence, deletion, undo and offline-shell checks.
 
 ## Last meaningful update
 
-2026-08-22 — PR #1 merged and the audited production artifact deployed successfully. `laters.dustyb.in` serves the built app with enforced HTTPS, a root-scoped manifest and service worker, and no browser console errors.
+2026-08-22 — Installation, standalone launch, Share-menu discovery and valid capture passed on Chrome for Android `151.0.7922.173`. A user-controlled update action is implemented and locally verified; normal same-origin deployments retain saved articles in IndexedDB.
 
 ## Pointers
 

@@ -26,6 +26,7 @@ The normal path should require no account, form filling, categorisation or follo
 - The application shell remains usable when the device is offline.
 - Opening an original article still depends on that external page and the device's network connection.
 - Failure to install or register PWA features must not make the basic browser experience unusable.
+- When a deployed application update is ready, the running app exposes an accessible update action that activates it and reloads once.
 
 ### Android share capture
 
@@ -41,6 +42,7 @@ The normal path should require no account, form filling, categorisation or follo
 - Each saved item contains an opaque identifier, original URL, display title and saved timestamp.
 - Saved data is not sent to a backend or third-party storage service.
 - Laters requests persistent browser storage where supported, but refusal or lack of support is non-fatal.
+- Normal application and service-worker deployments preserve the same-origin IndexedDB reading list.
 - The interface explains the local-only constraint where it materially affects trust: clearing browser data, uninstalling in some environments or browser eviction may remove saved items.
 
 ### Small storage boundary
@@ -114,6 +116,7 @@ Deferred items are not implied future commitments. They require evidence of a re
 - Deletion is immediate and offers a brief accessible undo action.
 - Relative saved times update when the app loads and returns to the foreground, not on a continuous timer.
 - The current visual treatment remains a temporary accessible baseline until a dedicated design and favicon package is supplied.
+- Application updates are user-controlled: Laters announces a ready version and applies it through an explicit update action.
 
 ## Accepted Slice 2 decisions
 

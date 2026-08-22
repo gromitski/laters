@@ -50,5 +50,7 @@ The core job is intentionally narrow: capture a link at the moment it is discove
 - Accepted: the personal MVP targets the current stable Chrome for Android; device acceptance records the tested version without promising older releases.
 - Accepted: production uses GitHub Pages at `https://laters.dustyb.in/`, with automated deployment of the generated public build only.
 - Accepted: no sensitive data, repository memory, local paths, source maps or unintended third-party resources may enter the deployed build.
+- Accepted: normal deployments must preserve saved articles in the same-origin IndexedDB database; application updates do not clear or replace reading-list data.
+- Accepted: when a new service worker is ready, Laters offers an accessible user-controlled update action rather than silently leaving the running interface stale or reloading during an interaction.
 
 Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mvp-definition.md`.

@@ -34,3 +34,13 @@ Once HTTPS is active:
 9. Turn connectivity off and confirm that the Laters shell still opens; original article links are expected to need a connection.
 
 Record the tested Chrome version and any failure before expanding the browser-support claim.
+
+Current physical-device evidence: installation, standalone launch, Share-menu discovery and valid article capture passed on Chrome for Android `151.0.7922.173`. Duplicate refresh, persistence, deletion, undo and offline-shell checks remain outstanding.
+
+## Application updates and saved data
+
+A newly deployed worker installs its complete application-shell cache, then waits. An open Laters app announces that the update is ready and shows an **Update** button. Selecting it activates the worker and reloads the app once; failure to register or check for an update does not prevent the reading list from opening.
+
+The first deployment of this update mechanism is transitional: the previously deployed app has no update listener, so it cannot display the new button. Close the installed app after that deployment and reopen it to allow the waiting worker to become active. Later deployments use the in-app **Update** button normally.
+
+Normal deployments replace application files and service-worker caches without clearing the `laters` IndexedDB database. Saved articles therefore remain available across updates on the same `https://laters.dustyb.in` origin. Clearing site data, browser storage eviction, some uninstall behaviour or a faulty future database migration can still remove local-only data.

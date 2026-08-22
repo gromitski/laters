@@ -101,6 +101,40 @@ h2 {
   line-height: 1.55;
 }
 
+.update-message {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: -1rem 0 1.5rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid #b8aa8e;
+  border-radius: 0.75rem;
+  color: #3f382d;
+  background: #fff8df;
+  font-weight: 650;
+}
+
+.update-message[hidden] {
+  display: none;
+}
+
+.update-action {
+  flex: none;
+  min-height: 2.75rem;
+  border: 1px solid #765b18;
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  color: #fff;
+  background: #765b18;
+  cursor: pointer;
+  font-weight: 750;
+}
+
+.update-action:hover {
+  background: #59420f;
+}
+
 .reading-list {
   border: 1px solid #d9d1c3;
   border-radius: 1rem;
