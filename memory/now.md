@@ -6,7 +6,7 @@ Track the current state and next safe action for the Laters personal read-later 
 
 ## Lifecycle
 
-Slices 1 and 2 complete. Slices 3 and 4 are implemented and locally verified on `deploy/github-pages`.
+Slices 1 and 2 complete. Slices 3 and 4 are implemented and verified on `deploy/github-pages` in draft PR #1.
 
 ## What exists now
 
@@ -30,11 +30,11 @@ Slices 1 and 2 complete. Slices 3 and 4 are implemented and locally verified on 
 
 ## Active focus
 
-Publish the verified feature branch for review before the manual domain setup and Android acceptance pass.
+Complete domain verification and accept draft PR #1 before the custom-domain activation and Android acceptance pass.
 
 ## Active slice
 
-Slices 3 and 4 are implemented and locally verified but not committed.
+Slices 3 and 4 are committed, published and passing pull-request verification.
 
 ## Blockers
 
@@ -49,11 +49,11 @@ None.
 
 ## Next safe action
 
-Commit and publish the feature branch for review. Then walk the maintainer through GitHub domain verification, the DNS record and HTTPS activation before Slice 5 Android acceptance.
+Complete GitHub domain verification, obtain explicit approval to merge draft PR #1, then attach `laters.dustyb.in`, add the DNS record and activate HTTPS before Slice 5 Android acceptance.
 
 ## Last meaningful update
 
-2026-08-22 — Slices 3 and 4 implemented locally for `laters.dustyb.in`; 29 automated tests, warning-free production build, workflow lint, public-build audit and offline browser reload passed.
+2026-08-22 — Slices 3 and 4 published in draft PR #1 for `laters.dustyb.in`; 29 automated tests, warning-free production build, workflow lint, public-build audit, offline browser reload and GitHub pull-request build passed.
 
 ## Pointers
 
