@@ -250,6 +250,51 @@ h1 {
   flex: 1;
 }
 
+.source-marker {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  flex: none;
+  place-items: center;
+  margin-right: 1px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--source-colour);
+}
+
+.source-fallback,
+.source-favicon {
+  grid-area: 1 / 1;
+}
+
+.source-fallback {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.source-fallback.is-two-character {
+  font-size: 9px;
+}
+
+.source-favicon {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgb(16 16 20 / 8%);
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 160ms ease-out;
+}
+
+.source-marker.has-favicon .source-favicon {
+  opacity: 1;
+}
+
 .article-link {
   display: inline;
   max-width: 100%;
@@ -629,6 +674,7 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .article-row,
   .article-link,
+  .source-favicon,
   .bookmark-icon,
   .delete-action,
   .icon-x,

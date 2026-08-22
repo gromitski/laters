@@ -80,7 +80,8 @@ Universal rules for humans and agents working on this project. Canonical vendor-
 - After two materially failed or substantially corrected attempts in the same area, stop. Summarise the evidence, reassess the approach and obtain agreement before issuing another implementation attempt.
 - Before substantial feature or version work, establish the intended delivery depth — for example MVP, prototype or complete build — and scale scope and verification accordingly.
 - Keep release and hardening work focused on proving and publishing the agreed change. Do not introduce speculative product architecture, broad refactors or unrelated test infrastructure during release preparation without explicit approval.
-- Prefer a steady rhythm: product decision, bounded slice, complete implementation prompt where needed, agent-owned technical verification, concise outcome review, limited human acceptance and then documentation or release work.
+- At the end of every accepted implementation slice, run the agreed automated checks, commit the complete bounded slice and push it to `main` so GitHub Pages can publish it for maintainer testing. Do not ask the maintainer to review an inaccessible local working tree. This is standing authorisation for the end-of-slice commit and push only; it does not authorise tags, releases, manual deployments, unrelated changes or destructive Git operations.
+- Prefer a steady rhythm: product decision, bounded slice, agent-owned technical verification, end-of-slice commit and push, published human acceptance, then the next slice or release work.
 
 ## Accessibility and usability
 

@@ -39,19 +39,18 @@ Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.
 
 ## Active focus
 
-Complete final physical Android confirmation of the published post-acceptance visual correction
-for MVP 2.0 Slice 1.
+Publish MVP 2.0 Slice 2 through the GitHub Pages workflow, then complete focused maintainer testing
+against the live application.
 
 ## Active slice
 
-MVP 2.0 Slice 1, persistent bookmarks and the metadata-line foundation, is published on `main` at
-commit `1f1d0e1`. Its automated and physical Android behaviour passed acceptance. Acceptance found
-two visual issues: touch-retained row hover obscured the true bookmark background, and the
-provisional star did not match the intended supplied artwork. The correction is published from
-commit `6f8a527`: hover treatments require real hover/fine-pointer capability, and the new Claude
-handoff's hollow and bright-lime filled star assets are integrated while its 22px rounded-square
-publisher fallback is retained for Slice 2. Publisher favicons and whole-row pointer opening
-remain later accepted slices.
+MVP 2.0 Slice 2 is complete and approved for end-of-slice publication. Every normal row now renders
+the accepted 22px rounded-square deterministic source tile immediately and attempts
+the saved article origin's `/favicon.ico` with a no-referrer policy. A successfully decoded favicon
+fades over the tile; missing, blocked, slow or invalid icons leave the fallback visible. The stable
+fallback uses the first two ASCII letters or digits from the canonical hostname and FNV-1a UTF-8
+hashing into the accepted six-colour palette. No favicon cache, proxy, publisher mapping or stored
+data was added. Whole-row pointer opening remains the later accepted Slice 3.
 
 ## Blockers
 
@@ -65,16 +64,16 @@ None.
 
 ## Next safe action
 
-Confirm the deployment workflow, then perform final Android checks for the corrected touch
-background and supplied star artwork before beginning Slice 2.
+Confirm the authorised GitHub push and Pages workflow, then provide the short physical Android
+checks for favicon success, deterministic fallback, offline behaviour and unchanged row actions.
 
 ## Last meaningful update
 
-2026-08-22 — Physical Android acceptance passed the Slice 1 functional checks and found two visual
-defects. Correction commit `6f8a527` prevents sticky touch-hover backgrounds and uses the
-designer's supplied hollow/bright-lime star SVGs. The supplied 22px rounded-square fallback
-treatment is accepted for Slice 2; unsound caching, origin and registrable-domain advice was not
-adopted. The maintainer authorised commit and push for deployment and final Android confirmation.
+2026-08-22 — Source markers, deterministic identity tests and controlled favicon loading tests are
+complete. The full suite passes with 61 tests, the production build succeeds and the public-build
+audit passes. The maintainer clarified that every completed slice must be committed and pushed so
+testing can take place against the published application; the working agreement now records that
+standing end-of-slice workflow and the current Slice 2 push is authorised.
 
 ## Pointers
 
@@ -88,4 +87,5 @@ adopted. The maintainer authorised commit and push for deployment and final Andr
 - [Claude Design handoff](../docs/claude-design-handoff.md)
 - [Slice 6 implementation plan](../docs/planning/slice-6-mvp-design-implementation-plan.md)
 - [MVP 2.0 Slice 1 bookmark plan](../docs/planning/mvp-2-slice-1-bookmarks-plan.md)
+- [MVP 2.0 Slice 2 source marker plan](../docs/planning/mvp-2-slice-2-source-markers-plan.md)
 - Published GitHub release: `v0.1.0`

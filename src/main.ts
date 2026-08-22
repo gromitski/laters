@@ -1,12 +1,13 @@
 import "./styles.css";
 import type { SavedItem } from "./domain/savedItem";
-import { normaliseSourceHostname } from "./domain/sourceIdentity";
+import { createSourceIdentity, type SourceIdentity } from "./domain/sourceIdentity";
 import { registerServiceWorker } from "./pwa/registerServiceWorker";
 import { IndexedDbReadingListStore } from "./storage/indexedDbReadingListStore";
 import { requestPersistentStorage } from "./storage/requestPersistentStorage";
 import { formatSavedTime } from "./ui/formatSavedTime";
 import { getBookmarkControlState } from "./ui/bookmarkPresentation";
 import { createReadingListEntries } from "./ui/readingListPresentation";
+import { loadPublisherFavicon } from "./ui/loadPublisherFavicon";
 
 const store = new IndexedDbReadingListStore();
 const UNDO_WINDOW_MS = 7_000;
@@ -90,6 +91,7 @@ function renderItems(animateEntries = false): void {
 
 function createArticleRow(item: SavedItem, animate: boolean, index: number): HTMLLIElement {
   let currentItem = item;
+  const source = createSourceIdentity(item.url);
   const row = document.createElement("li");
   row.className = "article-row";
   row.dataset.itemId = item.id;
@@ -102,6 +104,8 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
 
   const content = document.createElement("div");
   content.className = "article-content";
+
+  const sourceMarker = createSourceMarker(source);
 
   const link = document.createElement("a");
   link.className = "article-link";
@@ -139,7 +143,7 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
 
   const hostname = document.createElement("span");
   hostname.className = "article-hostname";
-  hostname.textContent = normaliseSourceHostname(item.url);
+  hostname.textContent = source.hostname;
 
   const separator = document.createElement("span");
   separator.className = "article-meta-separator";
@@ -158,8 +162,30 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
   });
 
   content.append(link, meta);
-  row.append(content, deleteButton);
+  row.append(sourceMarker, content, deleteButton);
   return row;
+}
+
+function createSourceMarker(source: SourceIdentity): HTMLSpanElement {
+  const marker = document.createElement("span");
+  marker.className = "source-marker";
+  marker.setAttribute("aria-hidden", "true");
+  marker.style.setProperty("--source-colour", source.colour);
+
+  const fallback = document.createElement("span");
+  fallback.className = `source-fallback${source.characters.length > 1 ? " is-two-character" : ""}`;
+  fallback.textContent = source.characters;
+
+  const favicon = document.createElement("img");
+  favicon.className = "source-favicon";
+  favicon.alt = "";
+  favicon.draggable = false;
+
+  marker.append(fallback, favicon);
+  loadPublisherFavicon(favicon, source.faviconUrl, () => {
+    marker.classList.add("has-favicon");
+  });
+  return marker;
 }
 
 function createBookmarkButton(item: SavedItem): HTMLButtonElement {
