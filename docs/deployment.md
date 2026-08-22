@@ -42,6 +42,13 @@ fallbacks, narrow multi-line rows, corrected source-marker alignment, whole-row 
 link, Bookmark and Delete separation, scrolling, text selection and Ghost/Undo behaviour. The exact
 browser version was not separately re-recorded, so this does not broaden the existing support claim.
 
+The v0.3.0 mobile interaction shell was physically accepted on Android on 2026-08-22. Testing covered
+quick row opening, vertical scrolling, long press without Android selection or dictionary UI,
+action-sheet actions and dismissal, right-swipe Bookmark or Remove, warning-red left-swipe Delete,
+lower-page in-place Delete/Undo without a viewport jump, and the final white-centred Undo control
+with its neon-lime countdown ring and black glyph. The exact browser version was not separately
+re-recorded, so the established Chrome for Android support claim remains unchanged.
+
 Android's news feed was observed sharing distinct URLs for what appeared to be the same article, producing separate saved items. Laters intentionally deduplicates only the exact normalised URL; it does not currently follow redirects or guess that different tracking or rotating URLs identify the same article.
 
 ## Application updates and saved data

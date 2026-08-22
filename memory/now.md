@@ -8,7 +8,8 @@ Track the current state and next safe action for the Laters personal read-later 
 
 The original personal MVP and all three MVP 2.0 slices are implemented, published and accepted at
 `https://laters.dustyb.in/`. Release `v0.1.0` records the first-MVP baseline; `v0.2.0` records the
-completed bookmark, source-marker and whole-row-opening release.
+completed bookmark, source-marker and whole-row-opening release; and `v0.3.0` records the accepted
+mobile interaction shell.
 
 ## What exists now
 
@@ -45,30 +46,25 @@ completed bookmark, source-marker and whole-row-opening release.
   link and excludes Bookmark, Delete, selection, scrolling and Ghost/Undo interactions.
 - A complete `v0.2.0` release record covering scope, privacy, data compatibility, verification,
   physical Android acceptance and deliberately deferred work.
+- An accepted Ionic Core mobile interaction shell with right-swipe Bookmark or Remove, warning-red
+  left-swipe Delete and a long-press action sheet, while all visible gesture-free controls remain.
+- In-place lower-page Delete/Undo that preserves viewport position, touch-only selection suppression
+  for long press, designed link focus and the accepted white-centred Undo countdown presentation.
+- A complete `v0.3.0` release record covering architecture, interaction safety, accessibility,
+  compatibility, verification and physical Android acceptance.
 
 ## Active focus
 
-Complete and physically accept the bounded post-v0.2.0 mobile interaction shell without changing the
-released MVP 2.0 data model or replacing its visible accessible controls.
+Review the remaining exploratory futures list and select only the next bounded product decision.
 
 ## Active slice
 
-The mobile interaction shell was promoted from `dev` to `main` in commit `72c44f7`. Its first
-physical Android check confirmed the gestures and action sheet work, then identified three focused
-defects: a black native link outline, Android text-selection/dictionary UI during hold, and a
-full-list rerender that could jump to the top after a lower-page deletion and hide Undo. A correction
-is implemented and agent-verified: touch-only selection suppression, designed link focus styling,
-in-place Delete/Undo row replacement, non-scrolling focus transfer and explicit dismissed-sheet
-cleanup. The correction was published in commit `f55ba01`; GitHub Actions run `32593758441` passed
-tests, build, public audit and Pages deployment, and the public origin serves the corrected asset
-hashes. The focused physical recheck remains pending. Release `v0.2.0` itself remains the previous
-tagged commit. A final Undo visual correction was then published in `e0bd63b`: its lime centre and
-green countdown ring are now explicit, and focus no longer adds a black outer halo. GitHub Actions
-run `32594218056` passed all verification and deployment jobs. The maintainer-selected refinement is
-published in `e1595c7`: right swipe toggles Bookmark or Remove, left-swipe Delete uses warning red,
-and Undo has a white centre with a neon-lime countdown ring. GitHub Actions run `32594993861` passed
-all tests, build, public audit and Pages deployment jobs, and the public origin serves the matching
-production asset hashes. Focused physical acceptance remains pending.
+The post-v0.2.0 mobile interaction shell and its focused corrections are accepted for `v0.3.0`.
+Right swipe toggles Bookmark or Remove, left swipe reveals warning-red Delete, and long press opens
+the focused action sheet. The first Android test's native outline, dictionary-selection and
+lower-page scroll-jump failures were corrected. The accepted Undo presentation is a white centre,
+neon-lime outside countdown ring and black glyph. No data migration, backend or new remote service
+was introduced.
 
 ## Blockers
 
@@ -77,23 +73,19 @@ None.
 ## Uncertainties
 
 - A minimum Chrome for Android version is not yet evidenced.
-- The corrected coarse-pointer long press and lower-page Delete/Undo behaviour require a focused
-  physical Android recheck.
 - Android's news feed may provide distinct rotating or tracking URLs for the same apparent article; exact-URL deduplication correctly retains these as separate items.
 - Some Android news-feed shares do not supply a useful article title. Remote title enrichment is a possible later product slice with privacy, security and reliability implications; it is not part of the current design handoff.
 
 ## Next safe action
 
-Physically check the published bidirectional swipe refinement: right swipe Bookmark or Remove, left
-swipe red Delete, and white-centred Undo with a neon-lime countdown. Recheck link focus, hold without
-Android selection UI and lower-page Delete/Undo without viewport movement at the same time.
+Review `docs/future-ideas.md` with the maintainer and select, defer or reject the next bounded idea
+without treating the list as an accepted roadmap.
 
 ## Last meaningful update
 
-2026-08-22 — Bidirectional swipe actions and the revised Undo treatment were published in `e1595c7`.
-Right swipe now toggles Bookmark on a neon-lime action; left swipe retains Delete on a warning-red
-action; Undo is white-centred with a neon-lime countdown. GitHub Actions run `32594993861` passed and
-the matching assets are public. Physical Android acceptance remains pending.
+2026-08-22 — The maintainer accepted the complete mobile interaction shell and its final Undo
+presentation for release `v0.3.0`. Canonical documentation now points to the remaining futures review
+as the next product decision.
 
 ## Pointers
 
@@ -111,4 +103,5 @@ the matching assets are public. Physical Android acceptance remains pending.
 - [MVP 2.0 Slice 3 whole-row opening plan](../docs/planning/mvp-2-slice-3-whole-row-opening-plan.md)
 - [Mobile interaction shell plan](../docs/planning/mobile-interaction-shell-plan.md)
 - [`v0.2.0` release record](../docs/releases/v0.2.0.md)
-- Published GitHub releases: `v0.1.0`, `v0.2.0`
+- [`v0.3.0` release record](../docs/releases/v0.3.0.md)
+- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`

@@ -11,7 +11,9 @@ A minimal Android-first read-later PWA. Share an article to Laters, then return 
 - Provides persistent per-article bookmarks without changing queue order.
 - Shows publisher favicons with deterministic local fallback tiles.
 - Opens the original article from its title or other non-interactive row space.
-- Supports accessible Delete and seven-second Undo actions.
+- Swipes right to Bookmark or Remove and left to reveal warning-red Delete.
+- Opens a focused Read, Bookmark and Delete action sheet on touch long press.
+- Supports accessible visible controls and a seven-second in-place Undo without losing scroll position.
 - Keeps the application shell available offline and offers an explicit **Update** action for new versions.
 
 There is no account, backend, analytics or sync. Publishing this source does not publish or connect
@@ -31,6 +33,8 @@ npm run audit:public-build
 
 See the completed [MVP definition](docs/mvp-definition.md), completed
 [MVP 2.0 definition](docs/mvp-2-definition.md), [`v0.2.0` release record](docs/releases/v0.2.0.md),
+[mobile interaction shell record](docs/planning/mobile-interaction-shell-plan.md),
+[`v0.3.0` release record](docs/releases/v0.3.0.md),
 [current project truth](memory/now.md) and remaining [exploratory future ideas](docs/future-ideas.md).
 
 ## Licence

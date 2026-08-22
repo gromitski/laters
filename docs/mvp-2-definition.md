@@ -121,9 +121,10 @@ Do not build a custom multi-slice gesture system merely to avoid a dependency. E
 This gate was subsequently completed for the post-v0.2.0 mobile-shell work. The selected approach is
 a pinned, incremental use of Ionic Core's swipe-row and action-sheet custom elements, with no
 application-framework rewrite. Its implementation record, measured bundle cost, safeguards and
-pending physical-device acceptance are documented in the
-[mobile interaction shell plan](planning/mobile-interaction-shell-plan.md). This does not change the
-historical MVP 2.0 exclusions or the contents of release `v0.2.0`.
+physical-device acceptance are documented in the
+[mobile interaction shell plan](planning/mobile-interaction-shell-plan.md). The accepted shell was
+released separately as [`v0.3.0`](releases/v0.3.0.md); this does not change the historical MVP 2.0
+exclusions or the contents of release `v0.2.0`.
 
 ## Privacy, security and public-build boundaries
 

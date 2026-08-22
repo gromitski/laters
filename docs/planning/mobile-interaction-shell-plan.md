@@ -3,9 +3,9 @@
 ## Status
 
 The bounded architecture investigation and first implementation were completed on the `dev` branch
-on 2026-08-22, then promoted unchanged to `main` in commit `72c44f7`. GitHub Actions passed every
-build and deployment gate and published the shell at `https://laters.dustyb.in/`. The change is not
-part of release `v0.2.0` and has not yet passed physical Android acceptance.
+on 2026-08-22, then promoted unchanged to `main` in commit `72c44f7`. Subsequent focused corrections
+and the bidirectional swipe refinement passed every build and deployment gate, were physically
+accepted on Android, and form release `v0.3.0`.
 
 ## Product outcome
 
@@ -141,9 +141,10 @@ outside countdown ring. Commit `e1595c7` published the refinement; GitHub Action
 passed all tests, build, public audit and Pages deployment jobs, and the public origin serves the
 matching production asset hashes.
 
-## Physical Android acceptance after promotion to `main`
+## Physical Android acceptance and release closure
 
-Use the published GitHub Pages build in current stable Chrome for Android and confirm:
+The published GitHub Pages build was checked in current stable Chrome for Android against this
+contract:
 
 1. a quick row tap opens the article exactly once;
 2. a normal vertical drag scrolls without opening the menu or revealing Delete;
@@ -160,4 +161,7 @@ Use the published GitHub Pages build in current stable Chrome for Android and co
 12. closing and reopening the installed PWA preserves the existing list and bookmark state.
 
 Any accidental open/delete during scroll, double action, stuck row, inaccessible control, lost data,
-or persistent visual state is a failure and blocks release.
+or persistent visual state was a release blocker. The first check found the native outline,
+dictionary selection and scroll-jump failures recorded above. The focused corrections passed their
+published rechecks. The maintainer then accepted the bidirectional swipe styling and behaviour plus
+the final Undo presentation: a white centre, neon-lime outside countdown ring and black Undo glyph.
