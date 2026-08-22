@@ -111,6 +111,9 @@ primitives rather than hidden framework growth.
   Opening Android's native chooser and completing a NotebookLM handoff remain physical-device gates.
 - Commit `8753b67` published the Share extension. GitHub Actions run `32597495286` passed all tests,
   build, public audit and Pages deployment jobs, and the public origin serves the matching bundle.
+- Physical testing found that including the article title confused NotebookLM and other receivers.
+  Commit `69faadc` narrows the payload to the URL alone and adds a regression test for that exact
+  contract. GitHub Actions run `32598149427` passed and the corrected bundle is public.
 
 Browser emulation cannot prove physical touch long-press timing, finger scroll arbitration or Ionic's
 full-swipe threshold. Those are explicit device gates, not inferred passes.

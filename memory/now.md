@@ -68,7 +68,10 @@ neon-lime outside countdown ring and black glyph. No data migration, backend or 
 was introduced. The next selected extension adds **Share this article** to that same menu and routes
 only the saved URL to Android's system share sheet. The maintainer explicitly accepts its
 long-press-only placement for this personal app. It is published in commit `8753b67`; GitHub Actions
-run `32597495286` passed and the public origin serves the matching production bundle.
+run `32597495286` passed and the public origin serves the matching production bundle. Physical
+testing found that receivers could misinterpret a combined title-and-URL payload; commit `69faadc`
+now shares only the URL and protects that contract with a regression test. GitHub Actions run
+`32598149427` passed and the corrected bundle is public.
 
 ## Blockers
 
@@ -87,9 +90,9 @@ representative public article, and that cancelling returns safely to Laters.
 
 ## Last meaningful update
 
-2026-08-22 — **Share this article** was published in `8753b67` after GitHub Actions run `32597495286`
-passed. It uses Android's chooser rather than a NotebookLM-specific integration; physical Android and
-NotebookLM acceptance are pending.
+2026-08-22 — URL-only article sharing was published in `69faadc` after the title was found to confuse
+NotebookLM and other receivers. GitHub Actions run `32598149427` passed; physical NotebookLM recheck
+is pending.
 
 ## Pointers
 
