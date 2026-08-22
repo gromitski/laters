@@ -11,6 +11,7 @@ describe("handleShareTargetRequest", () => {
         text: "Read this https://example.com/shared",
       }),
       {
+        listNewestFirst: async () => [],
         save: async (item) => {
           savedItems.push(item);
         },
@@ -30,7 +31,7 @@ describe("handleShareTargetRequest", () => {
     const save = vi.fn();
     const response = await handleShareTargetRequest(
       createShareRequest({ title: "No link", text: "Nothing useful here" }),
-      { save },
+      { listNewestFirst: async () => [], save },
     );
 
     expect(response.status).toBe(303);
@@ -46,7 +47,7 @@ describe("handleShareTargetRequest", () => {
         body: "not form data",
         headers: { "content-type": "application/json" },
       }),
-      { save },
+      { listNewestFirst: async () => [], save },
     );
 
     expect(response.status).toBe(303);
@@ -54,10 +55,43 @@ describe("handleShareTargetRequest", () => {
     expect(save).not.toHaveBeenCalled();
   });
 
+  it("refreshes an existing URL instead of creating a duplicate", async () => {
+    const save = vi.fn();
+    const response = await handleShareTargetRequest(
+      createShareRequest({
+        title: "Updated title",
+        url: "https://example.com/existing",
+      }),
+      {
+        listNewestFirst: async () => [
+          {
+            id: "existing-id",
+            title: "Original title",
+            url: "https://example.com/existing",
+            savedAt: 100,
+          },
+        ],
+        save,
+      },
+    );
+
+    expect(response.headers.get("location")).toBe("https://laters.test/?share=saved");
+    expect(save).toHaveBeenCalledOnce();
+    expect(save).toHaveBeenCalledWith(
+      expect.objectContaining({
+        id: "existing-id",
+        title: "Updated title",
+        url: "https://example.com/existing",
+      }),
+    );
+    expect(save.mock.calls[0]![0].savedAt).toBeGreaterThan(100);
+  });
+
   it("reports a storage failure without exposing shared data in the redirect", async () => {
     const response = await handleShareTargetRequest(
       createShareRequest({ url: "https://example.com/private-path" }),
       {
+        listNewestFirst: async () => [],
         save: async () => {
           throw new Error("Database unavailable");
         },

@@ -6,7 +6,7 @@ Track the current state and next safe action for the Laters personal read-later 
 
 ## Lifecycle
 
-Slices 1 and 2 implemented and published.
+Slices 1 and 2 complete. Slices 3 and 4 are implemented and verified on `deploy/github-pages` in draft PR #1.
 
 ## What exists now
 
@@ -21,15 +21,20 @@ Slices 1 and 2 implemented and published.
 - A complete installable-PWA manifest with 192px and 512px app icons.
 - A precaching service worker that serves the application shell offline.
 - A `POST` Android Web Share Target that validates shared data, supports URLs embedded in Android's text field, saves through the existing IndexedDB boundary and redirects to an accessible result state.
-- No deployment configuration or live HTTPS environment yet.
+- Accepted deployment and interaction decisions recorded in canonical intent and the MVP definition.
+- A GitHub Pages deployment workflow that tests, builds, audits and publishes only `dist/`.
+- The repository's Pages source is configured for GitHub Actions; no workflow deployment has run yet.
+- A repeatable public-build audit covering common secrets, personal data, local paths, source maps, repository documents, binary metadata and unintended external resources.
+- Duplicate shares refresh one item at the top, deletion offers an accessible seven-second undo action, relative times refresh on foregrounding, and persistent storage is requested non-fatally.
+- A step-by-step GitHub and Gandi setup guide for `laters.dustyb.in`.
 
 ## Active focus
 
-Select an HTTPS deployment route for Android acceptance before persistent-storage hardening.
+Merge draft PR #1 to create the first Actions deployment, then complete certificate activation and Android acceptance.
 
 ## Active slice
 
-Slice 2 is complete.
+Slices 3 and 4 are committed, published and passing pull-request verification.
 
 ## Blockers
 
@@ -38,16 +43,17 @@ None.
 ## Uncertainties
 
 - A minimum Chrome for Android version is not yet evidenced.
-- Duplicate-save and delete-recovery behaviour are undecided.
 - Android Share-menu registration and capture still need acceptance on an installed HTTPS build on a physical device.
+- GitHub domain verification and the Gandi CNAME are complete; the production TLS certificate is awaiting the first Actions deployment and GitHub provisioning.
+- The replacement visual design and favicon package have not yet been supplied.
 
 ## Next safe action
 
-Select an explicitly authorised HTTPS hosting route so the PWA can be installed for real-device Android acceptance; deployment is not yet authorised. Persistent-storage requesting and final resilience checks remain Slice 3.
+Obtain explicit approval to merge draft PR #1 and trigger the first Pages deployment. Then verify the custom-domain certificate, enforce HTTPS and complete Slice 5 Android acceptance.
 
 ## Last meaningful update
 
-2026-08-22 — Slice 2 published with an installable manifest, offline shell and POST Android share capture; 24 automated tests, a warning-free production build and offline browser reload passed.
+2026-08-22 — Slices 3 and 4 published in draft PR #1; `dustyb.in` is verified, `laters.dustyb.in` is attached to Pages, and its Gandi CNAME resolves publicly. The first workflow deployment and certificate remain pending.
 
 ## Pointers
 
@@ -55,3 +61,4 @@ Select an explicitly authorised HTTPS hosting route so the PWA can be installed 
 - [Product intent](intent.md)
 - [Original project idea](../evidence/origin/2026-08-21-origin.md)
 - [MVP definition](../docs/mvp-definition.md)
+- [Deployment and domain setup](../docs/deployment.md)

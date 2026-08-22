@@ -43,9 +43,12 @@ The core job is intentionally narrow: capture a link at the moment it is discove
 - Accepted: the initial browser target is the current stable Chrome for Android; the minimum version remains evidence-led.
 - Accepted: shared titles fall back to useful surrounding text and then the hostname without fetching page metadata.
 - Accepted: successful shares open the full reading list with an accessible status message.
-- Unknown: behaviour for duplicate URLs.
-- Unknown: whether deletion needs confirmation or a short undo opportunity.
-- Unknown: visual direction beyond a minimal, accessible interface.
-- Unknown: whether saved times update continuously or when the list is rendered or revisited.
+- Accepted: sharing an existing URL refreshes the existing item, updates its useful title and moves it to the top rather than creating a duplicate.
+- Accepted: deletion is immediate and offers a brief accessible undo action rather than requiring confirmation.
+- Accepted: relative saved times update when the list is rendered and when the app returns to the foreground; continuous timers are unnecessary.
+- Accepted: the current minimal accessible styling is temporary until the maintainer supplies a later design and favicon package.
+- Accepted: the personal MVP targets the current stable Chrome for Android; device acceptance records the tested version without promising older releases.
+- Accepted: production uses GitHub Pages at `https://laters.dustyb.in/`, with automated deployment of the generated public build only.
+- Accepted: no sensitive data, repository memory, local paths, source maps or unintended third-party resources may enter the deployed build.
 
 Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mvp-definition.md`.
