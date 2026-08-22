@@ -39,16 +39,19 @@ Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.
 
 ## Active focus
 
-Complete focused physical Android acceptance for the published MVP 2.0 Slice 1 bookmark controls.
+Obtain explicit authority before pushing and deploying the locally committed post-acceptance
+visual correction for MVP 2.0 Slice 1.
 
 ## Active slice
 
 MVP 2.0 Slice 1, persistent bookmarks and the metadata-line foundation, is published on `main` at
-commit `1f1d0e1`. Its automated test, production build, public-build audit and Pages deployment
-workflow passed. Physical Android acceptance remains pending. Bookmark state is an optional
-backward-compatible saved-item field; a focused storage operation changes it without altering
-article data or ordering. Duplicate re-sharing and Delete/Undo preserve the state. Publisher
-favicons and whole-row pointer opening remain later accepted slices.
+commit `1f1d0e1`. Its automated and physical Android behaviour passed acceptance. Acceptance found
+two visual issues: touch-retained row hover obscured the true bookmark background, and the
+provisional star did not match the intended supplied artwork. Local `main` includes the verified
+correction pending push: hover treatments require real hover/fine-pointer capability, and the new
+Claude handoff's hollow and bright-lime filled star assets are integrated while its 22px
+rounded-square publisher fallback is retained for Slice 2. Publisher favicons and whole-row
+pointer opening remain later accepted slices.
 
 ## Blockers
 
@@ -62,15 +65,16 @@ None.
 
 ## Next safe action
 
-Have the maintainer complete the focused Android visual and interaction checks against
-`https://laters.dustyb.in/`, then record acceptance or any defect before beginning Slice 2.
+Obtain explicit authority before pushing and deploying the locally committed correction for final
+Android confirmation.
 
 ## Last meaningful update
 
-2026-08-22 — MVP 2.0 Slice 1 was published at commit `1f1d0e1`. The GitHub Actions workflow passed
-automated tests, production build, public-build audit and Pages deployment. Focused local browser
-inspection had already confirmed 320px target size, accessible state, layout and persistence;
-physical Android acceptance remains pending.
+2026-08-22 — Physical Android acceptance passed the Slice 1 functional checks and found two visual
+defects. The locally committed correction prevents sticky touch-hover backgrounds and uses the
+designer's supplied hollow/bright-lime star SVGs. The supplied 22px rounded-square fallback
+treatment is accepted for Slice 2; unsound caching, origin and registrable-domain advice was not
+adopted. Push and deployment remain unauthorised.
 
 ## Pointers
 

@@ -167,16 +167,27 @@ function createBookmarkButton(item: SavedItem): HTMLButtonElement {
   button.className = "bookmark-action";
   button.type = "button";
 
-  const icon = createSvg("bookmark-icon", "0 0 24 24");
-  const star = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  star.setAttribute(
-    "d",
-    "m12 2.75 2.78 5.63 6.22.9-4.5 4.39 1.06 6.2L12 17.94l-5.56 2.93 1.06-6.2L3 9.28l6.22-.9L12 2.75Z",
+  const hollowIcon = createBookmarkIcon(
+    "/icons/bookmark-star-hollow.svg",
+    "bookmark-icon-hollow",
   );
-  icon.append(star);
-  button.append(icon);
+  const filledIcon = createBookmarkIcon(
+    "/icons/bookmark-star-filled.svg",
+    "bookmark-icon-filled",
+  );
+  button.append(hollowIcon, filledIcon);
   setBookmarkPresentation(button, item, item.bookmarked === true);
   return button;
+}
+
+function createBookmarkIcon(source: string, stateClass: string): HTMLImageElement {
+  const icon = document.createElement("img");
+  icon.className = `bookmark-icon ${stateClass}`;
+  icon.src = source;
+  icon.alt = "";
+  icon.draggable = false;
+  icon.setAttribute("aria-hidden", "true");
+  return icon;
 }
 
 async function setArticleBookmarked(

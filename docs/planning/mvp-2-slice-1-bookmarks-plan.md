@@ -4,7 +4,9 @@
 
 Implemented, verified and published on 2026-08-22 as the first bounded MVP 2.0 delivery slice.
 Commit `1f1d0e1` passed the automated test, build, public-audit and GitHub Pages deployment workflow.
-Focused physical Android acceptance remains pending.
+Focused physical Android acceptance passed the functional contract and identified the visual
+correction recorded below. That correction is verified and authorised for a local commit; push and
+deployment remain separately controlled.
 
 This slice adds persistent bookmark state and the metadata-line foundation. Publisher favicon
 loading and whole-row pointer opening remain separate later slices.
@@ -14,7 +16,7 @@ loading and whole-row pointer opening remain separate later slices.
 - Every normal article row has a direct hollow or filled star button.
 - The metadata line begins with the star, followed by the normalised source hostname and saved
   time.
-- Bookmarked rows use the accepted lime-ink filled star and subtle lime wash.
+- Bookmarked rows use the accepted bright-lime filled star with an ink outline and subtle lime wash.
 - Bookmarking changes neither list order nor article identity, title, URL or saved time.
 - A failed update restores the last confirmed state and reports an accessible error.
 
@@ -65,3 +67,11 @@ and is required after an authorised deployment.
 - Whole-row pointer opening.
 - Bookmark filters, pinning, priority sorting, archive protection or another view.
 - Long press, action sheets, swipe gestures or framework selection.
+
+## Post-acceptance visual correction
+
+Physical Android acceptance found that Chrome retained row `:hover` styling after touch, layering
+the hover tint over both bookmarked and unbookmarked states. Hover-only row and control treatments
+must therefore be restricted to devices with genuine hover and fine-pointer capability. The
+supplied hollow and bright-filled star SVGs replace the provisional inline star path; their source
+handoff remains under the futures exploration and runtime copies live with the public icon assets.

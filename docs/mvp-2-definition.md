@@ -37,7 +37,8 @@ The hostname belongs in the metadata line beside the star and saved time, not be
 - The star is the first item in the metadata line, followed by the visible hostname and saved time.
 - The button has at least a 44px interaction target and an accessible name that includes the article title.
 - An unbookmarked article shows the accepted hollow-star treatment.
-- A bookmarked article shows the accepted lime-ink filled star and subtle lime row wash from exploration 4a.
+- A bookmarked article shows the accepted bright-lime filled star with an ink outline and the
+  subtle lime row wash from exploration 4a.
 - Activating the button toggles the state immediately and persists it locally.
 - The accessible name and pressed state change with the bookmark state; colour is not the only indicator.
 - Bookmarking does not open the article. Opening, Bookmark and Delete are separate actions.

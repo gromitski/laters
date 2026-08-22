@@ -123,7 +123,10 @@ Filter chips above the list, an archive parked at the foot.
 
 Starring ("bookmarking" in the UI) with a subtle row tag, on the full 1a queue (favicons + read times).
 
-- Bookmarked rows carry two marks: the meta-line star switches from its resting 1.8px hollow grey outline to a full lime-ink (#8fbf00) fill, and the whole row takes a ~10% lime wash (lime #d0ff4f at 1A–1B alpha, maintainer-tuned). No stripe; nothing is added inside the row, so title width and the meta line are untouched.
+- Bookmarked rows carry two marks: the meta-line star switches from its resting hollow grey
+  outline to the supplied bright-lime (`#d0ff4f`) fill with an ink outline, and the whole row
+  takes a ~10% lime wash (lime `#d0ff4f` at 1A–1B alpha, maintainer-tuned). No stripe; nothing is
+  added inside the row, so title width and the meta line are untouched.
 - Every row shows the star — hollow at rest — so the bookmarked state reads as a change, not an addition.
 - The wash is background only: ink text and muted grey meta keep AA contrast; hover deepens the wash to 24% lime instead of the usual off-white.
 - The original exploration treated the star as a tag controlled only through 4b. MVP 2.0

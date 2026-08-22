@@ -158,10 +158,6 @@ h1 {
   letter-spacing: 0.03em;
 }
 
-.update-action:hover {
-  background: #2b2b33;
-}
-
 .reading-list {
   background: var(--canvas);
 }
@@ -235,16 +231,8 @@ h1 {
     filter 340ms ease;
 }
 
-.article-row:hover {
-  background: var(--surface-hover);
-}
-
 .article-row.is-bookmarked {
   background: var(--bookmark-wash);
-}
-
-.article-row.is-bookmarked:hover {
-  background: var(--bookmark-wash-hover);
 }
 
 .article-row.is-leaving {
@@ -277,7 +265,6 @@ h1 {
   transition: background-size 300ms cubic-bezier(0.3, 0.9, 0.3, 1);
 }
 
-.article-link:hover,
 .article-link:focus-visible,
 .article-link:active {
   background-size: 100% 36%;
@@ -327,27 +314,34 @@ h1 {
 }
 
 .bookmark-icon {
-  width: 17px;
-  height: 17px;
-  fill: transparent;
+  grid-area: 1 / 1;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  user-select: none;
   transition:
-    color 180ms ease,
-    fill 180ms ease,
+    opacity 180ms ease,
     transform 180ms cubic-bezier(0.3, 0.9, 0.3, 1);
 }
 
-.bookmark-action:hover .bookmark-icon {
-  color: var(--text);
-  transform: scale(1.12);
+.bookmark-icon-hollow {
+  opacity: 0.5;
+}
+
+.bookmark-icon-filled {
+  opacity: 0;
 }
 
 .bookmark-action:active .bookmark-icon {
   transform: scale(0.9);
 }
 
-.bookmark-action[aria-pressed="true"] .bookmark-icon {
-  fill: currentColor;
-  color: var(--accent-ink);
+.bookmark-action[aria-pressed="true"] .bookmark-icon-hollow {
+  opacity: 0;
+}
+
+.bookmark-action[aria-pressed="true"] .bookmark-icon-filled {
+  opacity: 1;
 }
 
 .bookmark-action:disabled {
@@ -379,13 +373,6 @@ h1 {
   inset: -8px;
 }
 
-.delete-action:hover {
-  border-color: var(--accent);
-  color: var(--text);
-  background: var(--accent);
-  transform: scale(1.1);
-}
-
 .delete-action:active {
   border-color: var(--text);
   color: #fff;
@@ -397,6 +384,43 @@ h1 {
   cursor: wait;
   opacity: 0.45;
   transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .update-action:hover {
+    background: #2b2b33;
+  }
+
+  .article-row:hover {
+    background: var(--surface-hover);
+  }
+
+  .article-row.is-bookmarked:hover {
+    background: var(--bookmark-wash-hover);
+  }
+
+  .article-link:hover {
+    background-size: 100% 36%;
+  }
+
+  .bookmark-action:hover .bookmark-icon {
+    transform: scale(1.12);
+  }
+
+  .bookmark-action:hover .bookmark-icon-hollow {
+    opacity: 1;
+  }
+
+  .bookmark-action[aria-pressed="true"]:hover .bookmark-icon-hollow {
+    opacity: 0;
+  }
+
+  .delete-action:hover {
+    border-color: var(--accent);
+    color: var(--text);
+    background: var(--accent);
+    transform: scale(1.1);
+  }
 }
 
 .delete-icons {

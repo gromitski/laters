@@ -24,7 +24,9 @@ The live design canvas is `Laters Futures.dc.html` in the design project.
 | File | What it covers |
 | --- | --- |
 | `01-screens.md` | Per-screen functionality: 1a–1f, interaction detail, accessibility, dependencies |
+| `02-star-and-publisher-tile.md` | Accepted bookmark-star artwork and rounded-square publisher fallback treatment |
 | `screens/` | A PNG of each screen (2x, captured from the live design canvas) |
+| `assets/` | Source hollow and bright-filled bookmark-star SVGs |
 
 ## The screens at a glance
 
@@ -83,7 +85,8 @@ is the maintainer's stated use; the mechanism is generic.
 Added after review. The maintainer explored star/stripe/wash treatments (turns 2–3 on the
 design canvas) and settled on **4a/4b**:
 
-- **4a** — bookmarked rows get a lime-ink filled star in the meta line plus a ~10% lime wash
+- **4a** — bookmarked rows get the supplied bright-lime filled star with an ink outline in the
+  meta line plus a ~10% lime wash
   over the row. Unbookmarked rows show a resting hollow grey star. No left stripe. MVP 2.0 makes
   that star a direct button until a gesture shell is deliberately selected.
 - **4b** — a long-press bottom sheet per article: Read now, **Bookmark** (star symbol, word
