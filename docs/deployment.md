@@ -49,6 +49,15 @@ lower-page in-place Delete/Undo without a viewport jump, and the final white-cen
 with its neon-lime countdown ring and black glyph. The exact browser version was not separately
 re-recorded, so the established Chrome for Android support claim remains unchanged.
 
+After v0.3.0, **Share this article** was added to the long-press action sheet as a small personal-app
+extension. It invokes Android's generic system chooser and shares only the saved article URL; Laters
+does not name, select or observe NotebookLM or any other destination. An initial title-and-URL
+payload was rejected after physical testing showed that NotebookLM and other receivers could
+misinterpret it. Commit `69faadc` corrects the contract to URL only and adds a regression test;
+GitHub Actions run `32598149427` passed and the matching bundle is public. Opening the native chooser,
+completing a representative NotebookLM import and cancelling safely remain focused physical-device
+acceptance gates for this post-release extension.
+
 Android's news feed was observed sharing distinct URLs for what appeared to be the same article, producing separate saved items. Laters intentionally deduplicates only the exact normalised URL; it does not currently follow redirects or guess that different tracking or rotating URLs identify the same article.
 
 ## Application updates and saved data

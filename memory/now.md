@@ -55,8 +55,8 @@ mobile interaction shell.
 
 ## Active focus
 
-Publish and physically verify the selected **Share this article** action from the long-press menu,
-then return to the remaining exploratory futures list.
+Physically verify the published URL-only **Share this article** action from the long-press menu, then
+return to the remaining exploratory futures list.
 
 ## Active slice
 
@@ -65,8 +65,8 @@ Right swipe toggles Bookmark or Remove, left swipe reveals warning-red Delete, a
 the focused action sheet. The first Android test's native outline, dictionary-selection and
 lower-page scroll-jump failures were corrected. The accepted Undo presentation is a white centre,
 neon-lime outside countdown ring and black glyph. No data migration, backend or new remote service
-was introduced. The next selected extension adds **Share this article** to that same menu and routes
-only the saved URL to Android's system share sheet. The maintainer explicitly accepts its
+was introduced. The published post-release extension adds **Share this article** to that same menu
+and routes only the saved URL to Android's system share sheet. The maintainer explicitly accepts its
 long-press-only placement for this personal app. It is published in commit `8753b67`; GitHub Actions
 run `32597495286` passed and the public origin serves the matching production bundle. Physical
 testing found that receivers could misinterpret a combined title-and-URL payload; commit `69faadc`

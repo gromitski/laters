@@ -1,5 +1,11 @@
 # Laters — futures exploration, 22 August 2026
 
+> **Current status:** this is a dated design exploration, not current implementation authority.
+> Bookmarks, source markers and whole-row opening shipped in `v0.2.0`; the mobile interaction shell
+> shipped in `v0.3.0`; and **Share this article** was subsequently published as a generic system-share
+> action carrying the URL only. Use [`../../memory/now.md`](../../memory/now.md),
+> [`../../memory/intent.md`](../../memory/intent.md) and the linked delivery records for current truth.
+
 Eight UI explorations of the maintainer's post-MVP ideas list: the original six screens plus
 the later 4a/4b bookmark and in-app sharing addendum. They use the accepted MVP
 brand (the "4c" direction: white page, ink type, lime `#d0ff4f` as a marker pen, Bricolage
@@ -67,9 +73,9 @@ hosted database. The repo gains code only, never data or credentials.
 
 ### 3. Share-to-LLM is the platform share sheet
 
-"Send to NotebookLM" is the Web Share API with the article URL. No vendor SDK, no API key,
-and it works identically for any installed target. The label can name NotebookLM because that
-is the maintainer's stated use; the mechanism is generic.
+The delivered label is the provider-neutral **Share this article**. It invokes the Web Share API
+with the article URL alone: no saved title or text, vendor SDK, API key or destination-specific
+behaviour. NotebookLM is one possible receiving app, not something Laters selects or observes.
 
 ## Suggested adoption order (if any)
 
@@ -93,6 +99,7 @@ design canvas) and settled on **4a/4b**:
   "Bookmark"; toggles to "Remove bookmark"), **Share…** (system share sheet, straight from the
   list), Copy link, Delete (same in-row undo path as the X).
 
-Full exploratory behaviour is in `01-screens.md`. MVP 2.0 resolves the bookmark path with a
-direct star button. Share still has no selected gesture-free path and remains deferred with the
-long-press sheet.
+Full exploratory behaviour is in `01-screens.md`. MVP 2.0 resolved the bookmark path with a direct
+star button. The long-press sheet shipped in `v0.3.0`, and the maintainer later accepted Share as a
+long-press-only personal-app exception. The delivered action opens Android's generic chooser with
+the URL alone.

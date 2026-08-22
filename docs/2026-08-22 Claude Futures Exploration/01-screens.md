@@ -1,5 +1,10 @@
 # Futures — per-screen functionality
 
+> **Current status:** this file preserves the dated design exploration. Current behaviour is governed
+> by [`../../memory/now.md`](../../memory/now.md), [`../../memory/intent.md`](../../memory/intent.md)
+> and the relevant delivery records. In particular, the delivered **Share this article** action uses
+> the generic system chooser with the URL only.
+
 Companion to `Laters Futures.dc.html`. All type, colour, spacing and motion tokens are the
 accepted MVP tokens ([`../2026-08-22 Claude MVP Handoff/01-visual-system.md`](../2026-08-22%20Claude%20MVP%20Handoff/01-visual-system.md)); this file only
 specifies behaviour that is new.
@@ -150,9 +155,9 @@ Per-article actions without adding any chrome to the row: bookmark and share dir
 - The sheet is a `role="dialog"` named by the article title, with domain and read time beneath. Actions are ≥52px rows:
   - **Read now** — opens the article (same as tapping the title).
   - **Bookmark** — star symbol, word "Bookmark". Toggles: on a bookmarked article the same slot reads "Remove bookmark", icon unchanged. The row's star fills and the wash fades in the moment the sheet closes.
-  - **Share…** — the system share sheet (`navigator.share`) with the article URL and title, straight from the list. NotebookLM or any LLM app is just a target on that sheet; no vendor SDK or API key.
+  - **Share this article** — the system share sheet (`navigator.share`) with the article URL only, straight from the list. NotebookLM or any other compatible app is just a target on that sheet; no vendor SDK or API key.
   - **Copy link** — clipboard API, confirmed via the existing live region ("Link copied.").
   - **Delete** — error red, same deletion path as the X: in-row undo with the 7 s ring, then the collapse.
-- The long-press is an enhancement, not the only path. MVP 2.0 gives Bookmark a direct star
-  button and keeps the X for Delete. Share still has no selected gesture-free path, so this sheet
-  and sharing remain deferred until the interaction-shell decision.
+- Bookmark and Delete retain their visible star and X paths. The maintainer explicitly accepted
+  Share as a long-press-only exception for this personal app; it was published after the `v0.3.0`
+  interaction shell and shares only the URL.

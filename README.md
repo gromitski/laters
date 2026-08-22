@@ -13,6 +13,8 @@ A minimal Android-first read-later PWA. Share an article to Laters, then return 
 - Opens the original article from its title or other non-interactive row space.
 - Swipes right to Bookmark or Remove and left to reveal warning-red Delete.
 - Opens a focused Read, Bookmark, Share and Delete action sheet on touch long press.
+- Shares only the original article URL through the system chooser, without adding the saved title
+  or depending on a specific receiving app.
 - Supports accessible visible controls and a seven-second in-place Undo without losing scroll position.
 - Keeps the application shell available offline and offers an explicit **Update** action for new versions.
 
