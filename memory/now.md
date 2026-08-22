@@ -59,8 +59,10 @@ defects: a black native link outline, Android text-selection/dictionary UI durin
 full-list rerender that could jump to the top after a lower-page deletion and hide Undo. A correction
 is implemented and agent-verified: touch-only selection suppression, designed link focus styling,
 in-place Delete/Undo row replacement, non-scrolling focus transfer and explicit dismissed-sheet
-cleanup. Publication and the focused physical recheck remain pending. Release `v0.2.0` itself
-remains the previous tagged commit.
+cleanup. The correction was published in commit `f55ba01`; GitHub Actions run `32593758441` passed
+tests, build, public audit and Pages deployment, and the public origin serves the corrected asset
+hashes. The focused physical recheck remains pending. Release `v0.2.0` itself remains the previous
+tagged commit.
 
 ## Blockers
 
@@ -76,17 +78,16 @@ None.
 
 ## Next safe action
 
-Publish the verified correction slice to `main`, allow GitHub Pages to deploy it, then repeat the
-focused physical checks for link focus, hold without Android selection UI and lower-page Delete/Undo
-without viewport movement. If those pass, complete the remaining shell acceptance and make a
-separate release decision.
+Repeat the focused physical checks against the published build for link focus, hold without Android
+selection UI and lower-page Delete/Undo without viewport movement. If those pass, complete the
+remaining shell acceptance and make a separate release decision.
 
 ## Last meaningful update
 
 2026-08-22 — The first physical Android shell test found three correction items despite the core
 interaction working: native link outline, dictionary-triggering touch selection and a serious
-lower-page Delete jump that could hide Undo. The focused fixes are implemented and browser-verified;
-publication and physical recheck remain pending.
+lower-page Delete jump that could hide Undo. The focused fixes were published in `f55ba01` after all
+GitHub verification and deployment jobs passed; physical recheck remains pending.
 
 ## Pointers
 

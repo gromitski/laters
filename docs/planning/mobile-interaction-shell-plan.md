@@ -119,6 +119,8 @@ the row, preventing a hidden overlay focus trap from competing with Undo. Browse
 confirmed that lower-page Delete leaves Undo in place, Undo restores the same row in place, restored
 focus uses the Laters underline rather than a black box, and action-sheet deletion leaves no hidden
 dialog host. The coarse-pointer selection correction still requires the physical Android recheck.
+The correction was published from commit `f55ba01`; GitHub Actions run `32593758441` passed tests,
+build, public audit and Pages deployment.
 
 ## Physical Android acceptance after promotion to `main`
 
