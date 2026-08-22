@@ -30,7 +30,7 @@ Slices 1 and 2 complete. Slices 3 and 4 are implemented and verified on `deploy/
 
 ## Active focus
 
-Complete domain verification and accept draft PR #1 before the custom-domain activation and Android acceptance pass.
+Merge draft PR #1 to create the first Actions deployment, then complete certificate activation and Android acceptance.
 
 ## Active slice
 
@@ -44,16 +44,16 @@ None.
 
 - A minimum Chrome for Android version is not yet evidenced.
 - Android Share-menu registration and capture still need acceptance on an installed HTTPS build on a physical device.
-- GitHub domain verification, Gandi DNS and the production TLS certificate require manual completion.
+- GitHub domain verification and the Gandi CNAME are complete; the production TLS certificate is awaiting the first Actions deployment and GitHub provisioning.
 - The replacement visual design and favicon package have not yet been supplied.
 
 ## Next safe action
 
-Complete GitHub domain verification, obtain explicit approval to merge draft PR #1, then attach `laters.dustyb.in`, add the Gandi CNAME and activate HTTPS before Slice 5 Android acceptance.
+Obtain explicit approval to merge draft PR #1 and trigger the first Pages deployment. Then verify the custom-domain certificate, enforce HTTPS and complete Slice 5 Android acceptance.
 
 ## Last meaningful update
 
-2026-08-22 — Slices 3 and 4 published in draft PR #1 for `laters.dustyb.in`; 29 automated tests, warning-free production build, workflow lint, public-build audit, offline browser reload and GitHub pull-request build passed.
+2026-08-22 — Slices 3 and 4 published in draft PR #1; `dustyb.in` is verified, `laters.dustyb.in` is attached to Pages, and its Gandi CNAME resolves publicly. The first workflow deployment and certificate remain pending.
 
 ## Pointers
 
