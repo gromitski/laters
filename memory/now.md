@@ -6,7 +6,7 @@ Track the current state and next safe action for the Laters personal read-later 
 
 ## Lifecycle
 
-Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.in/`. The first GitHub release, `v0.1.0`, records the complete personal MVP baseline.
+Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.in/`. The public GitHub repository and first release, `v0.1.0`, record the complete personal MVP baseline.
 
 ## What exists now
 
@@ -28,13 +28,14 @@ Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.
 - Duplicate shares refresh one item at the top, deletion offers an accessible seven-second undo action, relative times refresh on foregrounding, and persistent storage is requested non-fatally.
 - Maintained deployment behaviour and physical-device acceptance guidance for `laters.dustyb.in` without recording the maintainer's personal DNS provider or account setup.
 - A live custom-domain deployment with an approved GitHub certificate and enforced HTTPS.
+- A public source repository whose README links directly to the installable live application and explains that every installation keeps its saved list locally.
 - Routine changes may be committed directly to `main`; pull requests are optional unless requested or useful for separate review.
 - Physical-device installation, standalone launch, Android Share-menu discovery and valid capture verified on Chrome for Android `151.0.7922.173`.
 - A user-controlled service-worker update flow that preserves same-origin IndexedDB data and reloads only after the **Update** action is selected.
 - Complete physical-device MVP acceptance on Chrome for Android `151.0.7922.173`, including exact-URL duplicate refresh, persistence, deletion, Undo and the offline shell.
 - A Claude Design handoff that defines the implemented feature and state contract, icon deliverables, accessibility requirements and strict MVP scope boundary.
 - The accepted white/ink/lime identity, self-hosted Bricolage Grotesque typeface, supplied icon family, accessible icon-only Delete control and in-row seven-second Undo state.
-- A published `v0.1.0` GitHub release tagged at verified commit `de86359`.
+- A published `v0.1.0` GitHub release tagged at verified rewritten commit `0178fc9`.
 
 ## Active focus
 
@@ -42,11 +43,11 @@ Use the accepted MVP and evaluate possible additions only when normal use provid
 
 ## Active slice
 
-All current files and history reachable from `main` and `v0.1.0` have been cleaned of personal hosting-provider and unnecessary GitHub-account setup details. Obsolete branches were removed and the release was repaired, but GitHub still retains superseded commits through pull-request refs, historical Actions runs and direct commit lookup.
+The repository is public. Before publication, current branch/tag history was cleaned, obsolete branches were removed and the release was repaired. The maintainer reviewed and accepted the non-sensitive off-the-cuff hosting references retained by GitHub-managed pull-request refs and historical Actions runs.
 
 ## Blockers
 
-- Do not make the repository public until the maintainer either accepts the residual visibility of superseded commits or explicitly authorises replacing the GitHub repository. A normal force-push cannot remove GitHub-managed pull-request refs, and GitHub generally does not purge non-sensitive historical data on request.
+None.
 
 ## Uncertainties
 
@@ -56,11 +57,11 @@ All current files and history reachable from `main` and `v0.1.0` have been clean
 
 ## Next safe action
 
-Keep the repository private while the maintainer chooses between accepting the residual historical exposure and replacing the GitHub repository with the sanitised history. Treat `docs/future-ideas.md` as exploratory input rather than an active roadmap until the maintainer selects another bounded slice.
+Continue using the public MVP. Treat `docs/future-ideas.md` as exploratory input rather than an active roadmap until the maintainer selects another bounded slice.
 
 ## Last meaningful update
 
-2026-08-22 — Current documentation and branch/tag history were sanitised, obsolete branches were removed, and the `v0.1.0` release was repaired. Final verification found that GitHub-managed pull-request refs and historical Actions runs still retain superseded commits, so public visibility remains blocked pending a maintainer decision.
+2026-08-22 — The maintainer reviewed and accepted the non-sensitive historical hosting references, authorised public visibility, and the repository was made public without changing the live application's origin or local-only data model.
 
 ## Pointers
 
