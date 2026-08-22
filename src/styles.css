@@ -618,6 +618,12 @@ h1 {
   transform: none;
 }
 
+.article-row.is-ghost .delete-action {
+  border-color: var(--accent-ink);
+  color: var(--text);
+  background: var(--accent);
+}
+
 .article-ghost {
   min-width: 0;
   flex: 1;
@@ -635,7 +641,7 @@ h1 {
   position: absolute;
   width: 32px;
   height: 32px;
-  color: var(--text);
+  color: var(--accent-ink);
   inset: -2px;
   pointer-events: none;
   transform: rotate(-90deg);
@@ -656,6 +662,13 @@ h1 {
 
 .delete-action:focus-visible {
   outline-offset: 3px;
+}
+
+.article-row.is-ghost .delete-action:focus-visible {
+  outline: 0;
+  border-width: 2px;
+  border-color: var(--accent-text);
+  transform: scale(1.08);
 }
 
 .article-action-sheet {
