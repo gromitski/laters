@@ -6,7 +6,7 @@ Track the current state and next safe action for the Laters personal read-later 
 
 ## Lifecycle
 
-Slices 1 to 6 are implemented and published at `https://laters.dustyb.in/`. Physical-device acceptance of the Slice 6 design remains pending.
+Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.in/`. The MVP baseline is ready for its first GitHub release.
 
 ## What exists now
 
@@ -37,11 +37,11 @@ Slices 1 to 6 are implemented and published at `https://laters.dustyb.in/`. Phys
 
 ## Active focus
 
-Complete the focused physical-device acceptance of the deployed Slice 6 design.
+Document the accepted MVP, capture uncommitted future ideas and publish the first GitHub release without expanding application scope.
 
 ## Active slice
 
-Slice 5 real-device Android acceptance is complete. Slice 6A visual identity, Slice 6B in-row Undo and Slice 6C local verification are committed, deployed and documented in `docs/planning/slice-6-mvp-design-implementation-plan.md`; focused Android acceptance remains.
+All MVP delivery slices are complete. The deployed Slice 6 design has been accepted by the maintainer in normal use. Release preparation targets `v0.1.0`, matching `package.json`.
 
 ## Blockers
 
@@ -50,17 +50,16 @@ None.
 ## Uncertainties
 
 - A minimum Chrome for Android version is not yet evidenced.
-- The update-available action still needs physical-device acceptance on the next public-bundle deployment.
 - Android's news feed may provide distinct rotating or tracking URLs for the same apparent article; exact-URL deduplication correctly retains these as separate items.
 - Some Android news-feed shares do not supply a useful article title. Remote title enrichment is a possible later product slice with privacy, security and reliability implications; it is not part of the current design handoff.
 
 ## Next safe action
 
-On the installed Android PWA, apply the available update and confirm the retained list, new design, home-screen icon, white splash, Delete, Undo and expiry behaviour.
+Verify the release documentation and repository checks, then publish the authorised `v0.1.0` GitHub release.
 
 ## Last meaningful update
 
-2026-08-22 — Slice 6 was implemented, verified, committed and deployed: self-hosted typography and licence, supplied icons, white/ink/lime identity, accessible icon controls, and an in-row seven-second Undo state. All 35 tests, the production build, public-build audit, 320px long-title checks, wide layout, update flow, share status, invalid-share error and ghost-row presentation passed. GitHub's verification and Pages deployment workflow completed successfully.
+2026-08-22 — The maintainer confirmed the deployed Slice 6 design is working and accepted the result as a successful MVP. Eleven possible enhancements were recorded as exploratory rather than committed scope, and `v0.1.0` was selected for the first GitHub release. The maintainer also judged the AI Foundation and repository-led working method effective for fast, coherent delivery.
 
 ## Pointers
 
@@ -68,6 +67,7 @@ On the installed Android PWA, apply the available update and confirm the retaine
 - [Product intent](intent.md)
 - [Original project idea](../evidence/origin/2026-08-21-origin.md)
 - [MVP definition](../docs/mvp-definition.md)
+- [Exploratory future ideas](../docs/future-ideas.md)
 - [Deployment](../docs/deployment.md)
 - [Claude Design handoff](../docs/claude-design-handoff.md)
 - [Slice 6 implementation plan](../docs/planning/slice-6-mvp-design-implementation-plan.md)

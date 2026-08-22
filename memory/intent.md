@@ -46,7 +46,7 @@ The core job is intentionally narrow: capture a link at the moment it is discove
 - Accepted: sharing an existing URL refreshes the existing item, updates its useful title and moves it to the top rather than creating a duplicate.
 - Accepted: deletion is immediate and offers a brief accessible undo action rather than requiring confirmation.
 - Accepted: relative saved times update when the list is rendered and when the app returns to the foreground; continuous timers are unnecessary.
-- Accepted: the current minimal accessible styling is temporary until the maintainer supplies a later design and favicon package.
+- Accepted: the MVP uses the maintainer-approved white/ink/lime design, self-hosted Bricolage Grotesque typeface and supplied icon family.
 - Accepted: the personal MVP targets the current stable Chrome for Android; device acceptance records the tested version without promising older releases.
 - Accepted: production uses GitHub Pages at `https://laters.dustyb.in/`, with automated deployment of the generated public build only.
 - Accepted: no sensitive data, repository memory, local paths, source maps or unintended third-party resources may enter the deployed build.
