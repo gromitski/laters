@@ -6,7 +6,7 @@ Track the current state and next safe action for the Laters personal read-later 
 
 ## Lifecycle
 
-Slices 1 and 2 complete. Slices 3 and 4 are implemented and verified on `deploy/github-pages` in draft PR #1.
+Slices 1 to 4 are complete and published at `https://laters.dustyb.in/`.
 
 ## What exists now
 
@@ -27,14 +27,15 @@ Slices 1 and 2 complete. Slices 3 and 4 are implemented and verified on `deploy/
 - A repeatable public-build audit covering common secrets, personal data, local paths, source maps, repository documents, binary metadata and unintended external resources.
 - Duplicate shares refresh one item at the top, deletion offers an accessible seven-second undo action, relative times refresh on foregrounding, and persistent storage is requested non-fatally.
 - A step-by-step GitHub and Gandi setup guide for `laters.dustyb.in`.
+- A live custom-domain deployment with an approved GitHub certificate and enforced HTTPS.
 
 ## Active focus
 
-Merge draft PR #1 to create the first Actions deployment, then complete certificate activation and Android acceptance.
+Complete the real-device Chrome for Android acceptance pass.
 
 ## Active slice
 
-Slices 3 and 4 are committed, published and passing pull-request verification.
+Slice 5 real-device Android acceptance is ready to begin.
 
 ## Blockers
 
@@ -44,16 +45,15 @@ None.
 
 - A minimum Chrome for Android version is not yet evidenced.
 - Android Share-menu registration and capture still need acceptance on an installed HTTPS build on a physical device.
-- GitHub domain verification and the Gandi CNAME are complete; the production TLS certificate is awaiting the first Actions deployment and GitHub provisioning.
 - The replacement visual design and favicon package have not yet been supplied.
 
 ## Next safe action
 
-Obtain explicit approval to merge draft PR #1 and trigger the first Pages deployment. Then verify the custom-domain certificate, enforce HTTPS and complete Slice 5 Android acceptance.
+Install Laters from `https://laters.dustyb.in/` using the current stable Chrome for Android and complete the documented capture, duplicate, persistence, deletion, undo and offline-shell checks. Record the tested Chrome version and any failure.
 
 ## Last meaningful update
 
-2026-08-22 — Slices 3 and 4 published in draft PR #1; `dustyb.in` is verified, `laters.dustyb.in` is attached to Pages, and its Gandi CNAME resolves publicly. The first workflow deployment and certificate remain pending.
+2026-08-22 — PR #1 merged and the audited production artifact deployed successfully. `laters.dustyb.in` serves the built app with enforced HTTPS, a root-scoped manifest and service worker, and no browser console errors.
 
 ## Pointers
 
