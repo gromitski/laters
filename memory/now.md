@@ -36,11 +36,11 @@ Slices 1 to 5 are complete and published at `https://laters.dustyb.in/`.
 
 ## Active focus
 
-Use the accepted personal MVP and verify the visible update action on the next deployment that changes the public application bundle.
+Review the verified local Slice 6 MVP design, then stop before any commit, push or deployment.
 
 ## Active slice
 
-Slice 5 real-device Android acceptance is complete. Slice 6 design and launch readiness is deferred until the maintainer supplies the planned design and favicon package.
+Slice 5 real-device Android acceptance is complete. Slice 6A visual identity, Slice 6B in-row Undo and Slice 6C local verification are complete in the uncommitted worktree and documented in `docs/planning/slice-6-mvp-design-implementation-plan.md`.
 
 ## Blockers
 
@@ -49,18 +49,17 @@ None.
 ## Uncertainties
 
 - A minimum Chrome for Android version is not yet evidenced.
-- The new update-available action still needs a deployed-version acceptance check.
+- The update-available action still needs physical-device acceptance on the next public-bundle deployment.
 - Android's news feed may provide distinct rotating or tracking URLs for the same apparent article; exact-URL deduplication correctly retains these as separate items.
 - Some Android news-feed shares do not supply a useful article title. Remote title enrichment is a possible later product slice with privacy, security and reliability implications; it is not part of the current design handoff.
-- The replacement visual design and favicon package have not yet been supplied.
 
 ## Next safe action
 
-Continue using the personal MVP. When ready, give Claude Design the repository and point it to `docs/claude-design-handoff.md`. On the next public-bundle deployment, confirm that Laters shows the **Update** action and retains saved data after applying it.
+Review the verified Slice 6 worktree, then obtain separate authorisation before commit, push or deployment.
 
 ## Last meaningful update
 
-2026-08-22 — Full real-device MVP acceptance passed on Chrome for Android `151.0.7922.173`, and the design handoff was prepared for Slice 6. News-feed title enrichment is recorded as a possible later product slice rather than part of the MVP design work.
+2026-08-22 — Slice 6 was implemented and verified locally: self-hosted typography and licence, supplied icons, white/ink/lime identity, accessible icon controls, and an in-row seven-second Undo state. All 35 tests, the production build, public-build audit, 320px long-title checks, wide layout, update flow, share status, invalid-share error and ghost-row presentation passed. Nothing has been committed or deployed.
 
 ## Pointers
 
@@ -70,3 +69,4 @@ Continue using the personal MVP. When ready, give Claude Design the repository a
 - [MVP definition](../docs/mvp-definition.md)
 - [Deployment](../docs/deployment.md)
 - [Claude Design handoff](../docs/claude-design-handoff.md)
+- [Slice 6 implementation plan](../docs/planning/slice-6-mvp-design-implementation-plan.md)

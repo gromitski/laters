@@ -4,10 +4,22 @@ import { registerServiceWorker } from "./pwa/registerServiceWorker";
 import { IndexedDbReadingListStore } from "./storage/indexedDbReadingListStore";
 import { requestPersistentStorage } from "./storage/requestPersistentStorage";
 import { formatSavedTime } from "./ui/formatSavedTime";
+import { createReadingListEntries } from "./ui/readingListPresentation";
 
 const store = new IndexedDbReadingListStore();
 const UNDO_WINDOW_MS = 7_000;
+const ROW_COLLAPSE_MS = 460;
+
+interface PendingDeletion {
+  item: SavedItem;
+  isLeaving: boolean;
+}
+
+let currentItems: SavedItem[] = [];
+let pendingDeletion: PendingDeletion | undefined;
 let undoTimer: number | undefined;
+let collapseTimer: number | undefined;
+let hasRenderedInitialItems = false;
 
 const list = requireElement<HTMLUListElement>("article-list");
 const loadingState = requireElement<HTMLParagraphElement>("loading-state");
@@ -47,8 +59,9 @@ async function refreshList(): Promise<void> {
   setBusy(true);
 
   try {
-    const items = await store.listNewestFirst();
-    renderItems(items);
+    currentItems = await store.listNewestFirst();
+    renderItems(!hasRenderedInitialItems);
+    hasRenderedInitialItems = true;
   } catch (error) {
     list.replaceChildren();
     emptyState.hidden = true;
@@ -60,16 +73,28 @@ async function refreshList(): Promise<void> {
   }
 }
 
-function renderItems(items: SavedItem[]): void {
-  list.replaceChildren(...items.map(createArticleRow));
-  emptyState.hidden = items.length > 0;
-  itemCount.textContent = `${items.length} ${items.length === 1 ? "item" : "items"}`;
+function renderItems(animateEntries = false): void {
+  const entries = createReadingListEntries(currentItems, pendingDeletion?.item);
+  const rows = entries.map((entry, index) =>
+    entry.isGhost
+      ? createGhostRow(entry.item, pendingDeletion?.isLeaving ?? false)
+      : createArticleRow(entry.item, animateEntries, index),
+  );
+
+  list.replaceChildren(...rows);
+  emptyState.hidden = entries.length > 0;
+  itemCount.textContent = `${currentItems.length} ${currentItems.length === 1 ? "item" : "items"}`;
 }
 
-function createArticleRow(item: SavedItem): HTMLLIElement {
+function createArticleRow(item: SavedItem, animate: boolean, index: number): HTMLLIElement {
   const row = document.createElement("li");
   row.className = "article-row";
   row.dataset.itemId = item.id;
+
+  if (animate) {
+    row.classList.add("is-entering");
+    row.style.setProperty("--entry-delay", `${Math.min(index, 6) * 60}ms`);
+  }
 
   const content = document.createElement("div");
   content.className = "article-content";
@@ -90,11 +115,7 @@ function createArticleRow(item: SavedItem): HTMLLIElement {
   meta.className = "article-meta";
   meta.textContent = `Saved ${formatSavedTime(item.savedAt)}`;
 
-  const deleteButton = document.createElement("button");
-  deleteButton.className = "delete-action";
-  deleteButton.type = "button";
-  deleteButton.textContent = "Delete";
-  deleteButton.setAttribute("aria-label", `Delete “${item.title}”`);
+  const deleteButton = createIconButton(`Delete “${item.title}”`);
   deleteButton.addEventListener("click", () => {
     void deleteArticle(item, deleteButton);
   });
@@ -104,61 +125,174 @@ function createArticleRow(item: SavedItem): HTMLLIElement {
   return row;
 }
 
-async function deleteArticle(item: SavedItem, button: HTMLButtonElement): Promise<void> {
-  clearMessages();
-  button.disabled = true;
+function createGhostRow(item: SavedItem, isLeaving: boolean): HTMLLIElement {
+  const row = document.createElement("li");
+  row.className = `article-row is-ghost${isLeaving ? " is-leaving" : ""}`;
+  row.dataset.itemId = item.id;
 
-  try {
-    await store.delete(item.id);
-    await refreshList();
-    showUndoStatus(item);
-  } catch (error) {
-    button.disabled = false;
-    showError(readableError(error, "This article could not be deleted."));
-  }
-}
+  const message = document.createElement("p");
+  message.className = "article-ghost";
+  message.textContent = `Deleted “${item.title}”.`;
 
-function showUndoStatus(item: SavedItem): void {
-  clearMessages();
-
-  const undoButton = document.createElement("button");
-  undoButton.className = "undo-action";
-  undoButton.type = "button";
-  undoButton.textContent = "Undo";
+  const undoButton = createIconButton("Undo delete", true);
   undoButton.addEventListener("click", () => {
-    clearUndoTimer();
     undoButton.disabled = true;
     void restoreArticle(item);
   });
 
-  statusMessage.append(document.createTextNode(`Deleted “${item.title}”. `), undoButton);
-  undoButton.focus();
-  undoTimer = window.setTimeout(() => {
-    const undoHadFocus = document.activeElement === undoButton;
-    showStatus(`Deleted “${item.title}”.`);
+  row.append(message, undoButton);
+  return row;
+}
 
-    if (undoHadFocus) {
-      listHeading.focus();
+function createIconButton(label: string, includeRing = false): HTMLButtonElement {
+  const button = document.createElement("button");
+  button.className = "delete-action";
+  button.type = "button";
+  button.setAttribute("aria-label", label);
+
+  if (includeRing) {
+    const ring = createSvg("undo-ring", "0 0 36 36");
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("cx", "18");
+    circle.setAttribute("cy", "18");
+    circle.setAttribute("r", "16");
+    ring.append(circle);
+    button.append(ring);
+  }
+
+  const icons = document.createElement("span");
+  icons.className = "delete-icons";
+
+  const xIcon = createSvg("icon-x", "0 0 24 24");
+  const xPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  xPath.setAttribute("d", "M6 6l12 12M18 6L6 18");
+  xIcon.append(xPath);
+
+  const undoIcon = createSvg("icon-undo", "0 0 24 24");
+  const undoCorner = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  undoCorner.setAttribute("d", "M3 3v6h6");
+  const undoArrow = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  undoArrow.setAttribute("d", "M3.5 9a9 9 0 1 0 2.2-3.4L3 8");
+  undoIcon.append(undoCorner, undoArrow);
+
+  icons.append(xIcon, undoIcon);
+  button.append(icons);
+  return button;
+}
+
+function createSvg(className: string, viewBox: string): SVGSVGElement {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.classList.add(className);
+  svg.setAttribute("viewBox", viewBox);
+  svg.setAttribute("fill", "none");
+  svg.setAttribute("stroke", "currentColor");
+  svg.setAttribute("stroke-width", "2.4");
+  svg.setAttribute("stroke-linecap", "round");
+  svg.setAttribute("stroke-linejoin", "round");
+  svg.setAttribute("aria-hidden", "true");
+  return svg;
+}
+
+async function deleteArticle(item: SavedItem, button: HTMLButtonElement): Promise<void> {
+  clearFeedback();
+  finalisePendingDeletion();
+  const activeButton =
+    findRow(item.id)?.querySelector<HTMLButtonElement>(".delete-action") ?? button;
+  activeButton.disabled = true;
+
+  try {
+    await store.delete(item.id);
+    currentItems = currentItems.filter((candidate) => candidate.id !== item.id);
+    pendingDeletion = { item, isLeaving: false };
+    renderItems();
+    announceHiddenStatus(`Deleted “${item.title}”.`);
+    focusUndo(item.id);
+    undoTimer = window.setTimeout(() => expireUndo(item), UNDO_WINDOW_MS);
+  } catch (error) {
+    activeButton.disabled = false;
+    showError(readableError(error, "This article could not be deleted."));
+  }
+}
+
+function expireUndo(item: SavedItem): void {
+  undoTimer = undefined;
+
+  if (pendingDeletion?.item.id !== item.id) {
+    return;
+  }
+
+  const undoButton = findRow(item.id)?.querySelector<HTMLButtonElement>(".delete-action");
+
+  if (document.activeElement === undoButton) {
+    listHeading.focus();
+  }
+
+  pendingDeletion.isLeaving = true;
+  const row = findRow(item.id);
+
+  if (row) {
+    row.style.height = `${row.getBoundingClientRect().height}px`;
+    void row.offsetHeight;
+    row.classList.add("is-leaving");
+  }
+
+  const delay = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ? 0
+    : ROW_COLLAPSE_MS;
+
+  collapseTimer = window.setTimeout(() => {
+    collapseTimer = undefined;
+
+    if (pendingDeletion?.item.id !== item.id) {
+      return;
     }
-  }, UNDO_WINDOW_MS);
+
+    pendingDeletion = undefined;
+    renderItems();
+    showStatus(`Deleted “${item.title}”.`);
+  }, delay);
 }
 
 async function restoreArticle(item: SavedItem): Promise<void> {
+  clearUndoTimer();
+
   try {
     await store.save(item);
+    pendingDeletion = undefined;
     await refreshList();
     showStatus(`Restored “${item.title}”.`);
     focusArticle(item.id);
   } catch (error) {
+    pendingDeletion = undefined;
+    renderItems();
     showError(readableError(error, "This article could not be restored."));
+    listHeading.focus();
   }
 }
 
+function focusUndo(itemId: string): void {
+  findRow(itemId)?.querySelector<HTMLButtonElement>(".delete-action")?.focus();
+}
+
 function focusArticle(itemId: string): void {
-  const row = [...list.querySelectorAll<HTMLLIElement>(".article-row")].find(
+  findRow(itemId)?.querySelector<HTMLAnchorElement>(".article-link")?.focus();
+}
+
+function findRow(itemId: string): HTMLLIElement | undefined {
+  return [...list.querySelectorAll<HTMLLIElement>(".article-row")].find(
     (candidate) => candidate.dataset.itemId === itemId,
   );
-  row?.querySelector<HTMLAnchorElement>(".article-link")?.focus();
+}
+
+function finalisePendingDeletion(): void {
+  if (!pendingDeletion) {
+    return;
+  }
+
+  clearUndoTimer();
+  clearCollapseTimer();
+  pendingDeletion = undefined;
+  renderItems();
 }
 
 function showShareResult(): void {
@@ -195,22 +329,28 @@ function setBusy(isBusy: boolean): void {
   });
 }
 
-function clearMessages(): void {
-  clearUndoTimer();
+function clearFeedback(): void {
   statusMessage.replaceChildren();
+  statusMessage.classList.remove("is-announcement-only");
   errorMessage.textContent = "";
   errorMessage.hidden = true;
 }
 
-function showStatus(message: string): void {
-  clearUndoTimer();
+function announceHiddenStatus(message: string): void {
   errorMessage.hidden = true;
+  statusMessage.textContent = message;
+  statusMessage.classList.add("is-announcement-only");
+}
+
+function showStatus(message: string): void {
+  errorMessage.hidden = true;
+  statusMessage.classList.remove("is-announcement-only");
   statusMessage.textContent = message;
 }
 
 function showError(message: string): void {
-  clearUndoTimer();
   statusMessage.replaceChildren();
+  statusMessage.classList.remove("is-announcement-only");
   errorMessage.textContent = message;
   errorMessage.hidden = false;
 }
@@ -219,6 +359,13 @@ function clearUndoTimer(): void {
   if (undoTimer !== undefined) {
     window.clearTimeout(undoTimer);
     undoTimer = undefined;
+  }
+}
+
+function clearCollapseTimer(): void {
+  if (collapseTimer !== undefined) {
+    window.clearTimeout(collapseTimer);
+    collapseTimer = undefined;
   }
 }
 

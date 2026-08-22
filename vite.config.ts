@@ -18,8 +18,8 @@ export default defineConfig({
         start_url: "/",
         scope: "/",
         display: "standalone",
-        background_color: "#f3efe7",
-        theme_color: "#f3efe7",
+        background_color: "#ffffff",
+        theme_color: "#ffffff",
         categories: ["productivity", "utilities"],
         icons: [
           {
@@ -54,7 +54,7 @@ export default defineConfig({
       },
       injectManifest: {
         rollupFormat: "iife",
-        globPatterns: ["**/*.{css,html,js,png,svg,webmanifest}"],
+        globPatterns: ["**/*.{css,html,js,png,svg,woff2,webmanifest}"],
       },
     }),
   ],

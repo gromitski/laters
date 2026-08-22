@@ -70,7 +70,8 @@ The boundary exists to keep UI and browser storage concerns separate. It is not 
 - The interface must make external navigation predictable.
 - Deletion updates both IndexedDB and the visible list.
 - A failed deletion leaves the item visible and reports the failure accessibly.
-- Deletion is immediate and offers a seven-second accessible undo action.
+- Deletion is immediate and leaves a temporary ghost row with a seven-second accessible undo action.
+- The compact X and Undo controls retain explicit accessible names and at least a 44px interaction target.
 - Restoring an item preserves its original saved position.
 
 ## Quality boundaries
@@ -115,7 +116,9 @@ Deferred items are not implied future commitments. They require evidence of a re
 - Sharing an existing URL updates that item's useful title and saved time, moving it to the top without creating a duplicate.
 - Deletion is immediate and offers a brief accessible undo action.
 - Relative saved times update when the app loads and returns to the foreground, not on a continuous timer.
-- The current visual treatment remains a temporary accessible baseline until a dedicated design and favicon package is supplied.
+- The accepted MVP identity uses the self-hosted Bricolage Grotesque typeface, a white/near-black/lime visual system, the **Laters.** wordmark and the supplied icon family.
+- The list remains a single edge-to-edge column without cards, navigation or decorative product features beyond the accepted MVP scope.
+- The X changes to an in-row Undo control for seven seconds after deletion; live announcements and focus recovery remain part of the interaction contract.
 - Application updates are user-controlled: Laters announces a ready version and applies it through an explicit update action.
 - Duplicate identity is the exact normalised URL. Distinct redirect, tracking or rotating URLs are kept separately rather than merged using unreliable heuristics.
 

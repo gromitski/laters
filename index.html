@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f3efe7" />
+    <meta name="theme-color" content="#ffffff" />
     <meta
       name="description"
       content="A minimal local-first list of articles to read later."
     />
     <link rel="icon" href="/icons/laters.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/icons/laters-192.png" />
     <title>Laters</title>
   </head>
@@ -17,9 +18,8 @@
 
     <main class="shell">
       <header class="masthead">
-        <p class="eyebrow">Your quiet reading queue</p>
-        <h1>Laters</h1>
-        <p class="intro">Save the link. Read it when you have the space.</p>
+        <p class="eyebrow"><span>Your quiet reading queue</span></p>
+        <h1>Laters<span class="wordmark-stop">.</span></h1>
       </header>
 
       <div id="update-message" class="update-message" role="status" aria-live="polite" hidden>
@@ -29,10 +29,7 @@
 
       <section id="saved-articles" class="reading-list" aria-labelledby="list-heading">
         <div class="list-heading-row">
-          <div>
-            <p class="section-kicker">Newest first</p>
-            <h2 id="list-heading" tabindex="-1">Saved articles</h2>
-          </div>
+          <h2 id="list-heading" tabindex="-1">Saved articles</h2>
           <p id="item-count" class="item-count" aria-live="polite"></p>
         </div>
 
