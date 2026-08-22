@@ -53,12 +53,14 @@ released MVP 2.0 data model or replacing its visible accessible controls.
 
 ## Active slice
 
-The mobile interaction shell was promoted unchanged from `dev` to `main` in commit `72c44f7`, using
-only the required Ionic Core swipe-row and action-sheet custom elements. GitHub Actions run
-`32592111240` passed tests, build, public audit and Pages deployment, and the promoted asset hashes
-are live at `https://laters.dustyb.in/`. It adds long-press actions and left-swipe Delete while
-retaining the title link, Star, visible Delete and existing Undo route. Physical Android acceptance
-and a release decision remain pending; release `v0.2.0` itself remains the previous tagged commit.
+The mobile interaction shell was promoted from `dev` to `main` in commit `72c44f7`. Its first
+physical Android check confirmed the gestures and action sheet work, then identified three focused
+defects: a black native link outline, Android text-selection/dictionary UI during hold, and a
+full-list rerender that could jump to the top after a lower-page deletion and hide Undo. A correction
+is implemented and agent-verified: touch-only selection suppression, designed link focus styling,
+in-place Delete/Undo row replacement, non-scrolling focus transfer and explicit dismissed-sheet
+cleanup. Publication and the focused physical recheck remain pending. Release `v0.2.0` itself
+remains the previous tagged commit.
 
 ## Blockers
 
@@ -67,22 +69,24 @@ None.
 ## Uncertainties
 
 - A minimum Chrome for Android version is not yet evidenced.
-- Physical Android testing has not yet proved long-press timing, touch-versus-scroll arbitration or
-  full-swipe completion for the new interaction shell.
+- The corrected coarse-pointer long press and lower-page Delete/Undo behaviour require a focused
+  physical Android recheck.
 - Android's news feed may provide distinct rotating or tracking URLs for the same apparent article; exact-URL deduplication correctly retains these as separate items.
 - Some Android news-feed shares do not supply a useful article title. Remote title enrichment is a possible later product slice with privacy, security and reliability implications; it is not part of the current design handoff.
 
 ## Next safe action
 
-Run the focused physical Android acceptance in the interaction-shell plan against the published
-GitHub Pages build. Record any defects as implementation follow-ups; if all gates pass, document
-acceptance and make a separate release decision.
+Publish the verified correction slice to `main`, allow GitHub Pages to deploy it, then repeat the
+focused physical checks for link focus, hold without Android selection UI and lower-page Delete/Undo
+without viewport movement. If those pass, complete the remaining shell acceptance and make a
+separate release decision.
 
 ## Last meaningful update
 
-2026-08-22 — The mobile interaction shell was promoted unchanged from `dev` to `main`. GitHub Actions
-passed all verification and deployment jobs, and the public origin serves the promoted build.
-Physical Android acceptance remains the sole product gate before a release decision.
+2026-08-22 — The first physical Android shell test found three correction items despite the core
+interaction working: native link outline, dictionary-triggering touch selection and a serious
+lower-page Delete jump that could hide Undo. The focused fixes are implemented and browser-verified;
+publication and physical recheck remain pending.
 
 ## Pointers
 

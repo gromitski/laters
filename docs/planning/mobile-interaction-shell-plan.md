@@ -97,6 +97,29 @@ primitives rather than hidden framework growth.
 Browser emulation cannot prove physical touch long-press timing, finger scroll arbitration or Ionic's
 full-swipe threshold. Those are explicit device gates, not inferred passes.
 
+## First physical Android findings and correction
+
+The first published Android check confirmed the shell works but found three acceptance failures:
+
+- focused or selected title text could acquire an unrelated black browser outline;
+- the 500 ms hold also allowed Android text selection and dictionary UI to appear beneath the action
+  sheet; and
+- deleting further down a long queue could rebuild the complete Ionic list, move the viewport to the
+  top and leave the time-limited Undo control off-screen.
+
+The focused correction keeps the existing keyboard-accessible link but replaces its default outline
+with the designed lime band and a high-contrast underline. On coarse-pointer devices only, article
+text selection and the native touch callout are disabled because hold is now an application gesture;
+fine-pointer desktop text selection remains available.
+
+Delete, expiry and Undo now mutate only the affected row instead of replacing every list child. Focus
+moves to Undo, the restored article or an adjacent article with `preventScroll`, so the browser has no
+reason to move the viewport. Dismissed action sheets are removed before their chosen action mutates
+the row, preventing a hidden overlay focus trap from competing with Undo. Browser regression checks
+confirmed that lower-page Delete leaves Undo in place, Undo restores the same row in place, restored
+focus uses the Laters underline rather than a black box, and action-sheet deletion leaves no hidden
+dialog host. The coarse-pointer selection correction still requires the physical Android recheck.
+
 ## Physical Android acceptance after promotion to `main`
 
 Use the published GitHub Pages build in current stable Chrome for Android and confirm:

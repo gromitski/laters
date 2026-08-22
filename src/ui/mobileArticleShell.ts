@@ -299,6 +299,7 @@ async function showArticleActionSheet(
     await actionSheet.present();
     const result = await actionSheet.onDidDismiss<{ action?: ArticleAction }>();
     const action = result.data?.action;
+    actionSheet.remove();
 
     if (action === "bookmark") {
       await actions.toggleBookmark();
@@ -306,6 +307,7 @@ async function showArticleActionSheet(
       await actions.delete();
     }
   } finally {
+    actionSheet.remove();
     articleRow.classList.remove("is-menu-open");
 
     if (activeActionSheet === actionSheet) {

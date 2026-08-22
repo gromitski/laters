@@ -90,7 +90,11 @@ function renderItems(animateEntries = false): void {
   );
 
   list.replaceChildren(...rows);
-  emptyState.hidden = entries.length > 0;
+  updateListSummary();
+}
+
+function updateListSummary(): void {
+  emptyState.hidden = list.children.length > 0;
   itemCount.textContent = `${currentItems.length} ${currentItems.length === 1 ? "item" : "items"}`;
 }
 
@@ -404,17 +408,26 @@ function createSvg(className: string, viewBox: string): SVGSVGElement {
 async function deleteArticle(item: SavedItem, button: HTMLButtonElement): Promise<void> {
   clearFeedback();
   finalisePendingDeletion();
-  const activeButton =
-    findRow(item.id)?.querySelector<HTMLButtonElement>(".delete-action") ?? button;
+  const articleRow = findRow(item.id);
+  const activeButton = articleRow?.querySelector<HTMLButtonElement>(".delete-action") ?? button;
   activeButton.disabled = true;
 
   try {
     await store.delete(item.id);
     currentItems = currentItems.filter((candidate) => candidate.id !== item.id);
     pendingDeletion = { item, isLeaving: false };
-    renderItems();
+    const ghostRow = createGhostRow(item, false);
+
+    if (articleRow?.isConnected) {
+      articleRow.replaceWith(ghostRow);
+      updateListSummary();
+    } else {
+      renderItems();
+    }
+
     announceHiddenStatus(`Deleted “${item.title}”.`);
-    focusUndo(item.id);
+    focusUndo(item.id, true);
+    window.requestAnimationFrame(() => focusUndo(item.id, true));
     undoTimer = window.setTimeout(() => expireUndo(item), UNDO_WINDOW_MS);
   } catch (error) {
     activeButton.disabled = false;
@@ -432,7 +445,7 @@ function expireUndo(item: SavedItem): void {
   const undoButton = findRow(item.id)?.querySelector<HTMLButtonElement>(".delete-action");
 
   if (document.activeElement === undoButton) {
-    listHeading.focus();
+    focusBesideRow(findRow(item.id));
   }
 
   pendingDeletion.isLeaving = true;
@@ -456,20 +469,38 @@ function expireUndo(item: SavedItem): void {
     }
 
     pendingDeletion = undefined;
-    renderItems();
+
+    if (row?.isConnected) {
+      row.remove();
+      updateListSummary();
+    } else {
+      renderItems();
+    }
+
     showStatus(`Deleted “${item.title}”.`);
   }, delay);
 }
 
 async function restoreArticle(item: SavedItem): Promise<void> {
   clearUndoTimer();
+  const ghostRow = findRow(item.id);
 
   try {
     await store.save(item);
     pendingDeletion = undefined;
-    await refreshList();
+    currentItems = createReadingListEntries([...currentItems, item]).map((entry) => entry.item);
+    const restoredIndex = currentItems.findIndex((candidate) => candidate.id === item.id);
+    const restoredRow = createArticleRow(item, false, restoredIndex);
+
+    if (ghostRow?.isConnected) {
+      ghostRow.replaceWith(restoredRow);
+      updateListSummary();
+    } else {
+      renderItems();
+    }
+
     showStatus(`Restored “${item.title}”.`);
-    focusArticle(item.id);
+    window.requestAnimationFrame(() => focusArticle(item.id, true));
   } catch (error) {
     pendingDeletion = undefined;
     renderItems();
@@ -478,12 +509,29 @@ async function restoreArticle(item: SavedItem): Promise<void> {
   }
 }
 
-function focusUndo(itemId: string): void {
-  findRow(itemId)?.querySelector<HTMLButtonElement>(".delete-action")?.focus();
+function focusUndo(itemId: string, preventScroll = false): void {
+  findRow(itemId)
+    ?.querySelector<HTMLButtonElement>(".delete-action")
+    ?.focus({ preventScroll });
 }
 
-function focusArticle(itemId: string): void {
-  findRow(itemId)?.querySelector<HTMLAnchorElement>(".article-link")?.focus();
+function focusArticle(itemId: string, preventScroll = false): void {
+  findRow(itemId)
+    ?.querySelector<HTMLAnchorElement>(".article-link")
+    ?.focus({ preventScroll });
+}
+
+function focusBesideRow(row: HTMLElement | undefined): void {
+  const adjacentLink =
+    row?.nextElementSibling?.querySelector<HTMLAnchorElement>(".article-link") ??
+    row?.previousElementSibling?.querySelector<HTMLAnchorElement>(".article-link");
+
+  if (adjacentLink) {
+    adjacentLink.focus({ preventScroll: true });
+    return;
+  }
+
+  listHeading.focus({ preventScroll: true });
 }
 
 function findRow(itemId: string): HTMLElement | undefined {
@@ -499,8 +547,15 @@ function finalisePendingDeletion(): void {
 
   clearUndoTimer();
   clearCollapseTimer();
+  const row = findRow(pendingDeletion.item.id);
+
+  if (row?.contains(document.activeElement)) {
+    focusBesideRow(row);
+  }
+
+  row?.remove();
   pendingDeletion = undefined;
-  renderItems();
+  updateListSummary();
 }
 
 function showShareResult(): void {

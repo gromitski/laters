@@ -408,6 +408,14 @@ h1 {
   background-size: 100% 36%;
 }
 
+.article-link:focus-visible {
+  outline: 0;
+  text-decoration-color: var(--accent-text);
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
 .article-meta {
   display: flex;
   min-width: 0;
@@ -560,6 +568,18 @@ h1 {
     color: var(--text);
     background: var(--accent);
     transform: scale(1.1);
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .article-row,
+  .article-row * {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .article-link {
+    -webkit-touch-callout: none;
   }
 }
 
