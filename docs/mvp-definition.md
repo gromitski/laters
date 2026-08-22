@@ -1,5 +1,7 @@
 # Laters MVP definition
 
+This document records the completed first MVP baseline. The accepted next product direction is defined separately in [`mvp-2-definition.md`](mvp-2-definition.md); it does not retrospectively change this baseline.
+
 ## Outcome
 
 Laters should let the maintainer save an article from Android's Share menu in a few seconds, then return later to a minimal list and open or remove the saved link. It should feel closer to a temporary reading tray than a bookmark manager.

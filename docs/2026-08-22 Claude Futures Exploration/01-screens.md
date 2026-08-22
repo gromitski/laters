@@ -1,8 +1,17 @@
 # Futures — per-screen functionality
 
 Companion to `Laters Futures.dc.html`. All type, colour, spacing and motion tokens are the
-accepted MVP tokens (`2026-08-22 Claude MVP Handoff/01-visual-system.md`); this file only
+accepted MVP tokens ([`../2026-08-22 Claude MVP Handoff/01-visual-system.md`](../2026-08-22%20Claude%20MVP%20Handoff/01-visual-system.md)); this file only
 specifies behaviour that is new.
+
+Screens 4a and 4b were added after the original six. Their subtle lime bookmark wash is a
+deliberate later exception to the earlier no-wash direction. For bookmarks, favicons and
+whole-row opening, [`../mvp-2-definition.md`](../mvp-2-definition.md) now supersedes any
+conflicting implementation assumption below.
+
+The accepted MVP 2.0 row anatomy is favicon/fallback, title and Delete on the primary line,
+then star, hostname and saved time on the metadata line. The hostname is not placed beside the
+icon; it becomes the title only when the existing title-fallback rules require it.
 
 ---
 
@@ -18,8 +27,11 @@ Favicons, read times, and a Quickest sort so short reads float up.
 - Stored on the item, so the list never re-fetches.
 
 **Favicon**
-- Fetched at save time, cached as a small data URL on the item.
-- Fallback: 22px rounded tile, first letter of the domain, muted ink background (rotate through a fixed set of 4 muted inks so neighbours differ).
+- MVP 2.0 tries the conventional `/favicon.ico` directly on the publisher origin. It does not
+  fetch article HTML, use a central favicon service or require stored image data.
+- Fallback: a 22px rounded tile with one or two hostname-derived characters and a colour from a
+  fixed palette selected by a stable hostname hash. The same source therefore remains visually
+  consistent rather than depending on neighbouring rows.
 - Purely decorative: `aria-hidden="true"`, never the only source indicator (the domain stays in the meta line).
 
 **Sort**
@@ -114,7 +126,11 @@ Starring ("bookmarking" in the UI) with a subtle row tag, on the full 1a queue (
 - Bookmarked rows carry two marks: the meta-line star switches from its resting 1.8px hollow grey outline to a full lime-ink (#8fbf00) fill, and the whole row takes a ~10% lime wash (lime #d0ff4f at 1A–1B alpha, maintainer-tuned). No stripe; nothing is added inside the row, so title width and the meta line are untouched.
 - Every row shows the star — hollow at rest — so the bookmarked state reads as a change, not an addition.
 - The wash is background only: ink text and muted grey meta keep AA contrast; hover deepens the wash to 24% lime instead of the usual off-white.
-- The star is a tag, not a button. Taps on it hit the row like anywhere else; bookmarking happens only in the long-press sheet (4b), so the row grows no new hit targets.
+- The original exploration treated the star as a tag controlled only through 4b. MVP 2.0
+  supersedes that interaction: the star is a direct accessible button with a 44px target until a
+  gesture shell is deliberately selected.
+- A quick tap on other non-interactive row space opens the article. The Star and Delete buttons
+  never trigger row opening; the title remains the semantic link and keyboard path.
 - Bookmarked articles are exempt from any future auto-tidy or archive sweep; delete and swipe still work on them normally, through the same in-row undo.
 - Not colour alone: a visually hidden "Starred." precedes the domain for screen readers.
 - Bookmark state persists on the item, survives restarts, and rides along in export and sync.
@@ -134,4 +150,6 @@ Per-article actions without adding any chrome to the row: bookmark and share dir
   - **Share…** — the system share sheet (`navigator.share`) with the article URL and title, straight from the list. NotebookLM or any LLM app is just a target on that sheet; no vendor SDK or API key.
   - **Copy link** — clipboard API, confirmed via the existing live region ("Link copied.").
   - **Delete** — error red, same deletion path as the X: in-row undo with the 7 s ring, then the collapse.
-- The long-press is an enhancement, not the only path. **Open question:** delete keeps the X on the row, but bookmark and share currently have no gesture-free path — the sheet needs a conventional entry point (or those two actions a second home) before this ships.
+- The long-press is an enhancement, not the only path. MVP 2.0 gives Bookmark a direct star
+  button and keeps the X for Delete. Share still has no selected gesture-free path, so this sheet
+  and sharing remain deferred until the interaction-shell decision.

@@ -39,11 +39,11 @@ Slices 1 to 6 are implemented, published and accepted at `https://laters.dustyb.
 
 ## Active focus
 
-Use the accepted MVP and evaluate possible additions only when normal use provides enough evidence for a new bounded slice.
+Prepare a clean handoff for MVP 2.0 planning without beginning implementation.
 
 ## Active slice
 
-The repository is public. Before publication, current branch/tag history was cleaned, obsolete branches were removed and the release was repaired. The maintainer reviewed and accepted the non-sensitive off-the-cuff hosting references retained by GitHub-managed pull-request refs and historical Actions runs.
+MVP 2.0 product scope is documented: persistent bookmark buttons, direct publisher favicons with deterministic local fallbacks, and whole-row pointer opening that cannot conflict with Bookmark or Delete. Native-style long press, action sheets, swipe-to-delete and framework selection are explicitly deferred to a separate investigation.
 
 ## Blockers
 
@@ -57,11 +57,11 @@ None.
 
 ## Next safe action
 
-Continue using the public MVP. Treat `docs/future-ideas.md` as exploratory input rather than an active roadmap until the maintainer selects another bounded slice.
+In a fresh MVP 2.0 thread, provide a repository-grounded handoff from `docs/mvp-2-definition.md`, then agree bounded delivery slices before implementation.
 
 ## Last meaningful update
 
-2026-08-22 — The maintainer reviewed and accepted the non-sensitive historical hosting references, authorised public visibility, and the repository was made public without changing the live application's origin or local-only data model.
+2026-08-22 — The maintainer selected bookmarks, source favicons and non-conflicting whole-row opening for MVP 2.0 definition. A direct star button is the interim bookmark interaction; native-style long press and swipe await a focused framework decision rather than custom gesture development.
 
 ## Pointers
 
@@ -69,6 +69,7 @@ Continue using the public MVP. Treat `docs/future-ideas.md` as exploratory input
 - [Product intent](intent.md)
 - [Original project idea](../evidence/origin/2026-08-21-origin.md)
 - [MVP definition](../docs/mvp-definition.md)
+- [MVP 2.0 definition](../docs/mvp-2-definition.md)
 - [Exploratory future ideas](../docs/future-ideas.md)
 - [Deployment](../docs/deployment.md)
 - [Claude Design handoff](../docs/claude-design-handoff.md)

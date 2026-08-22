@@ -1,5 +1,7 @@
 # Claude Design handoff
 
+This is the completed first-MVP design brief and remains authoritative for that baseline. For selected post-MVP behaviour, read [`mvp-2-definition.md`](mvp-2-definition.md); its explicit scope supersedes the exclusions below only for MVP 2.0 work.
+
 ## How to use this brief
 
 This is the authoritative design brief for the Laters MVP. Before proposing or implementing design work, read these repository sources in order:

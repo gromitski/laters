@@ -1,5 +1,7 @@
 # Laters — design handoff, 22 August 2026
 
+This package records the implemented first-MVP design baseline. The selected post-MVP bookmark, source-icon and whole-row interaction direction lives in [`../mvp-2-definition.md`](../mvp-2-definition.md); this package should not be read as prohibiting that separately accepted scope.
+
 Visual and interaction design for the accepted Laters MVP (Slice 6). Produced against
 `docs/claude-design-handoff.md` and the reading order it sets out.
 

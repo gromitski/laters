@@ -1,13 +1,21 @@
 # Laters — futures exploration, 22 August 2026
 
-Six UI explorations of the maintainer's post-MVP ideas list, designed on the accepted MVP
+Eight UI explorations of the maintainer's post-MVP ideas list: the original six screens plus
+the later 4a/4b bookmark and in-app sharing addendum. They use the accepted MVP
 brand (the "4c" direction: white page, ink type, lime `#d0ff4f` as a marker pen, Bricolage
 Grotesque, hairline rules, the 30px X control).
 
 **These are ideas, not a roadmap.** Each screen is independently adoptable, in any order,
 or never. Nothing here changes the accepted MVP handoff in
-`docs/designs/2026-08-22 Claude MVP Handoff/`; where the two disagree, the MVP handoff wins
+[`../2026-08-22 Claude MVP Handoff/`](../2026-08-22%20Claude%20MVP%20Handoff/); where the two disagree, the MVP handoff wins
 until an idea is deliberately picked up.
+
+Bookmarks, source favicons and whole-row pointer opening have since been selected for MVP 2.0.
+[`../mvp-2-definition.md`](../mvp-2-definition.md) is authoritative for their accepted scope;
+the screenshots remain end-state explorations and do not select adjacent features.
+
+The selected row anatomy is explicit: favicon/fallback, title and Delete on the primary line;
+star, hostname and saved time on the metadata line. The hostname is not placed beside the icon.
 
 The live design canvas is `Laters Futures.dc.html` in the design project.
 
@@ -34,19 +42,20 @@ The live design canvas is `Laters Futures.dc.html` in the design project.
 ## The brand contract every screen keeps
 
 - One screen, no navigation bar, no floating action button, no search.
-- The article title stays the loudest thing on the page; lime is an action colour, never a wash.
+- The article title stays the loudest thing on the page; lime is primarily an action colour. The
+  subtle bookmark-row wash in the later 4a/4b addendum is the accepted exception.
 - Deletion always ends in the in-row undo with the 7 s ring, whatever started it.
 - Every control keeps a ≥44px hit area and a text accessible name; state is never colour alone.
 - Local-first: the list lives in the browser until the user explicitly syncs or exports.
 
 ## Decisions that need the maintainer's sign-off
 
-### 1. Read times and favicons mean fetching article pages
+### 1. Read times need article content; favicons need a failure-safe source policy
 
-Both are computed **once, at save time**. Cross-origin fetches from a PWA will fail for many
-sites without a proxy; the design assumes graceful absence (no time shown, lettered tile shown)
-rather than a service dependency. If a proxy is unacceptable, 1a still works — it just shows
-fewer read times.
+Read times require article content and remain outside MVP 2.0. The selected favicon approach
+tries the publisher origin's conventional `/favicon.ico` without a central service and uses the
+lettered tile on any failure. The visual design therefore works without a proxy or article-page
+extraction.
 
 ### 2. Sync stays out of the repository
 
@@ -75,11 +84,12 @@ Added after review. The maintainer explored star/stripe/wash treatments (turns 2
 design canvas) and settled on **4a/4b**:
 
 - **4a** — bookmarked rows get a lime-ink filled star in the meta line plus a ~10% lime wash
-  over the row. Unbookmarked rows show a resting hollow grey star. No left stripe.
+  over the row. Unbookmarked rows show a resting hollow grey star. No left stripe. MVP 2.0 makes
+  that star a direct button until a gesture shell is deliberately selected.
 - **4b** — a long-press bottom sheet per article: Read now, **Bookmark** (star symbol, word
   "Bookmark"; toggles to "Remove bookmark"), **Share…** (system share sheet, straight from the
   list), Copy link, Delete (same in-row undo path as the X).
 
-Full behaviour in `01-screens.md`. Open question flagged there: bookmark and share currently
-have no gesture-free path — the long-press sheet needs a conventional entry point (or those
-two actions a second home) before this ships.
+Full exploratory behaviour is in `01-screens.md`. MVP 2.0 resolves the bookmark path with a
+direct star button. Share still has no selected gesture-free path and remains deferred with the
+long-press sheet.

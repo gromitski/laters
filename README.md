@@ -22,7 +22,7 @@ npm run build
 npm run audit:public-build
 ```
 
-See the [MVP definition](docs/mvp-definition.md), [current project truth](memory/now.md) and [exploratory future ideas](docs/future-ideas.md).
+See the completed [MVP definition](docs/mvp-definition.md), accepted [MVP 2.0 definition](docs/mvp-2-definition.md), [current project truth](memory/now.md) and remaining [exploratory future ideas](docs/future-ideas.md).
 
 ## Licence
 

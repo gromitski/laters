@@ -55,3 +55,13 @@ The core job is intentionally narrow: capture a link at the moment it is discove
 - Accepted: duplicate identity is the exact normalised URL; Laters does not follow redirects or guess that distinct feed, tracking or rotating URLs represent the same article.
 
 Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mvp-definition.md`.
+
+## Accepted post-MVP direction
+
+- Accepted: MVP 2.0 will define persistent per-item bookmarks, publisher favicons with a deterministic local fallback, and a non-conflicting whole-row pointer action while preserving the title as the semantic link.
+- Accepted: bookmarks remain a state within the single newest-first queue; they do not add filtering, pinning, sorting, archive protection or another view.
+- Accepted: favicon attempts go directly to the saved publisher's conventional icon URL, never through a central favicon service; ordinary failures use a stable hostname-derived fallback.
+- Accepted: a direct star button provides the accessible MVP 2.0 bookmark interaction. Long press, action sheets and swipe-to-delete remain deferred until a bounded framework or interaction-library investigation.
+- Accepted: do not build a bespoke multi-slice native-style gesture shell and do not introduce a general framework unless it demonstrably reduces the total complexity of the required interactions.
+
+MVP 2.0 scope and acceptance criteria live in `docs/mvp-2-definition.md`.
