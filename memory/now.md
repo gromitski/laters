@@ -62,7 +62,9 @@ in-place Delete/Undo row replacement, non-scrolling focus transfer and explicit 
 cleanup. The correction was published in commit `f55ba01`; GitHub Actions run `32593758441` passed
 tests, build, public audit and Pages deployment, and the public origin serves the corrected asset
 hashes. The focused physical recheck remains pending. Release `v0.2.0` itself remains the previous
-tagged commit.
+tagged commit. A final Undo visual correction was then published in `e0bd63b`: its lime centre and
+green countdown ring are now explicit, and focus no longer adds a black outer halo. GitHub Actions
+run `32594218056` passed all verification and deployment jobs.
 
 ## Blockers
 
@@ -87,7 +89,8 @@ remaining shell acceptance and make a separate release decision.
 2026-08-22 — The first physical Android shell test found three correction items despite the core
 interaction working: native link outline, dictionary-triggering touch selection and a serious
 lower-page Delete jump that could hide Undo. The focused fixes were published in `f55ba01` after all
-GitHub verification and deployment jobs passed; physical recheck remains pending.
+GitHub verification and deployment jobs passed. Final Undo styling was published in `e0bd63b` with
+another fully successful workflow; physical recheck remains pending.
 
 ## Pointers
 

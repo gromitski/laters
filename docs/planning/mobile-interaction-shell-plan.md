@@ -122,6 +122,12 @@ dialog host. The coarse-pointer selection correction still requires the physical
 The correction was published from commit `f55ba01`; GitHub Actions run `32593758441` passed tests,
 build, public audit and Pages deployment.
 
+A final physical visual check found that programmatic Undo focus still drew the generic black outline,
+while the lime centre had previously depended on accidental mobile hover. Commit `e0bd63b` makes the
+lime centre and green countdown ring explicit and uses a darker green inner border and slight scale
+for accessible focus without an outer black halo. GitHub Actions run `32594218056` passed every build
+and deployment gate.
+
 ## Physical Android acceptance after promotion to `main`
 
 Use the published GitHub Pages build in current stable Chrome for Android and confirm:
