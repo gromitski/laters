@@ -53,4 +53,5 @@ GitHub Actions run `32637456916` passed and deployed. The public origin served t
 `index-LO7bD07Z.js` and `index-BKTYuY55.css` assets. After applying the offered production update,
 the browser retained its two saved articles, displayed the new controls and wider shell, opened the
 unchanged menu, returned focus to its three-dot trigger and reported no errors. Maintainer visual
-acceptance remains outstanding; no tag or GitHub release is authorised.
+acceptance passed on 2026-08-23. The maintainer then authorised release hardening, the `v0.4.2` tag
+and a GitHub release.

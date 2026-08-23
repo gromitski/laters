@@ -43,6 +43,7 @@ See the completed [MVP definition](docs/mvp-definition.md), completed
 [MVP 2.0 definition](docs/mvp-2-definition.md), [`v0.2.0` release record](docs/releases/v0.2.0.md),
 [mobile interaction shell record](docs/planning/mobile-interaction-shell-plan.md),
 [`v0.3.0` release record](docs/releases/v0.3.0.md),
+[`v0.4.2` release record](docs/releases/v0.4.2.md),
 [current project truth](memory/now.md) and remaining [exploratory future ideas](docs/future-ideas.md).
 
 ## Licence

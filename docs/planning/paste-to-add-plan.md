@@ -82,10 +82,14 @@ does not supersede the current implementation or visual system.
   privacy audit and GitHub Pages deployment.
 - Production browser verification applied the offered app update and confirmed the deployed control
   and current Laters presentation at 320px without activating clipboard access.
-- Physical Android clipboard and fallback acceptance remains pending; no tag or GitHub release is
-  authorised yet.
+- The maintainer confirmed on 2026-08-23 that the current production mobile paste-to-add flow works
+  well. Successful clipboard intake therefore has physical acceptance; denied/unavailable clipboard
+  fallback remains covered by focused automation and browser checks rather than a separately
+  recorded physical permission denial.
 - A maintainer-requested hardening correction defaults bare addresses to HTTPS, strengthens the
   shared URL boundary and refines input focus before physical acceptance and release closure.
 - Commit `6583438` publishes that correction and removes the redundant editor-specific Cursor rule.
   GitHub Actions run `32635078636` passed, and production served the exact verified JavaScript and
   CSS fingerprints.
+- The accepted paste-to-add work is consolidated in release `v0.4.2`; it was not tagged or released
+  separately as `v0.4.0`.

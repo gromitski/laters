@@ -117,9 +117,13 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 - Let the existing 34rem content shell grow fluidly to a modest 42rem maximum from the desktop
   breakpoint. Preserve all mobile dimensions, gestures, data behaviour and the established visual
   language; this is responsiveness rather than a desktop redesign.
+- Release closure: the maintainer accepted the final production mobile and desktop behaviour and
+  authorised the consolidated `v0.4.2` tag and GitHub release. `v0.4.0` and `v0.4.1` remain candidate
+  version numbers within this line rather than separate historical releases.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.
 The accepted interaction architecture and implementation record live in
 `docs/planning/mobile-interaction-shell-plan.md`; release closure is recorded in
-`docs/releases/v0.3.0.md`.
+`docs/releases/v0.3.0.md`. The post-v0.3 capture, sharing and desktop work is recorded in
+`docs/releases/v0.4.2.md`.

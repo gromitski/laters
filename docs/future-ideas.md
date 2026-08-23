@@ -20,7 +20,8 @@ published and passed its focused Android chooser, NotebookLM import and cancella
 Manual title editing was then selected as the bounded `v0.4.1` follow-up; remote title enrichment
 remains exploratory. A visible desktop route to the existing article menu and a modest wide-screen
 shell expansion were selected as the bounded `v0.4.2` follow-up; no general desktop redesign is
-selected.
+selected. These accepted post-`v0.3.0` slices are consolidated in release `v0.4.2`; the remaining
+table is still exploratory rather than an accepted roadmap.
 
 ## Possibilities
 

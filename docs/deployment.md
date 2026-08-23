@@ -91,7 +91,7 @@ For the `v0.4.0` production candidate:
 6. Confirm `javascript:`, `data:`, `file:`, credential-bearing URLs and malformed or excessively long
    values are rejected and the typed value remains available for correction.
 
-Record the tested Chrome version and any clipboard permission behaviour before release closure.
+Record the tested Chrome version and any clipboard permission behaviour when separately observed.
 
 Commit `17970d0` published the `v0.4.0` production candidate. GitHub Actions run
 `32634392394` passed, and a clean production browser applied the offered app update and confirmed the
@@ -100,7 +100,10 @@ permission fallback remain maintainer-controlled physical-device acceptance chec
 
 Commit `6583438` published the accepted HTTPS-defaulting, URL-validation and focus-treatment
 correction. GitHub Actions run `32635078636` passed, and the production JavaScript and CSS
-fingerprints matched the verified build. Clipboard behaviour remains part of the same physical gate.
+fingerprints matched the verified build. The maintainer confirmed on 2026-08-23 that the current
+mobile paste-to-add flow works well. Successful clipboard intake therefore has physical acceptance;
+the denied/unavailable fallback is covered by focused automation and browser verification rather
+than a separately recorded physical permission denial.
 
 ## Edit-title acceptance
 
@@ -142,7 +145,8 @@ Commit `2639185` published the `v0.4.2` production candidate. GitHub Actions run
 passed, and the public origin served the matching verified JavaScript and CSS fingerprints. A
 production browser applied the offered update without losing its saved articles, confirmed the
 wider 1280px presentation, opened the unchanged menu from **More actions**, restored focus on Cancel
-and reported no errors. Maintainer visual acceptance remains required before release closure.
+and reported no errors. The maintainer accepted the final production presentation on 2026-08-23,
+closing the visual acceptance gate for release `v0.4.2`.
 
 ## Application updates and saved data
 

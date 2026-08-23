@@ -9,7 +9,8 @@ Track the current state and next safe action for the Laters personal read-later 
 The original personal MVP and all three MVP 2.0 slices are implemented, published and accepted at
 `https://laters.dustyb.in/`. Release `v0.1.0` records the first-MVP baseline; `v0.2.0` records the
 completed bookmark, source-marker and whole-row-opening release; and `v0.3.0` records the accepted
-mobile interaction shell.
+mobile interaction shell. Release `v0.4.2` consolidates the accepted sharing, desktop-install,
+paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0`.
 
 ## What exists now
 
@@ -61,11 +62,12 @@ mobile interaction shell.
   for long press, designed link focus and the accepted white-centred Undo countdown presentation.
 - A complete `v0.3.0` release record covering architecture, interaction safety, accessibility,
   compatibility, verification and physical Android acceptance.
+- A complete `v0.4.2` release record covering post-v0.3 capture, sharing, desktop access, security,
+  compatibility, verification and maintainer acceptance.
 
 ## Active focus
 
-Implement, publish and verify the bounded `v0.4.2` desktop action and responsive-width slice. No
-other future idea is selected.
+Release `v0.4.2` is closed. No next feature is selected.
 
 ## Active slice
 
@@ -127,6 +129,11 @@ public origin served the matching verified assets. A production browser applied 
 losing its two saved articles and confirmed the new proportions, menu route, focus restoration and
 error-free console.
 
+The maintainer accepted the final production presentation on 2026-08-23 and authorised release
+hardening, the consolidated `v0.4.2` tag and a GitHub release. Full and production-only dependency
+audits reported zero known vulnerabilities. Release `v0.4.2` intentionally includes all accepted
+work since `v0.3.0`; no `v0.4.0` or `v0.4.1` tag or release was created.
+
 ## Blockers
 
 None.
@@ -139,17 +146,13 @@ None.
 
 ## Next safe action
 
-Visually assess the wider production desktop presentation and visible three-dot menu route. If
-accepted, record maintainer acceptance before deciding whether to close or extend the `v0.4.x`
-release line. No tag or GitHub release is authorised.
+Return to the exploratory futures list and agree the next bounded change before implementation.
 
 ## Last meaningful update
 
-2026-08-23 — Commit `2639185` published the accepted `v0.4.2` desktop action and responsive-width
-candidate. All local gates passed, GitHub Actions run `32637456916` passed and deployed, and a
-production browser confirmed the exact build, retained data, wider presentation, More-actions menu
-route and focus restoration without errors. Maintainer visual acceptance remains; no tag or GitHub
-release is authorised.
+2026-08-23 — Consolidated release `v0.4.2` closed after maintainer acceptance, zero-vulnerability
+dependency audits, the complete automated and public-build gate, production-browser verification,
+GitHub Pages deployment, and publication of the matching tag and GitHub release.
 
 ## Pointers
 
@@ -164,6 +167,7 @@ release is authorised.
 - [Slice 6 implementation plan](../docs/planning/slice-6-mvp-design-implementation-plan.md)
 - [MVP 2.0 Slice 1 bookmark plan](../docs/planning/mvp-2-slice-1-bookmarks-plan.md)
 - [MVP 2.0 Slice 2 source marker plan](../docs/planning/mvp-2-slice-2-source-markers-plan.md)
+- [`v0.4.2` release record](../docs/releases/v0.4.2.md)
 - [Desktop actions and responsive-width plan](../docs/planning/desktop-actions-responsive-plan.md)
 - [MVP 2.0 Slice 3 whole-row opening plan](../docs/planning/mvp-2-slice-3-whole-row-opening-plan.md)
 - [Mobile interaction shell plan](../docs/planning/mobile-interaction-shell-plan.md)
@@ -171,4 +175,4 @@ release is authorised.
 - [Edit-title plan](../docs/planning/edit-title-plan.md)
 - [`v0.2.0` release record](../docs/releases/v0.2.0.md)
 - [`v0.3.0` release record](../docs/releases/v0.3.0.md)
-- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`
+- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`.
