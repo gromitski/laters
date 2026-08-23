@@ -10,7 +10,10 @@ The public privacy policy was published at `https://laters.dustyb.in/privacy/` o
 live page and homepage link passed the production build audit and browser verification; the exact
 homepage and privacy-policy URLs were then saved and rechecked in Google's OAuth branding settings.
 
-1. Complete any required Google brand checks before changing the OAuth application from **Testing**.
+Google's Verification Centre currently reports that verification is not required because the OAuth
+app has **Testing** publishing status. Before public access, make a separate decision to move to
+**In production** and complete any brand checks Google then requests. Until then, keep only the
+maintainer admitted as a test user.
 
 ## Status
 

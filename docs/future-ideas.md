@@ -8,8 +8,10 @@ These are observations collected after the successful personal MVP, not an accep
 
 - The OAuth support contact is now `hello@dustyb.in`, and mailbox ownership was confirmed on
   2026-08-23. The public privacy policy is live and registered in the OAuth branding configuration.
-- Complete any required Google brand checks.
-- Keep the OAuth application in **Testing** with only the maintainer admitted until those gates pass.
+- Google's Verification Centre reports that verification is not required while the OAuth app is in
+  **Testing**. Before public access, make a separate decision to move to **In production** and
+  complete any brand checks Google then requests.
+- Keep the OAuth application in **Testing** with only the maintainer admitted until that decision.
 
 The MVP should remain fast, local-first and focused. Public source code must never imply a public reading list, shared database or committed credentials.
 
