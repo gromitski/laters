@@ -173,8 +173,8 @@ None.
 
 ## Next safe action
 
-Perform the documented desktop and Android drawer acceptance for `6146e96`, then continue the
-live-sync add/delete checks.
+Perform the documented Android drawer acceptance for `6146e96`, then continue the live-sync
+phone/desktop add, delete, Undo and expiry-boundary checks.
 
 ## Last meaningful update
 
@@ -183,7 +183,8 @@ three-state Drive indicator in `4cc5c0b`. Desktop screenshots exposed scrollbar-
 pointer-restored black focus rings; the bounded correction was deployed in `6146e96` by Pages workflow
 `32659745917`. All 122 tests, typecheck, repository/privacy audits, production build, public-build audit
 and dependency audit passed. The public page served the exact corrected JS and CSS assets. Physical
-desktop/Android acceptance remains.
+desktop acceptance is now confirmed; Android drawer acceptance and the complete cross-device
+live-sync sequence remain.
 
 ## Pointers
 

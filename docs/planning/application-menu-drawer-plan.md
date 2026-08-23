@@ -2,8 +2,10 @@
 
 ## Status
 
-Accepted and implemented as a bounded interface move after the private Google Drive live-sync
-candidate. This slice does not change sync storage, timing, authorization or merge behaviour.
+Accepted, implemented and deployed as a bounded interface move after the private Google Drive
+live-sync candidate. Desktop placement, state indication, page stability and pointer focus treatment
+are maintainer-accepted. Android drawer acceptance remains. This slice does not change sync storage,
+timing, authorization or merge behaviour.
 
 ## User-visible contract
 
@@ -53,3 +55,15 @@ live-sync contract.
   a stable shell position while the drawer is open.
 - Physical Android acceptance should confirm top-right reachability, sheet scrolling and swipe-down
   dismissal without interfering with the article list.
+
+## Production evidence
+
+Commit `2a8e329` deployed the menu and drawer through GitHub Actions run `32658437608`. Commit
+`4cc5c0b` added the pale green, white and pale red Drive states through run `32659008341`.
+
+Desktop screenshots then exposed two browser-level presentation defects: Ionic's scroll lock
+released the desktop scrollbar gutter and shifted the centred shell, while pointer-triggered focus
+restoration could inherit Chrome's thick `:focus-visible` outline. Commit `6146e96` corrected both;
+122 tests and all typecheck, privacy, production-build, public-build and dependency gates passed, and
+run `32659745917` deployed the exact verified assets. The maintainer accepted the corrected desktop
+behaviour. The repository status record was then brought current in `54829bc` and run `32659850471`.

@@ -11,8 +11,9 @@ A minimal Android-first read-later PWA. Share an article to Laters, then return 
 - Adds copied or manually entered article URLs through a persistent **Paste a link** row, defaulting
   bare web addresses to HTTPS.
 - Stores links locally in IndexedDB, newest first, with optional private Google Drive sync.
-- Keeps Google Drive sync and Privacy within a top-right bottom-drawer menu whose colour shows the
-  current Drive state.
+- Keeps Google Drive sync and Privacy in a bottom drawer opened from the top-right menu control.
+- Shows Drive state on that control: pale green when connected, white while checking or sending,
+  and pale red when disconnected or after a failed check.
 - Provides persistent per-article bookmarks without changing queue order.
 - Shows publisher favicons with deterministic local fallback tiles.
 - Opens the original article from its title or other non-interactive row space.
@@ -36,11 +37,30 @@ attempts the conventional favicon on each saved publisher's origin; this can rev
 address and request timing to that publisher, but no central favicon service receives the reading
 list or source domains. See the public [privacy policy](https://laters.dustyb.in/privacy/).
 
+## Optional Google Drive sync
+
+Google Drive sync is currently a private experiment: the OAuth app remains in Google's **Testing**
+state and is not available as a general public sign-in. The rest of Laters remains fully usable
+without it.
+
+After a permitted user selects **Connect Google Drive** and approves the narrow permission, Laters
+stores its sync files in Drive's hidden application-data area. It cannot browse or alter ordinary
+Drive files. Local additions, edits, bookmarks, restores and deletions are journalled and exchanged
+with other connected Laters installations. A visible connected app checks when it opens, returns to
+the foreground or comes online, and every 20 seconds while it remains visible.
+
+The Google access token is short lived. Laters can reuse it in that browser until Google's supplied
+expiry, after which local changes wait safely for **Reconnect Google Drive**. This is visible-app
+sync, not OS background execution: a closed or suspended PWA cannot promise polling. Remote operation
+records are deliberately retained until a safe cleanup rule can prove an old offline installation
+cannot revive a deletion.
+
 ## Development
 
 ```bash
 npm ci
 npm test
+npm run typecheck
 npm run audit:repository-privacy
 npm run build
 npm run audit:public-build
@@ -51,6 +71,8 @@ See the completed [MVP definition](docs/mvp-definition.md), completed
 [mobile interaction shell record](docs/planning/mobile-interaction-shell-plan.md),
 [`v0.3.0` release record](docs/releases/v0.3.0.md),
 [`v0.4.2` release record](docs/releases/v0.4.2.md),
+[Google Drive live-sync record](docs/planning/google-drive-live-sync-plan.md),
+[application-menu record](docs/planning/application-menu-drawer-plan.md),
 [current project truth](memory/now.md) and remaining [exploratory future ideas](docs/future-ideas.md).
 
 ## Licence

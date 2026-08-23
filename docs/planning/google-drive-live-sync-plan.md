@@ -2,8 +2,9 @@
 
 ## Status
 
-Accepted for implementation on 2026-08-23 as the next private-testing slice. OAuth remains in
-Google's **Testing** state. This does not authorise public OAuth access, a tag or a release.
+Implemented and deployed for private maintainer testing on 2026-08-23. OAuth remains in Google's
+**Testing** state. This does not authorise public OAuth access, a tag or a release. Automated and
+browser gates pass; the complete physical phone/desktop propagation checklist remains open.
 
 ## Product contract
 
@@ -68,3 +69,19 @@ backend. While the PWA is closed or suspended, exact polling intervals are not p
   not.
 - Phone and desktop additions and deletions reach the other visible device on its next check.
 - All existing interaction, sharing, storage, privacy, build and repository-security gates pass.
+
+## Implementation and production evidence
+
+Commit `1b4be42` implemented the immutable-operation live-sync model and was deployed by GitHub
+Actions run `32652077562`. Its automated tests, typecheck, repository privacy audit, production build
+and public-build audit passed. The maintainer connected phone and desktop installations and confirmed
+that the live-sync connection was working.
+
+The top-right application menu and three-state Drive indicator were deployed separately in
+`2a8e329` and `4cc5c0b`. Their presentation correction was deployed in `6146e96`; it reserves desktop
+scrollbar space, suppresses pointer-restored outlines and retains visible keyboard focus. See the
+[application-menu record](application-menu-drawer-plan.md).
+
+This evidence does not close the full physical acceptance list above. In particular, the documented
+representative add, delete, Undo and expiry-boundary sequence across phone and desktop remains to be
+recorded before claiming complete multi-device acceptance.

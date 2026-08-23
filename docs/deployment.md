@@ -147,6 +147,12 @@ the maintainer confirms the add and delete propagation checks above.
 
 A more detailed top-level badge or status message remains deferred.
 
+The menu was published in `2a8e329`, its three-state Drive indicator in `4cc5c0b`, and the desktop
+scrollbar/focus correction in `6146e96`. GitHub Actions runs `32658437608`, `32659008341` and
+`32659745917` completed successfully. The maintainer accepted the corrected desktop behaviour on
+2026-08-23. Android reachability, scrolling and swipe-down dismissal remain the outstanding menu
+acceptance checks.
+
 ## Edit-title acceptance
 
 For the `v0.4.1` production candidate:
