@@ -178,10 +178,18 @@ None.
 
 ## Next safe action
 
-Review the remaining roadmap and choose the next bounded slice. Moving Google OAuth from Testing to
-public production access remains a separate explicit decision.
+Deliver the accepted `v0.5.2` connection-security slice: memory-only Google access tokens, removal of
+legacy stored tokens, an in-app disconnect/revocation route, a restrictive Content Security Policy
+and the documentation/tests required by that changed contract. Moving Google OAuth from Testing to
+public production access remains gated behind `v0.5.3` through `v0.5.5`.
 
 ## Last meaningful update
+
+2026-08-23 — The maintainer accepted a bounded public-readiness roadmap: `v0.5.2` connection
+security; `v0.5.3` Terms and acceptable use; `v0.5.4` a separate production Google project with
+quota/cost safeguards; `v0.5.5` public OAuth approval; `v0.5.6` a non-technical README with safe
+screenshots; and `v0.6.0` Export. Import and dark mode follow in that order but remain undefined.
+The authoritative sequence and exclusions are in `docs/roadmap.md`.
 
 2026-08-23 — `v0.5.1` was published as the latest GitHub release from exact deployed commit
 `83928cc` after Pages workflow `32668321345` passed. The remote lightweight tag resolves to that
@@ -213,6 +221,7 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [MVP definition](../docs/mvp-definition.md)
 - [MVP 2.0 definition](../docs/mvp-2-definition.md)
 - [Exploratory future ideas](../docs/future-ideas.md)
+- [Accepted roadmap](../docs/roadmap.md)
 - [Deployment](../docs/deployment.md)
 - [Claude Design handoff](../docs/claude-design-handoff.md)
 - [Slice 6 implementation plan](../docs/planning/slice-6-mvp-design-implementation-plan.md)

@@ -76,7 +76,8 @@ See the completed [MVP definition](docs/mvp-definition.md), completed
 [`v0.5.0` release record](docs/releases/v0.5.0.md),
 [Google Drive live-sync record](docs/planning/google-drive-live-sync-plan.md),
 [application-menu record](docs/planning/application-menu-drawer-plan.md),
-[current project truth](memory/now.md) and remaining [exploratory future ideas](docs/future-ideas.md).
+[accepted roadmap through Export](docs/roadmap.md), [current project truth](memory/now.md) and
+remaining [exploratory future ideas](docs/future-ideas.md).
 
 ## Licence
 

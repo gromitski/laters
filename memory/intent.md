@@ -151,6 +151,21 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   delete and Undo sequence are working, closing the remaining human acceptance gates. Automated
   expiry, rejected-credential and failed-upload checks remain the evidence for those failure paths.
 
+## Accepted public-readiness direction
+
+- Keep public preparation in bounded `v0.5.x` slices before Export becomes `v0.6.0`.
+- Harden the connection first: access tokens are memory-only, old stored tokens are removed, users
+  can disconnect and attempt permission revocation in-app, and the static PWA gains a restrictive
+  Content Security Policy.
+- Publish Terms and acceptable-use wording before configuring a separate production Google project
+  with conservative quota and cost safeguards.
+- Move OAuth out of Testing only after those gates pass and the production consent flow is accepted
+  on desktop and Android.
+- Make the README welcoming to non-technical users with privacy-safe screenshots before public
+  promotion.
+- Deliver Export as `v0.6.0`; consider Import next and dark mode after it. Neither later slice is
+  authorised for implementation by this sequence alone.
+
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.
 The accepted interaction architecture and implementation record live in

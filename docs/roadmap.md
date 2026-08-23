@@ -1,0 +1,88 @@
+# Roadmap
+
+## Status
+
+This is the accepted delivery order after the private Google Drive sync release. Each version is a
+bounded slice: completing one does not silently authorise work from the next. Laters remains a
+local-first personal tool with no Laters account, backend or public database.
+
+## `v0.5.x` — prepare for public use
+
+### `v0.5.2` — connection security
+
+- Keep Google access tokens in memory only. Do not persist them in IndexedDB, local storage, the
+  service-worker cache or the Drive files.
+- Remove any token left by an earlier Laters version. A reload, full close, expiry or failed
+  credential requires the user to select **Resume Google Drive** again.
+- Add an in-app disconnect action that stops sync locally and attempts to revoke the active Google
+  permission. Explain that disconnecting does not delete Laters data already stored in Drive.
+- Add a restrictive Content Security Policy compatible with the static PWA and Google sign-in.
+- Update the privacy policy, README, current project truth and focused automated checks for the
+  changed connection contract.
+
+This slice does not make OAuth public, add accounts, introduce a backend or create refresh tokens.
+
+### `v0.5.3` — terms and acceptable use
+
+- Publish plain-English Terms covering the open-source, at-your-own-risk nature of the service,
+  acceptable use and lawful limitations of liability.
+- State that users are responsible for their saved links, devices, Google account and use of the
+  software, while retaining every protection that cannot legally be excluded.
+- Recheck the privacy policy against the shipped application and link both documents clearly.
+
+This slice is documentation and product policy. It does not claim that wording can override
+applicable law or remove responsibilities that cannot legally be excluded.
+
+### `v0.5.4` — production project and safeguards
+
+- Separate the public production Google Cloud project and OAuth client from personal testing.
+- Restrict authorised web origins and redirect behaviour to the production Laters domain.
+- Set conservative API quotas and any available budget or usage alerts before admitting public
+  users; document what happens if a limit is reached.
+- Keep billing disabled unless Google makes it a deliberate requirement and the maintainer accepts
+  the cost boundary first.
+
+This slice requires maintainer access to the Google console. No billing commitment or paid service
+is authorised by this roadmap.
+
+### `v0.5.5` — public OAuth approval
+
+- Complete the required domain, brand, support-contact and privacy/terms checks.
+- Move the production OAuth application out of Testing only after the earlier security and quota
+  gates have passed.
+- Verify the published consent flow and Drive connection on a real desktop and Android device.
+
+Public availability is an explicit acceptance gate, not an automatic consequence of merging code.
+
+### `v0.5.6` — non-technical introduction
+
+- Reshape the README for people who simply want to use Laters, with screenshots and short guidance
+  for opening, installing, connecting, disconnecting and deleting data.
+- Keep developer setup and architecture available without making them the first thing a new user
+  must understand.
+- Ensure screenshots contain no private articles, accounts, email addresses, tokens or browser
+  details.
+
+This slice changes documentation and presentation material, not application behaviour.
+
+## `v0.6.0` — Export
+
+- Add an explicit, user-initiated export of the user's Laters data in a durable, documented format.
+- Include enough stable data to support later recovery or import without exposing Google credentials
+  or requiring a Laters service.
+- Keep export local to the user's device unless they deliberately choose a destination through the
+  browser or operating system.
+- Define and test the handling of article URLs, titles, saved times, bookmarks and relevant sync
+  state before release.
+
+Import is deliberately not bundled into this release. The export format should make a later import
+possible without promising it in `v0.6.0`.
+
+## After `v0.6.0`
+
+- Import is the next intended product slice.
+- Dark mode follows Import.
+
+Their exact version numbers, behaviour and acceptance criteria remain to be agreed when each becomes
+the active slice. Folders, archive, analytics, a Laters backend and other exploratory ideas remain
+outside this roadmap.
