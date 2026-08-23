@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import {
   GOOGLE_DRIVE_SCOPE,
+  revokeGoogleDriveAccess,
   runGoogleDriveConnectionProbe,
 } from "./googleDriveConnection";
 
@@ -71,6 +72,41 @@ describe("Google Drive connection proof", () => {
 
     expect(request).toHaveBeenCalledTimes(3);
     expect(String(request.mock.calls[1]![0])).toContain("/existing-file?uploadType=media");
+  });
+
+  it("revokes the active token through Google Identity Services", async () => {
+    const revoke = vi.fn(
+      (_token: string, callback: (response: { successful?: boolean }) => void) => {
+        callback({ successful: true });
+      },
+    );
+    const targetWindow = {
+      google: { accounts: { oauth2: { revoke } } },
+    } as unknown as Window;
+
+    await expect(
+      revokeGoogleDriveAccess("temporary-access-token", targetWindow, {} as Document),
+    ).resolves.toBeUndefined();
+    expect(revoke).toHaveBeenCalledWith("temporary-access-token", expect.any(Function));
+  });
+
+  it("reports a failed Google revocation", async () => {
+    const targetWindow = {
+      google: {
+        accounts: {
+          oauth2: {
+            revoke: (
+              _token: string,
+              callback: (response: { successful?: boolean; error?: string }) => void,
+            ) => callback({ successful: false, error: "revocation-failed" }),
+          },
+        },
+      },
+    } as unknown as Window;
+
+    await expect(
+      revokeGoogleDriveAccess("temporary-access-token", targetWindow, {} as Document),
+    ).rejects.toThrow("revocation-failed");
   });
 });
 

@@ -2,6 +2,11 @@
 <html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'self'; script-src 'self' https://accounts.google.com; style-src 'self' 'unsafe-inline' https://accounts.google.com; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://accounts.google.com https://www.googleapis.com; frame-src https://accounts.google.com; worker-src 'self'; manifest-src 'self'"
+    />
+    <meta name="referrer" content="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#ffffff" />
     <meta
@@ -90,7 +95,12 @@
             Connect to keep additions, edits and deletions aligned through your private Google Drive
             while Laters is open. Laters still works locally without it.
           </p>
-          <button id="google-drive-connect-action" type="button">Connect Google Drive</button>
+          <div class="sync-experiment-actions">
+            <button id="google-drive-connect-action" type="button">Connect Google Drive</button>
+            <button id="google-drive-disconnect-action" class="secondary" type="button" hidden>
+              Disconnect
+            </button>
+          </div>
           <p id="google-drive-connection-status" class="sync-experiment-status" role="status" aria-live="polite">
             Local only
           </p>

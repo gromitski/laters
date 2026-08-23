@@ -15,6 +15,7 @@ import {
   connectGoogleDrive,
   GOOGLE_DRIVE_CLIENT_ID,
   GoogleDriveConnectionRequestError,
+  revokeGoogleDriveAccess,
   runGoogleDriveConnectionProbe,
 } from "./sync/googleDriveConnection";
 import {
@@ -22,9 +23,8 @@ import {
   initialiseGoogleDriveArticles,
 } from "./sync/googleDriveArticleSync";
 import {
-  forgetGoogleDriveCredential,
-  readGoogleDriveCredential,
-  storeGoogleDriveCredential,
+  calculateGoogleDriveCredentialExpiry,
+  removeLegacyGoogleDriveCredential,
 } from "./sync/googleDriveSessionToken";
 import { GoogleDriveLiveSyncSession } from "./sync/googleDriveLiveSync";
 import { parseShareTarget } from "./share/parseShareTarget";
@@ -63,6 +63,7 @@ let undoTimer: number | undefined;
 let collapseTimer: number | undefined;
 let hasRenderedInitialItems = false;
 let googleDriveSyncSession: GoogleDriveLiveSyncSession | undefined;
+let googleDriveAccessToken: string | undefined;
 let googleDriveCredentialExpiresAt: number | undefined;
 let googleDrivePollTimer: number | undefined;
 let googleDriveStatusVersion = 0;
@@ -87,6 +88,9 @@ const applicationMenuCloseAction = requireElement<HTMLButtonElement>(
 const googleDriveConnectAction = requireElement<HTMLButtonElement>(
   "google-drive-connect-action",
 );
+const googleDriveDisconnectAction = requireElement<HTMLButtonElement>(
+  "google-drive-disconnect-action",
+);
 const googleDriveConnectionStatus = requireElement<HTMLParagraphElement>(
   "google-drive-connection-status",
 );
@@ -100,6 +104,7 @@ installApplicationMenu({
   closeAction: applicationMenuCloseAction,
 });
 setGoogleDriveMenuState("disconnected");
+removeStoredGoogleDriveCredential();
 
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
@@ -139,8 +144,8 @@ googleDriveConnectAction.addEventListener("click", () => {
 
   void connectGoogleDrive(GOOGLE_DRIVE_CLIENT_ID)
     .then(async ({ accessToken, expiresInSeconds }) => {
-      const credential = rememberGoogleDriveCredential(accessToken, expiresInSeconds);
-      await establishGoogleDriveLiveSync(accessToken, credential?.expiresAt);
+      const expiresAt = calculateGoogleDriveCredentialExpiry(expiresInSeconds);
+      await establishGoogleDriveLiveSync(accessToken, expiresAt);
     })
     .catch((error) => {
       if (isGoogleDriveAuthorizationError(error)) {
@@ -158,6 +163,9 @@ googleDriveConnectAction.addEventListener("click", () => {
       } else {
         stopGoogleDrivePolling();
         googleDriveSyncSession = undefined;
+        googleDriveAccessToken = undefined;
+        googleDriveCredentialExpiresAt = undefined;
+        googleDriveDisconnectAction.hidden = true;
         setGoogleDriveMenuState("disconnected");
         googleDriveConnectAction.textContent = hasRememberedGoogleDriveConnection()
           ? "Resume Google Drive"
@@ -170,11 +178,45 @@ googleDriveConnectAction.addEventListener("click", () => {
     });
 });
 
+googleDriveDisconnectAction.addEventListener("click", () => {
+  const accessToken = googleDriveAccessToken;
+
+  if (!accessToken) {
+    disconnectGoogleDriveLocally();
+    return;
+  }
+
+  googleDriveConnectAction.disabled = true;
+  googleDriveDisconnectAction.disabled = true;
+  clearGoogleDriveSession();
+  forgetGoogleDriveConnection();
+  googleDriveConnectionStatus.textContent = "Disconnecting from Google Drive…";
+  googleDriveConnectAction.textContent = "Connect Google Drive";
+  setGoogleDriveMenuState("checking");
+
+  void revokeGoogleDriveAccess(accessToken)
+    .then(() => {
+      googleDriveConnectionStatus.textContent =
+        "Disconnected and Google permission revoked. Existing hidden Drive data was not deleted.";
+      announceHiddenStatus("Google Drive disconnected.");
+    })
+    .catch(() => {
+      googleDriveConnectionStatus.textContent =
+        "Disconnected here, but Google permission could not be revoked. Remove Laters in Google Account permissions.";
+    })
+    .finally(() => {
+      googleDriveConnectAction.disabled = false;
+      googleDriveDisconnectAction.disabled = false;
+      googleDriveDisconnectAction.hidden = true;
+      setGoogleDriveMenuState("disconnected");
+    });
+});
+
 showRememberedGoogleDriveConnection();
 
 showShareResult();
 const initialListLoad = refreshList();
-void initialListLoad.then(resumeStoredGoogleDriveSync);
+void initialListLoad.then(showWaitingGoogleDriveChanges);
 void requestPersistentStorage();
 void registerServiceWorker(showUpdateAvailable);
 
@@ -261,51 +303,24 @@ function hasRememberedGoogleDriveConnection(): boolean {
   }
 }
 
-function rememberGoogleDriveCredential(
-  accessToken: string,
-  expiresInSeconds: number,
-): { expiresAt: number } | undefined {
+function removeStoredGoogleDriveCredential(): void {
   try {
-    return storeGoogleDriveCredential(
-      window.localStorage,
-      accessToken,
-      expiresInSeconds,
-    );
+    removeLegacyGoogleDriveCredential(window.localStorage);
   } catch {
-    return undefined;
+    // Old credential cleanup must not prevent the local reading list from loading.
   }
 }
 
-async function resumeStoredGoogleDriveSync(): Promise<void> {
-  let credential;
-
+async function showWaitingGoogleDriveChanges(): Promise<void> {
   try {
-    credential = readGoogleDriveCredential(window.localStorage);
-  } catch {
-    return;
-  }
-
-  if (!credential) {
     const pendingOperations = await store.listPendingSyncOperations();
 
     if (pendingOperations.length > 0 && hasRememberedGoogleDriveConnection()) {
       googleDriveConnectAction.textContent = "Resume Google Drive";
       googleDriveConnectionStatus.textContent = `${pendingOperations.length} ${pendingOperations.length === 1 ? "change is" : "changes are"} waiting to sync.`;
     }
-    return;
-  }
-
-  googleDriveConnectAction.disabled = true;
-  setGoogleDriveMenuState("checking");
-  googleDriveConnectAction.textContent = "Resuming…";
-  googleDriveConnectionStatus.textContent = "Resuming Google Drive sync…";
-
-  try {
-    await establishGoogleDriveLiveSync(credential.accessToken, credential.expiresAt);
-  } catch (error) {
-    handleGoogleDriveSyncError(error);
-  } finally {
-    googleDriveConnectAction.disabled = false;
+  } catch {
+    // The main list already reports local storage errors; this status is optional.
   }
 }
 
@@ -324,6 +339,7 @@ async function establishGoogleDriveLiveSync(
     articles,
   );
   googleDriveSyncSession = session;
+  googleDriveAccessToken = accessToken;
   googleDriveCredentialExpiresAt = expiresAt;
   const result = await session.sync(store);
 
@@ -333,6 +349,7 @@ async function establishGoogleDriveLiveSync(
   rememberGoogleDriveConnection(probe.lastConnectedAt);
   startGoogleDrivePolling();
   setGoogleDriveMenuState("connected");
+  googleDriveDisconnectAction.hidden = false;
   googleDriveConnectAction.textContent = "Reconnect Google Drive";
   googleDriveConnectionStatus.textContent = `Up to date in Google Drive. Checking every ${GOOGLE_DRIVE_POLL_MS / 1_000} seconds while open.`;
   announceHiddenStatus(
@@ -384,6 +401,13 @@ function syncArticlesToGoogleDrive(
   void session
     .sync(store)
     .then((result) => {
+      if (
+        session !== googleDriveSyncSession ||
+        statusVersion !== googleDriveStatusVersion
+      ) {
+        return;
+      }
+
       setGoogleDriveMenuState("connected");
 
       if (!savedItemListsEqual(currentItems, result.items)) {
@@ -428,17 +452,35 @@ function isGoogleDriveAuthorizationError(error: unknown): boolean {
 }
 
 function pauseGoogleDriveSync(message: string): void {
-  stopGoogleDrivePolling();
-  googleDriveSyncSession = undefined;
-  googleDriveCredentialExpiresAt = undefined;
+  clearGoogleDriveSession();
   googleDriveConnectAction.textContent = "Resume Google Drive";
   googleDriveConnectionStatus.textContent = message;
   setGoogleDriveMenuState("disconnected");
+}
 
+function clearGoogleDriveSession(): void {
+  stopGoogleDrivePolling();
+  googleDriveStatusVersion += 1;
+  googleDriveSyncSession = undefined;
+  googleDriveAccessToken = undefined;
+  googleDriveCredentialExpiresAt = undefined;
+  googleDriveDisconnectAction.hidden = true;
+}
+
+function disconnectGoogleDriveLocally(): void {
+  clearGoogleDriveSession();
+  forgetGoogleDriveConnection();
+  googleDriveConnectAction.textContent = "Connect Google Drive";
+  googleDriveConnectionStatus.textContent =
+    "Disconnected. Existing hidden Drive data was not deleted.";
+  setGoogleDriveMenuState("disconnected");
+}
+
+function forgetGoogleDriveConnection(): void {
   try {
-    forgetGoogleDriveCredential(window.localStorage);
+    window.localStorage.removeItem("laters-google-drive-last-connected");
   } catch {
-    // Expired browser authorization will also be rejected by Google if local removal fails.
+    // Connection history is optional and does not contain a Google credential.
   }
 }
 

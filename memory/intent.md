@@ -131,8 +131,9 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   article unless the user explicitly chooses Undo.
 - Laters checks for Drive changes when opened, foregrounded or brought online and every 20 seconds
   while visible. It does not promise OS background execution after the app is closed.
-- A short-lived Google access token may remain in that browser only until Google's supplied expiry,
-  with a safety margin. After expiry, local changes wait for one deliberate resume action.
+- A short-lived Google access token remains only in page memory until Google's supplied expiry,
+  with a safety margin. Reload, full close, disconnect, expiry or rejection discards it; local
+  changes then wait for one deliberate resume action.
 - OAuth remains private and in Google's Testing state until a separate public-access decision.
 - Automatic Drive housekeeping starts at 100 operation files. Laters must write the resolved list
   and exact covered operation identifiers, then wait for a later check to adopt that settled

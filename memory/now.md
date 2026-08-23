@@ -178,12 +178,23 @@ None.
 
 ## Next safe action
 
-Deliver the accepted `v0.5.2` connection-security slice: memory-only Google access tokens, removal of
-legacy stored tokens, an in-app disconnect/revocation route, a restrictive Content Security Policy
-and the documentation/tests required by that changed contract. Moving Google OAuth from Testing to
-public production access remains gated behind `v0.5.3` through `v0.5.5`.
+Complete published acceptance for the `v0.5.2` connection-security candidate. On desktop and Android,
+apply the update, resume Google Drive and confirm the indicator turns green. Reload once and confirm
+Laters requires **Resume Google Drive** again. Then use **Disconnect** on one device and confirm the
+session stops without deleting the local list or hidden Drive data. Moving Google OAuth from Testing
+to public production access remains gated behind `v0.5.3` through `v0.5.5`.
 
 ## Last meaningful update
+
+2026-08-23 — The bounded `v0.5.2` connection-security candidate is implemented. Google access tokens
+now remain only in page memory; startup removes the earlier local-storage credential record;
+**Disconnect** immediately stops the live session and asks Google to revoke the active permission;
+and app and privacy pages carry restrictive Content Security Policies plus no-referrer rules. The
+README, privacy policy and Google Drive planning record describe the new resume and deletion
+boundaries. All 131 tests, type checking, production build, repository privacy audit, public-build
+audit and both dependency audits pass. A local real-page check found no browser policy warnings and
+confirmed the disconnected drawer and privacy page presentation. Published desktop/Android
+acceptance remains outstanding.
 
 2026-08-23 — The maintainer accepted a bounded public-readiness roadmap: `v0.5.2` connection
 security; `v0.5.3` Terms and acceptable use; `v0.5.4` a separate production Google project with

@@ -1294,9 +1294,15 @@ h1 {
   line-height: 1.45;
 }
 
+.sync-experiment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.85rem;
+}
+
 .sync-experiment button {
   min-height: var(--target);
-  margin-top: 0.85rem;
   border: 0;
   border-radius: var(--r-pill);
   padding: 0 1rem;
@@ -1306,6 +1312,11 @@ h1 {
   font: inherit;
   font-size: 0.8rem;
   font-weight: 800;
+}
+
+.sync-experiment button.secondary {
+  border: 1px solid var(--hairline-strong);
+  background: var(--surface);
 }
 
 .sync-experiment button:focus-visible {

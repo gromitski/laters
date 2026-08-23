@@ -30,10 +30,15 @@ that checkpoint. This follow-up is not part of the historical `v0.5.0` tag.
 
 ## Authorization and cold starts
 
-The narrow `drive.appdata` access token is stored on the device only until Google's returned expiry
-time, with a safety margin. This lets a Share-target page reload or a recently closed PWA resume sync
-without another account choice. It is removed when expired or rejected. When no valid token exists,
-local operations remain visibly **Waiting to sync** and one deliberate Google action resumes them.
+As of the `v0.5.2` security hardening, the narrow `drive.appdata` access token remains only in page
+memory until Google's returned expiry time, with a safety margin. It is never written to persistent
+browser storage, and any token record left by an earlier Laters version is removed. Reloading, fully
+closing, disconnecting, expiry or rejection discards the token. Local operations remain visibly
+waiting and one deliberate Google action resumes them.
+
+While connected, **Disconnect** stops the local sync session immediately and asks Google Identity
+Services to revoke the active permission. Revocation does not delete existing hidden Drive data;
+that remains a separate user control in Drive's Manage apps settings.
 
 This is not indefinite background authorization. A fully unattended refresh token would require a
 backend. While the PWA is closed or suspended, exact polling intervals are not promised.

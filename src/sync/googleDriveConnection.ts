@@ -29,6 +29,10 @@ interface GoogleIdentityServices {
         callback(response: GoogleTokenResponse): void;
         error_callback(error: { type?: string }): void;
       }): GoogleTokenClient;
+      revoke(
+        accessToken: string,
+        callback: (response: { successful?: boolean; error?: string }) => void,
+      ): void;
     };
   };
 }
@@ -96,6 +100,29 @@ export async function connectGoogleDrive(
     });
 
     client.requestAccessToken();
+  });
+}
+
+export async function revokeGoogleDriveAccess(
+  accessToken: string,
+  targetWindow: Window = window,
+  targetDocument: Document = document,
+): Promise<void> {
+  if (!accessToken) {
+    throw new Error("google-revocation-failed");
+  }
+
+  const identity = await loadGoogleIdentityServices(targetWindow, targetDocument);
+
+  return new Promise((resolve, reject) => {
+    identity.accounts.oauth2.revoke(accessToken, (response) => {
+      if (response.successful) {
+        resolve();
+        return;
+      }
+
+      reject(new Error(response.error || "google-revocation-failed"));
+    });
   });
 }
 

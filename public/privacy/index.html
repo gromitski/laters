@@ -2,6 +2,11 @@
 <html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'none'; worker-src 'none'; manifest-src 'none'"
+    />
+    <meta name="referrer" content="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#ffffff" />
     <meta
@@ -44,9 +49,10 @@
         <p>
           Laters stores each article’s web address, title, local identifier, saved time, bookmark
           state and any title-edit marker in your browser’s IndexedDB database. A successful Google
-          Drive connection time and a short-lived Google access token are stored separately in local
-          browser storage. Pending add, edit, restore and deletion records are stored in IndexedDB
-          until Drive confirms them. The service worker and browser may also cache Laters
+          Drive connection time is stored separately in local browser storage. The short-lived
+          Google access token is held only in memory while the page is open; it is not written to
+          persistent browser storage. Pending add, edit, restore and deletion records are stored in
+          IndexedDB until Drive confirms them. The service worker and browser may also cache Laters
           application files and publisher favicons so the app can load efficiently and work offline.
         </p>
         <p>
@@ -94,16 +100,17 @@
           browser. Connected devices then combine additions and apply edits, restorations and
           deletion records over that base list. Laters checks Drive when it opens, returns to the
           foreground or comes online, and every 20 seconds while it is visible. A deletion record
-          prevents an older copy from restoring the deleted article. Drive change records are kept
-          until Laters has a safe compaction process, so deletions continue to apply on devices that
-          have been offline.
+          prevents an older copy from restoring the deleted article. Once 100 change records have
+          accumulated, Laters folds them into a new reading-list checkpoint. A later successful
+          check adopts that checkpoint before deleting only the records it covers. Interrupted
+          cleanup is retried without blocking sync.
         </p>
         <p>
-          The short-lived Google access token is stored in this browser only until the expiry time
-          Google supplies, with a one-minute safety margin, and is removed when it expires or Google
-          rejects it. This permits sync to resume after a page reload without another account choice.
-          After expiry, local changes remain queued until you choose <strong>Resume Google
-          Drive</strong>. Laters does not receive a refresh token and has no server-side access.
+          The short-lived Google access token remains only in page memory until the expiry time
+          Google supplies, with a one-minute safety margin. It is discarded on reload, full close,
+          disconnect, expiry or rejection. Local changes remain queued until you choose
+          <strong>Resume Google Drive</strong>. Laters does not receive a refresh token and has no
+          server-side access.
         </p>
         <p>
           Google processes the authorisation and Drive requests under its own privacy terms. Laters’
@@ -123,7 +130,8 @@
           </li>
           <li>Clear Laters’ site data in your browser to remove its local database and preferences.</li>
           <li>
-            Revoke Laters’ Google access from your
+            Use <strong>Disconnect</strong> while connected to stop sync in that browser and ask
+            Google to revoke the active permission. You can also revoke Laters’ access from your
             <a href="https://myaccount.google.com/permissions">Google Account permissions</a>.
           </li>
           <li>

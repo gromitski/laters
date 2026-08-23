@@ -1,38 +1,29 @@
 import { describe, expect, it } from "vitest";
 import {
-  forgetGoogleDriveCredential,
-  readGoogleDriveCredential,
-  storeGoogleDriveCredential,
+  calculateGoogleDriveCredentialExpiry,
+  removeLegacyGoogleDriveCredential,
 } from "./googleDriveSessionToken";
 
-describe("Google Drive short-lived credential", () => {
-  it("stores only until Google's expiry with a safety margin", () => {
-    const storage = createStorage();
-    expect(storeGoogleDriveCredential(storage, "temporary-token", 3_600, () => 1_000)).toEqual({
-      accessToken: "temporary-token",
-      expiresAt: 3_541_000,
-    });
-    expect(readGoogleDriveCredential(storage, () => 3_540_999)).toEqual({
-      accessToken: "temporary-token",
-      expiresAt: 3_541_000,
-    });
+describe("Google Drive in-memory credential", () => {
+  it("calculates Google's expiry with a safety margin without accepting the token", () => {
+    expect(calculateGoogleDriveCredentialExpiry(3_600, () => 1_000)).toBe(3_541_000);
   });
 
-  it("removes expired or malformed credentials", () => {
+  it("rejects invalid or already-expired lifetimes", () => {
+    expect(calculateGoogleDriveCredentialExpiry(0)).toBeUndefined();
+    expect(calculateGoogleDriveCredentialExpiry(Number.NaN)).toBeUndefined();
+    expect(calculateGoogleDriveCredentialExpiry(30, () => 1_000)).toBeUndefined();
+  });
+
+  it("removes credentials persisted by an earlier Laters version", () => {
     const storage = createStorage();
-    storeGoogleDriveCredential(storage, "temporary-token", 120, () => 1_000);
-    expect(readGoogleDriveCredential(storage, () => 61_000)).toBeUndefined();
+    storage.setItem("laters-google-drive-credential", "legacy-token-record");
+    storage.setItem("unrelated", "preserved");
+
+    removeLegacyGoogleDriveCredential(storage);
+
     expect(storage.getItem("laters-google-drive-credential")).toBeNull();
-
-    storage.setItem("laters-google-drive-credential", "not-json");
-    expect(readGoogleDriveCredential(storage)).toBeUndefined();
-  });
-
-  it("forgets a live credential deliberately", () => {
-    const storage = createStorage();
-    storeGoogleDriveCredential(storage, "temporary-token", 3_600, () => 1_000);
-    forgetGoogleDriveCredential(storage);
-    expect(readGoogleDriveCredential(storage, () => 2_000)).toBeUndefined();
+    expect(storage.getItem("unrelated")).toBe("preserved");
   });
 });
 
