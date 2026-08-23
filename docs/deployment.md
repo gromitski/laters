@@ -61,6 +61,19 @@ safely to Laters.
 
 Android's news feed was observed sharing distinct URLs for what appeared to be the same article, producing separate saved items. Laters intentionally deduplicates only the exact normalised URL; it does not currently follow redirects or guess that different tracking or rotating URLs identify the same article.
 
+## Contextual installation
+
+The normal browser page and installed PWA use the same white, ink and lime application shell. When a
+supporting browser reports that the PWA is currently installable, Laters shows a 44px **Install**
+action vertically aligned to the right of the wordmark. Selecting it invokes the browser's native
+installation prompt. The action remains absent when installation is unsupported or the PWA is
+already installed, and disappears after the prompt is used or installation completes.
+
+Commit `5296776` added this contextual action without introducing a desktop package or separate app.
+GitHub Actions run `32632687610` passed, and the public origin served the matching branded assets.
+A production browser received the install-availability event and displayed the aligned action; final
+acceptance of the native installation dialog remains a maintainer-controlled desktop check.
+
 ## Application updates and saved data
 
 A newly deployed worker installs its complete application-shell cache, then waits. An open Laters app announces that the update is ready and shows an **Update** button. Selecting it activates the worker and reloads the app once; failure to register or check for an update does not prevent the reading list from opening.

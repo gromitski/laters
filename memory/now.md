@@ -57,8 +57,9 @@ mobile interaction shell.
 
 ## Active focus
 
-Publish and visually verify the bounded desktop-branding and contextual-install slice, then return
-to the remaining exploratory futures list. No future idea is otherwise selected.
+Obtain the maintainer's short production acceptance of the published desktop branding and contextual
+**Install** action, then return to the remaining exploratory futures list. No future idea is
+otherwise selected.
 
 ## Active slice
 
@@ -83,7 +84,12 @@ and adds **Install** beside the wordmark. The control remains absent unless the 
 native install-availability event, disappears after use or successful installation, and adds no
 installer, account, backend or platform-specific package. A clean production check confirmed that
 the reported cream and serif desktop page was a stale pre-redesign service-worker shell rather than
-the current deployed presentation.
+the current deployed presentation. Commit `5296776` published the contextual install action;
+GitHub Actions run `32632687610` passed. A clean production browser loaded the matching JavaScript
+and CSS, displayed the accepted branding, received the browser's install-availability event and
+showed the 44px **Install** action vertically centred beside the wordmark at desktop width. The
+native installation dialog remains a maintainer-controlled production acceptance check because
+opening and accepting it installs the PWA into that browser.
 
 ## Blockers
 
@@ -97,14 +103,16 @@ None.
 
 ## Next safe action
 
-Complete the production desktop visual and installation-availability check for the current slice,
-then discuss the remaining entries in `docs/future-ideas.md` and agree one bounded change, if any.
+In a desktop browser where Laters is not already installed, apply **Update** if offered, confirm the
+white, ink and lime presentation, select **Install**, and confirm the browser's native installation
+dialog opens. Then discuss the remaining entries in `docs/future-ideas.md` and agree one bounded
+change, if any.
 
 ## Last meaningful update
 
-2026-08-23 — The published URL-only sharing correction passed physical Android acceptance. Android's
-generic chooser opened, NotebookLM added a representative public article from the URL without the
-saved title, and cancelling returned safely to Laters.
+2026-08-23 — Contextual desktop installation was published in `5296776`. GitHub Actions run
+`32632687610` passed, and production browser verification confirmed the matching branded assets and
+the wordmark-aligned **Install** action. The maintainer's native installation-dialog check remains.
 
 ## Pointers
 
