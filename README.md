@@ -11,6 +11,7 @@ A minimal Android-first read-later PWA. Share an article to Laters, then return 
 - Adds copied or manually entered article URLs through a persistent **Paste a link** row, defaulting
   bare web addresses to HTTPS.
 - Stores links locally in IndexedDB, newest first, with optional private Google Drive sync.
+- Keeps Google Drive sync and Privacy within a top-right bottom-drawer menu.
 - Provides persistent per-article bookmarks without changing queue order.
 - Shows publisher favicons with deterministic local fallback tiles.
 - Opens the original article from its title or other non-interactive row space.

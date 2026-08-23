@@ -129,6 +129,19 @@ For the private live-sync candidate:
 Record the deployed commit and workflow run. Do not claim multi-device live-sync acceptance until
 the maintainer confirms the add and delete propagation checks above.
 
+## Application menu drawer acceptance
+
+1. On Android, confirm the circular menu control appears at the top right without clipping the
+   wordmark or an available **Install** action.
+2. Open it and confirm the unchanged Experimental sync card and **Privacy** link are visible in the
+   bottom drawer without scrolling through the article list.
+3. Close with the visible close control, the backdrop and a downward swipe. Confirm the menu trigger
+   remains usable and the article-list position does not change.
+4. On desktop, confirm the same bottom drawer opens from keyboard focus, closes with Escape and
+   returns focus to **Open menu**.
+
+The top-level sync-state indicator remains a separately deferred slice.
+
 ## Edit-title acceptance
 
 For the `v0.4.1` production candidate:

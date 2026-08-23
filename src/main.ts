@@ -32,6 +32,7 @@ import { shouldActivateArticleRow } from "./ui/articleRowActivation";
 import { createArticleShareData } from "./ui/articleShare";
 import { formatSavedTime } from "./ui/formatSavedTime";
 import { getBookmarkControlState } from "./ui/bookmarkPresentation";
+import { installApplicationMenu } from "./ui/applicationMenu";
 import { createReadingListEntries } from "./ui/readingListPresentation";
 import { loadPublisherFavicon } from "./ui/loadPublisherFavicon";
 import { readClipboardText } from "./ui/readClipboardText";
@@ -73,6 +74,13 @@ const errorMessage = requireElement<HTMLParagraphElement>("error-message");
 const updateMessage = requireElement<HTMLDivElement>("update-message");
 const updateAction = requireElement<HTMLButtonElement>("update-action");
 const installAction = requireElement<HTMLButtonElement>("install-action");
+const applicationMenu = requireElement<HTMLIonModalElement>("application-menu");
+const applicationMenuAction = requireElement<HTMLButtonElement>(
+  "application-menu-action",
+);
+const applicationMenuCloseAction = requireElement<HTMLButtonElement>(
+  "application-menu-close-action",
+);
 const googleDriveConnectAction = requireElement<HTMLButtonElement>(
   "google-drive-connect-action",
 );
@@ -83,10 +91,17 @@ const pasteRow = createPasteToAddRow();
 
 let applicationInstallPrompt: ApplicationInstallPrompt | undefined;
 
+installApplicationMenu({
+  modal: applicationMenu,
+  openAction: applicationMenuAction,
+  closeAction: applicationMenuCloseAction,
+});
+
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
   applicationInstallPrompt = event as ApplicationInstallPrompt;
   installAction.hidden = false;
+  document.documentElement.classList.add("has-install-action");
 });
 
 window.addEventListener("appinstalled", hideInstallAction);
@@ -187,6 +202,7 @@ function hideInstallAction(): void {
   applicationInstallPrompt = undefined;
   installAction.hidden = true;
   installAction.disabled = false;
+  document.documentElement.classList.remove("has-install-action");
 }
 
 function showRememberedGoogleDriveConnection(): void {

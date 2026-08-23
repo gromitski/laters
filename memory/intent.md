@@ -137,6 +137,8 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 - Remote operation records are retained until a safe compaction design can prove that offline devices
   will not lose deletions. Unbounded retention is accepted for the current personal test, not as a
   finished public-scale storage policy.
+- Accepted interface placement: a permanent top-right menu opens a bottom drawer containing the
+  unchanged sync card and Privacy link. A compact sync-state indicator outside the drawer is deferred.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.

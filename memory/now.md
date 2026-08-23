@@ -69,10 +69,17 @@ paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0
 
 Release `v0.4.2` is closed. The selected next slice is private Google Drive live sync: local pending
 operations, retained deletion records, short-lived credential recovery and checks every 20 seconds
-while Laters is visible. The implementation has passed local gates and awaits deployment plus
-cross-device add/delete acceptance.
+while Laters is visible. Its first interface follow-up moves the unchanged sync card and Privacy link
+into a permanent top-right menu drawer. The drawer implementation awaits deployment and physical
+acceptance; cross-device add/delete acceptance also remains.
 
 ## Active slice
+
+The selected interface follow-up adds a permanent circular top-right menu trigger and an Ionic bottom
+drawer. The existing sync card and footer disclosure move into it unchanged, keeping those controls
+reachable without traversing the article list. Backdrop, Escape, swipe-down and a visible close
+control dismiss the sheet with focus returned to the trigger. A compact top-level sync indicator is
+explicitly deferred; no sync data or authorization behaviour changes in this slice.
 
 The accepted private live-sync candidate builds on the published Drive snapshot proof without a
 Laters backend. IndexedDB version 2 records each add, update, restore and deletion atomically with a
@@ -163,14 +170,14 @@ None.
 
 ## Next safe action
 
-Commit and push the fully gated private live-sync slice, wait for GitHub Pages, then perform the
-documented Android/desktop add, delete, Undo and reload acceptance checks.
+Commit and push the fully gated application-menu slice, wait for GitHub Pages, then perform its
+documented Android drawer acceptance before continuing the live-sync add/delete checks.
 
 ## Last meaningful update
 
-2026-08-23 — Private Google Drive live sync implemented locally with 118 passing tests, type checking,
-repository and public-build privacy audits, a production build and a zero-vulnerability dependency
-audit. Deployment and physical cross-device acceptance remain.
+2026-08-23 — Top-right application menu and bottom drawer implemented around the unchanged sync card
+and Privacy link. Automated, browser, release and deployment evidence remain to be completed for this
+follow-up; live-sync physical add/delete acceptance is paused until then.
 
 ## Pointers
 
@@ -192,6 +199,7 @@ audit. Deployment and physical cross-device acceptance remain.
 - [Paste-to-add plan](../docs/planning/paste-to-add-plan.md)
 - [Edit-title plan](../docs/planning/edit-title-plan.md)
 - [Google Drive live-sync plan](../docs/planning/google-drive-live-sync-plan.md)
+- [Application menu drawer plan](../docs/planning/application-menu-drawer-plan.md)
 - [`v0.2.0` release record](../docs/releases/v0.2.0.md)
 - [`v0.3.0` release record](../docs/releases/v0.3.0.md)
 - Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`.

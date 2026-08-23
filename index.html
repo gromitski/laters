@@ -21,7 +21,21 @@
         <p class="eyebrow"><span>Your quiet reading queue</span></p>
         <div class="masthead-title-row">
           <h1>Laters<span class="wordmark-stop">.</span></h1>
-          <button id="install-action" class="install-action" type="button" hidden>Install</button>
+          <div class="masthead-actions">
+            <button id="install-action" class="install-action" type="button" hidden>Install</button>
+            <button
+              id="application-menu-action"
+              class="application-menu-action"
+              type="button"
+              aria-label="Open menu"
+              aria-haspopup="dialog"
+              aria-controls="application-menu"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 7h16M4 12h16M4 17h16"></path>
+              </svg>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -45,25 +59,49 @@
 
       <div id="status-message" class="status-message" role="status" aria-live="polite"></div>
       <p id="error-message" class="error-message" role="alert" hidden></p>
-
-      <section class="sync-experiment" aria-labelledby="sync-experiment-heading">
-        <p class="sync-experiment-kicker">Experimental sync</p>
-        <h2 id="sync-experiment-heading">Google Drive</h2>
-        <p>
-          Connect to keep additions, edits and deletions aligned through your private Google Drive
-          while Laters is open. Laters still works locally without it.
-        </p>
-        <button id="google-drive-connect-action" type="button">Connect Google Drive</button>
-        <p id="google-drive-connection-status" class="sync-experiment-status" role="status" aria-live="polite">
-          Local only
-        </p>
-      </section>
-
-      <footer>
-        <span>Stored in this browser, and in your private Google Drive only if you connect it.</span>
-        <a href="/privacy/">Privacy</a>
-      </footer>
     </main>
+
+    <ion-modal
+      id="application-menu"
+      class="application-menu-modal"
+    >
+      <div class="application-menu-content">
+        <header class="application-menu-header">
+          <div>
+            <p class="application-menu-kicker">Laters</p>
+            <h2 id="application-menu-heading">Menu</h2>
+          </div>
+          <button
+            id="application-menu-close-action"
+            class="application-menu-close-action"
+            type="button"
+            aria-label="Close menu"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18"></path>
+            </svg>
+          </button>
+        </header>
+
+        <section class="sync-experiment" aria-labelledby="sync-experiment-heading">
+          <p class="sync-experiment-kicker">Experimental sync</p>
+          <h2 id="sync-experiment-heading">Google Drive</h2>
+          <p>
+            Connect to keep additions, edits and deletions aligned through your private Google Drive
+            while Laters is open. Laters still works locally without it.
+          </p>
+          <button id="google-drive-connect-action" type="button">Connect Google Drive</button>
+          <p id="google-drive-connection-status" class="sync-experiment-status" role="status" aria-live="polite">
+            Local only
+          </p>
+        </section>
+
+        <footer>
+          <span>Stored in this browser, and in your private Google Drive only if you connect it.</span>
+          <a href="/privacy/">Privacy</a>
+        </footer>
+      </div>
+    </ion-modal>
 
     <script type="module" src="/src/main.ts"></script>
   </body>
