@@ -183,11 +183,13 @@ public production access remains a separate explicit decision.
 
 ## Last meaningful update
 
-2026-08-23 — `v0.5.0` was published as the latest GitHub release from exact deployed commit
-`8af5fca` after Pages workflow `32661778183` passed. The remote lightweight tag resolves to that
-commit. The private Google Drive sync release includes the live-sync model, top-right drawer,
-three-state indicator, privacy policy and security audits while preserving the Testing-only OAuth,
-visible-app polling and retained-operation boundaries.
+2026-08-23 — `v0.5.1` was published as the latest GitHub release from exact deployed commit
+`83928cc` after Pages workflow `32668321345` passed. The remote lightweight tag resolves to that
+commit. This backward-compatible maintenance release adds automatic 100-operation Drive
+housekeeping while preserving Testing-only OAuth, visible-app polling and local-only operation.
+
+Release `v0.5.0` remains the private Google Drive live-sync feature baseline: local pending
+operations, the top-right drawer, three-state indicator, privacy policy and security audits.
 Post-release, the maintainer confirmed the Android drawer and the cross-platform add, delete and Undo
 sequence are working, closing both remaining human acceptance gates. Failure-path evidence for token
 expiry, rejected credentials and retained failed uploads remains automated.
