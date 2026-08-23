@@ -178,11 +178,11 @@ delete, Undo and expiry-boundary checks. Public OAuth remains a separate later d
 
 ## Last meaningful update
 
-2026-08-23 — The maintainer authorised `v0.5.0` as the private Google Drive sync release after
-accepting the menu simplicity and corrected desktop presentation. The release includes the deployed
-live-sync model, top-right drawer, three-state indicator, privacy policy and security audits. Its
-release record preserves the Testing-only OAuth, visible-app polling, retained-operation and
-outstanding physical-acceptance boundaries.
+2026-08-23 — `v0.5.0` was published as the latest GitHub release from exact deployed commit
+`8af5fca` after Pages workflow `32661778183` passed. The remote lightweight tag resolves to that
+commit. The private Google Drive sync release includes the live-sync model, top-right drawer,
+three-state indicator, privacy policy and security audits while preserving the Testing-only OAuth,
+visible-app polling, retained-operation and outstanding physical-acceptance boundaries.
 
 ## Pointers
 
