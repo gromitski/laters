@@ -12,9 +12,10 @@ Current status: the production workflow is active, the custom domain resolves to
 
 1. installs the locked dependencies;
 2. runs the automated tests;
-3. type-checks and builds the production application;
-4. audits `dist/` for common sensitive content, local paths, source maps and unintended external resources; and
-5. publishes only the generated `dist/` directory to GitHub Pages.
+3. audits tracked source and the current commit identity for common private data and credentials;
+4. type-checks and builds the production application;
+5. audits `dist/` for common sensitive content, local paths, source maps and unintended external resources; and
+6. publishes only the generated `dist/` directory to GitHub Pages.
 
 The repository source, memory and evidence files are not part of the deployed artifact.
 

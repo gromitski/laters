@@ -39,6 +39,8 @@ const REQUIRED_PUBLIC_CONTENT = new Map([
     [
       "mailto:hello@dustyb.in",
       "laters-connection.json",
+      "laters-reading-list.json",
+      "merge conflicting copies",
       "Google API Services User Data Policy",
       "Delete hidden app data",
     ],

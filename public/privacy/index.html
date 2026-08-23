@@ -22,9 +22,9 @@
         <h1>Privacy policy</h1>
         <p class="effective-date">Effective 23 August 2026</p>
         <p class="summary">
-          Laters is a local-first read-later app. Your reading list stays in your browser unless a
-          future feature explicitly says otherwise. The current Google Drive experiment does not
-          upload articles.
+          Laters is a local-first read-later app. Your reading list stays in your browser unless you
+          choose the optional Google Drive sync. If connected, Laters stores a private copy in your
+          Google Drive application-data folder.
         </p>
       </header>
 
@@ -34,7 +34,7 @@
           <li>Laters has no application backend, advertising or analytics.</li>
           <li>Saved article details are stored locally on your device.</li>
           <li>Publisher favicons are requested directly from those publishers.</li>
-          <li>The optional Google Drive connection stores only a connection-test time.</li>
+          <li>The optional Google Drive sync stores your reading list in private application data.</li>
           <li>Laters does not sell personal information.</li>
         </ul>
       </section>
@@ -80,11 +80,19 @@
           or access to ordinary Drive files.
         </p>
         <p>
-          The current connection test creates or updates one hidden file named
-          <code>laters-connection.json</code>. It contains only a schema version and the time of the
-          last successful connection. Article web addresses, titles, saved times and bookmarks are
-          not uploaded. The temporary Google access token is kept in memory for the connection
-          attempt and is not saved by Laters.
+          Laters creates or updates a hidden <code>laters-connection.json</code> connection record
+          containing a schema version and connection time. It also uses a hidden
+          <code>laters-reading-list.json</code> file containing a schema version, update time and the
+          complete reading list: article web addresses, titles, local identifiers, saved times,
+          bookmark states and title-edit markers. The temporary Google access token is kept in
+          memory for the open app session and is not saved by Laters.
+        </p>
+        <p>
+          If no Drive reading list exists at first connection, Laters uploads the list from that
+          browser. If one already exists, the Drive list replaces the browser’s local list. While
+          connected, successful local changes replace the complete Drive snapshot. Laters does not
+          merge conflicting copies. After the app closes, reconnecting loads Drive as the source of
+          truth again.
         </p>
         <p>
           Google processes the authorisation and Drive requests under its own privacy terms. Laters’
@@ -98,21 +106,24 @@
       <section aria-labelledby="control-delete">
         <h2 id="control-delete">Your controls and deletion</h2>
         <ul>
-          <li>Delete an article in Laters to remove that local record.</li>
+          <li>
+            Delete an article while Drive is connected to remove it locally and update the Drive
+            snapshot. A local-only deletion does not change an older Drive copy.
+          </li>
           <li>Clear Laters’ site data in your browser to remove its local database and preferences.</li>
           <li>
             Revoke Laters’ Google access from your
             <a href="https://myaccount.google.com/permissions">Google Account permissions</a>.
           </li>
           <li>
-            Delete the hidden connection file through Google Drive’s
+            Delete Laters’ hidden connection and reading-list files through Google Drive’s
             <a href="https://drive.google.com/drive/settings">Settings</a> under
             <strong>Manage apps</strong> and <strong>Delete hidden app data</strong>.
           </li>
         </ul>
         <p>
           Revoking Google access prevents later connection attempts but may not itself delete the
-          existing hidden file. The Laters maintainer cannot see or delete data held in your browser
+          existing hidden data. The Laters maintainer cannot see or delete data held in your browser
           or private Google Drive.
         </p>
       </section>
@@ -129,9 +140,10 @@
       <section aria-labelledby="security">
         <h2 id="security">Security</h2>
         <p>
-          Laters is served over HTTPS and keeps reading-list data on the device. Protecting that data
-          also depends on the security of your device, browser and Google Account. No internet or
-          storage system can be guaranteed completely secure.
+          Laters is served over HTTPS and keeps reading-list data on the device and, only when you
+          connect it, in private Google Drive application data. Protecting that data also depends on
+          the security of your device, browser and Google Account. No internet or storage system can
+          be guaranteed completely secure.
         </p>
       </section>
 

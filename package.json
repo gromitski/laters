@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "audit:public-build": "node scripts/audit-public-build.mjs",
+    "audit:repository-privacy": "node scripts/audit-repository-privacy.mjs",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",

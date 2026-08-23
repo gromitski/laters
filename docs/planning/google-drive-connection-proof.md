@@ -1,5 +1,8 @@
 # Google Drive connection proof
 
+> Historical connection-only record. The accepted successor is
+> [Google Drive article sync](google-drive-article-sync-plan.md).
+
 ## Public-access blockers — resolve first
 
 The OAuth support contact was changed to `hello@dustyb.in` on 2026-08-23 after its mailbox and

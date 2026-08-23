@@ -16,6 +16,11 @@ import {
   GOOGLE_DRIVE_CLIENT_ID,
   runGoogleDriveConnectionProbe,
 } from "./sync/googleDriveConnection";
+import {
+  GoogleDriveArticleSyncSession,
+  GoogleDriveRequestError,
+  initialiseGoogleDriveArticles,
+} from "./sync/googleDriveArticleSync";
 import { parseShareTarget } from "./share/parseShareTarget";
 import { shouldActivateArticleRow } from "./ui/articleRowActivation";
 import { createArticleShareData } from "./ui/articleShare";
@@ -46,6 +51,8 @@ let pendingDeletion: PendingDeletion | undefined;
 let undoTimer: number | undefined;
 let collapseTimer: number | undefined;
 let hasRenderedInitialItems = false;
+let googleDriveSyncSession: GoogleDriveArticleSyncSession | undefined;
+let googleDriveStatusVersion = 0;
 
 const list = requireElement<HTMLUListElement>("article-list");
 const loadingState = requireElement<HTMLParagraphElement>("loading-state");
@@ -101,14 +108,40 @@ googleDriveConnectAction.addEventListener("click", () => {
   googleDriveConnectionStatus.textContent = "Opening Google’s private permission screen…";
 
   void connectGoogleDrive(GOOGLE_DRIVE_CLIENT_ID)
-    .then(({ accessToken }) => runGoogleDriveConnectionProbe(fetch, accessToken))
-    .then(({ lastConnectedAt }) => {
+    .then(async ({ accessToken }) => {
+      const probe = await runGoogleDriveConnectionProbe(fetch, accessToken);
+      const localItems = await store.listNewestFirst();
+      const articles = await initialiseGoogleDriveArticles(fetch, accessToken, localItems);
+
+      if (articles.source === "drive-loaded") {
+        await store.replaceAll(articles.items);
+        finalisePendingDeletion();
+        currentItems = await store.listNewestFirst();
+        renderItems();
+      }
+
+      googleDriveSyncSession = new GoogleDriveArticleSyncSession(
+        fetch,
+        accessToken,
+        articles.fileId,
+      );
+      return { articles, lastConnectedAt: probe.lastConnectedAt };
+    })
+    .then(({ articles, lastConnectedAt }) => {
       rememberGoogleDriveConnection(lastConnectedAt);
       googleDriveConnectAction.textContent = "Reconnect Google Drive";
-      googleDriveConnectionStatus.textContent = "Connection test passed. Articles remain local.";
-      announceHiddenStatus("Google Drive connection test passed. No articles were uploaded.");
+      googleDriveConnectionStatus.textContent =
+        articles.source === "drive-loaded"
+          ? `Loaded ${articles.items.length} ${articles.items.length === 1 ? "article" : "articles"} from Google Drive.`
+          : `Uploaded ${articles.items.length} ${articles.items.length === 1 ? "article" : "articles"} to Google Drive.`;
+      announceHiddenStatus(
+        articles.source === "drive-loaded"
+          ? "Google Drive is connected and its reading list replaced the local list."
+          : "Google Drive is connected and now holds the reading list.",
+      );
     })
     .catch((error) => {
+      googleDriveSyncSession = undefined;
       googleDriveConnectAction.textContent = "Connect Google Drive";
       googleDriveConnectionStatus.textContent = googleDriveConnectionError(error);
     })
@@ -164,10 +197,10 @@ function showRememberedGoogleDriveConnection(): void {
     }
 
     googleDriveConnectAction.textContent = "Reconnect Google Drive";
-    googleDriveConnectionStatus.textContent = `Last connection test ${connectedAt.toLocaleString("en-GB", {
+    googleDriveConnectionStatus.textContent = `Last connected ${connectedAt.toLocaleString("en-GB", {
       dateStyle: "medium",
       timeStyle: "short",
-    })}.`;
+    })}. Reconnect to load the Drive copy.`;
   } catch {
     // Connection history is optional and must never affect the local reading list.
   }
@@ -190,7 +223,45 @@ function googleDriveConnectionError(error: unknown): string {
     return "Connection cancelled. Your articles remain local.";
   }
 
-  return "Google Drive could not be reached. Your articles remain local.";
+  return "Google Drive sync could not start. Your articles remain local.";
+}
+
+function syncArticlesToGoogleDrive(): void {
+  const session = googleDriveSyncSession;
+
+  if (!session) {
+    return;
+  }
+
+  const statusVersion = ++googleDriveStatusVersion;
+  googleDriveConnectionStatus.textContent = "Saving the latest changes to Google Drive…";
+
+  void session
+    .sync(currentItems)
+    .then(() => {
+      if (statusVersion === googleDriveStatusVersion) {
+        googleDriveConnectionStatus.textContent = "Up to date in Google Drive.";
+      }
+    })
+    .catch((error: unknown) => {
+      if (statusVersion !== googleDriveStatusVersion) {
+        return;
+      }
+
+      if (
+        error instanceof GoogleDriveRequestError &&
+        (error.status === 401 || error.status === 403)
+      ) {
+        googleDriveSyncSession = undefined;
+        googleDriveConnectAction.textContent = "Reconnect Google Drive";
+        googleDriveConnectionStatus.textContent =
+          "Saved locally, but Google permission expired. Reconnecting may replace this change with the older Drive copy.";
+        return;
+      }
+
+      googleDriveConnectionStatus.textContent =
+        "Saved locally, but the Google Drive copy is older. Reconnecting may replace this change.";
+    });
 }
 
 async function refreshList(): Promise<void> {
@@ -385,6 +456,7 @@ function createPasteToAddRow(): HTMLLIElement {
     try {
       const result = await saveCapturedItem(candidate, store);
       currentItems = result.items;
+      syncArticlesToGoogleDrive();
       showPasteButton();
       renderItems();
       highlightPastedArticle(result.item.id);
@@ -572,6 +644,7 @@ async function setArticleTitle(
     currentItems = currentItems.map((candidate) =>
       candidate.id === updatedItem.id ? updatedItem : candidate,
     );
+    syncArticlesToGoogleDrive();
     link.replaceChildren(updatedItem.title, newTabHint);
     setBookmarkPresentation(
       bookmarkButton,
@@ -691,6 +764,7 @@ async function setArticleBookmarked(
     currentItems = currentItems.map((candidate) =>
       candidate.id === updatedItem.id ? updatedItem : candidate,
     );
+    syncArticlesToGoogleDrive();
     return updatedItem;
   } catch {
     setBookmarkPresentation(button, item, item.bookmarked === true);
@@ -815,6 +889,7 @@ async function deleteArticle(item: SavedItem, button: HTMLButtonElement): Promis
   try {
     await store.delete(item.id);
     currentItems = currentItems.filter((candidate) => candidate.id !== item.id);
+    syncArticlesToGoogleDrive();
     pendingDeletion = { item, isLeaving: false };
     const ghostRow = createGhostRow(item, false);
 
@@ -889,6 +964,7 @@ async function restoreArticle(item: SavedItem): Promise<void> {
     await store.save(item);
     pendingDeletion = undefined;
     currentItems = createReadingListEntries([...currentItems, item]).map((entry) => entry.item);
+    syncArticlesToGoogleDrive();
     const restoredIndex = currentItems.findIndex((candidate) => candidate.id === item.id);
     const restoredRow = createArticleRow(item, false, restoredIndex);
 

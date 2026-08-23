@@ -44,6 +44,24 @@ export class IndexedDbReadingListStore implements ReadingListStore {
     }
   }
 
+  async replaceAll(items: SavedItem[]): Promise<void> {
+    if (!items.every(isSavedItem)) {
+      throw new Error("Replacement article data is invalid.");
+    }
+
+    const database = await this.openDatabase();
+
+    try {
+      const transaction = database.transaction(ITEM_STORE, "readwrite");
+      const itemStore = transaction.objectStore(ITEM_STORE);
+      itemStore.clear();
+      items.forEach((item) => itemStore.put(item));
+      await waitForTransaction(transaction);
+    } finally {
+      database.close();
+    }
+  }
+
   async setBookmarked(id: string, bookmarked: boolean): Promise<SavedItem> {
     if (!id) {
       throw new Error("A saved article identifier is required.");

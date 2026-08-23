@@ -45,6 +45,31 @@ describe("IndexedDbReadingListStore", () => {
     await expect(store.listNewestFirst()).resolves.toEqual([item("keep", 100)]);
   });
 
+  it("atomically replaces the complete reading list", async () => {
+    const databaseName = createDatabaseName();
+    const store = new IndexedDbReadingListStore(databaseName);
+    await store.save(item("remove", 100));
+
+    await store.replaceAll([item("replacement-old", 200), item("replacement-new", 300)]);
+
+    await expect(store.listNewestFirst()).resolves.toEqual([
+      item("replacement-new", 300),
+      item("replacement-old", 200),
+    ]);
+  });
+
+  it("rejects invalid replacement data without clearing existing articles", async () => {
+    const databaseName = createDatabaseName();
+    const store = new IndexedDbReadingListStore(databaseName);
+    const existing = item("keep", 100);
+    await store.save(existing);
+
+    await expect(
+      store.replaceAll([{ ...item("invalid", 200), url: "javascript:alert(1)" }]),
+    ).rejects.toThrow("invalid");
+    await expect(store.listNewestFirst()).resolves.toEqual([existing]);
+  });
+
   it("updates only bookmark state without changing order or article data", async () => {
     const databaseName = createDatabaseName();
     const store = new IndexedDbReadingListStore(databaseName);

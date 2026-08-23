@@ -33,6 +33,9 @@ jobs:
       - name: Run automated tests
         run: npm test
 
+      - name: Audit repository privacy
+        run: npm run audit:repository-privacy
+
       - name: Build production files
         run: npm run build
 
