@@ -121,7 +121,11 @@ perfectly, closing its physical acceptance gate. The accepted `v0.4.2` follow-up
 desktop-only three-dot **More actions** button beside Delete, reusing the existing action sheet and
 retaining right-click and `Shift+F10`. At the 48rem desktop breakpoint the existing 34rem shell may
 grow fluidly to a 42rem maximum. Mobile presentation and interactions remain unchanged; this is not
-a general desktop redesign.
+a general desktop redesign. Commit `2639185` published this candidate; all local release gates and
+desktop/mobile browser checks passed, GitHub Actions run `32637456916` passed and deployed, and the
+public origin served the matching verified assets. A production browser applied the update without
+losing its two saved articles and confirmed the new proportions, menu route, focus restoration and
+error-free console.
 
 ## Blockers
 
@@ -135,15 +139,16 @@ None.
 
 ## Next safe action
 
-Finish agent-owned verification and publish the exact `v0.4.2` candidate, then confirm the wider
-production desktop presentation and visible three-dot menu route. No tag or GitHub release is
-authorised.
+Visually assess the wider production desktop presentation and visible three-dot menu route. If
+accepted, record maintainer acceptance before deciding whether to close or extend the `v0.4.x`
+release line. No tag or GitHub release is authorised.
 
 ## Last meaningful update
 
-2026-08-23 — The maintainer confirmed that the production mobile `v0.4.1` title editor works
-perfectly and accepted `v0.4.2`: a visible desktop route to the existing menu plus modest wide-screen
-responsiveness. Implementation and production verification are in progress; no tag or GitHub
+2026-08-23 — Commit `2639185` published the accepted `v0.4.2` desktop action and responsive-width
+candidate. All local gates passed, GitHub Actions run `32637456916` passed and deployed, and a
+production browser confirmed the exact build, retained data, wider presentation, More-actions menu
+route and focus restoration without errors. Maintainer visual acceptance remains; no tag or GitHub
 release is authorised.
 
 ## Pointers

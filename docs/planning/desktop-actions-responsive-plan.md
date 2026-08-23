@@ -41,3 +41,16 @@ single-column hierarchy.
 - A 320px browser check confirms the More actions control is absent and the existing mobile row and
   interaction presentation is unchanged.
 - Production acceptance confirms the published proportions and action route before release closure.
+
+## Implementation record
+
+Commit `2639185` published the `v0.4.2` production candidate on 2026-08-23. The local release gate
+passed 96 automated tests across 17 files, type checking, the production build, the public-build
+privacy audit and the no-attribution guard. Browser verification passed at 320px and 1280px; the
+responsive shell measured 560px at an 800px viewport and reached its 672px cap at 960px.
+
+GitHub Actions run `32637456916` passed and deployed. The public origin served the exact verified
+`index-LO7bD07Z.js` and `index-BKTYuY55.css` assets. After applying the offered production update,
+the browser retained its two saved articles, displayed the new controls and wider shell, opened the
+unchanged menu, returned focus to its three-dot trigger and reported no errors. Maintainer visual
+acceptance remains outstanding; no tag or GitHub release is authorised.

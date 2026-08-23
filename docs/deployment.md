@@ -138,6 +138,12 @@ For the `v0.4.2` production candidate:
 6. At mobile width, confirm the three-dot control is absent and touch long press, swipes and the
    existing row dimensions remain unchanged.
 
+Commit `2639185` published the `v0.4.2` production candidate. GitHub Actions run `32637456916`
+passed, and the public origin served the matching verified JavaScript and CSS fingerprints. A
+production browser applied the offered update without losing its saved articles, confirmed the
+wider 1280px presentation, opened the unchanged menu from **More actions**, restored focus on Cancel
+and reported no errors. Maintainer visual acceptance remains required before release closure.
+
 ## Application updates and saved data
 
 A newly deployed worker installs its complete application-shell cache, then waits. An open Laters app announces that the update is ready and shows an **Update** button. Selecting it activates the worker and reloads the app once; failure to register or check for an update does not prevent the reading list from opening.
