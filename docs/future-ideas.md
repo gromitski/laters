@@ -7,7 +7,8 @@ These are observations collected after the successful personal MVP, not an accep
 ## Before any public Google Drive access
 
 - The OAuth support contact is now `hello@dustyb.in`, and mailbox ownership was confirmed on
-  2026-08-23. Publish an accurate privacy policy and complete any required Google brand checks.
+  2026-08-23. The public privacy policy is live and registered in the OAuth branding configuration.
+- Complete any required Google brand checks.
 - Keep the OAuth application in **Testing** with only the maintainer admitted until those gates pass.
 
 The MVP should remain fast, local-first and focused. Public source code must never imply a public reading list, shared database or committed credentials.

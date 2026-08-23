@@ -6,8 +6,11 @@ The OAuth support contact was changed to `hello@dustyb.in` on 2026-08-23 after i
 Google identity were confirmed. Temporary project access used to make the address selectable was
 removed after the saved setting was verified.
 
-1. Publish an accurate privacy policy.
-2. Complete any required Google brand checks before changing the OAuth application from **Testing**.
+The public privacy policy was published at `https://laters.dustyb.in/privacy/` on 2026-08-23. The
+live page and homepage link passed the production build audit and browser verification; the exact
+homepage and privacy-policy URLs were then saved and rechecked in Google's OAuth branding settings.
+
+1. Complete any required Google brand checks before changing the OAuth application from **Testing**.
 
 ## Status
 
