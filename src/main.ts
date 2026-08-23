@@ -2,6 +2,10 @@ import "@ionic/core/css/core.css";
 import "./styles.css";
 import type { SavedItem } from "./domain/savedItem";
 import { createSourceIdentity, type SourceIdentity } from "./domain/sourceIdentity";
+import {
+  requestApplicationInstall,
+  type ApplicationInstallPrompt,
+} from "./pwa/installApplication";
 import { registerServiceWorker } from "./pwa/registerServiceWorker";
 import { IndexedDbReadingListStore } from "./storage/indexedDbReadingListStore";
 import { requestPersistentStorage } from "./storage/requestPersistentStorage";
@@ -42,6 +46,37 @@ const statusMessage = requireElement<HTMLDivElement>("status-message");
 const errorMessage = requireElement<HTMLParagraphElement>("error-message");
 const updateMessage = requireElement<HTMLDivElement>("update-message");
 const updateAction = requireElement<HTMLButtonElement>("update-action");
+const installAction = requireElement<HTMLButtonElement>("install-action");
+
+let applicationInstallPrompt: ApplicationInstallPrompt | undefined;
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  applicationInstallPrompt = event as ApplicationInstallPrompt;
+  installAction.hidden = false;
+});
+
+window.addEventListener("appinstalled", hideInstallAction);
+
+installAction.addEventListener("click", () => {
+  const prompt = applicationInstallPrompt;
+
+  if (!prompt) {
+    hideInstallAction();
+    return;
+  }
+
+  applicationInstallPrompt = undefined;
+  installAction.disabled = true;
+
+  void requestApplicationInstall(prompt)
+    .catch(() => {
+      showError(
+        "Laters could not open the installation prompt. Use your browser's Install option instead.",
+      );
+    })
+    .finally(hideInstallAction);
+});
 
 showShareResult();
 void refreshList();
@@ -65,6 +100,12 @@ function showUpdateAvailable(applyUpdate: () => void): void {
     { once: true },
   );
   updateMessage.hidden = false;
+}
+
+function hideInstallAction(): void {
+  applicationInstallPrompt = undefined;
+  installAction.hidden = true;
+  installAction.disabled = false;
 }
 
 async function refreshList(): Promise<void> {

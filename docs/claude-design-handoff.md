@@ -142,7 +142,9 @@ Do not add, imply or design navigation for features outside the accepted MVP. In
 - AI summaries, recommendations or categorisation;
 - analytics, advertising, sharing history or social features;
 - manual URL entry, import/export or browser extensions; or
-- desktop-specific product flows beyond a sound responsive presentation.
+- desktop-specific product flows beyond a sound responsive presentation. A later accepted exception
+  permits one contextual **Install** action beside the wordmark when the browser reports that native
+  PWA installation is available; it does not introduce desktop navigation or a separate product.
 
 Avoid decorative controls, tabs, menus, floating actions or empty placeholders that suggest deferred features. The MVP should still read as one direct screen: brand/context, optional update notice, reading list, transient status and local-storage explanation.
 

@@ -121,6 +121,13 @@ h1 {
   line-height: 0.8;
 }
 
+.masthead-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .wordmark-stop {
   color: var(--accent-ink);
 }
@@ -145,7 +152,8 @@ h1 {
   display: none;
 }
 
-.update-action {
+.update-action,
+.install-action {
   flex: none;
   height: var(--target);
   border: 0;
@@ -157,6 +165,10 @@ h1 {
   font-size: 0.81rem;
   font-weight: 800;
   letter-spacing: 0.03em;
+}
+
+.install-action[hidden] {
+  display: none;
 }
 
 .reading-list {
@@ -553,7 +565,8 @@ h1 {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .update-action:hover {
+  .update-action:hover,
+  .install-action:hover {
     background: #2b2b33;
   }
 
@@ -889,11 +902,13 @@ footer {
 
 @media (prefers-reduced-motion: no-preference) {
   .masthead .eyebrow,
-  .masthead h1 {
+  .masthead h1,
+  .masthead .install-action {
     animation: rise-in 500ms ease both;
   }
 
-  .masthead h1 {
+  .masthead h1,
+  .masthead .install-action {
     animation-delay: 50ms;
   }
 

@@ -38,6 +38,8 @@ mobile interaction shell.
 - Complete physical-device MVP acceptance on Chrome for Android `151.0.7922.173`, including exact-URL duplicate refresh, persistence, deletion, Undo and the offline shell.
 - A Claude Design handoff that defines the implemented feature and state contract, icon deliverables, accessibility requirements and strict MVP scope boundary.
 - The accepted white/ink/lime identity, self-hosted Bricolage Grotesque typeface, supplied icon family, accessible icon-only Delete control and in-row seven-second Undo state.
+- The same white/ink/lime identity on the normal desktop browser page, with a wordmark-aligned
+  **Install** action that appears only when the browser exposes native PWA installation.
 - A published `v0.1.0` GitHub release tagged at verified rewritten commit `0178fc9`.
 - Published and maintainer-accepted MVP 2.0 bookmarks with the bright-lime supplied star treatment.
 - Published and maintainer-accepted 22px publisher source markers with exact-origin favicon attempts,
@@ -55,8 +57,8 @@ mobile interaction shell.
 
 ## Active focus
 
-Return to the remaining exploratory futures list and agree the next bounded change before any
-implementation. No future idea is currently selected.
+Publish and visually verify the bounded desktop-branding and contextual-install slice, then return
+to the remaining exploratory futures list. No future idea is otherwise selected.
 
 ## Active slice
 
@@ -76,6 +78,13 @@ now shares only the URL and protects that contract with a regression test. GitHu
 URL without the saved title contaminating the payload, and cancelling the chooser returned safely
 to Laters.
 
+The accepted desktop-parity slice keeps the existing responsive white, ink and lime presentation
+and adds **Install** beside the wordmark. The control remains absent unless the browser emits its
+native install-availability event, disappears after use or successful installation, and adds no
+installer, account, backend or platform-specific package. A clean production check confirmed that
+the reported cream and serif desktop page was a stale pre-redesign service-worker shell rather than
+the current deployed presentation.
+
 ## Blockers
 
 None.
@@ -88,8 +97,8 @@ None.
 
 ## Next safe action
 
-Discuss the remaining entries in `docs/future-ideas.md` and agree one bounded change, if any, before
-implementation.
+Complete the production desktop visual and installation-availability check for the current slice,
+then discuss the remaining entries in `docs/future-ideas.md` and agree one bounded change, if any.
 
 ## Last meaningful update
 

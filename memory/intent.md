@@ -77,6 +77,10 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   long-press/context menu. It opens the system share sheet with only the saved URL; the title is
   deliberately omitted because receiving apps may misinterpret it. Laters does not integrate with,
   select or observe NotebookLM or another destination.
+- Accepted post-MVP desktop exception: the responsive browser page retains the same white, ink and
+  lime identity as the installed PWA and may show a right-aligned **Install** action beside the
+  wordmark only when the browser reports that this installation is available. The action invokes
+  the browser's native PWA installation prompt; it is not a separate desktop application flow.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.

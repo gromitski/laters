@@ -65,7 +65,11 @@ Android's news feed was observed sharing distinct URLs for what appeared to be t
 
 A newly deployed worker installs its complete application-shell cache, then waits. An open Laters app announces that the update is ready and shows an **Update** button. Selecting it activates the worker and reloads the app once; failure to register or check for an update does not prevent the reading list from opening.
 
-The first deployment of this update mechanism is transitional: the previously deployed app has no update listener, so it cannot display the new button. Close the installed app after that deployment and reopen it to allow the waiting worker to become active. Later deployments use the in-app **Update** button normally.
+The first deployment of this update mechanism is transitional: the previously deployed app has no
+update listener, so it cannot display the new button. This also applies to a desktop tab that has
+remained on that old pre-redesign shell. Close every Laters app window or tab and reopen the site to
+allow the waiting worker to become active; do not clear site data because that can remove the local
+reading list. Later deployments use the in-app **Update** button normally.
 
 The transitional activation, retention of existing saved data and visible **Update** action passed on Chrome for Android `151.0.7922.173` across later application-bundle deployments.
 
