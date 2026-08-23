@@ -1,5 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
-import { installApplicationMenu } from "./applicationMenu";
+import {
+  installApplicationMenu,
+  setApplicationMenuSyncState,
+} from "./applicationMenu";
 
 describe("application menu", () => {
   it("configures and opens the bottom drawer, then returns focus after dismissal", async () => {
@@ -48,10 +51,55 @@ describe("application menu", () => {
     expect(modal.animated).toBe(false);
     expect(modal.dismiss).toHaveBeenCalledWith(undefined, "close-action");
   });
+
+  it("exposes the real Google Drive state through the menu trigger", () => {
+    const action = createSyncAction();
+
+    setApplicationMenuSyncState(
+      action as unknown as HTMLButtonElement,
+      "connected",
+    );
+    expect(action.dataset.syncState).toBe("connected");
+    expect(action.getAttribute("aria-label")).toBe(
+      "Open menu, Google Drive connected",
+    );
+
+    setApplicationMenuSyncState(
+      action as unknown as HTMLButtonElement,
+      "checking",
+    );
+    expect(action.dataset.syncState).toBe("checking");
+    expect(action.getAttribute("aria-label")).toBe(
+      "Open menu, checking Google Drive",
+    );
+
+    setApplicationMenuSyncState(
+      action as unknown as HTMLButtonElement,
+      "disconnected",
+    );
+    expect(action.dataset.syncState).toBe("disconnected");
+    expect(action.getAttribute("aria-label")).toBe(
+      "Open menu, Google Drive disconnected",
+    );
+  });
 });
 
 function createAction(): EventTarget & { focus: ReturnType<typeof vi.fn> } {
   return Object.assign(new EventTarget(), { focus: vi.fn() });
+}
+
+function createSyncAction(): {
+  dataset: Record<string, string>;
+  getAttribute(name: string): string | undefined;
+  setAttribute(name: string, value: string): void;
+} {
+  const attributes = new Map<string, string>();
+
+  return {
+    dataset: {},
+    getAttribute: (name) => attributes.get(name),
+    setAttribute: (name, value) => attributes.set(name, value),
+  };
 }
 
 function createModal(): EventTarget & {

@@ -32,7 +32,10 @@ import { shouldActivateArticleRow } from "./ui/articleRowActivation";
 import { createArticleShareData } from "./ui/articleShare";
 import { formatSavedTime } from "./ui/formatSavedTime";
 import { getBookmarkControlState } from "./ui/bookmarkPresentation";
-import { installApplicationMenu } from "./ui/applicationMenu";
+import {
+  installApplicationMenu,
+  setApplicationMenuSyncState,
+} from "./ui/applicationMenu";
 import { createReadingListEntries } from "./ui/readingListPresentation";
 import { loadPublisherFavicon } from "./ui/loadPublisherFavicon";
 import { readClipboardText } from "./ui/readClipboardText";
@@ -96,6 +99,7 @@ installApplicationMenu({
   openAction: applicationMenuAction,
   closeAction: applicationMenuCloseAction,
 });
+setGoogleDriveMenuState("disconnected");
 
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
@@ -128,6 +132,7 @@ installAction.addEventListener("click", () => {
 
 googleDriveConnectAction.addEventListener("click", () => {
   const activeSessionAtStart = googleDriveSyncSession;
+  setGoogleDriveMenuState("checking");
   googleDriveConnectAction.disabled = true;
   googleDriveConnectAction.textContent = "Connecting…";
   googleDriveConnectionStatus.textContent = "Opening Google’s private permission screen…";
@@ -146,12 +151,14 @@ googleDriveConnectAction.addEventListener("click", () => {
         activeSessionAtStart &&
         googleDriveSyncSession === activeSessionAtStart
       ) {
+        setGoogleDriveMenuState("connected");
         googleDriveConnectAction.textContent = "Reconnect Google Drive";
         googleDriveConnectionStatus.textContent = `Up to date in Google Drive. Checking every ${GOOGLE_DRIVE_POLL_MS / 1_000} seconds while open.`;
         startGoogleDrivePolling();
       } else {
         stopGoogleDrivePolling();
         googleDriveSyncSession = undefined;
+        setGoogleDriveMenuState("disconnected");
         googleDriveConnectAction.textContent = hasRememberedGoogleDriveConnection()
           ? "Resume Google Drive"
           : "Connect Google Drive";
@@ -183,6 +190,15 @@ document.addEventListener("visibilitychange", () => {
 
 window.addEventListener("online", () => {
   syncArticlesToGoogleDrive("Back online. Checking Google Drive…");
+});
+
+window.addEventListener("offline", () => {
+  setGoogleDriveMenuState("disconnected");
+
+  if (googleDriveSyncSession) {
+    googleDriveConnectionStatus.textContent =
+      "Offline. Changes remain queued safely until the connection returns.";
+  }
 });
 
 function showUpdateAvailable(applyUpdate: () => void): void {
@@ -280,6 +296,7 @@ async function resumeStoredGoogleDriveSync(): Promise<void> {
   }
 
   googleDriveConnectAction.disabled = true;
+  setGoogleDriveMenuState("checking");
   googleDriveConnectAction.textContent = "Resuming…";
   googleDriveConnectionStatus.textContent = "Resuming Google Drive sync…";
 
@@ -296,6 +313,7 @@ async function establishGoogleDriveLiveSync(
   accessToken: string,
   expiresAt?: number,
 ): Promise<void> {
+  setGoogleDriveMenuState("checking");
   const probe = await runGoogleDriveConnectionProbe(fetch, accessToken);
   const localItems = await store.listNewestFirst();
   const articles = await initialiseGoogleDriveArticles(fetch, accessToken, localItems);
@@ -309,6 +327,7 @@ async function establishGoogleDriveLiveSync(
   renderItems();
   rememberGoogleDriveConnection(probe.lastConnectedAt);
   startGoogleDrivePolling();
+  setGoogleDriveMenuState("connected");
   googleDriveConnectAction.textContent = "Reconnect Google Drive";
   googleDriveConnectionStatus.textContent = `Up to date in Google Drive. Checking every ${GOOGLE_DRIVE_POLL_MS / 1_000} seconds while open.`;
   announceHiddenStatus(
@@ -334,6 +353,8 @@ function syncArticlesToGoogleDrive(
   const session = googleDriveSyncSession;
 
   if (!session) {
+    setGoogleDriveMenuState("disconnected");
+
     if (hasRememberedGoogleDriveConnection()) {
       googleDriveConnectAction.textContent = "Resume Google Drive";
       googleDriveConnectionStatus.textContent = "A local change is waiting to sync.";
@@ -352,11 +373,14 @@ function syncArticlesToGoogleDrive(
   }
 
   const statusVersion = ++googleDriveStatusVersion;
+  setGoogleDriveMenuState("checking");
   googleDriveConnectionStatus.textContent = progressMessage;
 
   void session
     .sync(store)
     .then((result) => {
+      setGoogleDriveMenuState("connected");
+
       if (!savedItemListsEqual(currentItems, result.items)) {
         finalisePendingDeletion();
         currentItems = result.items;
@@ -387,6 +411,7 @@ function handleGoogleDriveSyncError(error: unknown): void {
 
   googleDriveConnectionStatus.textContent =
     "Google Drive could not sync just now. Changes remain queued safely on this device.";
+  setGoogleDriveMenuState("disconnected");
 }
 
 function isGoogleDriveAuthorizationError(error: unknown): boolean {
@@ -403,6 +428,7 @@ function pauseGoogleDriveSync(message: string): void {
   googleDriveCredentialExpiresAt = undefined;
   googleDriveConnectAction.textContent = "Resume Google Drive";
   googleDriveConnectionStatus.textContent = message;
+  setGoogleDriveMenuState("disconnected");
 
   try {
     forgetGoogleDriveCredential(window.localStorage);
@@ -425,6 +451,12 @@ function stopGoogleDrivePolling(): void {
     window.clearInterval(googleDrivePollTimer);
     googleDrivePollTimer = undefined;
   }
+}
+
+function setGoogleDriveMenuState(
+  state: "connected" | "checking" | "disconnected",
+): void {
+  setApplicationMenuSyncState(applicationMenuAction, state);
 }
 
 function savedItemListsEqual(left: SavedItem[], right: SavedItem[]): boolean {

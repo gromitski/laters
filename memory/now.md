@@ -78,8 +78,10 @@ acceptance; cross-device add/delete acceptance also remains.
 The selected interface follow-up adds a permanent circular top-right menu trigger and an Ionic bottom
 drawer. The existing sync card and footer disclosure move into it unchanged, keeping those controls
 reachable without traversing the article list. Backdrop, Escape, swipe-down and a visible close
-control dismiss the sheet with focus returned to the trigger. A compact top-level sync indicator is
-explicitly deferred; no sync data or authorization behaviour changes in this slice.
+control dismiss the sheet with focus returned to the trigger. The trigger itself now reports broad
+Drive state: pale green for a successful latest check, white while connecting/checking/sending, and
+pale red when disconnected, offline, expired or failed. Its accessible name carries the same state.
+No sync data or authorization behaviour changes in this interface slice.
 
 The accepted private live-sync candidate builds on the published Drive snapshot proof without a
 Laters backend. IndexedDB version 2 records each add, update, restore and deletion atomically with a
@@ -175,9 +177,9 @@ documented Android drawer acceptance before continuing the live-sync add/delete 
 
 ## Last meaningful update
 
-2026-08-23 — Top-right application menu and bottom drawer implemented around the unchanged sync card
-and Privacy link. Automated, browser, release and deployment evidence remain to be completed for this
-follow-up; live-sync physical add/delete acceptance is paused until then.
+2026-08-23 — Top-right application menu and bottom drawer deployed in `2a8e329`; its three-state Drive
+indicator follow-up is implemented locally. Automated, browser and deployment evidence remain for the
+indicator; live-sync physical add/delete acceptance is paused until then.
 
 ## Pointers
 

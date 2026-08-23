@@ -57,3 +57,18 @@ export function installApplicationMenu({
     openAction.focus({ preventScroll: true });
   });
 }
+
+export function setApplicationMenuSyncState(
+  action: HTMLButtonElement,
+  state: "connected" | "checking" | "disconnected",
+): void {
+  action.dataset.syncState = state;
+  action.setAttribute(
+    "aria-label",
+    state === "connected"
+      ? "Open menu, Google Drive connected"
+      : state === "checking"
+        ? "Open menu, checking Google Drive"
+        : "Open menu, Google Drive disconnected",
+  );
+}

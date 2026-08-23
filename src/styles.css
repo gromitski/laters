@@ -27,6 +27,8 @@
   --error: #a01b0b;
   --error-bg: #fff5f3;
   --error-line: rgb(160 27 11 / 45%);
+  --sync-connected: #eaffbd;
+  --sync-disconnected: #ffe3df;
   --font: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
   --gutter: 1.375rem;
   --row-y: 1.0625rem;
@@ -209,6 +211,22 @@ h1 {
   color: #fff;
   background: var(--text);
   transform: scale(0.94);
+}
+
+.application-menu-action[data-sync-state="connected"] {
+  background: var(--sync-connected);
+}
+
+.application-menu-action[data-sync-state="checking"] {
+  background: var(--canvas);
+}
+
+.application-menu-action[data-sync-state="disconnected"] {
+  background: var(--sync-disconnected);
+}
+
+.application-menu-action[data-sync-state]:active {
+  background: var(--text);
 }
 
 .install-action[hidden] {

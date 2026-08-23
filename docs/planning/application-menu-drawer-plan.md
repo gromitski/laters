@@ -10,6 +10,11 @@ candidate. This slice does not change sync storage, timing, authorization or mer
 - A permanent circular **Open menu** control sits at the top right of the masthead.
 - When browser installation is available, **Install** remains immediately beside the menu control.
 - The control opens a bottom drawer headed **Menu**.
+- The menu control doubles as a compact Drive indicator: pale green means the latest Drive check
+  succeeded, white means Laters is connecting, checking or sending, and pale red means disconnected,
+  offline, expired, waiting to reconnect or failed on its latest attempt.
+- The accessible name states the same connected, checking or disconnected condition, so the colour
+  is not the only indication.
 - The existing Experimental sync card moves into the drawer without visual or behavioural redesign.
 - The existing local/Drive storage disclosure and **Privacy** link move into the same drawer.
 - The long article list no longer has to be traversed to reach sync or privacy controls.
@@ -27,17 +32,19 @@ present so all masthead actions remain within the viewport.
 
 ## Deliberately deferred
 
-- A persistent top-level visual sync indicator.
+- A more detailed sync badge, timestamp or error message outside the drawer.
 - New settings or placeholder menu rows.
 - Changes to polling, token lifetime, pending-operation or deletion-record behaviour.
 - A tag, release or public OAuth publication.
 
-Until the separate indicator is designed, waiting, expired or failed sync state is visible after
-opening the drawer. Local changes remain queued under the existing live-sync contract.
+The menu colour communicates the broad state without adding another header control. Detailed waiting,
+expired or failed text remains inside the drawer. Local changes remain queued under the existing
+live-sync contract.
 
 ## Acceptance
 
-- Automated checks cover drawer configuration, reduced motion, close control and focus return.
+- Automated checks cover drawer configuration, reduced motion, close control, focus return and all
+  three accessible sync states.
 - Browser checks cover placement, unchanged sync-card styling, Privacy visibility, close and Escape.
 - Physical Android acceptance should confirm top-right reachability, sheet scrolling and swipe-down
   dismissal without interfering with the article list.
