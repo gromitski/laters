@@ -2,9 +2,12 @@
 
 ## Public-access blockers — resolve first
 
-1. Replace the temporary test-only OAuth support contact with `hello@dustyb.in`.
-2. Confirm that the public support mailbox works and publish an accurate privacy policy.
-3. Complete any required Google brand checks before changing the OAuth application from **Testing**.
+The OAuth support contact was changed to `hello@dustyb.in` on 2026-08-23 after its mailbox and
+Google identity were confirmed. Temporary project access used to make the address selectable was
+removed after the saved setting was verified.
+
+1. Publish an accurate privacy policy.
+2. Complete any required Google brand checks before changing the OAuth application from **Testing**.
 
 ## Status
 

@@ -6,8 +6,8 @@ These are observations collected after the successful personal MVP, not an accep
 
 ## Before any public Google Drive access
 
-- Replace the temporary test-only OAuth support contact with `hello@dustyb.in`, confirm that the
-  mailbox works, publish an accurate privacy policy and complete any required Google brand checks.
+- The OAuth support contact is now `hello@dustyb.in`, and mailbox ownership was confirmed on
+  2026-08-23. Publish an accurate privacy policy and complete any required Google brand checks.
 - Keep the OAuth application in **Testing** with only the maintainer admitted until those gates pass.
 
 The MVP should remain fast, local-first and focused. Public source code must never imply a public reading list, shared database or committed credentials.
