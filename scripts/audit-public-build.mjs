@@ -25,6 +25,12 @@ const EXTERNAL_RESOURCE_CONTENT = [
   ["external CSS resource", /url\(["']?https?:\/\//iu],
   ["static third-party request", /\b(?:fetch|WebSocket|EventSource|sendBeacon)\s*\(\s*["']https?:\/\//u],
 ];
+const APPROVED_PUBLIC_LITERALS = [
+  "66695716751-088llrf3kineuva2mq1tf7dujd47b2is.apps.googleusercontent.com",
+  "https://accounts.google.com/gsi/client",
+  "https://www.googleapis.com/drive/v3/files",
+  "https://www.googleapis.com/upload/drive/v3/files",
+];
 
 const files = await listFiles(BUILD_DIRECTORY);
 const findings = [];
@@ -42,16 +48,20 @@ for (const file of files) {
   }
 
   const content = (await readFile(file)).toString("latin1");
+  const auditedContent = APPROVED_PUBLIC_LITERALS.reduce(
+    (result, literal) => result.replaceAll(literal, ""),
+    content,
+  );
 
   for (const [label, pattern] of SENSITIVE_CONTENT) {
-    if (pattern.test(content)) {
+    if (pattern.test(auditedContent)) {
       findings.push(`${fileName}: ${label}`);
     }
   }
 
   if (TEXT_EXTENSIONS.has(extname(file).toLowerCase())) {
     for (const [label, pattern] of EXTERNAL_RESOURCE_CONTENT) {
-      if (pattern.test(content)) {
+      if (pattern.test(auditedContent)) {
         findings.push(`${fileName}: ${label}`);
       }
     }

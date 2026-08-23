@@ -11,6 +11,11 @@ import {
 import { registerServiceWorker } from "./pwa/registerServiceWorker";
 import { IndexedDbReadingListStore } from "./storage/indexedDbReadingListStore";
 import { requestPersistentStorage } from "./storage/requestPersistentStorage";
+import {
+  connectGoogleDrive,
+  GOOGLE_DRIVE_CLIENT_ID,
+  runGoogleDriveConnectionProbe,
+} from "./sync/googleDriveConnection";
 import { parseShareTarget } from "./share/parseShareTarget";
 import { shouldActivateArticleRow } from "./ui/articleRowActivation";
 import { createArticleShareData } from "./ui/articleShare";
@@ -52,6 +57,12 @@ const errorMessage = requireElement<HTMLParagraphElement>("error-message");
 const updateMessage = requireElement<HTMLDivElement>("update-message");
 const updateAction = requireElement<HTMLButtonElement>("update-action");
 const installAction = requireElement<HTMLButtonElement>("install-action");
+const googleDriveConnectAction = requireElement<HTMLButtonElement>(
+  "google-drive-connect-action",
+);
+const googleDriveConnectionStatus = requireElement<HTMLParagraphElement>(
+  "google-drive-connection-status",
+);
 const pasteRow = createPasteToAddRow();
 
 let applicationInstallPrompt: ApplicationInstallPrompt | undefined;
@@ -84,6 +95,30 @@ installAction.addEventListener("click", () => {
     .finally(hideInstallAction);
 });
 
+googleDriveConnectAction.addEventListener("click", () => {
+  googleDriveConnectAction.disabled = true;
+  googleDriveConnectAction.textContent = "Connecting…";
+  googleDriveConnectionStatus.textContent = "Opening Google’s private permission screen…";
+
+  void connectGoogleDrive(GOOGLE_DRIVE_CLIENT_ID)
+    .then(({ accessToken }) => runGoogleDriveConnectionProbe(fetch, accessToken))
+    .then(({ lastConnectedAt }) => {
+      rememberGoogleDriveConnection(lastConnectedAt);
+      googleDriveConnectAction.textContent = "Reconnect Google Drive";
+      googleDriveConnectionStatus.textContent = "Connection test passed. Articles remain local.";
+      announceHiddenStatus("Google Drive connection test passed. No articles were uploaded.");
+    })
+    .catch((error) => {
+      googleDriveConnectAction.textContent = "Connect Google Drive";
+      googleDriveConnectionStatus.textContent = googleDriveConnectionError(error);
+    })
+    .finally(() => {
+      googleDriveConnectAction.disabled = false;
+    });
+});
+
+showRememberedGoogleDriveConnection();
+
 showShareResult();
 void refreshList();
 void requestPersistentStorage();
@@ -112,6 +147,50 @@ function hideInstallAction(): void {
   applicationInstallPrompt = undefined;
   installAction.hidden = true;
   installAction.disabled = false;
+}
+
+function showRememberedGoogleDriveConnection(): void {
+  try {
+    const lastConnectedAt = window.localStorage.getItem("laters-google-drive-last-connected");
+
+    if (!lastConnectedAt) {
+      return;
+    }
+
+    const connectedAt = new Date(lastConnectedAt);
+
+    if (Number.isNaN(connectedAt.getTime())) {
+      return;
+    }
+
+    googleDriveConnectAction.textContent = "Reconnect Google Drive";
+    googleDriveConnectionStatus.textContent = `Last connection test ${connectedAt.toLocaleString("en-GB", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    })}.`;
+  } catch {
+    // Connection history is optional and must never affect the local reading list.
+  }
+}
+
+function rememberGoogleDriveConnection(lastConnectedAt: string): void {
+  try {
+    window.localStorage.setItem("laters-google-drive-last-connected", lastConnectedAt);
+  } catch {
+    // A successful Drive check remains valid even when local preferences cannot be stored.
+  }
+}
+
+function googleDriveConnectionError(error: unknown): string {
+  if (error instanceof Error && error.message === "google-popup-failed") {
+    return "Google could not open its permission screen. Select Connect again.";
+  }
+
+  if (error instanceof Error && error.message === "google-popup-closed") {
+    return "Connection cancelled. Your articles remain local.";
+  }
+
+  return "Google Drive could not be reached. Your articles remain local.";
 }
 
 async function refreshList(): Promise<void> {

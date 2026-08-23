@@ -4,6 +4,12 @@
 
 These are observations collected after the successful personal MVP, not an accepted roadmap, promised features or permission to expand the product. Each idea needs its own evidence, privacy review and bounded release decision before implementation.
 
+## Before any public Google Drive access
+
+- Replace the temporary test-only OAuth support contact with `hello@dustyb.in`, confirm that the
+  mailbox works, publish an accurate privacy policy and complete any required Google brand checks.
+- Keep the OAuth application in **Testing** with only the maintainer admitted until those gates pass.
+
 The MVP should remain fast, local-first and focused. Public source code must never imply a public reading list, shared database or committed credentials.
 
 Bookmarks, source favicons and a non-conflicting whole-row pointer action were delivered and
@@ -29,7 +35,7 @@ table is still exploratory rather than an accepted roadmap.
 | --- | --- | --- |
 | Approximate reading time | Helps choose an article that fits the time available. | A reliable estimate usually needs article content or trustworthy metadata. Cross-origin access, extraction quality, privacy and failure fallbacks need investigation. |
 | Order by reading time | Makes quick reads easy to prioritise. | Depends on credible reading-time data. Newest-first should remain available and the default must not change without evidence. |
-| Cross-device sync | Makes the same list available elsewhere and reduces dependence on one browser. | Requires separate private identity and data infrastructure, migration and conflict handling. A public repository must contain neither user data nor live credentials. |
+| Cross-device sync | Makes the same list available elsewhere and reduces dependence on one browser. A private Google Drive connection-only experiment is selected to test OAuth and reconnection friction without uploading articles. | Full article sync still requires migration, overwrite/conflict and deletion behaviour. The connection proof is not permission to upload the reading list or publish the OAuth app. |
 | Dark mode with a toggle | Improves comfort and personal preference. | Consider system preference plus a local override, while preserving contrast, icons, theme metadata and splash behaviour. |
 | Folders and archive | Supports a larger or longer-lived collection. | Explicitly much later: both features risk turning a temporary reading tray into a system that needs organisation and maintenance. |
 | Export | Provides portability and a recovery route before sync exists. | Choose a durable, privacy-safe format and define whether re-import, duplicates and timestamps are supported. Export must be explicitly user initiated. |

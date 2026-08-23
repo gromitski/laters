@@ -1125,6 +1125,72 @@ h1 {
   display: none;
 }
 
+.sync-experiment {
+  margin: 1.5rem var(--gutter) 0;
+  border: 1.5px dashed var(--hairline-strong);
+  border-radius: 12px;
+  padding: 1rem;
+  background: var(--surface);
+}
+
+.sync-experiment-kicker,
+.sync-experiment h2,
+.sync-experiment p {
+  margin: 0;
+}
+
+.sync-experiment-kicker {
+  color: var(--accent-text);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sync-experiment h2 {
+  margin-top: 0.2rem;
+  font-size: 1rem;
+}
+
+.sync-experiment > p:not(.sync-experiment-kicker):not(.sync-experiment-status) {
+  max-width: 32rem;
+  margin-top: 0.35rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.sync-experiment button {
+  min-height: var(--target);
+  margin-top: 0.85rem;
+  border: 0;
+  border-radius: var(--r-pill);
+  padding: 0 1rem;
+  color: var(--text);
+  background: var(--accent);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.sync-experiment button:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.sync-experiment button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.sync-experiment-status {
+  margin-top: 0.55rem !important;
+  color: var(--text-meta);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
 footer {
   max-width: 23rem;
   margin: 1.75rem auto 1.375rem;
