@@ -4,6 +4,7 @@ export interface SavedItem {
   title: string;
   savedAt: number;
   bookmarked?: boolean;
+  titleEdited?: boolean;
 }
 
 export interface SavedItemInput {
@@ -33,16 +34,8 @@ export function createSavedItem(
     now?: () => number;
   } = {},
 ): SavedItem {
-  const title = input.title.trim();
+  const title = normaliseArticleTitle(input.title);
   const url = parseArticleUrl(input.url, true);
-
-  if (!title) {
-    throw new SavedItemValidationError("Enter a title for this article.");
-  }
-
-  if (title.length > 240) {
-    throw new SavedItemValidationError("Keep the article title to 240 characters or fewer.");
-  }
 
   return {
     id: (options.createId ?? (() => crypto.randomUUID()))(),
@@ -70,8 +63,23 @@ export function isSavedItem(value: unknown): value is SavedItem {
     typeof candidate.savedAt === "number" &&
     Number.isFinite(candidate.savedAt) &&
     candidate.savedAt >= 0 &&
-    (candidate.bookmarked === undefined || typeof candidate.bookmarked === "boolean")
+    (candidate.bookmarked === undefined || typeof candidate.bookmarked === "boolean") &&
+    (candidate.titleEdited === undefined || typeof candidate.titleEdited === "boolean")
   );
+}
+
+export function normaliseArticleTitle(rawTitle: string): string {
+  const title = rawTitle.trim();
+
+  if (!title) {
+    throw new SavedItemValidationError("Enter a title for this article.");
+  }
+
+  if (title.length > 240) {
+    throw new SavedItemValidationError("Keep the article title to 240 characters or fewer.");
+  }
+
+  return title;
 }
 
 export function normaliseArticleUrl(rawUrl: string, addDefaultScheme = false): string {

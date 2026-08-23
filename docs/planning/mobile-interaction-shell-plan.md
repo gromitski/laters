@@ -58,6 +58,9 @@ behaviour to a new release.
 - Share this article immediately invokes the system share sheet from the activating tap with only the
   saved URL. The title is deliberately omitted because receiving apps may misinterpret combined
   title-and-URL payloads. Cancellation is normal; Laters cannot select or observe the chosen target.
+- `v0.4.1` inserts **Edit title** immediately after **Read now**. It opens one focused title dialog,
+  keeps the URL immutable and persists a deliberate edit without changing saved time, queue position
+  or bookmark state.
 - Right-click or the browser context-menu gesture opens the same menu outside touch use. Shift+F10
   and the Context Menu key provide a keyboard route from the semantic article link.
 - Reduced-motion preference disables action-sheet animation and retains the existing reduced-motion

@@ -19,6 +19,9 @@ export async function saveCapturedItem(
     ? {
         ...candidate,
         id: existingItem.id,
+        ...(existingItem.titleEdited === true
+          ? { title: existingItem.title, titleEdited: true }
+          : {}),
         ...(existingItem.bookmarked === undefined
           ? {}
           : { bookmarked: existingItem.bookmarked }),

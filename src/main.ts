@@ -20,6 +20,7 @@ import { createReadingListEntries } from "./ui/readingListPresentation";
 import { loadPublisherFavicon } from "./ui/loadPublisherFavicon";
 import { readClipboardText } from "./ui/readClipboardText";
 import {
+  ARTICLE_TITLE_CHANGED_EVENT,
   BOOKMARK_STATE_CHANGED_EVENT,
   createMobileArticleShell,
 } from "./ui/mobileArticleShell";
@@ -440,6 +441,25 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
     canOpenMenu: () => list.getAttribute("aria-busy") !== "true",
     read: () => link.click(),
     share: () => shareArticle(currentItem),
+    updateTitle: async (title) => {
+      const updatedItem = await setArticleTitle(
+        currentItem,
+        title,
+        row,
+        link,
+        newTabHint,
+        bookmarkButton,
+        deleteButton,
+      );
+
+      if (!updatedItem) {
+        return false;
+      }
+
+      currentItem = updatedItem;
+      row.dispatchEvent(new CustomEvent(ARTICLE_TITLE_CHANGED_EVENT));
+      return true;
+    },
     toggleBookmark: async () => {
       const updatedItem = await setArticleBookmarked(
         currentItem,
@@ -454,6 +474,41 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
     },
     delete: () => deleteArticle(currentItem, deleteButton),
   });
+}
+
+async function setArticleTitle(
+  item: SavedItem,
+  title: string,
+  row: HTMLElement,
+  link: HTMLAnchorElement,
+  newTabHint: HTMLSpanElement,
+  bookmarkButton: HTMLButtonElement,
+  deleteButton: HTMLButtonElement,
+): Promise<SavedItem | undefined> {
+  clearFeedback();
+  setRowActionsDisabled(row, true);
+
+  try {
+    const updatedItem = await store.setTitle(item.id, title);
+    currentItems = currentItems.map((candidate) =>
+      candidate.id === updatedItem.id ? updatedItem : candidate,
+    );
+    link.replaceChildren(updatedItem.title, newTabHint);
+    setBookmarkPresentation(
+      bookmarkButton,
+      updatedItem,
+      updatedItem.bookmarked === true,
+    );
+    deleteButton.setAttribute("aria-label", `Delete “${updatedItem.title}”`);
+    announceHiddenStatus(`Title changed to “${updatedItem.title}”.`);
+    return updatedItem;
+  } catch {
+    return undefined;
+  } finally {
+    if (list.getAttribute("aria-busy") !== "true") {
+      setRowActionsDisabled(row, false);
+    }
+  }
 }
 
 function shareArticle(item: SavedItem): void {

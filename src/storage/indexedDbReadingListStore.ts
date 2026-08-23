@@ -1,4 +1,8 @@
-import { isSavedItem, type SavedItem } from "../domain/savedItem";
+import {
+  isSavedItem,
+  normaliseArticleTitle,
+  type SavedItem,
+} from "../domain/savedItem";
 import type { ReadingListStore } from "./readingListStore";
 
 const DATABASE_VERSION = 1;
@@ -58,6 +62,33 @@ export class IndexedDbReadingListStore implements ReadingListStore {
       }
 
       const updatedItem = { ...currentItem, bookmarked };
+      itemStore.put(updatedItem);
+      await waitForTransaction(transaction);
+      return updatedItem;
+    } finally {
+      database.close();
+    }
+  }
+
+  async setTitle(id: string, title: string): Promise<SavedItem> {
+    if (!id) {
+      throw new Error("A saved article identifier is required.");
+    }
+
+    const nextTitle = normaliseArticleTitle(title);
+    const database = await this.openDatabase();
+
+    try {
+      const transaction = database.transaction(ITEM_STORE, "readwrite");
+      const itemStore = transaction.objectStore(ITEM_STORE);
+      const currentItem = await waitForRequest(itemStore.get(id));
+
+      if (!isSavedItem(currentItem)) {
+        transaction.abort();
+        throw new Error("The saved article could not be found.");
+      }
+
+      const updatedItem = { ...currentItem, title: nextTitle, titleEdited: true };
       itemStore.put(updatedItem);
       await waitForTransaction(transaction);
       return updatedItem;

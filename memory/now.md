@@ -43,6 +43,8 @@ mobile interaction shell.
   **Install** action that appears only when the browser exposes native PWA installation.
 - An accepted `v0.4.0` Paste-to-add slice that adds copied or manually entered HTTP(S) URLs through
   the existing local capture and duplicate-refresh contracts.
+- An accepted `v0.4.1` title-edit slice that renames a saved title from the long-press menu while
+  locking its URL and preserving the edit across reopen and exact-URL re-capture.
 - A published `v0.1.0` GitHub release tagged at verified rewritten commit `0178fc9`.
 - Published and maintainer-accepted MVP 2.0 bookmarks with the bright-lime supplied star treatment.
 - Published and maintainer-accepted 22px publisher source markers with exact-origin favicon attempts,
@@ -60,7 +62,7 @@ mobile interaction shell.
 
 ## Active focus
 
-Complete, publish and physically verify the bounded `v0.4.0` **Paste a link** slice. No other future
+Complete, publish and physically verify the bounded `v0.4.1` **Edit title** slice. No other future
 idea is selected.
 
 ## Active slice
@@ -103,6 +105,12 @@ generic heavy outline while retaining a visible container focus state, and centr
 validation for every capture path. Unsafe schemes, credentials, malformed escapes, control
 characters, embedded whitespace and excessive length are rejected.
 
+The maintainer confirmed the current mobile Paste-to-add implementation is working well on
+2026-08-23. The next accepted candidate is `v0.4.1`: **Edit title** appears in the existing
+long-press/context menu, persists only a deliberate title change and leaves the URL, saved time,
+queue position, bookmark state and surrounding layout unchanged. A deliberate edit is retained when
+the exact URL is captured again; sharing remains URL-only.
+
 ## Blockers
 
 None.
@@ -115,17 +123,14 @@ None.
 
 ## Next safe action
 
-On the physical Android device, apply **Update** if offered, then test clipboard success, manual
-fallback, invalid input, exact-URL refresh with bookmark preservation and persistence. Record the
-Chrome version and clipboard permission behaviour before release closure.
+Finish agent-owned verification and publish the exact `v0.4.1` candidate, then test **Edit title**
+from the physical Android long-press menu, including persistence and exact-URL re-capture.
 
 ## Last meaningful update
 
-2026-08-23 — The `v0.4.0` Paste-to-add hardening correction was published in commit `6583438`.
-GitHub Actions run `32635078636` passed, and production served the exact verified JavaScript and CSS
-fingerprints. Local browser checks confirmed bare-address HTTPS defaulting, unsafe-scheme rejection,
-input preservation on failure and the refined focus treatment at desktop and 320px. Physical Android
-clipboard and fallback acceptance remains pending; no tag or GitHub release is authorised.
+2026-08-23 — The maintainer confirmed the mobile Paste-to-add implementation is working well and
+accepted `v0.4.1` **Edit title** as the next bounded candidate. Implementation and production
+verification are in progress; no tag or GitHub release is authorised.
 
 ## Pointers
 
@@ -143,6 +148,7 @@ clipboard and fallback acceptance remains pending; no tag or GitHub release is a
 - [MVP 2.0 Slice 3 whole-row opening plan](../docs/planning/mvp-2-slice-3-whole-row-opening-plan.md)
 - [Mobile interaction shell plan](../docs/planning/mobile-interaction-shell-plan.md)
 - [Paste-to-add plan](../docs/planning/paste-to-add-plan.md)
+- [Edit-title plan](../docs/planning/edit-title-plan.md)
 - [`v0.2.0` release record](../docs/releases/v0.2.0.md)
 - [`v0.3.0` release record](../docs/releases/v0.3.0.md)
 - Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`

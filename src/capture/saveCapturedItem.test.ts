@@ -42,6 +42,29 @@ describe("saveCapturedItem", () => {
       expect(save).toHaveBeenCalledWith(result.item);
     },
   );
+
+  it("preserves a deliberately edited title when the exact URL is captured again", async () => {
+    const existing = {
+      ...item("existing", "https://example.com/same", 100),
+      title: "My remembered title",
+      titleEdited: true,
+      bookmarked: true,
+    };
+    const candidate = item("new-id", "https://example.com/same", 200);
+
+    const result = await saveCapturedItem(candidate, {
+      listNewestFirst: async () => [existing],
+      save: async () => undefined,
+    });
+
+    expect(result.item).toEqual({
+      ...candidate,
+      id: "existing",
+      title: "My remembered title",
+      titleEdited: true,
+      bookmarked: true,
+    });
+  });
 });
 
 function item(id: string, url: string, savedAt: number): SavedItem {

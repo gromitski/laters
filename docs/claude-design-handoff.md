@@ -52,7 +52,9 @@ The design must support all of the following implemented behaviour.
 - Invalid share data announces **That shared item did not contain a valid article link.**
 - A storage failure announces **Laters could not save that article. Please try again.**
 - Shared titles use the useful title supplied by Android when available, then useful surrounding shared text, then the source hostname. Laters does not fetch remote page metadata.
-- Sharing the same exact normalised URL again updates its useful title and saved time, moves it to the top and does not add another item.
+- Sharing the same exact normalised URL again updates its useful title and saved time, moves it to the
+  top and does not add another item. A later accepted `v0.4.1` exception preserves a deliberately
+  edited local title during that refresh.
 - Distinct feed, redirect, tracking or rotating URLs remain separate items even when they appear to reference the same article.
 
 ### Reading list

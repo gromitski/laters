@@ -97,6 +97,16 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   Reading time, remote title enrichment, bulk intake and other surrounding mockup content remain out
   of scope.
 
+## Accepted v0.4.1 direction
+
+- Add **Edit title** immediately after **Read now** in the existing long-press/context menu.
+- Present one labelled title field using the existing white, ink and lime visual language. The saved
+  URL is immutable and no existing page or row layout changes.
+- Persist the trimmed title locally without changing the URL, saved time, queue position or bookmark
+  state. Empty values are rejected and the existing 240-character title limit remains.
+- Mark a deliberate title edit so an exact-URL re-capture refreshes the saved time without replacing
+  the remembered title. Sharing remains URL-only.
+
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.
 The accepted interaction architecture and implementation record live in

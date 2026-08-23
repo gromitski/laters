@@ -102,6 +102,22 @@ Commit `6583438` published the accepted HTTPS-defaulting, URL-validation and foc
 correction. GitHub Actions run `32635078636` passed, and the production JavaScript and CSS
 fingerprints matched the verified build. Clipboard behaviour remains part of the same physical gate.
 
+## Edit-title acceptance
+
+For the `v0.4.1` production candidate:
+
+1. Long-press an article and confirm the order is **Read now**, **Edit title**, Bookmark/Remove
+   bookmark, **Share this article**, **Delete**, **Cancel**.
+2. Select **Edit title** and confirm the current title is selected in one styled field and the dialog
+   explains that the URL will not change.
+3. Cancel once and confirm nothing changes. Reopen, enter only spaces and confirm **Enter a title.**
+   appears without closing or losing the value.
+4. Save a new title and confirm the visible title and the Bookmark, Delete and menu labels use it,
+   while the original link, source, saved time, position and bookmark state remain unchanged.
+5. Reopen Laters and confirm the title persists. Capture the same exact URL again and confirm the
+   title remains while the item refreshes at the top without a duplicate.
+6. Confirm **Share this article** still sends only the locked saved URL.
+
 ## Application updates and saved data
 
 A newly deployed worker installs its complete application-shell cache, then waits. An open Laters app announces that the update is ready and shows an **Update** button. Selecting it activates the worker and reloads the app once; failure to register or check for an update does not prevent the reading list from opening.

@@ -76,6 +76,32 @@ describe("IndexedDbReadingListStore", () => {
     );
     await expect(store.listNewestFirst()).resolves.toEqual([]);
   });
+
+  it("updates only the title and marks it as deliberately edited", async () => {
+    const databaseName = createDatabaseName();
+    const store = new IndexedDbReadingListStore(databaseName);
+    const original = { ...item("rename", 200), bookmarked: true };
+    await store.save(original);
+
+    await expect(store.setTitle("rename", "  My remembered title  ")).resolves.toEqual({
+      ...original,
+      title: "My remembered title",
+      titleEdited: true,
+    });
+    await expect(store.listNewestFirst()).resolves.toEqual([
+      { ...original, title: "My remembered title", titleEdited: true },
+    ]);
+  });
+
+  it("rejects an empty edited title without changing the item", async () => {
+    const databaseName = createDatabaseName();
+    const store = new IndexedDbReadingListStore(databaseName);
+    const original = item("rename", 200);
+    await store.save(original);
+
+    await expect(store.setTitle("rename", "   ")).rejects.toThrow("Enter a title");
+    await expect(store.listNewestFirst()).resolves.toEqual([original]);
+  });
 });
 
 function item(id: string, savedAt: number): SavedItem {

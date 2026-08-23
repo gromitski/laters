@@ -699,6 +699,14 @@ h1 {
     background: #bded35;
   }
 
+  .article-title-cancel:hover {
+    background: #ececf0;
+  }
+
+  .article-title-save:hover {
+    background: #bded35;
+  }
+
   .article-row:hover {
     background: var(--surface-hover);
   }
@@ -915,6 +923,116 @@ h1 {
 .article-action-sheet .action-sheet-group-cancel .action-sheet-button {
   border-bottom: 0;
   font-weight: 800;
+}
+
+.article-title-dialog {
+  width: min(calc(100% - 2rem), 31rem);
+  border: 0;
+  border-radius: 18px;
+  padding: 0;
+  color: var(--text);
+  background: var(--canvas);
+  box-shadow: 0 18px 50px rgb(16 16 20 / 24%);
+  font-family: var(--font);
+}
+
+.article-title-dialog::backdrop {
+  background: rgb(16 16 20 / 48%);
+}
+
+.article-title-dialog form {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.4rem;
+}
+
+.article-title-dialog h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+.article-title-note {
+  margin: -0.25rem 0 0.25rem;
+  color: var(--text-meta);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.article-title-dialog label {
+  color: var(--text-meta);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.article-title-dialog input {
+  width: 100%;
+  min-height: var(--target);
+  border: 1.5px solid var(--hairline-strong);
+  border-radius: 10px;
+  outline: 0;
+  padding: 0.65rem 0.75rem;
+  color: var(--text);
+  background: var(--canvas);
+  font: inherit;
+  font-size: 1rem;
+}
+
+.article-title-dialog input:focus-visible {
+  border-color: var(--accent-text);
+  box-shadow: 0 0 0 2px rgb(208 255 79 / 50%);
+}
+
+.article-title-dialog input[aria-invalid="true"] {
+  border-color: var(--error);
+}
+
+.article-title-error {
+  margin: -0.4rem 0 0;
+  color: var(--error);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.article-title-error[hidden] {
+  display: none;
+}
+
+.article-title-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.article-title-controls button {
+  min-height: var(--target);
+  border: 0;
+  border-radius: var(--r-pill);
+  padding: 0 1rem;
+  color: var(--text);
+  cursor: pointer;
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.article-title-cancel {
+  background: var(--surface-hover);
+}
+
+.article-title-save {
+  min-width: 4.75rem;
+  background: var(--accent);
+}
+
+.article-title-controls button:disabled {
+  cursor: wait;
+  opacity: 0.55;
 }
 
 .status-message:not(:empty):not(.is-announcement-only),

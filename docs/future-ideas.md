@@ -17,6 +17,8 @@ system share chooser with only the saved URL, without a provider integration. Th
 published and passed its focused Android chooser, NotebookLM import and cancellation checks on
 2026-08-23. A single pasted or manually entered URL was subsequently selected as the bounded
 `v0.4.0` capture-path slice; bulk intake and every other entry below remain exploratory.
+Manual title editing was then selected as the bounded `v0.4.1` follow-up; remote title enrichment
+remains exploratory.
 
 ## Possibilities
 
@@ -34,7 +36,10 @@ published and passed its focused Android chooser, NotebookLM import and cancella
 
 ## Related opportunity
 
-Some Android news-feed shares do not provide a useful article title. Title enrichment remains a separate possible slice because fetching or extracting metadata has the same privacy, security and reliability implications as reading-time and image enrichment.
+Some Android news-feed shares do not provide a useful article title. `v0.4.1` provides deliberate
+local title editing without fetching anything. Automatic title enrichment remains a separate
+possibility because fetching or extracting metadata has the same privacy, security and reliability
+implications as reading-time and image enrichment.
 
 ## Selected idea retained for context
 

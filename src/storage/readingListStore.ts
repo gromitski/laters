@@ -4,5 +4,6 @@ export interface ReadingListStore {
   save(item: SavedItem): Promise<void>;
   listNewestFirst(): Promise<SavedItem[]>;
   setBookmarked(id: string, bookmarked: boolean): Promise<SavedItem>;
+  setTitle(id: string, title: string): Promise<SavedItem>;
   delete(id: string): Promise<void>;
 }

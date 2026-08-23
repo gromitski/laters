@@ -14,6 +14,7 @@ A minimal Android-first read-later PWA. Share an article to Laters, then return 
 - Provides persistent per-article bookmarks without changing queue order.
 - Shows publisher favicons with deterministic local fallback tiles.
 - Opens the original article from its title or other non-interactive row space.
+- Renames an article title from the long-press menu without changing its saved URL.
 - Swipes right to Bookmark or Remove and left to reveal warning-red Delete.
 - Opens a focused Read, Bookmark, Share and Delete action sheet on touch long press.
 - Shares only the original article URL through the system chooser, without adding the saved title

@@ -58,9 +58,22 @@ describe("createSavedItem", () => {
       "Enter a title",
     );
   });
+
 });
 
 describe("isSavedItem", () => {
+  it("accepts the backward-compatible edited-title marker", () => {
+    expect(
+      isSavedItem({
+        id: "item-1",
+        title: "My remembered title",
+        url: "https://example.com/article",
+        savedAt: 1,
+        titleEdited: true,
+      }),
+    ).toBe(true);
+  });
+
   it.each([undefined, false, true])(
     "accepts backward-compatible bookmark state %s",
     (bookmarked) => {
@@ -84,6 +97,18 @@ describe("isSavedItem", () => {
         url: "https://example.com/article",
         savedAt: 1,
         bookmarked: "yes",
+      }),
+    ).toBe(false);
+  });
+
+  it("rejects invalid persisted edited-title state", () => {
+    expect(
+      isSavedItem({
+        id: "item-1",
+        title: "Article",
+        url: "https://example.com/article",
+        savedAt: 1,
+        titleEdited: "yes",
       }),
     ).toBe(false);
   });

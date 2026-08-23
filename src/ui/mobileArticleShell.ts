@@ -16,6 +16,7 @@ const SWIPE_CLICK_SUPPRESSION_PX = 6;
 const ROW_CONTROL_SELECTOR = "button, ion-item-option";
 const SWIPE_STARTED_EVENT = "laters-swipe-started";
 export const BOOKMARK_STATE_CHANGED_EVENT = "laters-bookmark-state-changed";
+export const ARTICLE_TITLE_CHANGED_EVENT = "laters-article-title-changed";
 
 initialize({ mode: "md" });
 defineActionSheet();
@@ -24,7 +25,7 @@ defineItemOption();
 defineItemOptions();
 defineItemSliding();
 
-type ArticleAction = "read" | "bookmark" | "share" | "delete";
+type ArticleAction = "read" | "edit-title" | "bookmark" | "share" | "delete";
 
 interface ArticleShellActions {
   getTitle(): string;
@@ -33,6 +34,7 @@ interface ArticleShellActions {
   canOpenMenu(): boolean;
   read(): void;
   share(): void;
+  updateTitle(title: string): Promise<boolean>;
   toggleBookmark(): Promise<void>;
   delete(): Promise<void>;
 }
@@ -97,6 +99,10 @@ export function createMobileArticleShell(
   articleRow.addEventListener(BOOKMARK_STATE_CHANGED_EVENT, (event) => {
     const detail = (event as CustomEvent<{ bookmarked: boolean }>).detail;
     updateBookmarkOption(detail.bookmarked);
+  });
+  articleRow.addEventListener(ARTICLE_TITLE_CHANGED_EVENT, () => {
+    deleteOption.setAttribute("aria-label", `Delete “${actions.getTitle()}”`);
+    updateBookmarkOption();
   });
 
   let bookmarkChangeStarted = false;
@@ -339,6 +345,10 @@ async function showArticleActionSheet(
       },
     },
     {
+      text: "Edit title",
+      data: { action: "edit-title" satisfies ArticleAction },
+    },
+    {
       text: actions.isBookmarked() ? "Remove bookmark" : "Bookmark",
       data: { action: "bookmark" satisfies ArticleAction },
     },
@@ -363,17 +373,12 @@ async function showArticleActionSheet(
   actionSheet.buttons = buttons;
   document.body.append(actionSheet);
 
+  let action: ArticleAction | undefined;
+
   try {
     await actionSheet.present();
     const result = await actionSheet.onDidDismiss<{ action?: ArticleAction }>();
-    const action = result.data?.action;
-    actionSheet.remove();
-
-    if (action === "bookmark") {
-      await actions.toggleBookmark();
-    } else if (action === "delete") {
-      await actions.delete();
-    }
+    action = result.data?.action;
   } finally {
     actionSheet.remove();
     articleRow.classList.remove("is-menu-open");
@@ -382,6 +387,141 @@ async function showArticleActionSheet(
       activeActionSheet = undefined;
     }
   }
+
+  if (action === "edit-title") {
+    await showArticleTitleDialog(articleRow, actions);
+  } else if (action === "bookmark") {
+    await actions.toggleBookmark();
+  } else if (action === "delete") {
+    await actions.delete();
+  }
+}
+
+async function showArticleTitleDialog(
+  articleRow: HTMLDivElement,
+  actions: ArticleShellActions,
+): Promise<void> {
+  const titleLink = articleRow.querySelector<HTMLAnchorElement>(".article-link");
+
+  if (!titleLink) {
+    return;
+  }
+
+  const dialog = document.createElement("dialog");
+  dialog.className = "article-title-dialog";
+
+  const form = document.createElement("form");
+  form.method = "dialog";
+  form.noValidate = true;
+
+  const heading = document.createElement("h2");
+  heading.textContent = "Edit title";
+  const headingId = `edit-title-${crypto.randomUUID()}`;
+  heading.id = headingId;
+  dialog.setAttribute("aria-labelledby", headingId);
+
+  const note = document.createElement("p");
+  note.className = "article-title-note";
+  note.textContent = "The article URL will stay unchanged.";
+
+  const label = document.createElement("label");
+  label.htmlFor = `${headingId}-input`;
+  label.textContent = "Title";
+
+  const input = document.createElement("input");
+  input.id = label.htmlFor;
+  input.name = "title";
+  input.type = "text";
+  input.value = actions.getTitle();
+  input.maxLength = 240;
+  input.autocomplete = "off";
+  input.spellcheck = true;
+  input.setAttribute("aria-describedby", `${headingId}-error`);
+
+  const error = document.createElement("p");
+  error.id = `${headingId}-error`;
+  error.className = "article-title-error";
+  error.textContent = "Enter a title.";
+  error.hidden = true;
+
+  const controls = document.createElement("div");
+  controls.className = "article-title-controls";
+
+  const cancelButton = document.createElement("button");
+  cancelButton.className = "article-title-cancel";
+  cancelButton.type = "button";
+  cancelButton.textContent = "Cancel";
+
+  const saveButton = document.createElement("button");
+  saveButton.className = "article-title-save";
+  saveButton.type = "submit";
+  saveButton.textContent = "Save";
+
+  let saveStarted = false;
+  const setSaving = (saving: boolean): void => {
+    saveStarted = saving;
+    input.disabled = saving;
+    cancelButton.disabled = saving;
+    saveButton.disabled = saving;
+    saveButton.textContent = saving ? "Saving…" : "Save";
+  };
+
+  const showError = (message: string): void => {
+    input.setAttribute("aria-invalid", "true");
+    error.textContent = message;
+    error.hidden = false;
+    input.focus();
+  };
+
+  input.addEventListener("input", () => {
+    input.removeAttribute("aria-invalid");
+    error.hidden = true;
+  });
+  cancelButton.addEventListener("click", () => dialog.close("cancel"));
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog && !saveStarted) {
+      dialog.close("cancel");
+    }
+  });
+  dialog.addEventListener("cancel", (event) => {
+    if (saveStarted) {
+      event.preventDefault();
+    }
+  });
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const title = input.value.trim();
+
+    if (!title) {
+      showError("Enter a title.");
+      return;
+    }
+
+    setSaving(true);
+    void actions.updateTitle(title).then((saved) => {
+      if (saved) {
+        dialog.close("saved");
+        return;
+      }
+
+      setSaving(false);
+      showError("Laters could not save that title. Please try again.");
+    });
+  });
+
+  controls.append(cancelButton, saveButton);
+  form.append(heading, note, label, input, error, controls);
+  dialog.append(form);
+  document.body.append(dialog);
+  dialog.showModal();
+  input.select();
+
+  await new Promise<void>((resolve) => {
+    dialog.addEventListener("close", () => resolve(), { once: true });
+  });
+
+  dialog.remove();
+  titleLink.focus({ preventScroll: true });
 }
 
 function createSwipeDeleteIcon(): SVGSVGElement {
