@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="description"
+      content="How Laters stores local reading-list data and uses its optional Google Drive connection."
+    />
+    <link rel="icon" href="/icons/laters.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/privacy/privacy.css" />
+    <title>Privacy — Laters</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#privacy-policy">Skip to the privacy policy</a>
+
+    <main id="privacy-policy">
+      <header>
+        <a class="back-link" href="/" aria-label="Back to Laters">← Laters</a>
+        <p class="eyebrow">Your data, plainly</p>
+        <h1>Privacy policy</h1>
+        <p class="effective-date">Effective 23 August 2026</p>
+        <p class="summary">
+          Laters is a local-first read-later app. Your reading list stays in your browser unless a
+          future feature explicitly says otherwise. The current Google Drive experiment does not
+          upload articles.
+        </p>
+      </header>
+
+      <section aria-labelledby="at-a-glance">
+        <h2 id="at-a-glance">At a glance</h2>
+        <ul>
+          <li>Laters has no application backend, advertising or analytics.</li>
+          <li>Saved article details are stored locally on your device.</li>
+          <li>Publisher favicons are requested directly from those publishers.</li>
+          <li>The optional Google Drive connection stores only a connection-test time.</li>
+          <li>Laters does not sell personal information.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="local-data">
+        <h2 id="local-data">Data stored on your device</h2>
+        <p>
+          Laters stores each article’s web address, title, local identifier, saved time, bookmark
+          state and any title-edit marker in your browser’s IndexedDB database. A successful Google
+          Drive connection time is stored separately in local browser storage. The service worker
+          and browser may also cache Laters application files and publisher favicons so the app can
+          load efficiently and work offline.
+        </p>
+        <p>
+          Laters itself does not set cookies. It can read clipboard text only after you deliberately
+          choose <strong>Paste a link</strong>. That text is processed locally.
+        </p>
+      </section>
+
+      <section aria-labelledby="network-requests">
+        <h2 id="network-requests">Network requests</h2>
+        <p>
+          Laters is delivered through GitHub Pages. GitHub and the network services involved in
+          delivering the site may receive standard request information such as an IP address,
+          request time, requested path and browser details.
+        </p>
+        <p>
+          For each saved article, Laters attempts to load the conventional <code>/favicon.ico</code>
+          file directly from that article’s publisher. The publisher can therefore receive the
+          device’s IP address, request time and normal browser request details. Laters does not send
+          the reading list to a central favicon service. Opening an article or sharing it through
+          the system chooser happens only when you choose to do so.
+        </p>
+      </section>
+
+      <section aria-labelledby="google-drive">
+        <h2 id="google-drive">Optional Google Drive connection</h2>
+        <p>
+          Google’s identity script is requested only after you choose <strong>Connect Google
+          Drive</strong>. Google then handles account selection and permission. Laters requests only
+          the non-sensitive <code>drive.appdata</code> permission, which lets it work with its own
+          hidden application-data folder. Laters does not request your Google profile, email address
+          or access to ordinary Drive files.
+        </p>
+        <p>
+          The current connection test creates or updates one hidden file named
+          <code>laters-connection.json</code>. It contains only a schema version and the time of the
+          last successful connection. Article web addresses, titles, saved times and bookmarks are
+          not uploaded. The temporary Google access token is kept in memory for the connection
+          attempt and is not saved by Laters.
+        </p>
+        <p>
+          Google processes the authorisation and Drive requests under its own privacy terms. Laters’
+          use of information received from Google APIs follows the
+          <a href="https://developers.google.com/terms/api-services-user-data-policy"
+            >Google API Services User Data Policy</a
+          >, including its Limited Use requirements.
+        </p>
+      </section>
+
+      <section aria-labelledby="control-delete">
+        <h2 id="control-delete">Your controls and deletion</h2>
+        <ul>
+          <li>Delete an article in Laters to remove that local record.</li>
+          <li>Clear Laters’ site data in your browser to remove its local database and preferences.</li>
+          <li>
+            Revoke Laters’ Google access from your
+            <a href="https://myaccount.google.com/permissions">Google Account permissions</a>.
+          </li>
+          <li>
+            Delete the hidden connection file through Google Drive’s
+            <a href="https://drive.google.com/drive/settings">Settings</a> under
+            <strong>Manage apps</strong> and <strong>Delete hidden app data</strong>.
+          </li>
+        </ul>
+        <p>
+          Revoking Google access prevents later connection attempts but may not itself delete the
+          existing hidden file. The Laters maintainer cannot see or delete data held in your browser
+          or private Google Drive.
+        </p>
+      </section>
+
+      <section aria-labelledby="sharing">
+        <h2 id="sharing">Disclosure and sale</h2>
+        <p>
+          Laters does not sell personal information or share a reading list with the maintainer.
+          Information reaches third parties only through the hosting, publisher and Google requests
+          described above, or when you deliberately open or share an article.
+        </p>
+      </section>
+
+      <section aria-labelledby="security">
+        <h2 id="security">Security</h2>
+        <p>
+          Laters is served over HTTPS and keeps reading-list data on the device. Protecting that data
+          also depends on the security of your device, browser and Google Account. No internet or
+          storage system can be guaranteed completely secure.
+        </p>
+      </section>
+
+      <section aria-labelledby="changes-contact">
+        <h2 id="changes-contact">Changes and contact</h2>
+        <p>
+          This policy will be updated if Laters changes what it collects, stores or sends. The
+          effective date at the top will change at the same time.
+        </p>
+        <p>
+          For privacy, sign-in or authorisation questions, email
+          <a href="mailto:hello@dustyb.in">hello@dustyb.in</a>.
+        </p>
+      </section>
+
+      <footer>
+        <a href="/">Return to Laters</a>
+      </footer>
+    </main>
+  </body>
+</html>

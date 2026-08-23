@@ -26,18 +26,33 @@ const EXTERNAL_RESOURCE_CONTENT = [
   ["static third-party request", /\b(?:fetch|WebSocket|EventSource|sendBeacon)\s*\(\s*["']https?:\/\//u],
 ];
 const APPROVED_PUBLIC_LITERALS = [
+  "hello@dustyb.in",
   "66695716751-088llrf3kineuva2mq1tf7dujd47b2is.apps.googleusercontent.com",
   "https://accounts.google.com/gsi/client",
   "https://www.googleapis.com/drive/v3/files",
   "https://www.googleapis.com/upload/drive/v3/files",
 ];
+const REQUIRED_PUBLIC_CONTENT = new Map([
+  ["index.html", ['href="/privacy/"']],
+  [
+    "privacy/index.html",
+    [
+      "mailto:hello@dustyb.in",
+      "laters-connection.json",
+      "Google API Services User Data Policy",
+      "Delete hidden app data",
+    ],
+  ],
+]);
 
 const files = await listFiles(BUILD_DIRECTORY);
 const findings = [];
+const auditedFileNames = new Set();
 let totalBytes = 0;
 
 for (const file of files) {
   const fileName = relative(BUILD_DIRECTORY, file);
+  auditedFileNames.add(fileName);
   const fileStat = await stat(file);
   totalBytes += fileStat.size;
 
@@ -65,6 +80,18 @@ for (const file of files) {
         findings.push(`${fileName}: ${label}`);
       }
     }
+  }
+
+  for (const requiredLiteral of REQUIRED_PUBLIC_CONTENT.get(fileName) ?? []) {
+    if (!content.includes(requiredLiteral)) {
+      findings.push(`${fileName}: missing required public content`);
+    }
+  }
+}
+
+for (const requiredFile of REQUIRED_PUBLIC_CONTENT.keys()) {
+  if (!auditedFileNames.has(requiredFile)) {
+    findings.push(`${requiredFile}: required public file missing`);
   }
 }
 

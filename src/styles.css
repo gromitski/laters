@@ -1192,6 +1192,10 @@ h1 {
 }
 
 footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 0.75rem;
   max-width: 23rem;
   margin: 1.75rem auto 1.375rem;
   padding: 0 var(--gutter);
@@ -1199,6 +1203,18 @@ footer {
   font-size: 0.72rem;
   line-height: 1.55;
   text-align: center;
+}
+
+footer a {
+  color: var(--text);
+  font-weight: 750;
+  text-underline-offset: 0.18em;
+}
+
+footer a:focus-visible {
+  border-radius: 2px;
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
 }
 
 .visually-hidden,

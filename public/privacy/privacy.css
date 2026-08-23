@@ -1,0 +1,165 @@
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/fonts/bricolage-grotesque-latin-variable.woff2") format("woff2-variations");
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+:root {
+  color: #101014;
+  background: #fff;
+  font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 20rem;
+  min-height: 100vh;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.2em;
+}
+
+a:focus-visible {
+  border-radius: 2px;
+  outline: 3px solid #101014;
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 1;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  color: #fff;
+  background: #101014;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+main {
+  width: min(100% - 2.75rem, 42rem);
+  margin-inline: auto;
+  padding: 2.5rem 0 3rem;
+}
+
+header {
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgb(16 16 20 / 18%);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 2.5rem;
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin: 0 0 0.85rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  background: #d0ff4f;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.8rem, 13vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 0.92;
+}
+
+.effective-date {
+  margin: 1.1rem 0 0;
+  color: #6f6879;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.summary {
+  max-width: 38rem;
+  margin: 1.2rem 0 0;
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+section {
+  padding: 1.75rem 0;
+  border-bottom: 1px solid rgb(16 16 20 / 12%);
+}
+
+h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
+}
+
+p,
+li {
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+p {
+  margin: 0.75rem 0 0;
+}
+
+ul {
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+}
+
+li + li {
+  margin-top: 0.45rem;
+}
+
+code {
+  padding: 0.08rem 0.28rem;
+  border-radius: 3px;
+  background: #f1f1ed;
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 0.84em;
+  overflow-wrap: anywhere;
+}
+
+footer {
+  padding-top: 2rem;
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+@media (min-width: 42rem) {
+  main {
+    padding-top: 4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}
