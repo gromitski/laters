@@ -7,6 +7,10 @@ remains in Google's **Testing** state; the release does not authorise public OAu
 and browser gates pass. The maintainer subsequently completed and accepted the physical
 phone/desktop add, delete and Undo propagation sequence.
 
+The post-release housekeeping follow-up is implemented locally: once 100 remote change files have
+accumulated, Laters writes a new resolved checkpoint before deleting only the exact files named by
+that checkpoint. This follow-up is not part of the historical `v0.5.0` tag.
+
 ## Product contract
 
 - A local add, duplicate capture, title edit, bookmark change, delete or Undo is visible immediately
@@ -36,17 +40,23 @@ backend. While the PWA is closed or suspended, exact polling intervals are not p
 
 ## Drive files and cleanup
 
-- `laters-reading-list.json` remains the compact base snapshot and keeps the accepted 17-item state
-  compatible during migration.
+- `laters-reading-list.json` is the current resolved checkpoint. Existing version-1 snapshots remain
+  readable; version 2 also records the exact operation identifiers folded into the checkpoint.
 - Each mutation uses one immutable `laters-operation-<uuid>.json` file containing only its operation
   identifier, type, occurrence time, affected article identifier and the existing article fields
   required for an add, update or restore.
 - A successfully uploaded pending operation is removed from the local pending queue. Failed uploads
   remain queued.
-- Remote tombstones and operation files are intentionally retained in this slice; deleting them
-  without a safe compaction boundary could resurrect data on an old device. A later compactor may
-  fold acknowledged operations into a new base snapshot and delete only the exact folded files.
-  Until that exists, retention is cleanup safety, not an accidental leak.
+- Below 100 operation files, no cleanup runs. At 100, Laters first writes the resolved article list
+  and the exact operation identifiers it includes. Cleanup waits for a later sync check to adopt the
+  settled checkpoint, preventing two devices at the threshold from deleting against competing
+  checkpoint writes. Only then may those exact files be deleted.
+- Every active device reads the latest checkpoint before uploading its pending work. Operations
+  named by the checkpoint are already accounted for, so a stale local duplicate is acknowledged
+  without being uploaded again. Concurrent operations not named by the checkpoint remain active.
+- If deletion is interrupted, the checkpoint remains authoritative, covered files are safely
+  ignored, normal syncing continues and cleanup retries on a later check. Once all covered files are
+  gone, Laters clears the temporary identifier list from the checkpoint.
 - The app caps operation counts and file sizes and reports rather than silently discarding data when
   those limits are reached.
 
@@ -64,7 +74,8 @@ backend. While the PWA is closed or suspended, exact polling intervals are not p
 
 - Automated tests cover atomic local journalling, pending-operation persistence and removal,
   deterministic add/update/delete/restore replay, immutable Drive uploads, unseen-operation polling,
-  token expiry and serialized sync checks.
+  token expiry, serialized sync checks, the exact 100-operation housekeeping boundary, checkpoint
+  adoption by an active device and interrupted cleanup recovery.
 - Existing 17-article Drive data loads without migration loss.
 - Android cold Share capture uploads when authorization remains valid and waits safely when it does
   not.
@@ -88,3 +99,8 @@ confirmed additions, deletions and Undo restores remained aligned across both vi
 This closes the physical multi-device acceptance gate. Token expiry, rejected-credential cleanup and
 failed-upload retention remain deterministic automated checks rather than claims that those failure
 conditions were manually forced.
+
+The automatic housekeeping follow-up was implemented after that release. Its proof is the focused
+checkpoint, threshold, active-device and interrupted-cleanup automation described above; an ordinary
+post-deployment phone/desktop sync round trip is sufficient physical acceptance because manually
+manufacturing 100 user changes would not add useful evidence.

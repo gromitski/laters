@@ -72,8 +72,8 @@ operations, retained deletion records, short-lived credential recovery and check
 while Laters is visible. Its first interface follow-up moves the unchanged sync card and Privacy link
 into a permanent top-right menu drawer. The drawer and its three-state indicator are deployed; a
 focused correction for desktop page stability and focus outlines is deployed and accepted. Android
-drawer and multi-device add/delete/Undo acceptance are complete. Public OAuth and safe
-remote-operation compaction remain explicitly open.
+drawer and multi-device add/delete/Undo acceptance are complete. The selected post-release follow-up
+adds automatic housekeeping after 100 Drive operations. Public OAuth remains explicitly open.
 
 ## Active slice
 
@@ -89,8 +89,11 @@ The accepted private live-sync candidate builds on the published Drive snapshot 
 Laters backend. IndexedDB version 2 records each add, update, restore and deletion atomically with a
 pending operation. Drive stores immutable hidden operation files; connected devices replay them over
 the accepted base snapshot so additions combine and deletion records remain effective. Confirmed
-local operations are cleared after upload, while remote records are deliberately retained until a
-safe compactor exists. A Google token is kept locally only until its reported expiry with a safety
+local operations are cleared after upload. The post-release housekeeping follow-up folds 100 remote
+operations into a version-2 checkpoint containing the resolved list and exact covered identifiers,
+then waits for a later check to adopt the settled checkpoint before deleting only those files. Active
+devices read the latest checkpoint before upload; interrupted deletion is ignored safely and retried
+without blocking normal sync. A Google token is kept locally only until its reported expiry with a safety
 margin, and visible installations poll every 20 seconds plus open, focus and online events. OAuth
 remains in Testing with only the maintainer admitted. Release `v0.5.0` packages this accepted private
 candidate without authorising public OAuth access.
@@ -167,13 +170,14 @@ None.
 - A minimum Chrome for Android version is not yet evidenced.
 - Android's news feed may provide distinct rotating or tracking URLs for the same apparent article; exact-URL deduplication correctly retains these as separate items.
 - Some Android news-feed shares do not supply a useful article title. Remote title enrichment is a possible later product slice with privacy, security and reliability implications; it is not part of the current design handoff.
-- Safe compaction of immutable Drive operation and deletion files is deferred; deleting them without
-  a device-acknowledgement rule could revive articles on a long-offline installation.
+- Automatic Drive housekeeping is implemented locally but is not yet published or physically
+  checked through an ordinary post-deployment phone/desktop round trip.
 
 ## Next safe action
 
-Design safe compaction for immutable Drive operation and deletion files. After that, decide separately
-whether to move Google OAuth from Testing to public production access.
+Run the full repository gates, publish automatic Drive housekeeping, then confirm one ordinary
+phone/desktop sync round trip. After that, decide separately whether to move Google OAuth from
+Testing to public production access.
 
 ## Last meaningful update
 
@@ -185,6 +189,11 @@ visible-app polling and retained-operation boundaries.
 Post-release, the maintainer confirmed the Android drawer and the cross-platform add, delete and Undo
 sequence are working, closing both remaining human acceptance gates. Failure-path evidence for token
 expiry, rejected credentials and retained failed uploads remains automated.
+
+The next selected follow-up is automatic Drive housekeeping at 100 operation files. Its local
+implementation writes the resolved version-2 checkpoint with exact covered operation identifiers
+before deletion, lets active devices adopt that checkpoint before uploading, and safely retries an
+interrupted cleanup. Focused sync tests pass; full repository gates and publication remain.
 
 ## Pointers
 

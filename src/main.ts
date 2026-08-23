@@ -317,7 +317,12 @@ async function establishGoogleDriveLiveSync(
   const probe = await runGoogleDriveConnectionProbe(fetch, accessToken);
   const localItems = await store.listNewestFirst();
   const articles = await initialiseGoogleDriveArticles(fetch, accessToken, localItems);
-  const session = new GoogleDriveLiveSyncSession(fetch, accessToken, articles.items);
+  const session = new GoogleDriveLiveSyncSession(
+    fetch,
+    accessToken,
+    articles.fileId,
+    articles,
+  );
   googleDriveSyncSession = session;
   googleDriveCredentialExpiresAt = expiresAt;
   const result = await session.sync(store);

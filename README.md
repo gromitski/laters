@@ -51,9 +51,11 @@ the foreground or comes online, and every 20 seconds while it remains visible.
 
 The Google access token is short lived. Laters can reuse it in that browser until Google's supplied
 expiry, after which local changes wait safely for **Reconnect Google Drive**. This is visible-app
-sync, not OS background execution: a closed or suspended PWA cannot promise polling. Remote operation
-records are deliberately retained until a safe cleanup rule can prove an old offline installation
-cannot revive a deletion.
+sync, not OS background execution: a closed or suspended PWA cannot promise polling. To avoid an
+ever-growing stockpile, Laters automatically folds each 100 Drive changes into the current reading
+list and records exactly which change files are covered. A later check adopts that settled checkpoint
+before removing those files, so two open devices cannot clean from competing drafts. Interrupted
+cleanup does not block syncing and is retried again later.
 
 ## Development
 

@@ -134,6 +134,25 @@ cross-platform sequence works, including additions, deletions and Undo alignment
 desktop. Expiry, rejected-token cleanup and failed-upload retention remain deterministic automated
 checks rather than manually forced failure conditions.
 
+## Google Drive housekeeping acceptance
+
+1. Confirm automation proves that fewer than 100 operation files do not trigger housekeeping and
+   that the threshold is exactly 100.
+2. Confirm the resolved version-2 checkpoint names the exact covered operation identifiers and is
+   successfully written without deleting files in that same pass. Confirm a later check first reads
+   the settled checkpoint and only then deletes the matching files.
+3. Confirm an interrupted deletion leaves the checkpoint authoritative, does not block normal sync
+   and is retried on the next check.
+4. Confirm an already-open device adopts a newer checkpoint before upload and acknowledges a pending
+   operation already covered by it without uploading a duplicate.
+5. Confirm existing version-1 snapshots remain readable and malformed or duplicate covered-operation
+   identifiers fail safely.
+6. After deployment, complete one ordinary phone/desktop add or delete round trip. Do not create 100
+   manual changes: the boundary and failure paths are deterministic automated checks.
+
+Record the deployed commit and workflow run. This maintenance path has no new interface or visual
+acceptance gate.
+
 ## Application menu drawer acceptance
 
 1. On Android, confirm the circular menu control appears at the top right without clipping the

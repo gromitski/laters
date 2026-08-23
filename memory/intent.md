@@ -134,9 +134,11 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 - A short-lived Google access token may remain in that browser only until Google's supplied expiry,
   with a safety margin. After expiry, local changes wait for one deliberate resume action.
 - OAuth remains private and in Google's Testing state until a separate public-access decision.
-- Remote operation records are retained until a safe compaction design can prove that offline devices
-  will not lose deletions. Unbounded retention is accepted for the current personal test, not as a
-  finished public-scale storage policy.
+- Automatic Drive housekeeping starts at 100 operation files. Laters must write the resolved list
+  and exact covered operation identifiers, then wait for a later check to adopt that settled
+  checkpoint before deleting only those files. Every active device must read the latest checkpoint
+  before uploading; interrupted deletion must leave the list safe, allow normal sync to continue and
+  retry later. No cleanup setting, device registry or account service is introduced.
 - Accepted interface placement: a permanent top-right menu opens a bottom drawer containing the
   unchanged sync card and Privacy link. Its pale green, white and pale red backgrounds respectively
   mean connected, checking and disconnected, with the same state exposed in its accessible name.

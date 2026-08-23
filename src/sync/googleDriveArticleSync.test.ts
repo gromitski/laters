@@ -3,6 +3,8 @@ import type { SavedItem } from "../domain/savedItem";
 import {
   GoogleDriveArticleSyncSession,
   initialiseGoogleDriveArticles,
+  readGoogleDriveArticleCheckpoint,
+  writeGoogleDriveArticleCheckpoint,
 } from "./googleDriveArticleSync";
 
 describe("Google Drive article sync", () => {
@@ -14,9 +16,10 @@ describe("Google Drive article sync", () => {
       .mockResolvedValueOnce(jsonResponse({ id: "article-file" }))
       .mockResolvedValueOnce(
         jsonResponse({
-          schemaVersion: 1,
+          schemaVersion: 2,
           updatedAt: "2026-08-23T16:00:00.000Z",
           items,
+          compactedOperationIds: [],
         }),
       );
 
@@ -32,6 +35,7 @@ describe("Google Drive article sync", () => {
       source: "local-uploaded",
       updatedAt: "2026-08-23T16:00:00.000Z",
       items,
+      compactedOperationIds: [],
     });
 
     expect(String(request.mock.calls[1]![0])).toContain("uploadType=multipart");
@@ -42,7 +46,12 @@ describe("Google Drive article sync", () => {
       "Content-Type": expect.stringContaining("multipart/related"),
     });
     expect(String(request.mock.calls[1]![1]?.body)).toContain(
-      JSON.stringify({ schemaVersion: 1, updatedAt: "2026-08-23T16:00:00.000Z", items }),
+      JSON.stringify({
+        schemaVersion: 2,
+        updatedAt: "2026-08-23T16:00:00.000Z",
+        items,
+        compactedOperationIds: [],
+      }),
     );
   });
 
@@ -66,9 +75,89 @@ describe("Google Drive article sync", () => {
       source: "drive-loaded",
       updatedAt: "2026-08-23T17:00:00.000Z",
       items: remoteItems,
+      compactedOperationIds: [],
     });
     expect(request).toHaveBeenCalledTimes(2);
     expect(request.mock.calls.some((call) => call[1]?.method === "PATCH")).toBe(false);
+  });
+
+  it("loads cleanup metadata while keeping old snapshots compatible", async () => {
+    const items = [article("remote", 200)];
+    const request = vi
+      .fn<typeof fetch>()
+      .mockResolvedValueOnce(
+        jsonResponse({
+          schemaVersion: 2,
+          updatedAt: "2026-08-23T17:00:00.000Z",
+          items,
+          compactedOperationIds: ["old-change"],
+        }),
+      )
+      .mockResolvedValueOnce(
+        jsonResponse({
+          schemaVersion: 1,
+          updatedAt: "2026-08-23T16:00:00.000Z",
+          items,
+        }),
+      );
+
+    await expect(
+      readGoogleDriveArticleCheckpoint(request, "temporary-token", "article-file"),
+    ).resolves.toEqual({
+      updatedAt: "2026-08-23T17:00:00.000Z",
+      items,
+      compactedOperationIds: ["old-change"],
+    });
+    await expect(
+      readGoogleDriveArticleCheckpoint(request, "temporary-token", "article-file"),
+    ).resolves.toEqual({
+      updatedAt: "2026-08-23T16:00:00.000Z",
+      items,
+      compactedOperationIds: [],
+    });
+  });
+
+  it("writes the exact operation identifiers covered by a cleanup checkpoint", async () => {
+    const request = vi
+      .fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response(null, { status: 200 }));
+    const items = [article("current", 300)];
+
+    await expect(
+      writeGoogleDriveArticleCheckpoint(
+        request,
+        "temporary-token",
+        "article-file",
+        items,
+        ["change-one", "change-two"],
+        () => new Date("2026-08-23T18:00:00.000Z"),
+      ),
+    ).resolves.toEqual({
+      updatedAt: "2026-08-23T18:00:00.000Z",
+      items,
+      compactedOperationIds: ["change-one", "change-two"],
+    });
+    expect(JSON.parse(String(request.mock.calls[0]![1]?.body))).toEqual({
+      schemaVersion: 2,
+      updatedAt: "2026-08-23T18:00:00.000Z",
+      items,
+      compactedOperationIds: ["change-one", "change-two"],
+    });
+  });
+
+  it("rejects duplicate or malformed cleanup identifiers", async () => {
+    const request = vi.fn<typeof fetch>().mockResolvedValueOnce(
+      jsonResponse({
+        schemaVersion: 2,
+        updatedAt: "2026-08-23T18:00:00.000Z",
+        items: [],
+        compactedOperationIds: ["duplicate", "duplicate"],
+      }),
+    );
+
+    await expect(
+      readGoogleDriveArticleCheckpoint(request, "temporary-token", "article-file"),
+    ).rejects.toThrow("invalid data");
   });
 
   it("rejects invalid or duplicate remote articles", async () => {

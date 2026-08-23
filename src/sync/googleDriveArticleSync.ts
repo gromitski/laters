@@ -3,21 +3,35 @@ import { isSavedItem, type SavedItem } from "../domain/savedItem";
 const DRIVE_FILES_URL = "https://www.googleapis.com/drive/v3/files";
 const DRIVE_UPLOAD_FILES_URL = "https://www.googleapis.com/upload/drive/v3/files";
 const ARTICLE_FILE_NAME = "laters-reading-list.json";
-const ARTICLE_SCHEMA_VERSION = 1;
+const ARTICLE_SCHEMA_VERSION = 2;
 const MAX_ARTICLE_COUNT = 10_000;
+const MAX_COMPACTED_OPERATION_IDS = 10_000;
 const MAX_SNAPSHOT_BYTES = 5 * 1024 * 1024;
 
-interface ArticleSnapshot {
+interface ArticleSnapshotV1 {
   schemaVersion: 1;
   updatedAt: string;
   items: SavedItem[];
 }
 
-export interface GoogleDriveArticleInitialisation {
-  fileId: string;
-  items: SavedItem[];
-  source: "drive-loaded" | "local-uploaded";
+interface ArticleSnapshotV2 {
+  schemaVersion: 2;
   updatedAt: string;
+  items: SavedItem[];
+  compactedOperationIds: string[];
+}
+
+type ArticleSnapshot = ArticleSnapshotV1 | ArticleSnapshotV2;
+
+export interface GoogleDriveArticleCheckpoint {
+  updatedAt: string;
+  items: SavedItem[];
+  compactedOperationIds: string[];
+}
+
+export interface GoogleDriveArticleInitialisation extends GoogleDriveArticleCheckpoint {
+  fileId: string;
+  source: "drive-loaded" | "local-uploaded";
 }
 
 export class GoogleDriveRequestError extends Error {
@@ -40,20 +54,23 @@ export async function initialiseGoogleDriveArticles(
   const existingFileId = await findArticleFile(request, accessToken);
 
   if (existingFileId) {
-    const snapshot = await readArticleSnapshot(request, accessToken, existingFileId);
+    const checkpoint = await readGoogleDriveArticleCheckpoint(
+      request,
+      accessToken,
+      existingFileId,
+    );
     return {
       fileId: existingFileId,
-      items: snapshot.items,
       source: "drive-loaded",
-      updatedAt: snapshot.updatedAt,
+      ...checkpoint,
     };
   }
 
-  const snapshot = createSnapshot(localItems, now);
+  const snapshot = createSnapshot(localItems, [], now);
   const fileId = await createArticleFile(request, accessToken, snapshot);
-  const confirmed = await readArticleSnapshot(request, accessToken, fileId);
+  const confirmed = await readGoogleDriveArticleCheckpoint(request, accessToken, fileId);
 
-  if (JSON.stringify(confirmed) !== JSON.stringify(snapshot)) {
+  if (JSON.stringify(confirmed) !== JSON.stringify(normaliseSnapshot(snapshot))) {
     throw new Error("Google Drive returned unexpected reading-list data.");
   }
 
@@ -62,7 +79,29 @@ export async function initialiseGoogleDriveArticles(
     items: confirmed.items,
     source: "local-uploaded",
     updatedAt: confirmed.updatedAt,
+    compactedOperationIds: confirmed.compactedOperationIds,
   };
+}
+
+export async function readGoogleDriveArticleCheckpoint(
+  request: typeof fetch,
+  accessToken: string,
+  fileId: string,
+): Promise<GoogleDriveArticleCheckpoint> {
+  return normaliseSnapshot(await readArticleSnapshot(request, accessToken, fileId));
+}
+
+export async function writeGoogleDriveArticleCheckpoint(
+  request: typeof fetch,
+  accessToken: string,
+  fileId: string,
+  items: SavedItem[],
+  compactedOperationIds: string[],
+  now: () => Date = () => new Date(),
+): Promise<GoogleDriveArticleCheckpoint> {
+  const snapshot = createSnapshot(items, compactedOperationIds, now);
+  await writeArticleSnapshot(request, accessToken, fileId, snapshot);
+  return normaliseSnapshot(snapshot);
 }
 
 export class GoogleDriveArticleSyncSession {
@@ -97,7 +136,7 @@ export class GoogleDriveArticleSyncSession {
         this.request,
         this.accessToken,
         this.fileId,
-        createSnapshot(items, this.now),
+        createSnapshot(items, [], this.now),
       );
     }
   }
@@ -234,8 +273,13 @@ async function writeArticleSnapshot(
   }
 }
 
-function createSnapshot(items: SavedItem[], now: () => Date): ArticleSnapshot {
+function createSnapshot(
+  items: SavedItem[],
+  compactedOperationIds: string[],
+  now: () => Date,
+): ArticleSnapshotV2 {
   validateItems(items);
+  validateCompactedOperationIds(compactedOperationIds);
   const updatedAt = now().toISOString();
 
   if (updatedAt === "Invalid Date") {
@@ -246,6 +290,7 @@ function createSnapshot(items: SavedItem[], now: () => Date): ArticleSnapshot {
     schemaVersion: ARTICLE_SCHEMA_VERSION,
     updatedAt,
     items: items.map((item) => ({ ...item })),
+    compactedOperationIds: [...compactedOperationIds],
   };
 }
 
@@ -254,12 +299,17 @@ function isArticleSnapshot(value: unknown): value is ArticleSnapshot {
     return false;
   }
 
-  const candidate = value as Partial<ArticleSnapshot>;
+  const candidate = value as {
+    schemaVersion?: unknown;
+    updatedAt?: unknown;
+    items?: unknown;
+    compactedOperationIds?: unknown;
+  };
   const updatedAt =
     typeof candidate.updatedAt === "string" ? new Date(candidate.updatedAt) : undefined;
 
   if (
-    candidate.schemaVersion !== ARTICLE_SCHEMA_VERSION ||
+    (candidate.schemaVersion !== 1 && candidate.schemaVersion !== ARTICLE_SCHEMA_VERSION) ||
     !updatedAt ||
     Number.isNaN(updatedAt.getTime()) ||
     !Array.isArray(candidate.items)
@@ -269,9 +319,39 @@ function isArticleSnapshot(value: unknown): value is ArticleSnapshot {
 
   try {
     validateItems(candidate.items);
+    if (candidate.schemaVersion === ARTICLE_SCHEMA_VERSION) {
+      if (!Array.isArray(candidate.compactedOperationIds)) {
+        return false;
+      }
+      validateCompactedOperationIds(candidate.compactedOperationIds);
+    }
     return true;
   } catch {
     return false;
+  }
+}
+
+function normaliseSnapshot(snapshot: ArticleSnapshot): GoogleDriveArticleCheckpoint {
+  return {
+    updatedAt: snapshot.updatedAt,
+    items: snapshot.items.map((item) => ({ ...item })),
+    compactedOperationIds:
+      snapshot.schemaVersion === ARTICLE_SCHEMA_VERSION
+        ? [...snapshot.compactedOperationIds]
+        : [],
+  };
+}
+
+function validateCompactedOperationIds(operationIds: unknown[]): asserts operationIds is string[] {
+  if (
+    operationIds.length > MAX_COMPACTED_OPERATION_IDS ||
+    !operationIds.every(
+      (operationId) =>
+        typeof operationId === "string" && /^[A-Za-z0-9_-]{1,128}$/u.test(operationId),
+    ) ||
+    new Set(operationIds).size !== operationIds.length
+  ) {
+    throw new Error("The Google Drive reading list contains invalid cleanup data.");
   }
 }
 

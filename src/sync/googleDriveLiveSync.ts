@@ -1,6 +1,11 @@
 import type { SavedItem } from "../domain/savedItem";
 import type { ReadingListStore } from "../storage/readingListStore";
-import { GoogleDriveRequestError } from "./googleDriveArticleSync";
+import {
+  GoogleDriveRequestError,
+  readGoogleDriveArticleCheckpoint,
+  writeGoogleDriveArticleCheckpoint,
+  type GoogleDriveArticleCheckpoint,
+} from "./googleDriveArticleSync";
 import {
   applyReadingListSyncOperations,
   isReadingListSyncOperation,
@@ -12,6 +17,7 @@ const DRIVE_UPLOAD_FILES_URL = "https://www.googleapis.com/upload/drive/v3/files
 const OPERATION_FILE_PREFIX = "laters-operation-";
 const MAX_OPERATION_FILES = 10_000;
 const MAX_OPERATION_BYTES = 32 * 1024;
+export const GOOGLE_DRIVE_OPERATION_COMPACTION_THRESHOLD = 100;
 
 type LiveSyncStore = Pick<
   ReadingListStore,
@@ -26,14 +32,28 @@ export interface GoogleDriveLiveSyncResult {
 
 export class GoogleDriveLiveSyncSession {
   private readonly remoteOperations = new Map<string, ReadingListSyncOperation>();
+  private baseItems: SavedItem[];
+  private compactedOperationIds: Set<string>;
+  private checkpointFingerprint: string;
   private activeSync: Promise<GoogleDriveLiveSyncResult> | undefined;
   private rerunRequested = false;
+  private readonly compactionThreshold: number;
+  private readonly now: () => Date;
 
   constructor(
     private readonly request: typeof fetch,
     private readonly accessToken: string,
-    private readonly baseItems: SavedItem[],
-  ) {}
+    private readonly articleFileId: string,
+    checkpoint: GoogleDriveArticleCheckpoint,
+    options: { compactionThreshold?: number; now?: () => Date } = {},
+  ) {
+    this.baseItems = checkpoint.items.map((item) => ({ ...item }));
+    this.compactedOperationIds = new Set(checkpoint.compactedOperationIds);
+    this.checkpointFingerprint = fingerprintCheckpoint(checkpoint);
+    this.compactionThreshold =
+      options.compactionThreshold ?? GOOGLE_DRIVE_OPERATION_COMPACTION_THRESHOLD;
+    this.now = options.now ?? (() => new Date());
+  }
 
   sync(store: LiveSyncStore): Promise<GoogleDriveLiveSyncResult> {
     this.rerunRequested = true;
@@ -63,17 +83,29 @@ export class GoogleDriveLiveSyncSession {
   }
 
   private async runSyncPass(store: LiveSyncStore): Promise<GoogleDriveLiveSyncResult> {
+    await this.refreshCheckpoint();
     let files = await listOperationFiles(this.request, this.accessToken);
-    await this.downloadUnseenOperations(files);
+    const compactedAtPassStart = new Set(this.compactedOperationIds);
+    const cleanupWasPendingAtPassStart = compactedAtPassStart.size > 0;
+    await this.cleanupCheckpointedFiles(files);
+    let activeFiles = files.filter(
+      (file) => !compactedAtPassStart.has(operationIdFromFileName(file.name) ?? ""),
+    );
+    await this.downloadUnseenOperations(activeFiles);
 
     const pendingOperations = await store.listPendingSyncOperations();
     const remoteOperationIds = new Set(
-      files.map((file) => operationIdFromFileName(file.name)).filter(isString),
+      activeFiles.map((file) => operationIdFromFileName(file.name)).filter(isString),
     );
     const acknowledgedOperationIds: string[] = [];
     let uploadedCount = 0;
 
     for (const operation of pendingOperations) {
+      if (compactedAtPassStart.has(operation.operationId)) {
+        acknowledgedOperationIds.push(operation.operationId);
+        continue;
+      }
+
       if (!remoteOperationIds.has(operation.operationId)) {
         await uploadOperation(this.request, this.accessToken, operation);
         remoteOperationIds.add(operation.operationId);
@@ -87,18 +119,122 @@ export class GoogleDriveLiveSyncSession {
     await store.removePendingSyncOperations(acknowledgedOperationIds);
 
     files = await listOperationFiles(this.request, this.accessToken);
-    await this.downloadUnseenOperations(files);
+    const ignoredOperationIds = new Set([
+      ...compactedAtPassStart,
+      ...this.compactedOperationIds,
+    ]);
+    activeFiles = files.filter(
+      (file) => !ignoredOperationIds.has(operationIdFromFileName(file.name) ?? ""),
+    );
+    await this.downloadUnseenOperations(activeFiles);
     const items = applyReadingListSyncOperations(
       this.baseItems,
       [...this.remoteOperations.values()],
     );
     await store.replaceAll(items);
+    if (!cleanupWasPendingAtPassStart) {
+      await this.compactIfNeeded(activeFiles, items);
+    }
 
     return {
       items,
       operationCount: this.remoteOperations.size,
       uploadedCount,
     };
+  }
+
+  private async refreshCheckpoint(): Promise<void> {
+    const checkpoint = await readGoogleDriveArticleCheckpoint(
+      this.request,
+      this.accessToken,
+      this.articleFileId,
+    );
+    const fingerprint = fingerprintCheckpoint(checkpoint);
+
+    if (fingerprint !== this.checkpointFingerprint) {
+      this.applyCheckpoint(checkpoint);
+    }
+  }
+
+  private applyCheckpoint(checkpoint: GoogleDriveArticleCheckpoint): void {
+    this.baseItems = checkpoint.items.map((item) => ({ ...item }));
+    this.compactedOperationIds = new Set(checkpoint.compactedOperationIds);
+    this.checkpointFingerprint = fingerprintCheckpoint(checkpoint);
+    this.remoteOperations.clear();
+  }
+
+  private async cleanupCheckpointedFiles(files: DriveOperationFile[]): Promise<void> {
+    if (this.compactedOperationIds.size === 0) {
+      return;
+    }
+
+    let cleanupFailed = false;
+
+    for (const file of files) {
+      const operationId = operationIdFromFileName(file.name);
+
+      if (!operationId || !this.compactedOperationIds.has(operationId)) {
+        continue;
+      }
+
+      try {
+        await deleteOperationFile(this.request, this.accessToken, file.id);
+      } catch (error) {
+        if (isAuthorizationError(error)) {
+          throw error;
+        }
+        cleanupFailed = true;
+      }
+    }
+
+    if (cleanupFailed) {
+      return;
+    }
+
+    try {
+      const checkpoint = await writeGoogleDriveArticleCheckpoint(
+        this.request,
+        this.accessToken,
+        this.articleFileId,
+        this.baseItems,
+        [],
+        this.now,
+      );
+      this.applyCheckpoint(checkpoint);
+    } catch (error) {
+      if (isAuthorizationError(error)) {
+        throw error;
+      }
+    }
+  }
+
+  private async compactIfNeeded(
+    files: DriveOperationFile[],
+    items: SavedItem[],
+  ): Promise<void> {
+    if (files.length < this.compactionThreshold) {
+      return;
+    }
+
+    const operationIds = files
+      .map((file) => operationIdFromFileName(file.name))
+      .filter(isString);
+
+    try {
+      const checkpoint = await writeGoogleDriveArticleCheckpoint(
+        this.request,
+        this.accessToken,
+        this.articleFileId,
+        items,
+        operationIds,
+        this.now,
+      );
+      this.applyCheckpoint(checkpoint);
+    } catch (error) {
+      if (isAuthorizationError(error)) {
+        throw error;
+      }
+    }
   }
 
   private async downloadUnseenOperations(files: DriveOperationFile[]): Promise<void> {
@@ -255,6 +391,24 @@ async function downloadOperation(
   return value;
 }
 
+async function deleteOperationFile(
+  request: typeof fetch,
+  accessToken: string,
+  fileId: string,
+): Promise<void> {
+  const response = await request(`${DRIVE_FILES_URL}/${encodeURIComponent(fileId)}`, {
+    method: "DELETE",
+    headers: authorisationHeaders(accessToken),
+  });
+
+  if (!response.ok) {
+    throw new GoogleDriveRequestError(
+      `Google Drive cleanup request failed (${response.status}).`,
+      response.status,
+    );
+  }
+}
+
 function operationFileName(operationId: string): string {
   return `${OPERATION_FILE_PREFIX}${operationId}.json`;
 }
@@ -270,6 +424,17 @@ function operationIdFromFileName(fileName: string): string | undefined {
 
 function authorisationHeaders(accessToken: string): Record<string, string> {
   return { Authorization: `Bearer ${accessToken}` };
+}
+
+function fingerprintCheckpoint(checkpoint: GoogleDriveArticleCheckpoint): string {
+  return JSON.stringify(checkpoint);
+}
+
+function isAuthorizationError(error: unknown): boolean {
+  return (
+    error instanceof GoogleDriveRequestError &&
+    (error.status === 401 || error.status === 403)
+  );
 }
 
 async function readJson<T>(response: Response): Promise<T> {
