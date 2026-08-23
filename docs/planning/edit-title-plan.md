@@ -43,3 +43,13 @@ local title; the article URL remains locked.
   successful rename, locked URL, accessible names, cancel and persistence at 320px.
 - Production physical Android acceptance covers long press, rename, reopening persistence and
   exact-URL re-capture before release closure.
+
+## Implementation record
+
+Commit `b5d663f` published the `v0.4.1` production candidate on 2026-08-23. The local release gate
+passed 96 automated tests across 17 files, type checking, the production build, the public-build
+privacy audit and the no-attribution guard. A 320px browser check confirmed the action order, styled
+editor, locked URL, persistence, exact-URL re-capture and updated accessible names with no browser
+errors. GitHub Actions run `32636593819` passed and deployed, and the public origin served the exact
+verified JavaScript and CSS fingerprints. Physical Android acceptance remains outstanding; no tag or
+GitHub release is authorised.

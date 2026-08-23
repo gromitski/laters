@@ -62,8 +62,7 @@ mobile interaction shell.
 
 ## Active focus
 
-Complete, publish and physically verify the bounded `v0.4.1` **Edit title** slice. No other future
-idea is selected.
+Physically verify the published `v0.4.1` **Edit title** candidate. No other future idea is selected.
 
 ## Active slice
 
@@ -109,7 +108,10 @@ The maintainer confirmed the current mobile Paste-to-add implementation is worki
 2026-08-23. The next accepted candidate is `v0.4.1`: **Edit title** appears in the existing
 long-press/context menu, persists only a deliberate title change and leaves the URL, saved time,
 queue position, bookmark state and surrounding layout unchanged. A deliberate edit is retained when
-the exact URL is captured again; sharing remains URL-only.
+the exact URL is captured again; sharing remains URL-only. Commit `b5d663f` published this candidate;
+96 automated tests across 17 files and every local release gate passed, a 320px browser check passed
+without errors, GitHub Actions run `32636593819` passed and deployed, and the public origin served
+the matching verified JavaScript and CSS assets.
 
 ## Blockers
 
@@ -123,14 +125,15 @@ None.
 
 ## Next safe action
 
-Finish agent-owned verification and publish the exact `v0.4.1` candidate, then test **Edit title**
-from the physical Android long-press menu, including persistence and exact-URL re-capture.
+Test **Edit title** from the physical Android long-press menu, including persistence and exact-URL
+re-capture. If it passes, record physical acceptance before authorising any tag or GitHub release.
 
 ## Last meaningful update
 
-2026-08-23 — The maintainer confirmed the mobile Paste-to-add implementation is working well and
-accepted `v0.4.1` **Edit title** as the next bounded candidate. Implementation and production
-verification are in progress; no tag or GitHub release is authorised.
+2026-08-23 — Commit `b5d663f` published the accepted `v0.4.1` **Edit title** candidate. All local
+release gates and 320px browser acceptance passed, GitHub Actions run `32636593819` passed and
+deployed, and production served the matching verified assets. Physical Android acceptance remains;
+no tag or GitHub release is authorised.
 
 ## Pointers
 

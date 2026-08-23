@@ -118,6 +118,11 @@ For the `v0.4.1` production candidate:
    title remains while the item refreshes at the top without a duplicate.
 6. Confirm **Share this article** still sends only the locked saved URL.
 
+Commit `b5d663f` published the `v0.4.1` production candidate. GitHub Actions run `32636593819`
+passed, and the public origin served the matching verified JavaScript and CSS fingerprints. The
+320px browser acceptance passed; the physical Android checks above remain required before release
+closure.
+
 ## Application updates and saved data
 
 A newly deployed worker installs its complete application-shell cache, then waits. An open Laters app announces that the update is ready and shows an **Update** button. Selecting it activates the worker and reloads the app once; failure to register or check for an update does not prevent the reading list from opening.
