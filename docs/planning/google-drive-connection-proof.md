@@ -50,3 +50,19 @@ schema remain unchanged.
 - A clean browser proves that local article data remains intact before and after connection.
 - Physical Android testing records the initial consent flow, successful private round trip, safe
   cancellation, closing/reopening behaviour and the real reconnection experience.
+
+## Production evidence
+
+The connection proof was published from commit `c810476` on 2026-08-23. GitHub Actions run
+`32641479949` passed its build and Pages deployment jobs, and the public origin served the matching
+application bundle.
+
+The initial Google consent flow then passed in Chrome using the sole configured OAuth test user.
+Google presented only permission to see, create and delete Laters' own configuration data in Drive.
+Laters created, updated and read back the private connection probe, reported success, and uploaded
+no article data. All three pre-existing local articles remained present and unchanged.
+
+After a full page reload, Laters displayed the remembered connection time. Reconnect required an
+account choice but no repeat permission approval; the second private round trip passed and the same
+three local articles again remained unchanged. Cancellation and physical Android presentation remain
+separate acceptance checks before this experiment could be considered for a release.
