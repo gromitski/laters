@@ -73,7 +73,8 @@ while Laters is visible. Its first interface follow-up moves the unchanged sync 
 into a permanent top-right menu drawer. The drawer and its three-state indicator are deployed; a
 focused correction for desktop page stability and focus outlines is deployed and accepted. Android
 drawer and multi-device add/delete/Undo acceptance are complete. The selected post-release follow-up
-adds automatic housekeeping after 100 Drive operations. Public OAuth remains explicitly open.
+adds automatic housekeeping after 100 Drive operations and is deployed in `b3f4fcf`; its ordinary
+phone/desktop round trip remains for acceptance. Public OAuth remains explicitly open.
 
 ## Active slice
 
@@ -170,14 +171,13 @@ None.
 - A minimum Chrome for Android version is not yet evidenced.
 - Android's news feed may provide distinct rotating or tracking URLs for the same apparent article; exact-URL deduplication correctly retains these as separate items.
 - Some Android news-feed shares do not supply a useful article title. Remote title enrichment is a possible later product slice with privacy, security and reliability implications; it is not part of the current design handoff.
-- Automatic Drive housekeeping is implemented locally but is not yet published or physically
-  checked through an ordinary post-deployment phone/desktop round trip.
+- Automatic Drive housekeeping is published but is not yet physically checked through an ordinary
+  post-deployment phone/desktop round trip.
 
 ## Next safe action
 
-Run the full repository gates, publish automatic Drive housekeeping, then confirm one ordinary
-phone/desktop sync round trip. After that, decide separately whether to move Google OAuth from
-Testing to public production access.
+Update Laters on phone and desktop and confirm one ordinary sync round trip. After that, decide
+separately whether to move Google OAuth from Testing to public production access.
 
 ## Last meaningful update
 
@@ -190,10 +190,12 @@ Post-release, the maintainer confirmed the Android drawer and the cross-platform
 sequence are working, closing both remaining human acceptance gates. Failure-path evidence for token
 expiry, rejected credentials and retained failed uploads remains automated.
 
-The next selected follow-up is automatic Drive housekeeping at 100 operation files. Its local
-implementation writes the resolved version-2 checkpoint with exact covered operation identifiers
-before deletion, lets active devices adopt that checkpoint before uploading, and safely retries an
-interrupted cleanup. Focused sync tests pass; full repository gates and publication remain.
+Automatic Drive housekeeping at 100 operation files is published in commit `b3f4fcf` through GitHub
+Actions run `32667577633`. It writes the resolved version-2 checkpoint with exact covered operation
+identifiers, waits for a later check to adopt that settled checkpoint before deletion, lets active
+devices refresh before uploading, and safely retries interrupted cleanup. All 129 tests and local
+release/privacy/security gates passed; the public origin serves matching asset
+`index-D329XvN-.js`. One ordinary phone/desktop sync round trip remains for physical acceptance.
 
 ## Pointers
 

@@ -7,7 +7,7 @@ remains in Google's **Testing** state; the release does not authorise public OAu
 and browser gates pass. The maintainer subsequently completed and accepted the physical
 phone/desktop add, delete and Undo propagation sequence.
 
-The post-release housekeeping follow-up is implemented locally: once 100 remote change files have
+The post-release housekeeping follow-up is deployed in `b3f4fcf`: once 100 remote change files have
 accumulated, Laters writes a new resolved checkpoint before deleting only the exact files named by
 that checkpoint. This follow-up is not part of the historical `v0.5.0` tag.
 
@@ -104,3 +104,9 @@ The automatic housekeeping follow-up was implemented after that release. Its pro
 checkpoint, threshold, active-device and interrupted-cleanup automation described above; an ordinary
 post-deployment phone/desktop sync round trip is sufficient physical acceptance because manually
 manufacturing 100 user changes would not add useful evidence.
+
+Commit `b3f4fcf` published the follow-up through GitHub Actions run `32667577633`. All 129 automated
+tests, type checking, the production build, repository privacy audit, public-build audit,
+no-attribution guard and both dependency audits passed. The public origin serves the matching
+`index-D329XvN-.js` production asset. The ordinary post-deployment phone/desktop round trip remains
+the sole physical acceptance check.
