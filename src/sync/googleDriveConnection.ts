@@ -11,6 +11,7 @@ let identityServicesLoad: Promise<GoogleIdentityServices> | undefined;
 
 interface GoogleTokenResponse {
   access_token?: string;
+  expires_in?: number;
   error?: string;
 }
 
@@ -24,6 +25,7 @@ interface GoogleIdentityServices {
       initTokenClient(configuration: {
         client_id: string;
         scope: string;
+        prompt?: string;
         callback(response: GoogleTokenResponse): void;
         error_callback(error: { type?: string }): void;
       }): GoogleTokenClient;
@@ -39,11 +41,19 @@ declare global {
 
 export interface GoogleDriveConnection {
   accessToken: string;
+  expiresInSeconds: number;
 }
 
 export interface GoogleDriveConnectionProbe {
   fileId: string;
   lastConnectedAt: string;
+}
+
+export class GoogleDriveConnectionRequestError extends Error {
+  constructor(message: string, readonly status: number) {
+    super(message);
+    this.name = "GoogleDriveConnectionRequestError";
+  }
 }
 
 export async function connectGoogleDrive(
@@ -57,13 +67,18 @@ export async function connectGoogleDrive(
     const client = identity.accounts.oauth2.initTokenClient({
       client_id: clientId,
       scope: GOOGLE_DRIVE_SCOPE,
+      prompt: "",
       callback: (response) => {
         if (!response.access_token) {
           reject(new Error(response.error || "google-connection-failed"));
           return;
         }
 
-        resolve({ accessToken: response.access_token });
+        resolve({
+          accessToken: response.access_token,
+          expiresInSeconds:
+            typeof response.expires_in === "number" ? response.expires_in : 0,
+        });
       },
       error_callback: (error) => {
         if (error.type === "popup_failed_to_open") {
@@ -225,7 +240,10 @@ async function writeConnectionFile(
   );
 
   if (!response.ok) {
-    throw new Error(`Google Drive connection write failed (${response.status}).`);
+    throw new GoogleDriveConnectionRequestError(
+      `Google Drive connection write failed (${response.status}).`,
+      response.status,
+    );
   }
 }
 
@@ -248,7 +266,10 @@ function authorisationHeaders(accessToken: string): Record<string, string> {
 
 async function readJson<T>(response: Response): Promise<T> {
   if (!response.ok) {
-    throw new Error(`Google Drive connection request failed (${response.status}).`);
+    throw new GoogleDriveConnectionRequestError(
+      `Google Drive connection request failed (${response.status}).`,
+      response.status,
+    );
   }
 
   return response.json() as Promise<T>;

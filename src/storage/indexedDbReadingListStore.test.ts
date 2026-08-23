@@ -25,6 +25,51 @@ describe("IndexedDbReadingListStore", () => {
     ]);
   });
 
+  it("records local mutations as pending sync operations and removes acknowledged ones", async () => {
+    const databaseName = createDatabaseName();
+    const store = new IndexedDbReadingListStore(databaseName);
+    const original = item("journalled", 100);
+
+    await store.save(original, "add");
+    await store.setBookmarked(original.id, true);
+    await store.delete(original.id);
+
+    const operations = await store.listPendingSyncOperations();
+    expect(operations.map((operation) => operation.type)).toEqual([
+      "add",
+      "update",
+      "delete",
+    ]);
+    expect(operations[0]).toMatchObject({ type: "add", item: original });
+    expect(operations[1]).toMatchObject({
+      type: "update",
+      item: { ...original, bookmarked: true },
+    });
+    expect(operations[2]).toMatchObject({ type: "delete", itemId: original.id });
+
+    await store.removePendingSyncOperations(
+      operations.slice(0, 2).map((operation) => operation.operationId),
+    );
+    await expect(store.listPendingSyncOperations()).resolves.toEqual([operations[2]]);
+  });
+
+  it("records Undo as an explicit restore operation", async () => {
+    const databaseName = createDatabaseName();
+    const store = new IndexedDbReadingListStore(databaseName);
+    const original = item("restore", 100);
+
+    await store.save(original);
+    const initialOperations = await store.listPendingSyncOperations();
+    await store.removePendingSyncOperations(
+      initialOperations.map((operation) => operation.operationId),
+    );
+    await store.delete(original.id);
+    await store.restore(original);
+
+    const operations = await store.listPendingSyncOperations();
+    expect(operations.map((operation) => operation.type)).toEqual(["delete", "restore"]);
+  });
+
   it("persists across store instances", async () => {
     const databaseName = createDatabaseName();
     await new IndexedDbReadingListStore(databaseName).save(item("persistent", 300));

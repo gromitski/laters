@@ -67,9 +67,22 @@ paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0
 
 ## Active focus
 
-Release `v0.4.2` is closed. No next feature is selected.
+Release `v0.4.2` is closed. The selected next slice is private Google Drive live sync: local pending
+operations, retained deletion records, short-lived credential recovery and checks every 20 seconds
+while Laters is visible. The implementation has passed local gates and awaits deployment plus
+cross-device add/delete acceptance.
 
 ## Active slice
+
+The accepted private live-sync candidate builds on the published Drive snapshot proof without a
+Laters backend. IndexedDB version 2 records each add, update, restore and deletion atomically with a
+pending operation. Drive stores immutable hidden operation files; connected devices replay them over
+the accepted base snapshot so additions combine and deletion records remain effective. Confirmed
+local operations are cleared after upload, while remote records are deliberately retained until a
+safe compactor exists. A Google token is kept locally only until its reported expiry with a safety
+margin, and visible installations poll every 20 seconds plus open, focus and online events. OAuth
+remains in Testing with only the maintainer admitted. No tag, release or public OAuth access is
+authorised by this slice.
 
 The post-v0.2.0 mobile interaction shell and its focused corrections are accepted for `v0.3.0`.
 Right swipe toggles Bookmark or Remove, left swipe reveals warning-red Delete, and long press opens
@@ -143,16 +156,21 @@ None.
 - A minimum Chrome for Android version is not yet evidenced.
 - Android's news feed may provide distinct rotating or tracking URLs for the same apparent article; exact-URL deduplication correctly retains these as separate items.
 - Some Android news-feed shares do not supply a useful article title. Remote title enrichment is a possible later product slice with privacy, security and reliability implications; it is not part of the current design handoff.
+- Cross-device add, delete and explicit Undo propagation still require physical acceptance on the
+  deployed candidate.
+- Safe compaction of immutable Drive operation and deletion files is deferred; deleting them without
+  a device-acknowledgement rule could revive articles on a long-offline installation.
 
 ## Next safe action
 
-Return to the exploratory futures list and agree the next bounded change before implementation.
+Commit and push the fully gated private live-sync slice, wait for GitHub Pages, then perform the
+documented Android/desktop add, delete, Undo and reload acceptance checks.
 
 ## Last meaningful update
 
-2026-08-23 — Consolidated release `v0.4.2` closed after maintainer acceptance, zero-vulnerability
-dependency audits, the complete automated and public-build gate, production-browser verification,
-GitHub Pages deployment, and publication of the matching tag and GitHub release.
+2026-08-23 — Private Google Drive live sync implemented locally with 118 passing tests, type checking,
+repository and public-build privacy audits, a production build and a zero-vulnerability dependency
+audit. Deployment and physical cross-device acceptance remain.
 
 ## Pointers
 
@@ -173,6 +191,7 @@ GitHub Pages deployment, and publication of the matching tag and GitHub release.
 - [Mobile interaction shell plan](../docs/planning/mobile-interaction-shell-plan.md)
 - [Paste-to-add plan](../docs/planning/paste-to-add-plan.md)
 - [Edit-title plan](../docs/planning/edit-title-plan.md)
+- [Google Drive live-sync plan](../docs/planning/google-drive-live-sync-plan.md)
 - [`v0.2.0` release record](../docs/releases/v0.2.0.md)
 - [`v0.3.0` release record](../docs/releases/v0.3.0.md)
 - Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`.

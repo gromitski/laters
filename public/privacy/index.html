@@ -44,9 +44,10 @@
         <p>
           Laters stores each article’s web address, title, local identifier, saved time, bookmark
           state and any title-edit marker in your browser’s IndexedDB database. A successful Google
-          Drive connection time is stored separately in local browser storage. The service worker
-          and browser may also cache Laters application files and publisher favicons so the app can
-          load efficiently and work offline.
+          Drive connection time and a short-lived Google access token are stored separately in local
+          browser storage. Pending add, edit, restore and deletion records are stored in IndexedDB
+          until Drive confirms them. The service worker and browser may also cache Laters
+          application files and publisher favicons so the app can load efficiently and work offline.
         </p>
         <p>
           Laters itself does not set cookies. It can read clipboard text only after you deliberately
@@ -84,15 +85,25 @@
           containing a schema version and connection time. It also uses a hidden
           <code>laters-reading-list.json</code> file containing a schema version, update time and the
           complete reading list: article web addresses, titles, local identifiers, saved times,
-          bookmark states and title-edit markers. The temporary Google access token is kept in
-          memory for the open app session and is not saved by Laters.
+          bookmark states and title-edit markers. Each later change is stored as a separate hidden
+          <code>laters-operation-*.json</code> file containing an operation identifier and time plus
+          either the changed article details or the identifier of a deleted article.
         </p>
         <p>
           If no Drive reading list exists at first connection, Laters uploads the list from that
-          browser. If one already exists, the Drive list replaces the browser’s local list. While
-          connected, successful local changes replace the complete Drive snapshot. Laters does not
-          merge conflicting copies. After the app closes, reconnecting loads Drive as the source of
-          truth again.
+          browser. Connected devices then combine additions and apply edits, restorations and
+          deletion records over that base list. Laters checks Drive when it opens, returns to the
+          foreground or comes online, and every 20 seconds while it is visible. A deletion record
+          prevents an older copy from restoring the deleted article. Drive change records are kept
+          until Laters has a safe compaction process, so deletions continue to apply on devices that
+          have been offline.
+        </p>
+        <p>
+          The short-lived Google access token is stored in this browser only until the expiry time
+          Google supplies, with a one-minute safety margin, and is removed when it expires or Google
+          rejects it. This permits sync to resume after a page reload without another account choice.
+          After expiry, local changes remain queued until you choose <strong>Resume Google
+          Drive</strong>. Laters does not receive a refresh token and has no server-side access.
         </p>
         <p>
           Google processes the authorisation and Drive requests under its own privacy terms. Laters’
@@ -107,8 +118,8 @@
         <h2 id="control-delete">Your controls and deletion</h2>
         <ul>
           <li>
-            Delete an article while Drive is connected to remove it locally and update the Drive
-            snapshot. A local-only deletion does not change an older Drive copy.
+            Delete an article to remove it locally. If Drive cannot be reached, its deletion record
+            remains queued on that device until Google Drive sync resumes.
           </li>
           <li>Clear Laters’ site data in your browser to remove its local database and preferences.</li>
           <li>
@@ -116,7 +127,7 @@
             <a href="https://myaccount.google.com/permissions">Google Account permissions</a>.
           </li>
           <li>
-            Delete Laters’ hidden connection and reading-list files through Google Drive’s
+            Delete all Laters hidden connection, reading-list and operation files through Google Drive’s
             <a href="https://drive.google.com/drive/settings">Settings</a> under
             <strong>Manage apps</strong> and <strong>Delete hidden app data</strong>.
           </li>

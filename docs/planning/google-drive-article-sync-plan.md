@@ -1,5 +1,9 @@
 # Google Drive article sync
 
+> Historical snapshot-sync record. The accepted
+> [Google Drive live-sync plan](google-drive-live-sync-plan.md) supersedes its source-of-truth,
+> token-persistence, merge and polling rules without changing the private OAuth Testing boundary.
+
 ## Status
 
 Implemented and accepted for private testing on 2026-08-23. OAuth remains in Google's **Testing**

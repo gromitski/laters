@@ -28,7 +28,7 @@ export async function saveCapturedItem(
       }
     : candidate;
 
-  await store.save(item);
+  await store.save(item, existingItem ? "update" : "add");
 
   const items = [...existingItems.filter((existing) => existing.id !== item.id), item].sort(
     (left, right) => right.savedAt - left.savedAt || right.id.localeCompare(left.id),

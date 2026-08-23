@@ -21,9 +21,9 @@ The core job is intentionally narrow: capture a link at the moment it is discove
 - Preserve accessibility, maintainability and proportionate resilience despite the deliberately small scope.
 - Reach a useful personal MVP before considering expansion.
 
-## Non-goals
+## Initial-MVP non-goals
 
-- Backend services, cloud storage or cross-device sync.
+- A Laters-operated backend, database or account service.
 - Authentication, accounts or multi-user support.
 - Tags, folders or archive workflows.
 - AI features, article summarisation or knowledge-management features.
@@ -120,6 +120,23 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 - Release closure: the maintainer accepted the final production mobile and desktop behaviour and
   authorised the consolidated `v0.4.2` tag and GitHub release. `v0.4.0` and `v0.4.1` remain candidate
   version numbers within this line rather than separate historical releases.
+
+## Accepted private Google Drive direction
+
+- Local IndexedDB remains fully usable without Google Drive. Laters has no backend, account database
+  or refresh-token service.
+- Optional sync uses only Google's narrow `drive.appdata` permission and hidden Laters-owned files.
+- Each local add, edit, restore or deletion is saved atomically with a pending operation. Connected
+  devices combine additions; a retained deletion record prevents an older device from reviving an
+  article unless the user explicitly chooses Undo.
+- Laters checks for Drive changes when opened, foregrounded or brought online and every 20 seconds
+  while visible. It does not promise OS background execution after the app is closed.
+- A short-lived Google access token may remain in that browser only until Google's supplied expiry,
+  with a safety margin. After expiry, local changes wait for one deliberate resume action.
+- OAuth remains private and in Google's Testing state until a separate public-access decision.
+- Remote operation records are retained until a safe compaction design can prove that offline devices
+  will not lose deletions. Unbounded retention is accepted for the current personal test, not as a
+  finished public-scale storage policy.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.

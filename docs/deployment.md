@@ -106,6 +106,29 @@ mobile paste-to-add flow works well. Successful clipboard intake therefore has p
 the denied/unavailable fallback is covered by focused automation and browser verification rather
 than a separately recorded physical permission denial.
 
+## Google Drive live-sync acceptance
+
+For the private live-sync candidate:
+
+1. Update Laters on Android and desktop, then connect once on each device if no valid short-lived
+   Google permission remains.
+2. With Laters closed on Android, share a new representative article to Laters. Open Laters and
+   confirm that the change uploads or is clearly shown as waiting to sync.
+3. Keep desktop Laters visible and confirm the new article appears within 20 seconds without a
+   manual reconnect.
+4. Delete that article on desktop without Undo. Keep Android Laters visible and confirm the article
+   disappears within 20 seconds.
+5. Add another temporary article, delete it and choose Undo. Confirm the restored item remains on
+   both devices after the next check, then delete the temporary item on one device and confirm the
+   final deletion reaches the other.
+6. Reload one connected installation before the permission expires and confirm sync resumes without
+   account selection. Expiry and rejected-token cleanup remain deterministic automated checks rather
+   than a test that waits for a live token to age.
+7. Confirm local-only use still works and that failed uploads leave pending local changes intact.
+
+Record the deployed commit and workflow run. Do not claim multi-device live-sync acceptance until
+the maintainer confirms the add and delete propagation checks above.
+
 ## Edit-title acceptance
 
 For the `v0.4.1` production candidate:

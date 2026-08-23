@@ -24,11 +24,12 @@ A minimal Android-first read-later PWA. Share an article to Laters, then return 
 - Supports accessible visible controls and a seven-second in-place Undo without losing scroll position.
 - Keeps the application shell available offline and offers an explicit **Update** action for new versions.
 
-There is no Laters account, backend or analytics. Optional Google Drive sync stores the complete
-reading list in Laters' private application-data folder using the narrow `drive.appdata` permission.
-Drive is authoritative on reconnect; Laters does not merge conflicting copies. Publishing this
-source does not publish or connect anyone's saved list. Without Drive, every installation remains
-local to that browser and clearing browser data may remove it. Laters directly
+There is no Laters account, backend or analytics. Optional Google Drive sync stores the reading-list
+base and immutable add, edit, restore and deletion records in Laters' private application-data
+folder using the narrow `drive.appdata` permission. Connected devices combine those records and
+check for changes every 20 seconds while Laters is visible. Publishing this source does not publish
+or connect anyone's saved list. Without Drive, every installation remains local to that browser and
+clearing browser data may remove it. Laters directly
 attempts the conventional favicon on each saved publisher's origin; this can reveal the device IP
 address and request timing to that publisher, but no central favicon service receives the reading
 list or source domains. See the public [privacy policy](https://laters.dustyb.in/privacy/).

@@ -83,6 +83,7 @@ describe("handleShareTargetRequest", () => {
         title: "Updated title",
         url: "https://example.com/existing",
       }),
+      "update",
     );
     expect(save.mock.calls[0]![0].savedAt).toBeGreaterThan(100);
   });
@@ -116,6 +117,7 @@ describe("handleShareTargetRequest", () => {
           title: "Updated title",
           bookmarked,
         }),
+        "update",
       );
     },
   );

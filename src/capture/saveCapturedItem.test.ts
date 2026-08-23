@@ -14,7 +14,7 @@ describe("saveCapturedItem", () => {
         save,
       }),
     ).resolves.toEqual({ item: candidate, items: [candidate, older], wasDuplicate: false });
-    expect(save).toHaveBeenCalledWith(candidate);
+    expect(save).toHaveBeenCalledWith(candidate, "add");
   });
 
   it.each([undefined, false, true])(
@@ -39,7 +39,7 @@ describe("saveCapturedItem", () => {
         ...(bookmarked === undefined ? {} : { bookmarked }),
       });
       expect(result.items).toEqual([result.item]);
-      expect(save).toHaveBeenCalledWith(result.item);
+      expect(save).toHaveBeenCalledWith(result.item, "update");
     },
   );
 
