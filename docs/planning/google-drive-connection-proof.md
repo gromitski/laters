@@ -64,5 +64,11 @@ no article data. All three pre-existing local articles remained present and unch
 
 After a full page reload, Laters displayed the remembered connection time. Reconnect required an
 account choice but no repeat permission approval; the second private round trip passed and the same
-three local articles again remained unchanged. Cancellation and physical Android presentation remain
-separate acceptance checks before this experiment could be considered for a release.
+three local articles again remained unchanged.
+
+Physical Android acceptance then passed in the installed PWA. The maintainer completed the initial
+connection, confirmed the local articles remained present, fully closed and reopened Laters, saw the
+remembered connection state, reconnected without repeating the full permission warning, and safely
+cancelled a subsequent connection attempt without affecting the reading list. This closes the
+connection-only experiment's acceptance gates; it does not authorise article sync, public OAuth
+access, a tag or a release.
