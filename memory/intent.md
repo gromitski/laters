@@ -140,6 +140,8 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 - Accepted interface placement: a permanent top-right menu opens a bottom drawer containing the
   unchanged sync card and Privacy link. Its pale green, white and pale red backgrounds respectively
   mean connected, checking and disconnected, with the same state exposed in its accessible name.
+- Accepted drawer presentation: modal scroll locking must not shift the centred page; pointer focus
+  restoration must not leave a thick outline, while keyboard focus remains visibly indicated.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.

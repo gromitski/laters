@@ -70,8 +70,9 @@ paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0
 Release `v0.4.2` is closed. The selected next slice is private Google Drive live sync: local pending
 operations, retained deletion records, short-lived credential recovery and checks every 20 seconds
 while Laters is visible. Its first interface follow-up moves the unchanged sync card and Privacy link
-into a permanent top-right menu drawer. The drawer implementation awaits deployment and physical
-acceptance; cross-device add/delete acceptance also remains.
+into a permanent top-right menu drawer. The drawer and its three-state indicator are deployed; a
+focused correction for desktop page stability and focus outlines is being validated locally.
+Cross-device add/delete acceptance also remains.
 
 ## Active slice
 
@@ -172,14 +173,16 @@ None.
 
 ## Next safe action
 
-Commit and push the fully gated application-menu slice, wait for GitHub Pages, then perform its
-documented Android drawer acceptance before continuing the live-sync add/delete checks.
+Complete the application-menu stability gates, publish the focused correction, then perform its
+documented desktop and Android drawer acceptance before continuing the live-sync add/delete checks.
 
 ## Last meaningful update
 
-2026-08-23 — Top-right application menu and bottom drawer deployed in `2a8e329`; its three-state Drive
-indicator follow-up is implemented locally. Automated, browser and deployment evidence remain for the
-indicator; live-sync physical add/delete acceptance is paused until then.
+2026-08-23 — Top-right application menu and bottom drawer deployed in `2a8e329`, followed by its
+three-state Drive indicator in `4cc5c0b`. Desktop screenshots exposed scrollbar-lock movement and
+pointer-restored black focus rings; the bounded correction is implemented locally with automated and
+browser checks passing. All 122 tests, typecheck, repository/privacy audits, production build, public
+build audit and dependency audit pass. Deployment and physical acceptance remain.
 
 ## Pointers
 

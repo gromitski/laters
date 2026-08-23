@@ -44,6 +44,10 @@
   text-rendering: optimizeLegibility;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -929,6 +933,17 @@ h1 {
 :focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 2px;
+}
+
+.application-menu-action:focus-visible,
+.application-menu-close-action:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 3px;
+}
+
+.application-menu-action.is-pointer-focus:focus-visible,
+.application-menu-close-action.is-pointer-focus:focus-visible {
+  outline: none;
 }
 
 .delete-action:focus-visible,

@@ -28,6 +28,32 @@ export function installApplicationMenu({
 
   let isOpening = false;
   let isPresented = false;
+  let lastInteractionWasPointer = false;
+
+  const markPointerInteraction = () => {
+    lastInteractionWasPointer = true;
+  };
+  const markKeyboardInteraction = () => {
+    lastInteractionWasPointer = false;
+  };
+  const focusAction = (action: HTMLButtonElement) => {
+    action.classList.toggle("is-pointer-focus", lastInteractionWasPointer);
+    action.focus({ preventScroll: true });
+  };
+
+  for (const action of [openAction, closeAction]) {
+    action.addEventListener("pointerdown", markPointerInteraction);
+    action.addEventListener("keydown", () => {
+      markKeyboardInteraction();
+      action.classList.remove("is-pointer-focus");
+    });
+    action.addEventListener("blur", () => {
+      action.classList.remove("is-pointer-focus");
+    });
+  }
+
+  modal.addEventListener("pointerdown", markPointerInteraction);
+  modal.addEventListener("keydown", markKeyboardInteraction);
 
   openAction.addEventListener("click", () => {
     if (isOpening || isPresented) {
@@ -41,7 +67,7 @@ export function installApplicationMenu({
       .present()
       .then(() => {
         isPresented = true;
-        closeAction.focus({ preventScroll: true });
+        focusAction(closeAction);
       })
       .finally(() => {
         isOpening = false;
@@ -54,7 +80,9 @@ export function installApplicationMenu({
 
   modal.addEventListener("ionModalDidDismiss", () => {
     isPresented = false;
-    openAction.focus({ preventScroll: true });
+    queueMicrotask(() => {
+      focusAction(openAction);
+    });
   });
 }
 

@@ -139,9 +139,11 @@ the maintainer confirms the add and delete propagation checks above.
    checking, and pale red when disconnected or offline. Its accessible name must report the same
    state.
 4. Close with the visible close control, the backdrop and a downward swipe. Confirm the menu trigger
-   remains usable and the article-list position does not change.
+   remains usable, the article-list position does not change and the centred page does not move
+   sideways when the drawer opens or closes.
 5. On desktop, confirm the same bottom drawer opens from keyboard focus, closes with Escape and
-   returns focus to **Open menu**.
+   returns focus to **Open menu**. Pointer opening, closing and window refocus must not leave a thick
+   black outline on either circular control; keyboard focus must retain the slimmer olive outline.
 
 A more detailed top-level badge or status message remains deferred.
 

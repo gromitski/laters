@@ -20,6 +20,8 @@ candidate. This slice does not change sync storage, timing, authorization or mer
 - The long article list no longer has to be traversed to reach sync or privacy controls.
 - Backdrop selection, Escape, downward sheet dismissal and the visible **Close menu** control dismiss
   the drawer. Focus returns to **Open menu**.
+- Opening the drawer must not move the centred application shell when desktop scrollbar space is
+  released by the modal scroll lock.
 - Reduced-motion preference removes the drawer animation.
 
 ## Accessibility and responsive behaviour
@@ -28,7 +30,9 @@ The trigger exposes a dialog relationship and an explicit accessible name. The m
 modal supplies the modal focus boundary, backdrop, Escape handling and swipe-down sheet gesture. The
 drawer content scrolls independently when vertical space is limited and includes safe-area padding.
 At the narrowest supported width, the wordmark scales modestly only when both Install and Menu are
-present so all masthead actions remain within the viewport.
+present so all masthead actions remain within the viewport. Pointer-triggered focus restoration does
+not add a persistent outline to the circular controls; keyboard-triggered focus retains a clear,
+deliberate olive ring.
 
 ## Deliberately deferred
 
@@ -44,7 +48,8 @@ live-sync contract.
 ## Acceptance
 
 - Automated checks cover drawer configuration, reduced motion, close control, focus return and all
-  three accessible sync states.
-- Browser checks cover placement, unchanged sync-card styling, Privacy visibility, close and Escape.
+  three accessible sync states, including pointer- and keyboard-origin focus treatment.
+- Browser checks cover placement, unchanged sync-card styling, Privacy visibility, close, Escape and
+  a stable shell position while the drawer is open.
 - Physical Android acceptance should confirm top-right reachability, sheet scrolling and swipe-down
   dismissal without interfering with the article list.
