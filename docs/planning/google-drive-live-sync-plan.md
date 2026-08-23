@@ -108,5 +108,10 @@ manufacturing 100 user changes would not add useful evidence.
 Commit `b3f4fcf` published the follow-up through GitHub Actions run `32667577633`. All 129 automated
 tests, type checking, the production build, repository privacy audit, public-build audit,
 no-attribution guard and both dependency audits passed. The public origin serves the matching
-`index-D329XvN-.js` production asset. The ordinary post-deployment phone/desktop round trip remains
-the sole physical acceptance check.
+`index-D329XvN-.js` production asset. An ordinary post-deployment phone/desktop round trip was the
+sole physical acceptance check.
+
+The maintainer completed that check on 2026-08-23 after updating both installations: an article
+added on one device appeared on the other, was deleted there, and the deletion synchronized back.
+This closes physical acceptance for the housekeeping follow-up; the 100-operation threshold and
+interruption paths remain deterministic automated evidence rather than manually forced conditions.

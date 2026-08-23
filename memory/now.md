@@ -74,7 +74,7 @@ into a permanent top-right menu drawer. The drawer and its three-state indicator
 focused correction for desktop page stability and focus outlines is deployed and accepted. Android
 drawer and multi-device add/delete/Undo acceptance are complete. The selected post-release follow-up
 adds automatic housekeeping after 100 Drive operations and is deployed in `b3f4fcf`; its ordinary
-phone/desktop round trip remains for acceptance. Public OAuth remains explicitly open.
+phone/desktop add/delete round trip is accepted. Public OAuth remains explicitly open.
 
 ## Active slice
 
@@ -171,13 +171,13 @@ None.
 - A minimum Chrome for Android version is not yet evidenced.
 - Android's news feed may provide distinct rotating or tracking URLs for the same apparent article; exact-URL deduplication correctly retains these as separate items.
 - Some Android news-feed shares do not supply a useful article title. Remote title enrichment is a possible later product slice with privacy, security and reliability implications; it is not part of the current design handoff.
-- Automatic Drive housekeeping is published but is not yet physically checked through an ordinary
-  post-deployment phone/desktop round trip.
+- The 100-operation housekeeping threshold and interruption path are covered by deterministic
+  automation rather than manually manufacturing 100 changes or a forced Drive failure.
 
 ## Next safe action
 
-Update Laters on phone and desktop and confirm one ordinary sync round trip. After that, decide
-separately whether to move Google OAuth from Testing to public production access.
+Review the remaining roadmap and choose the next bounded slice. Moving Google OAuth from Testing to
+public production access remains a separate explicit decision.
 
 ## Last meaningful update
 
@@ -195,7 +195,11 @@ Actions run `32667577633`. It writes the resolved version-2 checkpoint with exac
 identifiers, waits for a later check to adopt that settled checkpoint before deletion, lets active
 devices refresh before uploading, and safely retries interrupted cleanup. All 129 tests and local
 release/privacy/security gates passed; the public origin serves matching asset
-`index-D329XvN-.js`. One ordinary phone/desktop sync round trip remains for physical acceptance.
+`index-D329XvN-.js`.
+
+On 2026-08-23 the maintainer updated both phone and desktop installations, added an article on one,
+observed it on the other, deleted it there and watched the deletion synchronize back. This closes
+the final physical acceptance check for automatic Drive housekeeping.
 
 ## Pointers
 

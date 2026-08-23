@@ -156,8 +156,11 @@ acceptance gate.
 Automatic evidence passed for commit `b3f4fcf`: 129 tests, type checking, production build,
 repository and public-build privacy audits, the no-attribution guard, and production/full dependency
 audits. GitHub Actions run `32667577633` deployed successfully and the public origin serves its
-matching `index-D329XvN-.js` asset. The ordinary post-deployment phone/desktop round trip remains for
-maintainer confirmation.
+matching `index-D329XvN-.js` asset.
+
+Physical acceptance completed on 2026-08-23 after both installations updated: the maintainer added
+an article on one device, observed it on the other, deleted it there and watched the deletion sync
+back successfully. This closes the final housekeeping acceptance check.
 
 ## Application menu drawer acceptance
 
