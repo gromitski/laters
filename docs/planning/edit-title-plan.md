@@ -51,5 +51,6 @@ passed 96 automated tests across 17 files, type checking, the production build, 
 privacy audit and the no-attribution guard. A 320px browser check confirmed the action order, styled
 editor, locked URL, persistence, exact-URL re-capture and updated accessible names with no browser
 errors. GitHub Actions run `32636593819` passed and deployed, and the public origin served the exact
-verified JavaScript and CSS fingerprints. Physical Android acceptance remains outstanding; no tag or
-GitHub release is authorised.
+verified JavaScript and CSS fingerprints. The maintainer confirmed on 2026-08-23 that the production
+mobile implementation works perfectly, closing the physical acceptance gate for the bounded
+`v0.4.1` candidate. No tag or GitHub release was requested.

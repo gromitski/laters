@@ -105,6 +105,16 @@ export function createMobileArticleShell(
     updateBookmarkOption();
   });
 
+  const moreActionsButton = createMoreActionsButton(actions.getTitle());
+  const visibleDeleteButton = articleRow.querySelector(".delete-action");
+  articleRow.insertBefore(moreActionsButton, visibleDeleteButton);
+  articleRow.addEventListener(ARTICLE_TITLE_CHANGED_EVENT, () => {
+    moreActionsButton.setAttribute(
+      "aria-label",
+      `More actions for “${actions.getTitle()}”`,
+    );
+  });
+
   let bookmarkChangeStarted = false;
   const requestBookmarkChange = async (): Promise<void> => {
     if (bookmarkChangeStarted) {
@@ -156,7 +166,7 @@ export function createMobileArticleShell(
   shell.append(slidingItem);
 
   installSwipeClickGuard(shell, slidingItem);
-  installActionMenuTriggers(articleRow, actions);
+  installActionMenuTriggers(articleRow, actions, moreActionsButton);
 
   return shell;
 }
@@ -208,6 +218,7 @@ function installSwipeClickGuard(
 function installActionMenuTriggers(
   articleRow: HTMLDivElement,
   actions: ArticleShellActions,
+  moreActionsButton: HTMLButtonElement,
 ): void {
   let longPress: LongPressState | undefined;
   let suppressNextClick = false;
@@ -222,21 +233,29 @@ function installActionMenuTriggers(
     longPress = undefined;
   };
 
-  const openMenu = (): void => {
+  const openMenu = (
+    returnFocus?: HTMLElement,
+    suppressFollowingClick = false,
+  ): void => {
     clearLongPress();
 
     if (!actions.canOpenMenu() || activeActionSheet) {
       return;
     }
 
-    suppressNextClick = true;
-    window.clearTimeout(suppressClickTimer);
-    suppressClickTimer = window.setTimeout(() => {
-      suppressNextClick = false;
-      suppressClickTimer = undefined;
-    }, 1_200);
-    void showArticleActionSheet(articleRow, actions);
+    if (suppressFollowingClick) {
+      suppressNextClick = true;
+      window.clearTimeout(suppressClickTimer);
+      suppressClickTimer = window.setTimeout(() => {
+        suppressNextClick = false;
+        suppressClickTimer = undefined;
+      }, 1_200);
+    }
+
+    void showArticleActionSheet(articleRow, actions, returnFocus);
   };
+
+  moreActionsButton.addEventListener("click", () => openMenu(moreActionsButton));
 
   articleRow.addEventListener("pointerdown", (event) => {
     const target = event.target;
@@ -251,7 +270,7 @@ function installActionMenuTriggers(
     longPress = {
       pointerId: event.pointerId,
       start: { x: event.clientX, y: event.clientY },
-      timer: window.setTimeout(openMenu, LONG_PRESS_MS),
+      timer: window.setTimeout(() => openMenu(undefined, true), LONG_PRESS_MS),
     };
   });
 
@@ -317,6 +336,7 @@ function installActionMenuTriggers(
 async function showArticleActionSheet(
   articleRow: HTMLDivElement,
   actions: ArticleShellActions,
+  returnFocus?: HTMLElement,
 ): Promise<void> {
   const titleLink = articleRow.querySelector<HTMLAnchorElement>(".article-link");
 
@@ -324,7 +344,8 @@ async function showArticleActionSheet(
     return;
   }
 
-  titleLink.focus({ preventScroll: true });
+  const focusTarget = returnFocus ?? titleLink;
+  focusTarget.focus({ preventScroll: true });
   articleRow.classList.add("is-menu-open");
 
   const actionSheet = document.createElement("ion-action-sheet");
@@ -389,17 +410,22 @@ async function showArticleActionSheet(
   }
 
   if (action === "edit-title") {
-    await showArticleTitleDialog(articleRow, actions);
+    await showArticleTitleDialog(articleRow, actions, focusTarget);
   } else if (action === "bookmark") {
     await actions.toggleBookmark();
   } else if (action === "delete") {
     await actions.delete();
+  }
+
+  if (focusTarget.isConnected) {
+    focusTarget.focus({ preventScroll: true });
   }
 }
 
 async function showArticleTitleDialog(
   articleRow: HTMLDivElement,
   actions: ArticleShellActions,
+  returnFocus?: HTMLElement,
 ): Promise<void> {
   const titleLink = articleRow.querySelector<HTMLAnchorElement>(".article-link");
 
@@ -521,7 +547,35 @@ async function showArticleTitleDialog(
   });
 
   dialog.remove();
-  titleLink.focus({ preventScroll: true });
+  const focusTarget = returnFocus ?? titleLink;
+  if (focusTarget.isConnected) {
+    focusTarget.focus({ preventScroll: true });
+  }
+}
+
+function createMoreActionsButton(title: string): HTMLButtonElement {
+  const button = document.createElement("button");
+  button.className = "more-actions";
+  button.type = "button";
+  button.setAttribute("aria-label", `More actions for “${title}”`);
+  button.setAttribute("aria-haspopup", "dialog");
+
+  const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  icon.classList.add("more-actions-icon");
+  icon.setAttribute("viewBox", "0 0 24 24");
+  icon.setAttribute("aria-hidden", "true");
+
+  for (const x of [5, 12, 19]) {
+    const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    dot.setAttribute("cx", String(x));
+    dot.setAttribute("cy", "12");
+    dot.setAttribute("r", "1.75");
+    dot.setAttribute("fill", "currentColor");
+    icon.append(dot);
+  }
+
+  button.append(icon);
+  return button;
 }
 
 function createSwipeDeleteIcon(): SVGSVGElement {

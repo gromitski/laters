@@ -18,7 +18,9 @@ published and passed its focused Android chooser, NotebookLM import and cancella
 2026-08-23. A single pasted or manually entered URL was subsequently selected as the bounded
 `v0.4.0` capture-path slice; bulk intake and every other entry below remain exploratory.
 Manual title editing was then selected as the bounded `v0.4.1` follow-up; remote title enrichment
-remains exploratory.
+remains exploratory. A visible desktop route to the existing article menu and a modest wide-screen
+shell expansion were selected as the bounded `v0.4.2` follow-up; no general desktop redesign is
+selected.
 
 ## Possibilities
 

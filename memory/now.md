@@ -45,6 +45,8 @@ mobile interaction shell.
   the existing local capture and duplicate-refresh contracts.
 - An accepted `v0.4.1` title-edit slice that renames a saved title from the long-press menu while
   locking its URL and preserving the edit across reopen and exact-URL re-capture.
+- An accepted `v0.4.2` desktop-responsiveness slice that exposes the existing article menu through a
+  visible three-dot control and lets the focused content shell grow modestly on wide screens.
 - A published `v0.1.0` GitHub release tagged at verified rewritten commit `0178fc9`.
 - Published and maintainer-accepted MVP 2.0 bookmarks with the bright-lime supplied star treatment.
 - Published and maintainer-accepted 22px publisher source markers with exact-origin favicon attempts,
@@ -62,7 +64,8 @@ mobile interaction shell.
 
 ## Active focus
 
-Physically verify the published `v0.4.1` **Edit title** candidate. No other future idea is selected.
+Implement, publish and verify the bounded `v0.4.2` desktop action and responsive-width slice. No
+other future idea is selected.
 
 ## Active slice
 
@@ -113,6 +116,13 @@ the exact URL is captured again; sharing remains URL-only. Commit `b5d663f` publ
 without errors, GitHub Actions run `32636593819` passed and deployed, and the public origin served
 the matching verified JavaScript and CSS assets.
 
+The maintainer confirmed on 2026-08-23 that the production mobile `v0.4.1` title editor works
+perfectly, closing its physical acceptance gate. The accepted `v0.4.2` follow-up adds one circular,
+desktop-only three-dot **More actions** button beside Delete, reusing the existing action sheet and
+retaining right-click and `Shift+F10`. At the 48rem desktop breakpoint the existing 34rem shell may
+grow fluidly to a 42rem maximum. Mobile presentation and interactions remain unchanged; this is not
+a general desktop redesign.
+
 ## Blockers
 
 None.
@@ -125,15 +135,16 @@ None.
 
 ## Next safe action
 
-Test **Edit title** from the physical Android long-press menu, including persistence and exact-URL
-re-capture. If it passes, record physical acceptance before authorising any tag or GitHub release.
+Finish agent-owned verification and publish the exact `v0.4.2` candidate, then confirm the wider
+production desktop presentation and visible three-dot menu route. No tag or GitHub release is
+authorised.
 
 ## Last meaningful update
 
-2026-08-23 — Commit `b5d663f` published the accepted `v0.4.1` **Edit title** candidate. All local
-release gates and 320px browser acceptance passed, GitHub Actions run `32636593819` passed and
-deployed, and production served the matching verified assets. Physical Android acceptance remains;
-no tag or GitHub release is authorised.
+2026-08-23 — The maintainer confirmed that the production mobile `v0.4.1` title editor works
+perfectly and accepted `v0.4.2`: a visible desktop route to the existing menu plus modest wide-screen
+responsiveness. Implementation and production verification are in progress; no tag or GitHub
+release is authorised.
 
 ## Pointers
 
@@ -148,6 +159,7 @@ no tag or GitHub release is authorised.
 - [Slice 6 implementation plan](../docs/planning/slice-6-mvp-design-implementation-plan.md)
 - [MVP 2.0 Slice 1 bookmark plan](../docs/planning/mvp-2-slice-1-bookmarks-plan.md)
 - [MVP 2.0 Slice 2 source marker plan](../docs/planning/mvp-2-slice-2-source-markers-plan.md)
+- [Desktop actions and responsive-width plan](../docs/planning/desktop-actions-responsive-plan.md)
 - [MVP 2.0 Slice 3 whole-row opening plan](../docs/planning/mvp-2-slice-3-whole-row-opening-plan.md)
 - [Mobile interaction shell plan](../docs/planning/mobile-interaction-shell-plan.md)
 - [Paste-to-add plan](../docs/planning/paste-to-add-plan.md)

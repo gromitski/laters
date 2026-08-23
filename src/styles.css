@@ -646,7 +646,8 @@ h1 {
   opacity: 0.45;
 }
 
-.delete-action {
+.delete-action,
+.more-actions {
   position: relative;
   flex: none;
   width: 30px;
@@ -664,20 +665,34 @@ h1 {
     transform 220ms cubic-bezier(0.3, 0.9, 0.3, 1);
 }
 
-.delete-action::before {
+.more-actions {
+  display: none;
+  place-items: center;
+}
+
+.delete-action::before,
+.more-actions::before {
   position: absolute;
   content: "";
   inset: -8px;
 }
 
-.delete-action:active {
+.more-actions-icon {
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+.delete-action:active,
+.more-actions:active {
   border-color: var(--text);
   color: #fff;
   background: var(--text);
   transform: scale(0.94);
 }
 
-.delete-action:disabled {
+.delete-action:disabled,
+.more-actions:disabled {
   cursor: wait;
   opacity: 0.45;
   transform: none;
@@ -738,6 +753,25 @@ h1 {
     color: var(--text);
     background: var(--accent);
     transform: scale(1.1);
+  }
+
+  .more-actions:hover {
+    border-color: var(--text);
+    color: #fff;
+    background: var(--text);
+    transform: scale(1.1);
+  }
+}
+
+@media (min-width: 48rem) {
+  .shell {
+    width: min(calc(100% - 4rem), clamp(34rem, 70vw, 42rem));
+  }
+}
+
+@media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
+  .more-actions {
+    display: grid;
   }
 }
 
@@ -830,7 +864,8 @@ h1 {
   outline-offset: 2px;
 }
 
-.delete-action:focus-visible {
+.delete-action:focus-visible,
+.more-actions:focus-visible {
   outline-offset: 3px;
 }
 

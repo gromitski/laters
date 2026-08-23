@@ -107,6 +107,17 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 - Mark a deliberate title edit so an exact-URL re-capture refreshes the saved time without replacing
   the remembered title. Sharing remains URL-only.
 
+## Accepted v0.4.2 direction
+
+- Add a permanently visible, circular three-dot **More actions** control beside visible Delete on
+  desktop mouse/trackpad layouts. It opens the existing article action sheet; right-click and
+  `Shift+F10` remain available.
+- Give the control an article-specific accessible name, visible keyboard focus and focus restoration
+  after menu dismissal. It updates when a title is edited and is not shown on the mobile layout.
+- Let the existing 34rem content shell grow fluidly to a modest 42rem maximum from the desktop
+  breakpoint. Preserve all mobile dimensions, gestures, data behaviour and the established visual
+  language; this is responsiveness rather than a desktop redesign.
+
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.
 The accepted interaction architecture and implementation record live in

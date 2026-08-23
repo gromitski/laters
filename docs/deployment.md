@@ -120,8 +120,23 @@ For the `v0.4.1` production candidate:
 
 Commit `b5d663f` published the `v0.4.1` production candidate. GitHub Actions run `32636593819`
 passed, and the public origin served the matching verified JavaScript and CSS fingerprints. The
-320px browser acceptance passed; the physical Android checks above remain required before release
-closure.
+320px browser acceptance passed. On 2026-08-23 the maintainer confirmed that the production mobile
+implementation works perfectly, closing the physical acceptance gate.
+
+## Desktop actions and responsive-width acceptance
+
+For the `v0.4.2` production candidate:
+
+1. At a desktop mouse/trackpad width, confirm the reading-list shell is moderately wider without
+   becoming a full-width desktop layout.
+2. Confirm every normal row shows a circular three-dot **More actions** control immediately before
+   the existing Delete control.
+3. Select it and confirm the unchanged action menu opens. Cancel and confirm focus returns to the
+   three-dot control.
+4. Edit a title and confirm the three-dot control's accessible name follows the new title.
+5. Confirm row opening, Bookmark, Delete, right-click and `Shift+F10` remain independent routes.
+6. At mobile width, confirm the three-dot control is absent and touch long press, swipes and the
+   existing row dimensions remain unchanged.
 
 ## Application updates and saved data
 
