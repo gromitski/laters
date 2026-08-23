@@ -54,9 +54,10 @@ extension. It invokes Android's generic system chooser and shares only the saved
 does not name, select or observe NotebookLM or any other destination. An initial title-and-URL
 payload was rejected after physical testing showed that NotebookLM and other receivers could
 misinterpret it. Commit `69faadc` corrects the contract to URL only and adds a regression test;
-GitHub Actions run `32598149427` passed and the matching bundle is public. Opening the native chooser,
-completing a representative NotebookLM import and cancelling safely remain focused physical-device
-acceptance gates for this post-release extension.
+GitHub Actions run `32598149427` passed and the matching bundle is public. Focused physical Android
+acceptance passed on 2026-08-23: the generic chooser opened, NotebookLM added a representative public
+article from its URL without the saved title contaminating the payload, and cancelling returned
+safely to Laters.
 
 Android's news feed was observed sharing distinct URLs for what appeared to be the same article, producing separate saved items. Laters intentionally deduplicates only the exact normalised URL; it does not currently follow redirects or guess that different tracking or rotating URLs identify the same article.
 

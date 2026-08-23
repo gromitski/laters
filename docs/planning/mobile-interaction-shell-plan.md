@@ -108,7 +108,9 @@ primitives rather than hidden framework growth.
 - No browser console error or warning remained after component initialisation.
 - The post-v0.3.0 Share extension was browser-verified at 360px: **Share this article** appears between
   Bookmark and Delete, selecting it dismisses the sheet and restores focus without a console error.
-  Opening Android's native chooser and completing a NotebookLM handoff remain physical-device gates.
+  Physical Android acceptance on 2026-08-23 confirmed that the generic chooser opens, NotebookLM adds
+  a representative public article from the URL without the saved title, and cancellation returns
+  safely to Laters.
 - Commit `8753b67` published the Share extension. GitHub Actions run `32597495286` passed all tests,
   build, public audit and Pages deployment jobs, and the public origin serves the matching bundle.
 - Physical testing found that including the article title confused NotebookLM and other receivers.

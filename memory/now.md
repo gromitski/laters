@@ -55,8 +55,8 @@ mobile interaction shell.
 
 ## Active focus
 
-Physically verify the published URL-only **Share this article** action from the long-press menu, then
-return to the remaining exploratory futures list.
+Return to the remaining exploratory futures list and agree the next bounded change before any
+implementation. No future idea is currently selected.
 
 ## Active slice
 
@@ -71,7 +71,10 @@ long-press-only placement for this personal app. It is published in commit `8753
 run `32597495286` passed and the public origin serves the matching production bundle. Physical
 testing found that receivers could misinterpret a combined title-and-URL payload; commit `69faadc`
 now shares only the URL and protects that contract with a regression test. GitHub Actions run
-`32598149427` passed and the corrected bundle is public.
+`32598149427` passed and the corrected bundle is public. Physical Android acceptance passed on
+2026-08-23: the generic chooser opened, NotebookLM added a representative public article from the
+URL without the saved title contaminating the payload, and cancelling the chooser returned safely
+to Laters.
 
 ## Blockers
 
@@ -85,14 +88,14 @@ None.
 
 ## Next safe action
 
-Physically confirm that **Share this article** opens Android's chooser, that NotebookLM can receive a
-representative public article, and that cancelling returns safely to Laters.
+Discuss the remaining entries in `docs/future-ideas.md` and agree one bounded change, if any, before
+implementation.
 
 ## Last meaningful update
 
-2026-08-22 — URL-only article sharing was published in `69faadc` after the title was found to confuse
-NotebookLM and other receivers. GitHub Actions run `32598149427` passed; physical NotebookLM recheck
-is pending.
+2026-08-23 — The published URL-only sharing correction passed physical Android acceptance. Android's
+generic chooser opened, NotebookLM added a representative public article from the URL without the
+saved title, and cancelling returned safely to Laters.
 
 ## Pointers
 
