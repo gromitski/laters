@@ -110,15 +110,16 @@ None.
 
 ## Next safe action
 
-Finish agent-owned verification, publish the exact `v0.4.0` candidate to production, then ask the
-maintainer to test clipboard success, manual fallback, invalid input and exact-URL refresh on the
-physical Android device.
+On the physical Android device, apply **Update** if offered, then test clipboard success, manual
+fallback, invalid input, exact-URL refresh with bookmark preservation and persistence. Record the
+Chrome version and clipboard permission behaviour before release closure.
 
 ## Last meaningful update
 
-2026-08-23 — Desktop branding and native installation passed maintainer acceptance. `v0.4.0`
-Paste-to-add is the accepted active slice; implementation and production verification are in
-progress.
+2026-08-23 — `v0.4.0` Paste-to-add was published in commit `17970d0`. GitHub Actions run
+`32634392394` passed, and production browser verification applied the offered update and confirmed
+the deployed control and current presentation at 320px without reading the clipboard. Physical
+Android clipboard and fallback acceptance remains pending; no tag or GitHub release is authorised.
 
 ## Pointers
 

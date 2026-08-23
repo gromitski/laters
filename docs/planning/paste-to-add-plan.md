@@ -59,3 +59,13 @@ does not supersede the current implementation or visual system.
   current desktop layout and the 320px minimum width.
 - Published Android acceptance covers clipboard success, denied/unavailable fallback, invalid input,
   duplicate refresh, persistence and regression checks for existing interactions.
+
+## Implementation record
+
+- Commit `17970d0` implements the accepted production candidate.
+- GitHub Actions run `32634392394` passed automated tests, the production build, the public-build
+  privacy audit and GitHub Pages deployment.
+- Production browser verification applied the offered app update and confirmed the deployed control
+  and current Laters presentation at 320px without activating clipboard access.
+- Physical Android clipboard and fallback acceptance remains pending; no tag or GitHub release is
+  authorised yet.

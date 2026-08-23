@@ -90,6 +90,11 @@ For the `v0.4.0` production candidate:
 
 Record the tested Chrome version and any clipboard permission behaviour before release closure.
 
+Commit `17970d0` published the `v0.4.0` production candidate. GitHub Actions run
+`32634392394` passed, and a clean production browser applied the offered app update and confirmed the
+deployed **Paste a link** control and current Laters presentation at 320px. Clipboard success and
+permission fallback remain maintainer-controlled physical-device acceptance checks.
+
 ## Application updates and saved data
 
 A newly deployed worker installs its complete application-shell cache, then waits. An open Laters app announces that the update is ready and shows an **Update** button. Selecting it activates the worker and reloads the app once; failure to register or check for an update does not prevent the reading list from opening.
