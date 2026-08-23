@@ -7,7 +7,7 @@ remains in Google's **Testing** state; the release does not authorise public OAu
 and browser gates pass. The maintainer subsequently completed and accepted the physical
 phone/desktop add, delete and Undo propagation sequence.
 
-The post-release housekeeping follow-up is deployed in `b3f4fcf`: once 100 remote change files have
+The post-release housekeeping follow-up is included in `v0.5.1`: once 100 remote change files have
 accumulated, Laters writes a new resolved checkpoint before deleting only the exact files named by
 that checkpoint. This follow-up is not part of the historical `v0.5.0` tag.
 

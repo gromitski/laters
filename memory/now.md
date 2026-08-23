@@ -10,7 +10,8 @@ The original personal MVP and all three MVP 2.0 slices are implemented, publishe
 `https://laters.dustyb.in/`. Release `v0.1.0` records the first-MVP baseline; `v0.2.0` records the
 completed bookmark, source-marker and whole-row-opening release; and `v0.3.0` records the accepted
 mobile interaction shell. Release `v0.4.2` consolidates the accepted sharing, desktop-install,
-paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0`.
+paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0`. Release `v0.5.0`
+records private Google Drive live sync, and `v0.5.1` records its automatic housekeeping follow-up.
 
 ## What exists now
 
@@ -74,7 +75,8 @@ into a permanent top-right menu drawer. The drawer and its three-state indicator
 focused correction for desktop page stability and focus outlines is deployed and accepted. Android
 drawer and multi-device add/delete/Undo acceptance are complete. The selected post-release follow-up
 adds automatic housekeeping after 100 Drive operations and is deployed in `b3f4fcf`; its ordinary
-phone/desktop add/delete round trip is accepted. Public OAuth remains explicitly open.
+phone/desktop add/delete round trip is accepted and the work is packaged as `v0.5.1`. Public OAuth
+remains explicitly open.
 
 ## Active slice
 
@@ -216,6 +218,7 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [MVP 2.0 Slice 2 source marker plan](../docs/planning/mvp-2-slice-2-source-markers-plan.md)
 - [`v0.4.2` release record](../docs/releases/v0.4.2.md)
 - [`v0.5.0` release record](../docs/releases/v0.5.0.md)
+- [`v0.5.1` release record](../docs/releases/v0.5.1.md)
 - [Desktop actions and responsive-width plan](../docs/planning/desktop-actions-responsive-plan.md)
 - [MVP 2.0 Slice 3 whole-row opening plan](../docs/planning/mvp-2-slice-3-whole-row-opening-plan.md)
 - [Mobile interaction shell plan](../docs/planning/mobile-interaction-shell-plan.md)
@@ -225,4 +228,4 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [Application menu drawer plan](../docs/planning/application-menu-drawer-plan.md)
 - [`v0.2.0` release record](../docs/releases/v0.2.0.md)
 - [`v0.3.0` release record](../docs/releases/v0.3.0.md)
-- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`, `v0.5.0`.
+- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`, `v0.5.0`, `v0.5.1`.
