@@ -142,10 +142,14 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   mean connected, checking and disconnected, with the same state exposed in its accessible name.
 - Accepted drawer presentation: modal scroll locking must not shift the centred page; pointer focus
   restoration must not leave a thick outline, while keyboard focus remains visibly indicated.
+- Release closure: the maintainer authorised `v0.5.0` as the private Google Drive sync release with
+  its Testing-only OAuth, visible-app polling, retained-operation and incomplete physical-acceptance
+  boundaries stated explicitly. This does not authorise public OAuth access.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.
 The accepted interaction architecture and implementation record live in
 `docs/planning/mobile-interaction-shell-plan.md`; release closure is recorded in
 `docs/releases/v0.3.0.md`. The post-v0.3 capture, sharing and desktop work is recorded in
-`docs/releases/v0.4.2.md`.
+`docs/releases/v0.4.2.md`. Private Google Drive sync and its application-menu interface are recorded
+in `docs/releases/v0.5.0.md`.

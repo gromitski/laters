@@ -67,12 +67,12 @@ paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0
 
 ## Active focus
 
-Release `v0.4.2` is closed. The selected next slice is private Google Drive live sync: local pending
+Release `v0.5.0` closes the private Google Drive live-sync slice: local pending
 operations, retained deletion records, short-lived credential recovery and checks every 20 seconds
 while Laters is visible. Its first interface follow-up moves the unchanged sync card and Privacy link
 into a permanent top-right menu drawer. The drawer and its three-state indicator are deployed; a
 focused correction for desktop page stability and focus outlines is now deployed for maintainer
-acceptance. Cross-device add/delete acceptance also remains.
+acceptance. The release keeps public OAuth and full multi-device acceptance explicitly open.
 
 ## Active slice
 
@@ -91,8 +91,8 @@ the accepted base snapshot so additions combine and deletion records remain effe
 local operations are cleared after upload, while remote records are deliberately retained until a
 safe compactor exists. A Google token is kept locally only until its reported expiry with a safety
 margin, and visible installations poll every 20 seconds plus open, focus and online events. OAuth
-remains in Testing with only the maintainer admitted. No tag, release or public OAuth access is
-authorised by this slice.
+remains in Testing with only the maintainer admitted. Release `v0.5.0` packages this accepted private
+candidate without authorising public OAuth access.
 
 The post-v0.2.0 mobile interaction shell and its focused corrections are accepted for `v0.3.0`.
 Right swipe toggles Bookmark or Remove, left swipe reveals warning-red Delete, and long press opens
@@ -173,18 +173,16 @@ None.
 
 ## Next safe action
 
-Perform the documented Android drawer acceptance for `6146e96`, then continue the live-sync
-phone/desktop add, delete, Undo and expiry-boundary checks.
+Perform the documented Android drawer acceptance, then complete the live-sync phone/desktop add,
+delete, Undo and expiry-boundary checks. Public OAuth remains a separate later decision.
 
 ## Last meaningful update
 
-2026-08-23 — Top-right application menu and bottom drawer deployed in `2a8e329`, followed by its
-three-state Drive indicator in `4cc5c0b`. Desktop screenshots exposed scrollbar-lock movement and
-pointer-restored black focus rings; the bounded correction was deployed in `6146e96` by Pages workflow
-`32659745917`. All 122 tests, typecheck, repository/privacy audits, production build, public-build audit
-and dependency audit passed. The public page served the exact corrected JS and CSS assets. Physical
-desktop acceptance is now confirmed; Android drawer acceptance and the complete cross-device
-live-sync sequence remain.
+2026-08-23 — The maintainer authorised `v0.5.0` as the private Google Drive sync release after
+accepting the menu simplicity and corrected desktop presentation. The release includes the deployed
+live-sync model, top-right drawer, three-state indicator, privacy policy and security audits. Its
+release record preserves the Testing-only OAuth, visible-app polling, retained-operation and
+outstanding physical-acceptance boundaries.
 
 ## Pointers
 
@@ -200,6 +198,7 @@ live-sync sequence remain.
 - [MVP 2.0 Slice 1 bookmark plan](../docs/planning/mvp-2-slice-1-bookmarks-plan.md)
 - [MVP 2.0 Slice 2 source marker plan](../docs/planning/mvp-2-slice-2-source-markers-plan.md)
 - [`v0.4.2` release record](../docs/releases/v0.4.2.md)
+- [`v0.5.0` release record](../docs/releases/v0.5.0.md)
 - [Desktop actions and responsive-width plan](../docs/planning/desktop-actions-responsive-plan.md)
 - [MVP 2.0 Slice 3 whole-row opening plan](../docs/planning/mvp-2-slice-3-whole-row-opening-plan.md)
 - [Mobile interaction shell plan](../docs/planning/mobile-interaction-shell-plan.md)
@@ -209,4 +208,4 @@ live-sync sequence remain.
 - [Application menu drawer plan](../docs/planning/application-menu-drawer-plan.md)
 - [`v0.2.0` release record](../docs/releases/v0.2.0.md)
 - [`v0.3.0` release record](../docs/releases/v0.3.0.md)
-- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`.
+- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`, `v0.5.0`.
