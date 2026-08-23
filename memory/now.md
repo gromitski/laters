@@ -121,10 +121,11 @@ Chrome version and clipboard permission behaviour before release closure.
 
 ## Last meaningful update
 
-2026-08-23 — `v0.4.0` Paste-to-add was published in commit `17970d0`. GitHub Actions run
-`32634392394` passed, and production browser verification applied the offered update and confirmed
-the deployed control and current presentation at 320px without reading the clipboard. Physical
-Android clipboard and fallback acceptance remains pending; no tag or GitHub release is authorised.
+2026-08-23 — The `v0.4.0` Paste-to-add hardening correction was published in commit `6583438`.
+GitHub Actions run `32635078636` passed, and production served the exact verified JavaScript and CSS
+fingerprints. Local browser checks confirmed bare-address HTTPS defaulting, unsafe-scheme rejection,
+input preservation on failure and the refined focus treatment at desktop and 320px. Physical Android
+clipboard and fallback acceptance remains pending; no tag or GitHub release is authorised.
 
 ## Pointers
 

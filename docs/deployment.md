@@ -98,6 +98,10 @@ Commit `17970d0` published the `v0.4.0` production candidate. GitHub Actions run
 deployed **Paste a link** control and current Laters presentation at 320px. Clipboard success and
 permission fallback remain maintainer-controlled physical-device acceptance checks.
 
+Commit `6583438` published the accepted HTTPS-defaulting, URL-validation and focus-treatment
+correction. GitHub Actions run `32635078636` passed, and the production JavaScript and CSS
+fingerprints matched the verified build. Clipboard behaviour remains part of the same physical gate.
+
 ## Application updates and saved data
 
 A newly deployed worker installs its complete application-shell cache, then waits. An open Laters app announces that the update is ready and shows an **Update** button. Selecting it activates the worker and reloads the app once; failure to register or check for an update does not prevent the reading list from opening.

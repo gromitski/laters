@@ -86,3 +86,6 @@ does not supersede the current implementation or visual system.
   authorised yet.
 - A maintainer-requested hardening correction defaults bare addresses to HTTPS, strengthens the
   shared URL boundary and refines input focus before physical acceptance and release closure.
+- Commit `6583438` publishes that correction and removes the redundant editor-specific Cursor rule.
+  GitHub Actions run `32635078636` passed, and production served the exact verified JavaScript and
+  CSS fingerprints.
