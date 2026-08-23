@@ -22,7 +22,8 @@ does not supersede the current implementation or visual system.
   foregrounding or a timer.
 - Clipboard text may contain surrounding prose; the existing share parser selects the first valid
   HTTP(S) URL and uses useful surrounding text or the hostname as the title.
-- Manual entry requires a complete HTTP(S) URL. Invalid input remains visible with an inline error.
+- Manual entry accepts a complete HTTP(S) URL or a bare domain/article address, defaulting the latter
+  to HTTPS. Invalid input remains visible with an inline error.
 - An exact-URL duplicate uses the current refresh contract: keep its identifier and bookmark state,
   update its useful title and saved time, move it to the top, and do not create another item.
 - Successful new and refreshed items use the current lime row flash and polite saved-count
@@ -30,6 +31,19 @@ does not supersede the current implementation or visual system.
 - Clipboard absence, permission denial and unreadable content are ordinary reasons to reveal the
   manual field rather than global application errors.
 - No database migration, remote request, new service, analytics or third-party dependency is added.
+
+## URL security boundary
+
+- Every new capture path uses the same standards-based URL parser and canonical stored form.
+- Only HTTP and HTTPS are accepted. Missing schemes default to HTTPS only for unambiguous bare hosts;
+  other explicit schemes are rejected rather than rewritten.
+- Embedded credentials, raw backslashes or whitespace, control characters, malformed percent
+  escapes, encoded control characters and URLs over 8,192 characters are rejected.
+- Titles remain plain text and URLs are assigned through DOM properties rather than HTML injection.
+- Laters currently stores and opens links in the browser; it does not fetch an arbitrary saved URL on
+  a server. Any later server-side enrichment or fetch must add independent SSRF controls covering
+  DNS resolution, private and special-use addresses, redirects and network egress. Client validation
+  is not a substitute for that future boundary.
 
 ## Visual and accessibility contract
 
@@ -40,7 +54,8 @@ does not supersede the current implementation or visual system.
 - The invitation's list wrapper is presentational so assistive technology does not count it as a
   saved article.
 - The fallback has a programmatic **Article URL** label, URL keyboard hint, real **Add** button,
-  inline validation association and visible keyboard focus.
+  inline validation association and a visible container focus state without the generic heavy input
+  outline.
 - Escape or leaving an empty field returns to the invitation without losing non-empty input.
 
 ## Explicit exclusions
@@ -69,3 +84,5 @@ does not supersede the current implementation or visual system.
   and current Laters presentation at 320px without activating clipboard access.
 - Physical Android clipboard and fallback acceptance remains pending; no tag or GitHub release is
   authorised yet.
+- A maintainer-requested hardening correction defaults bare addresses to HTTPS, strengthens the
+  shared URL boundary and refines input focus before physical acceptance and release closure.

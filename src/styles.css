@@ -306,6 +306,10 @@ h1 {
   opacity: 0.75;
 }
 
+.paste-entry-input:focus-visible {
+  outline: 0;
+}
+
 .paste-entry-input[aria-invalid="true"] {
   color: var(--error);
 }

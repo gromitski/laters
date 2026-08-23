@@ -13,7 +13,8 @@ mobile interaction shell.
 
 ## What exists now
 
-- The committed AI Project Foundation baseline and local no-AI-attribution guards.
+- Vendor-neutral canonical project memory and local no-AI-attribution guards. The redundant Cursor
+  bootstrap rule has been removed; editor-specific rules are not required by the app or deployment.
 - Canonical product intent in `memory/intent.md`.
 - Detailed MVP behaviour, acceptance criteria and delivery slices in `docs/mvp-definition.md`.
 - The original idea archived in `evidence/origin/2026-08-21-origin.md`.
@@ -97,6 +98,10 @@ activation and falls back to inline manual URL entry. It reuses existing HTTP(S)
 hostname fallback, exact-URL refresh with bookmark preservation, newest-first order, local storage,
 source markers and visible feedback. The surrounding design mockup is placement guidance only;
 reading times, remote title enrichment and changes to existing screen presentation are excluded.
+The accepted hardening correction defaults bare article addresses to HTTPS, removes the input's
+generic heavy outline while retaining a visible container focus state, and centralises canonical URL
+validation for every capture path. Unsafe schemes, credentials, malformed escapes, control
+characters, embedded whitespace and excessive length are rejected.
 
 ## Blockers
 

@@ -16,7 +16,26 @@ describe("createSavedItem", () => {
     });
   });
 
-  it.each(["javascript:alert(1)", "file:///tmp/article", "not a url"])(
+  it("defaults a bare article address to HTTPS", () => {
+    const item = createSavedItem(
+      { title: "Wye Trains", url: "wyetrains.uk/status?line=hereford" },
+      { createId: () => "item-1", now: () => 1_700_000_000_000 },
+    );
+
+    expect(item.url).toBe("https://wyetrains.uk/status?line=hereford");
+  });
+
+  it.each([
+    "javascript:alert(1)",
+    "data:text/html,<script>alert(1)</script>",
+    "file:///tmp/article",
+    "not a url",
+    "https://user:secret@example.com/article",
+    "https://example.com/a\\b",
+    "https://example.com/article\n",
+    "https://example.com/%0d%0aInjected",
+    "https://example.com/%ZZ",
+  ])(
     "rejects an unsafe or incomplete URL: %s",
     (url) => {
       expect(() => createSavedItem({ title: "Article", url })).toThrow(
@@ -24,6 +43,15 @@ describe("createSavedItem", () => {
       );
     },
   );
+
+  it("rejects an excessively long URL", () => {
+    expect(() =>
+      createSavedItem({
+        title: "Article",
+        url: `https://example.com/${"a".repeat(8_192)}`,
+      }),
+    ).toThrow(SavedItemValidationError);
+  });
 
   it("requires a title without inventing fallback behaviour", () => {
     expect(() => createSavedItem({ title: "  ", url: "https://example.com" })).toThrow(
@@ -66,6 +94,25 @@ describe("isSavedItem", () => {
         id: "item-1",
         title: "Unsafe",
         url: "javascript:alert(1)",
+        savedAt: 1,
+      }),
+    ).toBe(false);
+  });
+
+  it("rejects persisted URLs containing credentials or non-canonical text", () => {
+    expect(
+      isSavedItem({
+        id: "item-1",
+        title: "Credentials",
+        url: "https://user:secret@example.com/article",
+        savedAt: 1,
+      }),
+    ).toBe(false);
+    expect(
+      isSavedItem({
+        id: "item-2",
+        title: "Whitespace",
+        url: " https://example.com/article ",
         savedAt: 1,
       }),
     ).toBe(false);

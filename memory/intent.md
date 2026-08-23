@@ -88,6 +88,9 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   capture path.
 - Read clipboard text only after the user activates that control. If clipboard reading is unavailable,
   denied, empty or contains no valid HTTP(S) URL, open an inline labelled URL field with **Add**.
+- Treat a bare domain or article address as HTTPS. Canonicalise every new capture through the same
+  URL boundary; reject non-HTTP(S) schemes, credentials, malformed escapes, control characters,
+  embedded whitespace and excessive length rather than trying to repair unsafe input.
 - Reuse the current validation, hostname-title fallback, exact-URL refresh, bookmark preservation,
   newest-first ordering, source marker and IndexedDB contracts.
 - Keep the existing screen, item count, article presentation and local-storage disclosure unchanged.

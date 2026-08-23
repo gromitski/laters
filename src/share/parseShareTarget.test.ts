@@ -68,9 +68,28 @@ describe("parseShareTarget", () => {
     });
   });
 
-  it("rejects shares without a valid HTTP or HTTPS URL", () => {
-    expect(() =>
-      parseShareTarget({ title: "Unsafe", text: "javascript:alert(1)" }),
-    ).toThrow(SavedItemValidationError);
+  it("defaults a bare direct URL to HTTPS", () => {
+    expect(parseShareTarget({ url: "wyetrains.uk/status" })).toEqual({
+      title: "wyetrains.uk",
+      url: "https://wyetrains.uk/status",
+    });
+  });
+
+  it("defaults a bare URL-only text payload to HTTPS", () => {
+    expect(parseShareTarget({ text: "wyetrains.uk" })).toEqual({
+      title: "wyetrains.uk",
+      url: "https://wyetrains.uk/",
+    });
+  });
+
+  it.each([
+    "javascript:alert(1)",
+    "file:///tmp/article",
+    "https://user:secret@example.com/article",
+    "https://example.com/%0aInjected",
+  ])("rejects unsafe shared URLs: %s", (text) => {
+    expect(() => parseShareTarget({ title: "Unsafe", text })).toThrow(
+      SavedItemValidationError,
+    );
   });
 });

@@ -81,12 +81,15 @@ For the `v0.4.0` production candidate:
 1. Copy a representative public article URL, select **Paste a link**, and confirm the article is
    saved directly below the control.
 2. Deny or otherwise make clipboard reading unavailable, then confirm the inline URL field and
-   **Add** action appear and can save a complete HTTP(S) URL.
+   **Add** action appear. Confirm both a complete HTTP(S) URL and a bare address such as
+   `example.com/article` save, with the bare address stored as HTTPS.
 3. Enter invalid text and confirm the field stays open with **That doesn't look like a link**.
 4. Paste an already saved exact URL and confirm the existing item is refreshed at the top without a
    duplicate and retains its bookmark state.
 5. Reopen Laters and confirm pasted items persist. Check that Share capture, row opening, gestures,
    Delete/Undo and the local-storage disclosure remain unchanged.
+6. Confirm `javascript:`, `data:`, `file:`, credential-bearing URLs and malformed or excessively long
+   values are rejected and the typed value remains available for correction.
 
 Record the tested Chrome version and any clipboard permission behaviour before release closure.
 

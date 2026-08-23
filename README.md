@@ -8,7 +8,8 @@ A minimal Android-first read-later PWA. Share an article to Laters, then return 
 
 - Installs as a standalone PWA, offers **Install** when a supporting browser reports that installation
   is available, and appears in Android's Share menu.
-- Adds copied or manually entered article URLs through a persistent **Paste a link** row.
+- Adds copied or manually entered article URLs through a persistent **Paste a link** row, defaulting
+  bare web addresses to HTTPS.
 - Stores links locally in IndexedDB, newest first.
 - Provides persistent per-article bookmarks without changing queue order.
 - Shows publisher favicons with deterministic local fallback tiles.

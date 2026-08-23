@@ -1,4 +1,8 @@
-import { SavedItemValidationError, type SavedItemInput } from "../domain/savedItem";
+import {
+  normaliseArticleUrl,
+  SavedItemValidationError,
+  type SavedItemInput,
+} from "../domain/savedItem";
 
 export interface ShareTargetPayload {
   title?: string;
@@ -10,7 +14,7 @@ const URL_IN_TEXT = /https?:\/\/[^\s<>"']+/giu;
 const MAX_TITLE_LENGTH = 240;
 
 export function parseShareTarget(payload: ShareTargetPayload): SavedItemInput {
-  const directUrl = normaliseArticleUrl(payload.url);
+  const directUrl = normaliseCandidateUrl(payload.url);
   const textUrl = findArticleUrl(payload.text);
   const titleUrl = findArticleUrl(payload.title);
   const url = directUrl ?? textUrl ?? titleUrl;
@@ -36,29 +40,26 @@ function findArticleUrl(value: string | undefined): string | undefined {
 
   for (const match of value.matchAll(URL_IN_TEXT)) {
     const candidate = stripTrailingPunctuation(match[0]);
-    const url = normaliseArticleUrl(candidate);
+    const url = normaliseCandidateUrl(candidate, false);
 
     if (url) {
       return url;
     }
   }
 
-  return undefined;
+  return normaliseCandidateUrl(value, true);
 }
 
-function normaliseArticleUrl(value: string | undefined): string | undefined {
+function normaliseCandidateUrl(
+  value: string | undefined,
+  addDefaultScheme = true,
+): string | undefined {
   if (!value) {
     return undefined;
   }
 
   try {
-    const url = new URL(value.trim());
-
-    if (url.protocol !== "http:" && url.protocol !== "https:") {
-      return undefined;
-    }
-
-    return url.href;
+    return normaliseArticleUrl(value, addDefaultScheme);
   } catch {
     return undefined;
   }
@@ -70,7 +71,7 @@ function cleanCandidateTitle(value: string | undefined, url: string): string {
   }
 
   const trimmed = value.trim();
-  if (!trimmed || normaliseArticleUrl(trimmed) === url) {
+  if (!trimmed || normaliseCandidateUrl(trimmed) === url) {
     return "";
   }
 
