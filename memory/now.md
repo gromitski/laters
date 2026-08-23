@@ -71,8 +71,9 @@ Release `v0.5.0` closes the private Google Drive live-sync slice: local pending
 operations, retained deletion records, short-lived credential recovery and checks every 20 seconds
 while Laters is visible. Its first interface follow-up moves the unchanged sync card and Privacy link
 into a permanent top-right menu drawer. The drawer and its three-state indicator are deployed; a
-focused correction for desktop page stability and focus outlines is now deployed for maintainer
-acceptance. The release keeps public OAuth and full multi-device acceptance explicitly open.
+focused correction for desktop page stability and focus outlines is deployed and accepted. Android
+drawer and multi-device add/delete/Undo acceptance are complete. Public OAuth and safe
+remote-operation compaction remain explicitly open.
 
 ## Active slice
 
@@ -166,15 +167,13 @@ None.
 - A minimum Chrome for Android version is not yet evidenced.
 - Android's news feed may provide distinct rotating or tracking URLs for the same apparent article; exact-URL deduplication correctly retains these as separate items.
 - Some Android news-feed shares do not supply a useful article title. Remote title enrichment is a possible later product slice with privacy, security and reliability implications; it is not part of the current design handoff.
-- Cross-device add, delete and explicit Undo propagation still require physical acceptance on the
-  deployed candidate.
 - Safe compaction of immutable Drive operation and deletion files is deferred; deleting them without
   a device-acknowledgement rule could revive articles on a long-offline installation.
 
 ## Next safe action
 
-Perform the documented Android drawer acceptance, then complete the live-sync phone/desktop add,
-delete, Undo and expiry-boundary checks. Public OAuth remains a separate later decision.
+Design safe compaction for immutable Drive operation and deletion files. After that, decide separately
+whether to move Google OAuth from Testing to public production access.
 
 ## Last meaningful update
 
@@ -182,7 +181,10 @@ delete, Undo and expiry-boundary checks. Public OAuth remains a separate later d
 `8af5fca` after Pages workflow `32661778183` passed. The remote lightweight tag resolves to that
 commit. The private Google Drive sync release includes the live-sync model, top-right drawer,
 three-state indicator, privacy policy and security audits while preserving the Testing-only OAuth,
-visible-app polling, retained-operation and outstanding physical-acceptance boundaries.
+visible-app polling and retained-operation boundaries.
+Post-release, the maintainer confirmed the Android drawer and the cross-platform add, delete and Undo
+sequence are working, closing both remaining human acceptance gates. Failure-path evidence for token
+expiry, rejected credentials and retained failed uploads remains automated.
 
 ## Pointers
 

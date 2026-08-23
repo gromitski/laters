@@ -129,6 +129,11 @@ For the private live-sync candidate:
 Record the deployed commit and workflow run. Do not claim multi-device live-sync acceptance until
 the maintainer confirms the add and delete propagation checks above.
 
+Post-release acceptance completed on 2026-08-23: the maintainer confirmed the documented
+cross-platform sequence works, including additions, deletions and Undo alignment between phone and
+desktop. Expiry, rejected-token cleanup and failed-upload retention remain deterministic automated
+checks rather than manually forced failure conditions.
+
 ## Application menu drawer acceptance
 
 1. On Android, confirm the circular menu control appears at the top right without clipping the
@@ -150,8 +155,11 @@ A more detailed top-level badge or status message remains deferred.
 The menu was published in `2a8e329`, its three-state Drive indicator in `4cc5c0b`, and the desktop
 scrollbar/focus correction in `6146e96`. GitHub Actions runs `32658437608`, `32659008341` and
 `32659745917` completed successfully. The maintainer accepted the corrected desktop behaviour on
-2026-08-23. Android reachability, scrolling and swipe-down dismissal remain the outstanding menu
-acceptance checks.
+2026-08-23. Android reachability, scrolling and dismissal were the remaining menu acceptance checks
+and are recorded as complete below.
+
+Post-release Android acceptance completed on 2026-08-23: the maintainer confirmed the drawer is
+working well. This closes the remaining physical menu acceptance gate.
 
 ## Edit-title acceptance
 

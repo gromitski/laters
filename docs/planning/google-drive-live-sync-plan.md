@@ -2,9 +2,10 @@
 
 ## Status
 
-Implemented and deployed for private maintainer testing on 2026-08-23. OAuth remains in Google's
-**Testing** state. This does not authorise public OAuth access, a tag or a release. Automated and
-browser gates pass; the complete physical phone/desktop propagation checklist remains open.
+Implemented, released in `v0.5.0` and accepted for private maintainer use on 2026-08-23. OAuth
+remains in Google's **Testing** state; the release does not authorise public OAuth access. Automated
+and browser gates pass. The maintainer subsequently completed and accepted the physical
+phone/desktop add, delete and Undo propagation sequence.
 
 ## Product contract
 
@@ -82,6 +83,8 @@ The top-right application menu and three-state Drive indicator were deployed sep
 scrollbar space, suppresses pointer-restored outlines and retains visible keyboard focus. See the
 [application-menu record](application-menu-drawer-plan.md).
 
-This evidence does not close the full physical acceptance list above. In particular, the documented
-representative add, delete, Undo and expiry-boundary sequence across phone and desktop remains to be
-recorded before claiming complete multi-device acceptance.
+After `v0.5.0` publication, the maintainer completed the documented Android/desktop sequence and
+confirmed additions, deletions and Undo restores remained aligned across both visible installations.
+This closes the physical multi-device acceptance gate. Token expiry, rejected-credential cleanup and
+failed-upload retention remain deterministic automated checks rather than claims that those failure
+conditions were manually forced.

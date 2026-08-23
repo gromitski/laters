@@ -143,8 +143,11 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 - Accepted drawer presentation: modal scroll locking must not shift the centred page; pointer focus
   restoration must not leave a thick outline, while keyboard focus remains visibly indicated.
 - Release closure: the maintainer authorised `v0.5.0` as the private Google Drive sync release with
-  its Testing-only OAuth, visible-app polling, retained-operation and incomplete physical-acceptance
-  boundaries stated explicitly. This does not authorise public OAuth access.
+  its Testing-only OAuth, visible-app polling, retained-operation and then-incomplete physical-
+  acceptance boundaries stated explicitly. This does not authorise public OAuth access.
+- Post-release acceptance: the maintainer confirmed the Android drawer and cross-platform add,
+  delete and Undo sequence are working, closing the remaining human acceptance gates. Automated
+  expiry, rejected-credential and failed-upload checks remain the evidence for those failure paths.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.

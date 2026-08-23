@@ -4,8 +4,9 @@
 
 Accepted, implemented and deployed as a bounded interface move after the private Google Drive
 live-sync candidate. Desktop placement, state indication, page stability and pointer focus treatment
-are maintainer-accepted. Android drawer acceptance remains. This slice does not change sync storage,
-timing, authorization or merge behaviour.
+are maintainer-accepted. The maintainer subsequently confirmed the Android drawer is working well,
+closing its physical acceptance gate. This slice does not change sync storage, timing, authorization
+or merge behaviour.
 
 ## User-visible contract
 
@@ -53,8 +54,8 @@ live-sync contract.
   three accessible sync states, including pointer- and keyboard-origin focus treatment.
 - Browser checks cover placement, unchanged sync-card styling, Privacy visibility, close, Escape and
   a stable shell position while the drawer is open.
-- Physical Android acceptance should confirm top-right reachability, sheet scrolling and swipe-down
-  dismissal without interfering with the article list.
+- Physical Android acceptance confirmed the drawer works well without interfering with the article
+  list, closing the top-right reachability, sheet scrolling and dismissal gate.
 
 ## Production evidence
 
@@ -67,3 +68,4 @@ restoration could inherit Chrome's thick `:focus-visible` outline. Commit `6146e
 122 tests and all typecheck, privacy, production-build, public-build and dependency gates passed, and
 run `32659745917` deployed the exact verified assets. The maintainer accepted the corrected desktop
 behaviour. The repository status record was then brought current in `54829bc` and run `32659850471`.
+After `v0.5.0` publication, the maintainer confirmed the drawer also works well on Android.
