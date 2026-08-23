@@ -71,8 +71,8 @@ Release `v0.4.2` is closed. The selected next slice is private Google Drive live
 operations, retained deletion records, short-lived credential recovery and checks every 20 seconds
 while Laters is visible. Its first interface follow-up moves the unchanged sync card and Privacy link
 into a permanent top-right menu drawer. The drawer and its three-state indicator are deployed; a
-focused correction for desktop page stability and focus outlines is being validated locally.
-Cross-device add/delete acceptance also remains.
+focused correction for desktop page stability and focus outlines is now deployed for maintainer
+acceptance. Cross-device add/delete acceptance also remains.
 
 ## Active slice
 
@@ -173,16 +173,17 @@ None.
 
 ## Next safe action
 
-Complete the application-menu stability gates, publish the focused correction, then perform its
-documented desktop and Android drawer acceptance before continuing the live-sync add/delete checks.
+Perform the documented desktop and Android drawer acceptance for `6146e96`, then continue the
+live-sync add/delete checks.
 
 ## Last meaningful update
 
 2026-08-23 — Top-right application menu and bottom drawer deployed in `2a8e329`, followed by its
 three-state Drive indicator in `4cc5c0b`. Desktop screenshots exposed scrollbar-lock movement and
-pointer-restored black focus rings; the bounded correction is implemented locally with automated and
-browser checks passing. All 122 tests, typecheck, repository/privacy audits, production build, public
-build audit and dependency audit pass. Deployment and physical acceptance remain.
+pointer-restored black focus rings; the bounded correction was deployed in `6146e96` by Pages workflow
+`32659745917`. All 122 tests, typecheck, repository/privacy audits, production build, public-build audit
+and dependency audit passed. The public page served the exact corrected JS and CSS assets. Physical
+desktop/Android acceptance remains.
 
 ## Pointers
 
