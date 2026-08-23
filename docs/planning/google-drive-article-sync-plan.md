@@ -2,9 +2,9 @@
 
 ## Status
 
-Accepted for implementation and private testing on 2026-08-23. OAuth remains in Google's
-**Testing** publishing state with only the maintainer admitted. This slice does not authorise a tag,
-release or public OAuth access.
+Implemented and accepted for private testing on 2026-08-23. OAuth remains in Google's **Testing**
+publishing state with only the maintainer admitted. This slice does not authorise a tag, release or
+public OAuth access.
 
 ## Source-of-truth contract
 
@@ -69,3 +69,18 @@ future work rather than rewriting history.
   add/edit/bookmark/delete/Undo uploads, failure copy and local-only operation.
 - Cross-device Android acceptance confirms that a change saved from one connected device becomes the
   complete list after reconnecting the other, with no merge implied.
+
+## Production evidence
+
+Commit `147390c` was deployed by GitHub Actions run `32649721658`; its build and Pages jobs passed,
+including 106 automated tests, the repository privacy audit, production build and public-build
+audit. The live homepage served the matching `index-Bf8gx-Ch.js` application bundle and the updated
+privacy policy before article sync was exercised.
+
+The Android device then created the first authoritative snapshot by uploading 17 articles. A Chrome
+installation with three different local items reconnected and replaced them with the same 17-item
+Drive snapshot. Chrome changed one existing bookmark and reported **Up to date in Google Drive**;
+after reconnecting, Android loaded 17 articles and showed the changed bookmark. Chrome restored the
+bookmark, uploaded the restored snapshot, and a final Android reconnect loaded 17 articles with the
+original bookmark state. No article titles, URLs or Google account details are recorded in this
+repository evidence.
