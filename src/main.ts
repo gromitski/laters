@@ -1,6 +1,8 @@
 import "@ionic/core/css/core.css";
 import "./styles.css";
+import { saveCapturedItem } from "./capture/saveCapturedItem";
 import type { SavedItem } from "./domain/savedItem";
+import { createSavedItem, SavedItemValidationError } from "./domain/savedItem";
 import { createSourceIdentity, type SourceIdentity } from "./domain/sourceIdentity";
 import {
   requestApplicationInstall,
@@ -9,12 +11,14 @@ import {
 import { registerServiceWorker } from "./pwa/registerServiceWorker";
 import { IndexedDbReadingListStore } from "./storage/indexedDbReadingListStore";
 import { requestPersistentStorage } from "./storage/requestPersistentStorage";
+import { parseShareTarget } from "./share/parseShareTarget";
 import { shouldActivateArticleRow } from "./ui/articleRowActivation";
 import { createArticleShareData } from "./ui/articleShare";
 import { formatSavedTime } from "./ui/formatSavedTime";
 import { getBookmarkControlState } from "./ui/bookmarkPresentation";
 import { createReadingListEntries } from "./ui/readingListPresentation";
 import { loadPublisherFavicon } from "./ui/loadPublisherFavicon";
+import { readClipboardText } from "./ui/readClipboardText";
 import {
   BOOKMARK_STATE_CHANGED_EVENT,
   createMobileArticleShell,
@@ -47,6 +51,7 @@ const errorMessage = requireElement<HTMLParagraphElement>("error-message");
 const updateMessage = requireElement<HTMLDivElement>("update-message");
 const updateAction = requireElement<HTMLButtonElement>("update-action");
 const installAction = requireElement<HTMLButtonElement>("install-action");
+const pasteRow = createPasteToAddRow();
 
 let applicationInstallPrompt: ApplicationInstallPrompt | undefined;
 
@@ -134,13 +139,198 @@ function renderItems(animateEntries = false): void {
       : createArticleRow(entry.item, animateEntries, index),
   );
 
-  list.replaceChildren(...rows);
+  list.replaceChildren(pasteRow, ...rows);
   updateListSummary();
 }
 
 function updateListSummary(): void {
-  emptyState.hidden = list.children.length > 0;
+  emptyState.hidden = currentItems.length > 0;
   itemCount.textContent = `${currentItems.length} ${currentItems.length === 1 ? "item" : "items"}`;
+}
+
+function createPasteToAddRow(): HTMLLIElement {
+  const row = document.createElement("li");
+  row.className = "paste-row";
+  row.setAttribute("role", "presentation");
+
+  const pasteButton = document.createElement("button");
+  pasteButton.className = "paste-action";
+  pasteButton.type = "button";
+
+  const icon = createSvg("paste-action-icon", "0 0 24 24");
+  icon.setAttribute("stroke-width", "2");
+  const clipboard = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  clipboard.setAttribute("d", "M9 5V3h6v2m-8 0H5v16h14V5h-2M9 5h6v3H9z");
+  icon.append(clipboard);
+
+  const label = document.createElement("span");
+  label.textContent = "Paste a link";
+  pasteButton.append(icon, label);
+
+  const showPasteButton = (): void => {
+    row.classList.remove("is-editing");
+    row.replaceChildren(pasteButton);
+  };
+
+  const showPasteEntryForm = (): void => {
+    row.classList.add("is-editing");
+
+    const form = document.createElement("form");
+    form.className = "paste-entry-form";
+    form.noValidate = true;
+
+    const inputLabel = document.createElement("label");
+    inputLabel.className = "visually-hidden";
+    inputLabel.htmlFor = "paste-entry-url";
+    inputLabel.textContent = "Article URL";
+
+    const controls = document.createElement("div");
+    controls.className = "paste-entry-controls";
+
+    const input = document.createElement("input");
+    input.id = "paste-entry-url";
+    input.className = "paste-entry-input";
+    input.type = "url";
+    input.inputMode = "url";
+    input.autocomplete = "off";
+    input.autocapitalize = "none";
+    input.spellcheck = false;
+    input.placeholder = "https://example.com/article";
+    input.setAttribute("aria-describedby", "paste-entry-error");
+
+    const addButton = document.createElement("button");
+    addButton.className = "paste-add-action";
+    addButton.type = "submit";
+    addButton.textContent = "Add";
+
+    const error = document.createElement("p");
+    error.id = "paste-entry-error";
+    error.className = "paste-entry-error";
+    error.textContent = "That doesn't look like a link";
+    error.hidden = true;
+
+    const clearInputError = (): void => {
+      input.removeAttribute("aria-invalid");
+      error.hidden = true;
+    };
+
+    input.addEventListener("input", clearInputError);
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !input.value.trim()) {
+        event.preventDefault();
+        showPasteButton();
+        pasteButton.focus();
+      }
+    });
+
+    form.addEventListener("focusout", () => {
+      window.setTimeout(() => {
+        if (!row.contains(document.activeElement) && !input.value.trim()) {
+          showPasteButton();
+        }
+      }, 0);
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      clearInputError();
+
+      void savePastedValue(input.value, "manual").then((result) => {
+        if (result !== "invalid") {
+          return;
+        }
+
+        input.setAttribute("aria-invalid", "true");
+        error.hidden = false;
+        input.focus();
+      });
+    });
+
+    controls.append(input, addButton);
+    form.append(inputLabel, controls, error);
+    row.replaceChildren(form);
+    window.requestAnimationFrame(() => input.focus());
+  };
+
+  pasteButton.addEventListener("click", () => {
+    clearFeedback();
+    pasteButton.disabled = true;
+
+    const clipboard = "clipboard" in navigator ? navigator.clipboard : undefined;
+
+    void readClipboardText(clipboard).then(async (clipboardText) => {
+      if (!clipboardText) {
+        pasteButton.disabled = false;
+        showPasteEntryForm();
+        return;
+      }
+
+      const result = await savePastedValue(clipboardText, "clipboard");
+      pasteButton.disabled = false;
+
+      if (result === "invalid") {
+        showPasteEntryForm();
+      }
+    });
+  });
+
+  showPasteButton();
+  return row;
+
+  async function savePastedValue(
+    value: string,
+    source: "clipboard" | "manual",
+  ): Promise<"saved" | "invalid" | "storage-error"> {
+    let candidate: SavedItem;
+
+    try {
+      const input =
+        source === "clipboard"
+          ? parseShareTarget({ text: value })
+          : parseShareTarget({ url: value });
+      candidate = createSavedItem(input);
+    } catch (error) {
+      if (error instanceof SavedItemValidationError) {
+        return "invalid";
+      }
+
+      showError("Laters could not understand that link. Please try again.");
+      return "storage-error";
+    }
+
+    clearFeedback();
+    finalisePendingDeletion();
+    setBusy(true);
+
+    try {
+      const result = await saveCapturedItem(candidate, store);
+      currentItems = result.items;
+      showPasteButton();
+      renderItems();
+      highlightPastedArticle(result.item.id);
+      announceHiddenStatus(
+        `Saved. ${currentItems.length} ${currentItems.length === 1 ? "article" : "articles"}.`,
+      );
+      return "saved";
+    } catch {
+      showError("Laters could not save that article. Please try again.");
+      return "storage-error";
+    } finally {
+      setBusy(false);
+    }
+  }
+}
+
+function highlightPastedArticle(itemId: string): void {
+  const row = findRow(itemId);
+
+  if (!row) {
+    return;
+  }
+
+  row.classList.add("is-paste-highlight");
+  row.scrollIntoView({ block: "nearest" });
+  window.setTimeout(() => row.classList.remove("is-paste-highlight"), 1_100);
 }
 
 function createArticleRow(item: SavedItem, animate: boolean, index: number): HTMLLIElement {
@@ -663,9 +853,11 @@ function showShareResult(): void {
 function setBusy(isBusy: boolean): void {
   list.setAttribute("aria-busy", String(isBusy));
 
-  list.querySelectorAll("button").forEach((button) => {
-    button.disabled = isBusy;
-  });
+  list
+    .querySelectorAll<HTMLButtonElement | HTMLInputElement>("button, input")
+    .forEach((control) => {
+      control.disabled = isBusy;
+    });
 }
 
 function clearFeedback(): void {

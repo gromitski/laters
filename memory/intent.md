@@ -82,6 +82,18 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   wordmark only when the browser reports that this installation is available. The action invokes
   the browser's native PWA installation prompt; it is not a separate desktop application flow.
 
+## Accepted v0.4.0 direction
+
+- Add one persistent **Paste a link** row at the top of the saved-article list as a second deliberate
+  capture path.
+- Read clipboard text only after the user activates that control. If clipboard reading is unavailable,
+  denied, empty or contains no valid HTTP(S) URL, open an inline labelled URL field with **Add**.
+- Reuse the current validation, hostname-title fallback, exact-URL refresh, bookmark preservation,
+  newest-first ordering, source marker and IndexedDB contracts.
+- Keep the existing screen, item count, article presentation and local-storage disclosure unchanged.
+  Reading time, remote title enrichment, bulk intake and other surrounding mockup content remain out
+  of scope.
+
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.
 The accepted interaction architecture and implementation record live in

@@ -40,6 +40,8 @@ mobile interaction shell.
 - The accepted white/ink/lime identity, self-hosted Bricolage Grotesque typeface, supplied icon family, accessible icon-only Delete control and in-row seven-second Undo state.
 - The same white/ink/lime identity on the normal desktop browser page, with a wordmark-aligned
   **Install** action that appears only when the browser exposes native PWA installation.
+- An accepted `v0.4.0` Paste-to-add slice that adds copied or manually entered HTTP(S) URLs through
+  the existing local capture and duplicate-refresh contracts.
 - A published `v0.1.0` GitHub release tagged at verified rewritten commit `0178fc9`.
 - Published and maintainer-accepted MVP 2.0 bookmarks with the bright-lime supplied star treatment.
 - Published and maintainer-accepted 22px publisher source markers with exact-origin favicon attempts,
@@ -57,9 +59,8 @@ mobile interaction shell.
 
 ## Active focus
 
-Obtain the maintainer's short production acceptance of the published desktop branding and contextual
-**Install** action, then return to the remaining exploratory futures list. No future idea is
-otherwise selected.
+Complete, publish and physically verify the bounded `v0.4.0` **Paste a link** slice. No other future
+idea is selected.
 
 ## Active slice
 
@@ -88,8 +89,14 @@ the current deployed presentation. Commit `5296776` published the contextual ins
 GitHub Actions run `32632687610` passed. A clean production browser loaded the matching JavaScript
 and CSS, displayed the accepted branding, received the browser's install-availability event and
 showed the 44px **Install** action vertically centred beside the wordmark at desktop width. The
-native installation dialog remains a maintainer-controlled production acceptance check because
-opening and accepting it installs the PWA into that browser.
+maintainer subsequently accepted the native installation flow on 2026-08-23.
+
+The maintainer accepted the published desktop branding and native Install flow on 2026-08-23. The
+next accepted slice is `v0.4.0`: a persistent **Paste a link** row reads clipboard text only on user
+activation and falls back to inline manual URL entry. It reuses existing HTTP(S) validation,
+hostname fallback, exact-URL refresh with bookmark preservation, newest-first order, local storage,
+source markers and visible feedback. The surrounding design mockup is placement guidance only;
+reading times, remote title enrichment and changes to existing screen presentation are excluded.
 
 ## Blockers
 
@@ -103,16 +110,15 @@ None.
 
 ## Next safe action
 
-In a desktop browser where Laters is not already installed, apply **Update** if offered, confirm the
-white, ink and lime presentation, select **Install**, and confirm the browser's native installation
-dialog opens. Then discuss the remaining entries in `docs/future-ideas.md` and agree one bounded
-change, if any.
+Finish agent-owned verification, publish the exact `v0.4.0` candidate to production, then ask the
+maintainer to test clipboard success, manual fallback, invalid input and exact-URL refresh on the
+physical Android device.
 
 ## Last meaningful update
 
-2026-08-23 — Contextual desktop installation was published in `5296776`. GitHub Actions run
-`32632687610` passed, and production browser verification confirmed the matching branded assets and
-the wordmark-aligned **Install** action. The maintainer's native installation-dialog check remains.
+2026-08-23 — Desktop branding and native installation passed maintainer acceptance. `v0.4.0`
+Paste-to-add is the accepted active slice; implementation and production verification are in
+progress.
 
 ## Pointers
 
@@ -129,6 +135,7 @@ the wordmark-aligned **Install** action. The maintainer's native installation-di
 - [MVP 2.0 Slice 2 source marker plan](../docs/planning/mvp-2-slice-2-source-markers-plan.md)
 - [MVP 2.0 Slice 3 whole-row opening plan](../docs/planning/mvp-2-slice-3-whole-row-opening-plan.md)
 - [Mobile interaction shell plan](../docs/planning/mobile-interaction-shell-plan.md)
+- [Paste-to-add plan](../docs/planning/paste-to-add-plan.md)
 - [`v0.2.0` release record](../docs/releases/v0.2.0.md)
 - [`v0.3.0` release record](../docs/releases/v0.3.0.md)
 - Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`

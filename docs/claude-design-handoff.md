@@ -141,7 +141,8 @@ Do not add, imply or design navigation for features outside the accepted MVP. In
 - article previews, thumbnails, fetched metadata, full-text storage or reader mode;
 - AI summaries, recommendations or categorisation;
 - analytics, advertising, sharing history or social features;
-- manual URL entry, import/export or browser extensions; or
+- manual URL entry, import/export or browser extensions, except for the later accepted `v0.4.0`
+  inline pasted/manual HTTP(S) URL capture path; bulk import and extensions remain excluded; or
 - desktop-specific product flows beyond a sound responsive presentation. A later accepted exception
   permits one contextual **Install** action beside the wordmark when the browser reports that native
   PWA installation is available; it does not introduce desktop navigation or a separate product.

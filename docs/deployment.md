@@ -72,7 +72,23 @@ already installed, and disappears after the prompt is used or installation compl
 Commit `5296776` added this contextual action without introducing a desktop package or separate app.
 GitHub Actions run `32632687610` passed, and the public origin served the matching branded assets.
 A production browser received the install-availability event and displayed the aligned action; final
-acceptance of the native installation dialog remains a maintainer-controlled desktop check.
+acceptance of the native installation dialog passed on 2026-08-23.
+
+## Paste-to-add acceptance
+
+For the `v0.4.0` production candidate:
+
+1. Copy a representative public article URL, select **Paste a link**, and confirm the article is
+   saved directly below the control.
+2. Deny or otherwise make clipboard reading unavailable, then confirm the inline URL field and
+   **Add** action appear and can save a complete HTTP(S) URL.
+3. Enter invalid text and confirm the field stays open with **That doesn't look like a link**.
+4. Paste an already saved exact URL and confirm the existing item is refreshed at the top without a
+   duplicate and retains its bookmark state.
+5. Reopen Laters and confirm pasted items persist. Check that Share capture, row opening, gestures,
+   Delete/Undo and the local-storage disclosure remain unchanged.
+
+Record the tested Chrome version and any clipboard permission behaviour before release closure.
 
 ## Application updates and saved data
 

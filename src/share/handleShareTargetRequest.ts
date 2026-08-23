@@ -1,3 +1,4 @@
+import { saveCapturedItem } from "../capture/saveCapturedItem";
 import { createSavedItem, SavedItemValidationError } from "../domain/savedItem";
 import type { ReadingListStore } from "../storage/readingListStore";
 import { parseShareTarget } from "./parseShareTarget";
@@ -32,21 +33,7 @@ export async function handleShareTargetRequest(
   }
 
   try {
-    const existingItem = (await store.listNewestFirst()).find(
-      (candidate) => candidate.url === item.url,
-    );
-
-    const refreshedItem = existingItem
-      ? {
-          ...item,
-          id: existingItem.id,
-          ...(existingItem.bookmarked === undefined
-            ? {}
-            : { bookmarked: existingItem.bookmarked }),
-        }
-      : item;
-
-    await store.save(refreshedItem);
+    await saveCapturedItem(item, store);
     return shareResultRedirect(request.url, "saved");
   } catch {
     return shareResultRedirect(request.url, "storage-error");
