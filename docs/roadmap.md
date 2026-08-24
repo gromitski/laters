@@ -107,10 +107,10 @@ This slice changes documentation and presentation material, not application beha
 Status: implemented, published and maintainer-accepted on 2026-08-24. Commit `13c61ef` published the
 candidate through successful GitHub Actions run `32783130212`. The README now leads with opening,
 installation, capture, optional sync, everyday controls, disconnection and deletion guidance. Its
-two screenshots
-use only fictional `example.com`, `example.org` and `example.net` articles in an isolated local
-preview; they contain no browser chrome, accounts, email addresses, tokens or real reading-list
-content.
+two screenshots use only fictional `example.com`, `example.org` and `example.net` articles in an
+isolated local preview; they contain no browser chrome, accounts, email addresses, tokens or real
+reading-list content. The accepted public-readiness sequence was consolidated as the latest GitHub
+release, tagged `v0.5.7` at exact verified commit `3d4f980`.
 
 ## `v0.6.0` — Export
 
