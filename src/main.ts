@@ -3,6 +3,10 @@ import "./styles.css";
 import { saveCapturedItem } from "./capture/saveCapturedItem";
 import type { SavedItem } from "./domain/savedItem";
 import { createSavedItem, SavedItemValidationError } from "./domain/savedItem";
+import {
+  exportReadingList,
+  type ReadingListExportEnvironment,
+} from "./export/readingListExport";
 import { createSourceIdentity, type SourceIdentity } from "./domain/sourceIdentity";
 import {
   requestApplicationInstall,
@@ -37,6 +41,7 @@ import {
   setApplicationMenuSyncState,
 } from "./ui/applicationMenu";
 import { createReadingListEntries } from "./ui/readingListPresentation";
+import { installReadingListExportAction } from "./ui/readingListExportAction";
 import { loadPublisherFavicon } from "./ui/loadPublisherFavicon";
 import { readClipboardText } from "./ui/readClipboardText";
 import {
@@ -94,6 +99,8 @@ const googleDriveDisconnectAction = requireElement<HTMLButtonElement>(
 const googleDriveConnectionStatus = requireElement<HTMLParagraphElement>(
   "google-drive-connection-status",
 );
+const exportDataAction = requireElement<HTMLButtonElement>("export-data-action");
+const exportDataStatus = requireElement<HTMLParagraphElement>("export-data-status");
 const pasteRow = createPasteToAddRow();
 
 let applicationInstallPrompt: ApplicationInstallPrompt | undefined;
@@ -212,6 +219,13 @@ googleDriveDisconnectAction.addEventListener("click", () => {
     });
 });
 
+installReadingListExportAction({
+  action: exportDataAction,
+  status: exportDataStatus,
+  beforeExport: clearFeedback,
+  runExport: () => exportReadingList(store, browserExportEnvironment()),
+});
+
 showRememberedGoogleDriveConnection();
 
 showShareResult();
@@ -254,6 +268,30 @@ function showUpdateAvailable(applyUpdate: () => void): void {
     { once: true },
   );
   updateMessage.hidden = false;
+}
+
+function browserExportEnvironment(): ReadingListExportEnvironment {
+  return {
+    canShare:
+      typeof navigator.canShare === "function"
+        ? (data) => navigator.canShare(data)
+        : undefined,
+    share:
+      typeof navigator.share === "function"
+        ? (data) => navigator.share(data)
+        : undefined,
+    createObjectUrl: (file) => URL.createObjectURL(file),
+    download: (url, fileName) => {
+      const action = document.createElement("a");
+      action.href = url;
+      action.download = fileName;
+      action.hidden = true;
+      document.body.append(action);
+      action.click();
+      action.remove();
+    },
+    revokeObjectUrl: (url) => URL.revokeObjectURL(url),
+  };
 }
 
 function hideInstallAction(): void {

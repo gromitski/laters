@@ -13,8 +13,9 @@ mobile interaction shell. Release `v0.4.2` consolidates the accepted sharing, de
 paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0`. Release `v0.5.0`
 records private Google Drive live sync, and `v0.5.1` records its automatic housekeeping follow-up.
 Release `v0.5.7` consolidates the accepted code, configuration and documentation delivered after
-`v0.5.1`. Package metadata and the deployed application are `0.5.7`; the configuration-only public
-OAuth gate is accepted as `v0.5.6`, and the documentation-only `v0.5.7` non-technical introduction
+`v0.5.1`. Package metadata is `0.6.0` for the Export candidate; `v0.5.7` remains the latest tagged
+release. The configuration-only public OAuth gate is accepted as `v0.5.6`, and the documentation-only
+`v0.5.7` non-technical introduction
 is published and maintainer-accepted. `v0.5.7` is the latest tagged GitHub release and resolves to
 exact verified commit `3d4f980`.
 
@@ -79,16 +80,19 @@ exact verified commit `3d4f980`.
   and a public security-reporting policy.
 - An accepted user-first `v0.5.7` README with concise opening, installation, capture, optional sync,
   everyday-use, disconnection and data-deletion guidance plus two privacy-safe sample screenshots.
+- A `v0.6.0` Export candidate in the main menu that creates a versioned CSV of local article URLs,
+  titles, saved times, bookmark state and deliberate-title state without exposing credentials,
+  connection data, internal identifiers or sync operations.
 
 ## Active focus
 
-`v0.5.7` is released. The next work is to define the bounded `v0.6.0` Export format, behaviour and
-acceptance checks before implementation. No Export work has begun.
+The bounded `v0.6.0` Export candidate is implemented and agent-verified. The next work is published
+human acceptance of the main-menu CSV share/download flow and its real exported content.
 
 ## Active slice
 
-The next roadmap slice is `v0.6.0` Export. Its data format, precise behaviour and acceptance checks
-must be agreed before implementation. No Export work has begun.
+`v0.6.0` Export is implemented as a candidate. It uses the agreed portable CSV contract; Import
+remains outside the active slice. Published human acceptance is pending.
 
 ## Blockers
 
@@ -109,10 +113,20 @@ must be agreed before implementation. No Export work has begun.
 
 ## Next safe action
 
-Define and agree the bounded `v0.6.0` Export format, behaviour and acceptance checks before
-implementation. Import remains explicitly outside that release.
+Publish the verified `v0.6.0` candidate through the automatic Pages workflow, then complete the
+short human acceptance check for CSV sharing/downloading and exported content. Import remains
+explicitly outside this release.
 
 ## Last meaningful update
+
+2026-08-25 — The bounded `v0.6.0` Export candidate adds **Export data** to the main menu. It creates
+a versioned UTF-8 CSV with `url`, `title`, `created` and `tags` columns, preserves bookmark and
+deliberate-title state with namespaced tags, and reversibly protects titles that could be interpreted
+as spreadsheet formulas. Supporting browsers use the file share chooser and others download locally;
+cancellation is not an error. Focused tests prove formatting, escaping, filename, delivery fallbacks,
+accessible interaction states and that export does not mutate IndexedDB articles or pending sync
+operations. Credentials, accounts, connection details, local identifiers and Drive operation or
+checkpoint state are excluded. Import remains deferred.
 
 2026-08-24 — `v0.5.7` was published as the latest GitHub release from exact verified commit
 `3d4f980` after GitHub Pages workflow `32785880312` passed. The remote lightweight tag resolves to
@@ -233,6 +247,7 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [`v0.5.0` release record](../docs/releases/v0.5.0.md)
 - [`v0.5.1` release record](../docs/releases/v0.5.1.md)
 - [`v0.5.7` release record](../docs/releases/v0.5.7.md)
+- [CSV export format](../docs/export-format.md)
 - [Google Drive connection security plan](../docs/planning/google-drive-connection-security-plan.md)
 - [Code security hardening plan](../docs/planning/code-security-hardening-plan.md)
 - [Desktop actions and responsive-width plan](../docs/planning/desktop-actions-responsive-plan.md)

@@ -47,6 +47,17 @@ changes remain safe: open the menu and use **Resume Google Drive** to continue s
 - Long-press an article for Read, Edit title, Bookmark, Share and Delete. Sharing sends only its URL.
 - On desktop, use the visible three-dot article control for the same menu.
 
+## Export your data
+
+Open the circular menu and select **Export data** to create a CSV copy of the articles stored on that
+device. The export contains article addresses, titles, saved times and namespaced tags for bookmarks
+and deliberately edited titles. It can be opened as a spreadsheet or used by tools that accept a CSV
+of links.
+
+Where supported, Laters opens the browser or operating-system share chooser for the CSV file. Other
+browsers start a local download. Laters does not upload the export or send it to Google Drive; the
+file reaches another destination only when you deliberately choose one. Import is not yet available.
+
 ## Disconnect or delete data
 
 - **Stop syncing this browser:** open the menu and select **Disconnect**. Laters also asks Google to
@@ -73,7 +84,7 @@ tokens remain in page memory and are not saved to browser storage or Drive.
 Laters tries to load the conventional favicon directly from each saved publisher. That request can
 reveal your IP address and request timing to the publisher, but no central favicon service receives
 your list or its source domains. Clearing browser data, storage eviction and some uninstall behaviour
-can remove a local-only list; Export is planned for a later release.
+can remove a local-only list. Use **Export data** when you want a separate CSV copy.
 
 ## For developers
 
@@ -104,7 +115,8 @@ Project records: [MVP definition](docs/mvp-definition.md),
 [`v0.5.0` release](docs/releases/v0.5.0.md),
 [v0.5.7 public-readiness release](docs/releases/v0.5.7.md),
 [Google Drive live sync](docs/planning/google-drive-live-sync-plan.md),
-[roadmap through Export](docs/roadmap.md), [current project truth](memory/now.md), and
+[CSV export format](docs/export-format.md), [roadmap](docs/roadmap.md),
+[current project truth](memory/now.md), and
 [exploratory future ideas](docs/future-ideas.md).
 
 ## Licence

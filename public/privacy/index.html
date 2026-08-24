@@ -25,7 +25,7 @@
         <a class="back-link" href="/" aria-label="Back to Laters">← Laters</a>
         <p class="eyebrow">Your data, plainly</p>
         <h1>Privacy policy</h1>
-        <p class="effective-date">Effective 23 August 2026</p>
+        <p class="effective-date">Effective 25 August 2026</p>
         <p class="summary">
           Laters is a local-first read-later app. Your reading list stays in your browser unless you
           choose the optional Google Drive sync. If connected, Laters stores a private copy in your
@@ -41,6 +41,7 @@
           <li>Saved article details are stored locally on your device.</li>
           <li>Publisher favicons are requested directly from those publishers.</li>
           <li>The optional Google Drive sync stores your reading list in private application data.</li>
+          <li>Export creates a CSV file only when you choose it.</li>
           <li>Laters does not sell personal information.</li>
         </ul>
       </section>
@@ -59,6 +60,23 @@
         <p>
           Laters itself does not set cookies. It can read clipboard text only after you deliberately
           choose <strong>Paste a link</strong>. That text is processed locally.
+        </p>
+      </section>
+
+      <section aria-labelledby="export-data">
+        <h2 id="export-data">Exporting your data</h2>
+        <p>
+          When you choose <strong>Export data</strong> from the menu, Laters reads the resolved
+          reading list stored on that device and creates a CSV file containing article web addresses,
+          titles, saved times and namespaced tags for bookmark and title-edit state. It does not
+          include Google credentials, account information, connection history, local article
+          identifiers, pending sync records or Drive housekeeping data.
+        </p>
+        <p>
+          Where file sharing is supported, Laters gives the CSV file to the browser or operating
+          system so you can choose a destination. Otherwise the browser starts a local download.
+          Laters does not upload the export, send it to Google Drive or tell the maintainer what it
+          contains. A destination you deliberately choose handles the file under its own terms.
         </p>
       </section>
 
@@ -153,7 +171,8 @@
         <p>
           Laters does not sell personal information or share a reading list with the maintainer.
           Information reaches third parties only through the hosting, publisher and Google requests
-          described above, or when you deliberately open or share an article.
+          described above, or when you deliberately open or share an article or send an export to a
+          chosen destination.
         </p>
       </section>
 

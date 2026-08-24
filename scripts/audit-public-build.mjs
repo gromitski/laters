@@ -38,6 +38,7 @@ const REQUIRED_PUBLIC_CONTENT = new Map([
     [
       'href="/privacy/"',
       'href="/terms/"',
+      'id="export-data-action"',
       'id="frame-guard"',
       'src="/frame-guard.js"',
     ],
@@ -57,6 +58,8 @@ const REQUIRED_PUBLIC_CONTENT = new Map([
       "short-lived Google access token",
       "Google API Services User Data Policy",
       "Delete hidden app data",
+      "Export data",
+      "creates a CSV file",
       "The Laters maintainer cannot see your reading list",
       'href="/terms/"',
     ],

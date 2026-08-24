@@ -1267,13 +1267,25 @@ h1 {
   margin: 0;
 }
 
+.data-export {
+  margin-top: 0.75rem;
+  border: 1.5px solid var(--hairline);
+  border-radius: 12px;
+  padding: 1rem;
+  background: var(--canvas);
+}
+
 .sync-experiment-kicker,
+.data-export-kicker,
 .sync-experiment h2,
-.sync-experiment p {
+.data-export h2,
+.sync-experiment p,
+.data-export p {
   margin: 0;
 }
 
-.sync-experiment-kicker {
+.sync-experiment-kicker,
+.data-export-kicker {
   color: var(--accent-text);
   font-size: 0.68rem;
   font-weight: 800;
@@ -1281,12 +1293,14 @@ h1 {
   text-transform: uppercase;
 }
 
-.sync-experiment h2 {
+.sync-experiment h2,
+.data-export h2 {
   margin-top: 0.2rem;
   font-size: 1rem;
 }
 
-.sync-experiment > p:not(.sync-experiment-kicker):not(.sync-experiment-status) {
+.sync-experiment > p:not(.sync-experiment-kicker):not(.sync-experiment-status),
+.data-export > p:not(.data-export-kicker):not(.data-export-status) {
   max-width: 32rem;
   margin-top: 0.35rem;
   color: var(--text-muted);
@@ -1301,7 +1315,8 @@ h1 {
   margin-top: 0.85rem;
 }
 
-.sync-experiment button {
+.sync-experiment button,
+.data-export button {
   min-height: var(--target);
   border: 0;
   border-radius: var(--r-pill);
@@ -1319,12 +1334,14 @@ h1 {
   background: var(--surface);
 }
 
-.sync-experiment button:focus-visible {
+.sync-experiment button:focus-visible,
+.data-export button:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 3px;
 }
 
-.sync-experiment button:disabled {
+.sync-experiment button:disabled,
+.data-export button:disabled {
   cursor: wait;
   opacity: 0.6;
 }
@@ -1334,6 +1351,22 @@ h1 {
   color: var(--text-meta);
   font-size: 0.72rem;
   font-weight: 700;
+}
+
+.data-export button {
+  margin-top: 0.85rem;
+}
+
+.data-export-status {
+  min-height: 1.05rem;
+  margin-top: 0.55rem !important;
+  color: var(--text-meta);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.data-export-status.is-error {
+  color: var(--error);
 }
 
 .application-menu-modal footer {

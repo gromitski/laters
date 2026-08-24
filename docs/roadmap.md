@@ -125,6 +125,13 @@ release, tagged `v0.5.7` at exact verified commit `3d4f980`.
 Import is deliberately not bundled into this release. The export format should make a later import
 possible without promising it in `v0.6.0`.
 
+Status: implemented as a `v0.6.0` candidate. The main menu creates a user-initiated, versioned CSV
+with `url`, `title`, `created` and `tags` columns. Namespaced tags preserve bookmark and deliberate
+title-edit state without exposing local identifiers, pending operations, Drive metadata, credentials
+or connection information. Supporting browsers open a file share chooser; others download locally.
+Automated verification is complete and published human acceptance remains pending. Import is still
+outside this slice.
+
 ## After `v0.6.0`
 
 - Import is the next intended product slice.
