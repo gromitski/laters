@@ -166,6 +166,10 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   promotion.
 - Deliver Export as `v0.6.0`; consider Import next and dark mode after it. Neither later slice is
   authorised for implementation by this sequence alone.
+- Accepted `v0.5.3` policy boundary: the hosted app states that it is a free, open-source personal
+  project used at the user's own risk; users remain responsible for their devices, Google Account,
+  saved links and acceptable use; data and third-party risks are allocated specifically rather than
+  through a blanket waiver; and every legal right or responsibility that cannot be excluded remains.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.

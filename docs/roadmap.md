@@ -22,6 +22,8 @@ local-first personal tool with no Laters account, backend or public database.
 
 This slice does not make OAuth public, add accounts, introduce a backend or create refresh tokens.
 
+Status: implemented, published and accepted in `v0.5.2`.
+
 ### `v0.5.3` — terms and acceptable use
 
 - Publish plain-English Terms covering the open-source, at-your-own-risk nature of the service,
@@ -32,6 +34,8 @@ This slice does not make OAuth public, add accounts, introduce a backend or crea
 
 This slice is documentation and product policy. It does not claim that wording can override
 applicable law or remove responsibilities that cannot legally be excluded.
+
+Status: implemented as the `v0.5.3` candidate; published review remains the acceptance gate.
 
 ### `v0.5.4` — production project and safeguards
 

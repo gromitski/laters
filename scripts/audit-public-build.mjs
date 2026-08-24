@@ -33,7 +33,7 @@ const APPROVED_PUBLIC_LITERALS = [
   "https://www.googleapis.com/upload/drive/v3/files",
 ];
 const REQUIRED_PUBLIC_CONTENT = new Map([
-  ["index.html", ['href="/privacy/"']],
+  ["index.html", ['href="/privacy/"', 'href="/terms/"']],
   [
     "privacy/index.html",
     [
@@ -45,6 +45,19 @@ const REQUIRED_PUBLIC_CONTENT = new Map([
       "short-lived Google access token",
       "Google API Services User Data Policy",
       "Delete hidden app data",
+      'href="/terms/"',
+    ],
+  ],
+  [
+    "terms/index.html",
+    [
+      "Effective 24 August 2026",
+      "Acceptable use",
+      "Laters is not a guaranteed backup service",
+      "reasonable care and skill",
+      "death or personal injury caused by",
+      "mailto:hello@dustyb.in",
+      'href="/privacy/"',
     ],
   ],
 ]);

@@ -178,13 +178,21 @@ None.
 
 ## Next safe action
 
-Define the bounded `v0.5.3` Terms and acceptable-use slice in plain English before implementation.
-It should explain the open-source, at-your-own-risk service; user responsibility for devices,
-accounts, saved links and use; prohibited abuse; and liability limits only to the fullest extent
-permitted by law. Google OAuth remains in Testing and production-project work remains gated behind
-the later `v0.5.4` and `v0.5.5` slices.
+Complete published review of the `v0.5.3` Terms and acceptable-use candidate. Open **Terms** from the
+application drawer on phone and desktop and confirm that the presentation, plain-English tone,
+personal-responsibility boundary and data-risk explanation match the intended public product.
+Google OAuth remains in Testing and production-project work remains gated behind the later `v0.5.4`
+and `v0.5.5` slices.
 
 ## Last meaningful update
+
+2026-08-24 — The bounded `v0.5.3` candidate adds public Terms and acceptable-use rules for the hosted
+app, while distinguishing separately licensed source code. Users are responsible for their devices,
+Google Account, saved links, backups and acceptable use; loss and disclosure risks are allocated to
+the user, third parties or the maintainer according to cause rather than an absolute waiver; and
+non-excludable consumer, reasonable-care, negligence and fraud protections remain. Terms are linked
+from the app drawer, privacy policy and README. OAuth and application behaviour are unchanged.
+Published visual and wording acceptance remains outstanding.
 
 2026-08-24 — The maintainer completed the published `v0.5.2` desktop/Android check and reported that
 the connection-security behaviour appears good. This closes physical acceptance for memory-only

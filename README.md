@@ -36,6 +36,8 @@ clearing browser data may remove it. Laters directly
 attempts the conventional favicon on each saved publisher's origin; this can reveal the device IP
 address and request timing to that publisher, but no central favicon service receives the reading
 list or source domains. See the public [privacy policy](https://laters.dustyb.in/privacy/).
+Use of the hosted app is also covered by its plain-English
+[Terms and acceptable-use rules](https://laters.dustyb.in/terms/).
 
 ## Optional Google Drive sync
 
@@ -78,6 +80,7 @@ See the completed [MVP definition](docs/mvp-definition.md), completed
 [`v0.5.0` release record](docs/releases/v0.5.0.md),
 [Google Drive live-sync record](docs/planning/google-drive-live-sync-plan.md),
 [application-menu record](docs/planning/application-menu-drawer-plan.md),
+[Terms and acceptable-use record](docs/planning/terms-and-acceptable-use-plan.md),
 [accepted roadmap through Export](docs/roadmap.md), [current project truth](memory/now.md) and
 remaining [exploratory future ideas](docs/future-ideas.md).
 
