@@ -102,6 +102,7 @@ Project records: [MVP definition](docs/mvp-definition.md),
 [MVP 2.0 definition](docs/mvp-2-definition.md),
 [`v0.4.2` release](docs/releases/v0.4.2.md),
 [`v0.5.0` release](docs/releases/v0.5.0.md),
+[v0.5.7 public-readiness release](docs/releases/v0.5.7.md),
 [Google Drive live sync](docs/planning/google-drive-live-sync-plan.md),
 [roadmap through Export](docs/roadmap.md), [current project truth](memory/now.md), and
 [exploratory future ideas](docs/future-ideas.md).

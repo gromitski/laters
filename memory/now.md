@@ -12,9 +12,11 @@ completed bookmark, source-marker and whole-row-opening release; and `v0.3.0` re
 mobile interaction shell. Release `v0.4.2` consolidates the accepted sharing, desktop-install,
 paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0`. Release `v0.5.0`
 records private Google Drive live sync, and `v0.5.1` records its automatic housekeeping follow-up.
-The currently deployed application bundle is `v0.5.5`; the configuration-only public OAuth gate is
-accepted as `v0.5.6`. The documentation-only `v0.5.7` non-technical introduction is published and
-maintainer-accepted. The latest tagged GitHub release remains `v0.5.1`.
+The accepted code, configuration and documentation are consolidated in a `v0.5.7` release
+candidate. Package metadata is `0.5.7`; the configuration-only public OAuth gate is accepted as
+`v0.5.6`, and the documentation-only `v0.5.7` non-technical introduction is published and
+maintainer-accepted. The latest tagged GitHub release remains `v0.5.1` until the release candidate
+passes its final workflow and is tagged.
 
 ## What exists now
 
@@ -80,11 +82,9 @@ maintainer-accepted. The latest tagged GitHub release remains `v0.5.1`.
 
 ## Active focus
 
-The `v0.5.7` non-technical introduction is published and maintainer-accepted. The README starts
-with the live app, safe sample imagery and short task-led guidance before technical architecture
-and development material. Its two screenshots use disposable fictional `example.com`,
-`example.org` and `example.net` records in an isolated local preview; visual inspection found no
-personal articles, accounts, email addresses, tokens or browser details.
+Prepare the accepted `v0.5.2` through `v0.5.7` public-readiness work as one exact `v0.5.7` GitHub
+release. The package version and durable release record are ready; final verification, deployment,
+tagging and GitHub release publication remain.
 
 ## Active slice
 
@@ -110,8 +110,9 @@ must be agreed before implementation. No Export work has begun.
 
 ## Next safe action
 
-Define and agree the bounded `v0.6.0` Export format, behaviour and acceptance checks before
-implementation. Import remains explicitly outside that release.
+Complete and verify the authorised `v0.5.7` GitHub release, then define and agree the bounded
+`v0.6.0` Export format, behaviour and acceptance checks before implementation. Import remains
+explicitly outside that release.
 
 ## Last meaningful update
 
@@ -226,6 +227,7 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [`v0.4.2` release record](../docs/releases/v0.4.2.md)
 - [`v0.5.0` release record](../docs/releases/v0.5.0.md)
 - [`v0.5.1` release record](../docs/releases/v0.5.1.md)
+- [`v0.5.7` release record](../docs/releases/v0.5.7.md)
 - [Google Drive connection security plan](../docs/planning/google-drive-connection-security-plan.md)
 - [Code security hardening plan](../docs/planning/code-security-hardening-plan.md)
 - [Desktop actions and responsive-width plan](../docs/planning/desktop-actions-responsive-plan.md)
