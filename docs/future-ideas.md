@@ -7,17 +7,17 @@ product. The selected public-readiness sequence through Export now lives in the
 [accepted roadmap](roadmap.md); every other idea here still needs its own evidence, privacy review
 and bounded release decision before implementation.
 
-## Before any public Google Drive access
+## Public Google Drive access
 
-- The OAuth support contact is now `hello@dustyb.in`, and mailbox ownership was confirmed on
-  2026-08-23. The public privacy policy is live and registered in the OAuth branding configuration.
-- Google's Verification Centre reports that verification is not required while the OAuth app is in
-  **Testing**. Before public access, make a separate decision to move to **In production** and
-  complete any brand checks Google then requests.
-- Keep the OAuth application in **Testing** with only the maintainer admitted until that decision.
-- The accepted next step is `v0.5.5`: create a separate production project and client, keep it in
-  **Testing**, configure safeguards and complete a controlled data-preserving transition. Public
-  OAuth publication remains the separate `v0.5.6` gate.
+- The production OAuth app moved to **In production** and passed desktop/mobile acceptance on
+  2026-08-24. Any Google Account can now connect.
+- The OAuth support and developer contact is `hello@dustyb.in`; `dustyb.in` ownership is verified,
+  and the public privacy policy and Terms links are saved and live.
+- Google requires no data-access verification for the exact non-sensitive `drive.appdata` scope.
+  It currently presents the consent request as `dustyb.in`, because the Verification Centre says
+  branding is not shown and the Branding page offers no verification action for this configuration.
+- The separate production project, no-billing safeguards, data-preserving client transition and
+  public OAuth gate are accepted as `v0.5.5` and `v0.5.6` respectively.
 
 The MVP should remain fast, local-first and focused. Public source code must never imply a public reading list, shared database or committed credentials.
 

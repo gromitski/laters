@@ -12,7 +12,8 @@ completed bookmark, source-marker and whole-row-opening release; and `v0.3.0` re
 mobile interaction shell. Release `v0.4.2` consolidates the accepted sharing, desktop-install,
 paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0`. Release `v0.5.0`
 records private Google Drive live sync, and `v0.5.1` records its automatic housekeeping follow-up.
-The currently deployed application is `v0.5.4`; the latest tagged GitHub release remains `v0.5.1`.
+The currently deployed application bundle is `v0.5.5`; the configuration-only public OAuth gate is
+accepted as `v0.5.6`. The latest tagged GitHub release remains `v0.5.1`.
 
 ## What exists now
 
@@ -76,34 +77,22 @@ The currently deployed application is `v0.5.4`; the latest tagged GitHub release
 
 ## Active focus
 
-`v0.5.5` production project and safeguards is implemented, published and accepted. The separate
-`Laters Production` Google Cloud project and production-origin web client remain in **Testing** with
-only the maintainer admitted and request only `drive.appdata`. Billing is unlinked, project and
-per-user request caps are set to 10,000 and 5,000 requests per minute, and automatic quota increases
-are off. Desktop and Android retained and aligned the complete list and passed a disposable
-cross-device add/delete round trip.
+`v0.5.6` public OAuth approval is implemented and accepted. The separate `Laters Production` Google
+Cloud project is **In production** and available to any Google Account. It requests only
+`drive.appdata`; billing is unlinked, project and per-user request caps remain 10,000 and 5,000
+requests per minute, and automatic quota increases are off. `dustyb.in` ownership is verified and
+`hello@dustyb.in` is the public support and developer contact. Desktop and Android retained the
+complete 18-item list and reported Drive up to date.
 
 ## Active slice
 
-The user-visible sync behaviour should remain unchanged. This is a Google configuration, client
-transition and data-preservation slice, not a new sync design.
-
-Google documents the application data folder as private to the application. It does not precisely
-state whether a new Cloud project and OAuth client retain the old project's application identity.
-Treat the new project as a potentially empty Drive boundary until a controlled test proves otherwise.
-The current implementation uploads the complete local list when no remote article file exists, and
-that path has focused automated coverage. Therefore one installation with the complete accepted list
-must be designated as the seed device and connected to the new client first. Verify its exact list in
-the new project before connecting any other installation. Keep the old test project unchanged as the
-rollback boundary until desktop and Android acceptance passes.
-
-Do not create public users, link billing, delete the rollback project or move OAuth out of
-**Testing** without the explicit `v0.5.6` gate in `docs/roadmap.md`.
+The next active slice is `v0.5.7`: make the public README welcoming to non-technical users with
+privacy-safe screenshots and short install, connect, disconnect and data-deletion guidance. This is
+a documentation and presentation slice, not a sync-behaviour change.
 
 ## Blockers
 
-- No current implementation blocker. Moving OAuth out of Testing remains an explicit maintainer
-  decision and must not be inferred from the accepted `v0.5.5` transition.
+- No current implementation blocker.
 
 ## Uncertainties
 
@@ -114,14 +103,25 @@ Do not create public users, link billing, delete the rollback project or move OA
   automation rather than manually manufacturing 100 changes or a forced Drive failure.
 - Whether Google treats the new production project as the same `appDataFolder` application identity
   is not documented precisely enough to assume; the controlled seed-device transition is the gate.
+- Google currently shows `dustyb.in`, rather than `Laters`, on public consent. Its Verification
+  Centre says branding is not shown, but the Branding page exposes no **Verify branding** action for
+  the current no-logo, one-domain, non-sensitive configuration.
 
 ## Next safe action
 
-Begin the bounded `v0.5.6` public OAuth approval slice only after presenting its exact verification,
-public-access and rollback gates. This does not authorise billing or deleting the old rollback
-project.
+Begin the bounded `v0.5.7` non-technical introduction. Do not use acceptance screenshots containing
+private articles, account addresses, tokens, browser chrome or unrelated tabs.
 
 ## Last meaningful update
+
+2026-08-24 — `v0.5.6` public OAuth approval completed. Google verified `dustyb.in` ownership, saved
+`hello@dustyb.in` as the public support and developer contact, and moved the External production
+client to **In production** for any Google Account. Data-access verification is not required for the
+sole non-sensitive `drive.appdata` scope. Fresh desktop consent showed the exact application-data
+permission, retained all 18 items and returned Drive to up to date; the maintainer also accepted the
+production connection on mobile. Google currently presents the app as `dustyb.in`, not `Laters`, and
+offers no brand-verification action for the current configuration. Billing, quotas and the old
+rollback project remain unchanged.
 
 2026-08-24 — `v0.5.5` production project and safeguards was implemented, published in commit
 `5e039da` through successful GitHub Actions run `32742790944`, and accepted on desktop and Android.

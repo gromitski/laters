@@ -2,8 +2,9 @@
 
 ## Status
 
-Implemented, published and accepted as the bounded `v0.5.5` slice. The OAuth app remains in
-**Testing**, with only the maintainer admitted, until the separate `v0.5.6` public approval gate.
+Implemented, published and accepted as the bounded `v0.5.5` client-transition slice and the
+configuration-only `v0.5.6` public-approval slice. The OAuth app is **In production** and available
+to any Google Account.
 
 ## Google project boundary
 
@@ -18,8 +19,8 @@ Implemented, published and accepted as the bounded `v0.5.5` slice. The OAuth app
 ## OAuth boundary
 
 - User type: External.
-- Publishing status: **Testing**.
-- Test users: the maintainer only.
+- Publishing status: **In production**.
+- Audience: any Google Account.
 - App name: `Laters`.
 - Public application home page: `https://laters.dustyb.in/`.
 - Public privacy policy: `https://laters.dustyb.in/privacy/`.
@@ -68,9 +69,9 @@ After publication:
 5. confirm both installations show the same complete list; and
 6. perform one cross-device add and delete check.
 
-Any mismatch stops the transition. Do not connect another installation, delete the old project or
-move OAuth out of Testing. The old project remains the rollback boundary until desktop and Android
-acceptance passes.
+During `v0.5.5`, any mismatch would have stopped the transition and prevented public publication.
+The old project remains unchanged as a conservative rollback boundary after desktop and Android
+acceptance passed.
 
 ## Automated evidence
 
@@ -100,3 +101,29 @@ item on desktop propagated to Android, and both installations returned to the sa
 **Up to date in Google Drive**. This completes the seed, second-device, cross-device add/delete and
 local-change-retention acceptance gates. The previous project remains unchanged as a conservative
 rollback boundary; it is not used by the published application.
+
+## Public OAuth approval and acceptance
+
+On 2026-08-24, Google Search Console verified ownership of `dustyb.in` through the domain's DNS
+provider. The Google verification TXT record must remain in DNS. The registered
+`hello@dustyb.in` Google identity was added to the project as **Editor** and **OAuth Config Editor
+(beta)** so Google would permit it to be saved as both the public user-support address and developer
+contact. The maintainer's private address is not the configured public support contact.
+
+The OAuth audience was then moved from **Testing** to **In production**. The project remains External,
+uses the same production-only JavaScript origin, has no redirect URI, requests only the non-sensitive
+`drive.appdata` scope, has no linked billing account and retains the accepted request caps. Google's
+Verification Centre confirms that no data-access verification is required.
+
+Google currently shows the verified domain `dustyb.in`, rather than the configured app name
+`Laters`, on the account chooser and consent screen. Its Verification Centre says branding is not
+shown, but neither the project owner nor OAuth Config Editor is offered a **Verify branding** action
+on the Branding page. No logo was added merely to trigger verification. This is a recorded Google
+presentation limitation, not a broader permission or an application failure.
+
+Fresh desktop consent displayed the exact permission to see, create and delete only the app's own
+configuration data in Drive. The account address shown beside that consent was the signed-in user's
+own Google Account, not a public maintainer contact. Desktop reconnected with all 18 items and
+reported **Up to date in Google Drive**. The maintainer also confirmed that the production connection
+works on mobile. This completes the `v0.5.6` domain, support-contact, public-audience, exact-scope and
+real-device acceptance gates.

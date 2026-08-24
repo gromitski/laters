@@ -281,3 +281,23 @@ appeared on Android as item 19, and its desktop deletion returned both installat
 maintainer confirmed both devices were up to date on 2026-08-24, completing the production-project
 data-preservation and cross-device acceptance gate. Public OAuth remains the separate `v0.5.6`
 decision.
+
+## Public Google OAuth acceptance
+
+The configuration-only `v0.5.6` gate completed on 2026-08-24 without changing the deployed
+application bundle. The production project is now **In production** and available to any Google
+Account. Domain ownership for `dustyb.in` is verified, `hello@dustyb.in` is the saved public support
+and developer contact, billing remains unlinked, the request caps are unchanged and `drive.appdata`
+remains the only requested scope. Google reports that this non-sensitive scope requires no
+data-access verification.
+
+Google currently identifies the consent request as `dustyb.in`, not `Laters`. The Verification
+Centre says branding is not shown, while the Branding page provides no **Verify branding** action
+for the current no-logo, one-domain, non-sensitive configuration. A logo was not added solely to
+trigger review.
+
+After the existing grant was removed from the maintainer's Google Account, fresh desktop consent
+showed the exact application-data permission. The Google Account address visible on that screen was
+the consenting user's own address; it is not exposed to other users. Reconnection retained all 18
+items and returned to **Up to date in Google Drive**. The maintainer also accepted the production
+connection on mobile.

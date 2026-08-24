@@ -3,7 +3,7 @@
 > Historical connection-only record. The accepted successor is
 > [Google Drive article sync](google-drive-article-sync-plan.md).
 
-## Public-access blockers — resolve first
+## Public-access follow-up
 
 The OAuth support contact was changed to `hello@dustyb.in` on 2026-08-23 after its mailbox and
 Google identity were confirmed. Temporary project access used to make the address selectable was
@@ -13,10 +13,10 @@ The public privacy policy was published at `https://laters.dustyb.in/privacy/` o
 live page and homepage link passed the production build audit and browser verification; the exact
 homepage and privacy-policy URLs were then saved and rechecked in Google's OAuth branding settings.
 
-Google's Verification Centre currently reports that verification is not required because the OAuth
-app has **Testing** publishing status. Before public access, make a separate decision to move to
-**In production** and complete any brand checks Google then requests. Until then, keep only the
-maintainer admitted as a test user.
+The later production project moved to **In production** and passed desktop/mobile acceptance on
+2026-08-24. Google requires no data-access verification for `drive.appdata`; it currently presents
+the unverified brand as `dustyb.in`. See the accepted
+[production-project transition record](google-drive-production-project-plan.md).
 
 ## Status
 

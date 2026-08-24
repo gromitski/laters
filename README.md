@@ -56,9 +56,10 @@ adding a proxy. That infrastructure is deliberately outside the project boundary
 
 ## Optional Google Drive sync
 
-Google Drive sync is currently a private experiment: the OAuth app remains in Google's **Testing**
-state and is not available as a general public sign-in. The rest of Laters remains fully usable
-without it.
+Google Drive sync is optional and available to any Google Account through the production Laters
+OAuth client. Google currently identifies the unverified brand as `dustyb.in` on its account chooser
+and permission screen. The requested permission remains limited to Laters' own hidden Drive
+application-data area. The rest of Laters remains fully usable without it.
 
 After a permitted user selects **Connect Google Drive** and approves the narrow permission, Laters
 stores its sync files in Drive's hidden application-data area. It cannot browse or alter ordinary

@@ -85,7 +85,13 @@ add/delete round trip.
 
 Public availability is an explicit acceptance gate, not an automatic consequence of merging code.
 
-Status: next active slice. OAuth remains in **Testing** with only the maintainer admitted.
+Status: implemented and accepted on 2026-08-24. The production OAuth app is **In production** and
+available to any Google Account. `dustyb.in` ownership is verified, `hello@dustyb.in` is the public
+support and developer contact, and Google confirms that the sole non-sensitive `drive.appdata`
+scope needs no data-access verification. Google's consent flow currently identifies the app as
+`dustyb.in`: the Verification Centre says branding is not shown and the Branding page exposes no
+**Verify branding** action without a logo or another verification trigger. Fresh desktop consent and
+desktop/Android reconnection retained the complete 18-item list and reported Drive up to date.
 
 ### `v0.5.7` — non-technical introduction
 
@@ -97,6 +103,8 @@ Status: next active slice. OAuth remains in **Testing** with only the maintainer
   details.
 
 This slice changes documentation and presentation material, not application behaviour.
+
+Status: next active slice.
 
 ## `v0.6.0` — Export
 

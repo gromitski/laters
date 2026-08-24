@@ -134,7 +134,8 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 - A short-lived Google access token remains only in page memory until Google's supplied expiry,
   with a safety margin. Reload, full close, disconnect, expiry or rejection discards it; local
   changes then wait for one deliberate resume action.
-- OAuth remains private and in Google's Testing state until a separate public-access decision.
+- OAuth is public and **In production** after the accepted `v0.5.6` gate. Google currently presents
+  the verified `dustyb.in` domain rather than the unverified `Laters` brand.
 - Automatic Drive housekeeping starts at 100 operation files. Laters must write the resolved list
   and exact covered operation identifiers, then wait for a later check to adopt that settled
   checkpoint before deleting only those files. Every active device must read the latest checkpoint
@@ -169,8 +170,8 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   acceptance passes.
 - Inspect the new project's actual 2026 Drive quotas, alerts and billing state before use. Billing
   must remain disabled or unlinked unless a later explicit decision accepts a defined cost boundary.
-- Move OAuth out of Testing only after those gates pass and the production consent flow is accepted
-  on desktop and Android.
+- The production OAuth move passed those gates and its consent flow was accepted on desktop and
+  Android on 2026-08-24. The exact scope remains non-sensitive `drive.appdata`.
 - Make the README welcoming to non-technical users with privacy-safe screenshots before public
   promotion.
 - Deliver Export as `v0.6.0`; consider Import next and dark mode after it. Neither later slice is
