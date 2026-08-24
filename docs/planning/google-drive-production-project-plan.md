@@ -2,10 +2,8 @@
 
 ## Status
 
-Google configuration and the bounded application change are implemented for the `v0.5.5`
-candidate. Publication and the controlled seed-device transition remain pending. The OAuth app
-must stay in **Testing**, with only the maintainer admitted, until the separate `v0.5.6` public
-approval gate.
+Implemented, published and accepted as the bounded `v0.5.5` slice. The OAuth app remains in
+**Testing**, with only the maintainer admitted, until the separate `v0.5.6` public approval gate.
 
 ## Google project boundary
 
@@ -84,3 +82,21 @@ acceptance passes.
   secret or private maintainer address in the candidate files.
 - The no-attribution self-test passed.
 - Production-only and full dependency audits each reported zero known vulnerabilities.
+
+## Publication and physical acceptance
+
+Commit `5e039da` published the new public client ID. GitHub Actions run `32742790944` passed every
+build, test, dependency, repository-privacy and public-build gate and deployed successfully. The
+live `index-C21iVQwq.js` asset matched the locally audited asset byte for byte.
+
+The installed desktop seed retained its complete 17-item local list across the update. It connected
+first, uploaded and read back the new project's initial snapshot, cleared one pending local change
+and reported **Up to date in Google Drive** without changing that list. Android then connected to the
+same project. Its one newer, previously unsynchronised local item brought both distinct lists to 18;
+the desktop contained no duplicate URL or title.
+
+A disposable `example.com` item added on desktop appeared on Android as item 19. Deleting only that
+item on desktop propagated to Android, and both installations returned to the same 18-item list with
+**Up to date in Google Drive**. This completes the seed, second-device, cross-device add/delete and
+local-change-retention acceptance gates. The previous project remains unchanged as a conservative
+rollback boundary; it is not used by the published application.

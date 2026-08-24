@@ -76,12 +76,12 @@ The currently deployed application is `v0.5.4`; the latest tagged GitHub release
 
 ## Active focus
 
-`v0.5.5` production project and safeguards is in progress. The separate `Laters Production` Google
-Cloud project and production-origin web client now exist, remain in **Testing** with only the
-maintainer admitted, and request only `drive.appdata`. Billing is unlinked, project and per-user
-request caps are set to 10,000 and 5,000 requests per minute, and automatic quota increases are off.
-The application candidate now uses the new public client ID. Publication and the controlled
-desktop/Android seed transition remain before acceptance.
+`v0.5.5` production project and safeguards is implemented, published and accepted. The separate
+`Laters Production` Google Cloud project and production-origin web client remain in **Testing** with
+only the maintainer admitted and request only `drive.appdata`. Billing is unlinked, project and
+per-user request caps are set to 10,000 and 5,000 requests per minute, and automatic quota increases
+are off. Desktop and Android retained and aligned the complete list and passed a disposable
+cross-device add/delete round trip.
 
 ## Active slice
 
@@ -97,14 +97,13 @@ must be designated as the seed device and connected to the new client first. Ver
 the new project before connecting any other installation. Keep the old test project unchanged as the
 rollback boundary until desktop and Android acceptance passes.
 
-Do not change the client ID, create public users, link billing or move either OAuth project out of
-**Testing** without the explicit gates in `docs/roadmap.md` and
-`docs/handoffs/v0.5.5-start.md`.
+Do not create public users, link billing, delete the rollback project or move OAuth out of
+**Testing** without the explicit `v0.5.6` gate in `docs/roadmap.md`.
 
 ## Blockers
 
-- The controlled seed-device transition requires maintainer confirmation of the exact visible list
-  after the candidate is published, before a second installation connects to the new client.
+- No current implementation blocker. Moving OAuth out of Testing remains an explicit maintainer
+  decision and must not be inferred from the accepted `v0.5.5` transition.
 
 ## Uncertainties
 
@@ -118,19 +117,18 @@ Do not change the client ID, create public users, link billing or move either OA
 
 ## Next safe action
 
-Complete the bounded `v0.5.5` candidate checks, publish the new public client ID, then update and
-connect only the verified complete seed installation. Confirm its exact list before a second
-installation connects. This does not authorise billing or moving OAuth out of Testing, which remains
-the separate `v0.5.6` gate.
+Begin the bounded `v0.5.6` public OAuth approval slice only after presenting its exact verification,
+public-access and rollback gates. This does not authorise billing or deleting the old rollback
+project.
 
 ## Last meaningful update
 
-2026-08-24 — The separate no-billing production Google project and web client were configured with
-Testing-only maintainer access, the exact production origin and `drive.appdata` scope. Conservative
-request caps are active and automatic increases are off. A usage alert was deliberately not saved
-because Google states that its metric references become chargeable in September 2026. The bounded
-application candidate now uses the new public client ID; automated checks, publication and the
-controlled seed-device transition remain.
+2026-08-24 — `v0.5.5` production project and safeguards was implemented, published in commit
+`5e039da` through successful GitHub Actions run `32742790944`, and accepted on desktop and Android.
+The desktop seed retained 17 items; Android contributed one newer distinct local item and both
+settled at 18. A disposable desktop addition appeared on Android as item 19, and its deletion returned
+both devices to 18 with an up-to-date Drive state. OAuth remains Testing-only, billing unlinked,
+automatic quota increases off and the previous project unchanged as rollback.
 
 2026-08-24 — The maintainer updated the published `v0.5.4` app, confirmed that normal Android Share
 Target capture still saves an ordinary article correctly, and accepted the result. This closes the

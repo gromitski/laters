@@ -266,3 +266,18 @@ reading list. Later deployments use the in-app **Update** button normally.
 The transitional activation, retention of existing saved data and visible **Update** action passed on Chrome for Android `151.0.7922.173` across later application-bundle deployments.
 
 Normal deployments replace application files and service-worker caches without clearing the `laters` IndexedDB database. Saved articles therefore remain available across updates on the same `https://laters.dustyb.in` origin. Clearing site data, browser storage eviction, some uninstall behaviour or a faulty future database migration can still remove local-only data.
+
+## Production Google project transition acceptance
+
+Commit `5e039da` published the bounded `v0.5.5` client transition. GitHub Actions run
+`32742790944` passed and deployed the matching `index-C21iVQwq.js` asset. The separate production
+Google project has no linked billing account, uses only `drive.appdata`, admits only the maintainer
+while in **Testing**, accepts JavaScript only from `https://laters.dustyb.in` and has no redirect URI.
+
+The desktop seed retained 17 items across the update, connected first and reported the initial Drive
+snapshot up to date. Android then contributed one distinct local item that had not recently synced;
+both installations converged on 18 with no duplicate URL or title. A disposable item added on desktop
+appeared on Android as item 19, and its desktop deletion returned both installations to 18. The
+maintainer confirmed both devices were up to date on 2026-08-24, completing the production-project
+data-preservation and cross-device acceptance gate. Public OAuth remains the separate `v0.5.6`
+decision.

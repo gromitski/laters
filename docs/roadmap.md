@@ -71,9 +71,10 @@ Status: implemented, published and accepted in `v0.5.4`.
 This slice requires maintainer access to the Google console. No billing commitment or paid service
 is authorised by this roadmap.
 
-Status: in progress. The separate no-billing project, Testing-only OAuth client, exact production
-origin, `drive.appdata` scope and conservative request caps are configured. The application candidate
-uses the new public client ID; publication and the controlled desktop/Android seed transition remain.
+Status: implemented, published and accepted. The separate no-billing project, Testing-only OAuth
+client, exact production origin, `drive.appdata` scope and conservative request caps are configured.
+The controlled desktop/Android transition retained the complete list and passed a cross-device
+add/delete round trip.
 
 ### `v0.5.6` — public OAuth approval
 
@@ -83,6 +84,8 @@ uses the new public client ID; publication and the controlled desktop/Android se
 - Verify the published consent flow and Drive connection on a real desktop and Android device.
 
 Public availability is an explicit acceptance gate, not an automatic consequence of merging code.
+
+Status: next active slice. OAuth remains in **Testing** with only the maintainer admitted.
 
 ### `v0.5.7` — non-technical introduction
 
