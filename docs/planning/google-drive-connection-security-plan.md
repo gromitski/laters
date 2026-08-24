@@ -2,7 +2,7 @@
 
 ## Status
 
-Implemented, published and accepted as the bounded `v0.5.2` candidate. The maintainer reported the
+Implemented, published and accepted as the bounded `v0.5.2` slice. The maintainer reported the
 desktop/Android connection-security behaviour working correctly on 2026-08-24. This prepares the
 existing private Google Drive experiment for later public review but does not move OAuth out of
 Testing or create a `v0.5.2` tag or GitHub release.
@@ -34,8 +34,8 @@ restricted to HTTPS by the policy and continue to fall back locally on failure.
 ## Exclusions
 
 - No Laters backend, account, refresh token or server-held credential.
-- No public OAuth status, production Google project, Terms or acceptable-use policy; those are later
-  roadmap gates.
+- No public OAuth status or production Google project in this slice. Terms and acceptable-use
+  wording were subsequently delivered in `v0.5.3`; code-only hardening followed in `v0.5.4`.
 - No deletion of user Drive data during disconnect.
 
 ## Acceptance

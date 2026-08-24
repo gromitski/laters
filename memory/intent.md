@@ -160,6 +160,15 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   Content Security Policy.
 - Publish Terms and acceptable-use wording before configuring a separate production Google project
   with conservative quota and cost safeguards.
+- Keep the code-only `v0.5.4` hardening boundary: reject cross-site and oversized Share Target
+  requests, prevent framing in application code, audit dependencies during deployment and keep
+  automated dependency update proposals active without adding a proxy or changing hosting.
+- Treat the production-project client transition as a data-preservation operation. Seed a
+  potentially empty application-data area from one verified complete installation, confirm the
+  exact list before connecting another device, and retain the testing project as rollback until
+  acceptance passes.
+- Inspect the new project's actual 2026 Drive quotas, alerts and billing state before use. Billing
+  must remain disabled or unlinked unless a later explicit decision accepts a defined cost boundary.
 - Move OAuth out of Testing only after those gates pass and the production consent flow is accepted
   on desktop and Android.
 - Make the README welcoming to non-technical users with privacy-safe screenshots before public

@@ -55,13 +55,23 @@ Status: implemented, published and accepted in `v0.5.4`.
 
 - Separate the public production Google Cloud project and OAuth client from personal testing.
 - Restrict authorised web origins and redirect behaviour to the production Laters domain.
+- Keep the new project in **Testing** with only the maintainer admitted throughout this slice;
+  publication remains `v0.5.6`.
 - Set conservative API quotas and any available budget or usage alerts before admitting public
-  users; document what happens if a limit is reached.
+  users; record the actual controls offered to the newly created project and what happens if a
+  limit is reached. Google's Drive quota and charging model changed in 2026 and must be checked at
+  configuration time rather than copied from an older assumption.
 - Keep billing disabled unless Google makes it a deliberate requirement and the maintainer accepts
   the cost boundary first.
+- Protect the existing list during the client transition. Treat the new project's hidden Drive area
+  as empty until proved otherwise, connect one verified complete seed installation first, confirm
+  exact content, then connect the second installation. Preserve the old project as rollback until
+  desktop and Android acceptance passes.
 
 This slice requires maintainer access to the Google console. No billing commitment or paid service
 is authorised by this roadmap.
+
+Status: next active slice. No production project, client transition or quota change has started.
 
 ### `v0.5.6` — public OAuth approval
 

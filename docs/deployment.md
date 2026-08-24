@@ -22,6 +22,24 @@ The repository source, memory and evidence files are not part of the deployed ar
 Dependabot is separately configured in repository code to propose weekly npm updates and monthly
 GitHub Actions updates.
 
+## Public-readiness security acceptance
+
+Connection hardening was published in `v0.5.2` and accepted on desktop and Android. Google access
+tokens are memory-only, stale legacy credentials are removed, sync requires deliberate resume after
+reload or expiry, and the drawer provides disconnect with a revocation attempt. The hosted pages use
+restrictive browser policies compatible with Google Identity and Drive.
+
+The accepted `v0.5.4` code-only hardening rejects website-generated cross-site and oversized Share
+Target requests, adds defence-in-depth anti-framing, runs high/critical dependency auditing during
+deployment, enables automated dependency update proposals and publishes `SECURITY.md`. GitHub
+Actions run `32726439817` passed for the final acceptance record at commit `34c08d0`; the maintainer
+then confirmed ordinary Android Share Target capture still worked after updating.
+
+GitHub Pages still cannot provide repository-defined HSTS, `X-Content-Type-Options`,
+`Permissions-Policy` or response-header `frame-ancestors`. Adding a proxy, backend or different host
+is outside the accepted project boundary. The separate production Google project and client have
+not yet been created; that controlled transition is `v0.5.5`.
+
 ## Android acceptance
 
 Once HTTPS is active:

@@ -12,6 +12,7 @@ completed bookmark, source-marker and whole-row-opening release; and `v0.3.0` re
 mobile interaction shell. Release `v0.4.2` consolidates the accepted sharing, desktop-install,
 paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0`. Release `v0.5.0`
 records private Google Drive live sync, and `v0.5.1` records its automatic housekeeping follow-up.
+The currently deployed application is `v0.5.4`; the latest tagged GitHub release remains `v0.5.1`.
 
 ## What exists now
 
@@ -65,108 +66,47 @@ records private Google Drive live sync, and `v0.5.1` records its automatic house
   compatibility, verification and physical Android acceptance.
 - A complete `v0.4.2` release record covering post-v0.3 capture, sharing, desktop access, security,
   compatibility, verification and maintainer acceptance.
+- Accepted `v0.5.2` connection hardening with memory-only Google access tokens, deliberate resume,
+  in-app disconnect and revocation, restrictive browser policies and no-referrer behaviour.
+- Accepted `v0.5.3` public Terms and acceptable-use wording, alongside the existing privacy policy
+  and public `hello@dustyb.in` support address.
+- Accepted `v0.5.4` code-only security hardening covering the Share Target request boundary,
+  bounded request bodies, code-level anti-framing, deployment-time dependency auditing, Dependabot
+  and a public security-reporting policy.
 
 ## Active focus
 
-Release `v0.5.0` closes the private Google Drive live-sync slice: local pending
-operations, retained deletion records, short-lived credential recovery and checks every 20 seconds
-while Laters is visible. Its first interface follow-up moves the unchanged sync card and Privacy link
-into a permanent top-right menu drawer. The drawer and its three-state indicator are deployed; a
-focused correction for desktop page stability and focus outlines is deployed and accepted. Android
-drawer and multi-device add/delete/Undo acceptance are complete. The selected post-release follow-up
-adds automatic housekeeping after 100 Drive operations and is deployed in `b3f4fcf`; its ordinary
-phone/desktop add/delete round trip is accepted and the work is packaged as `v0.5.1`. Public OAuth
-remains explicitly open.
+`v0.5.5` production project and safeguards is the next bounded slice. Laters currently uses the
+maintainer-only OAuth test project, which remains in **Testing**. The next work creates a separate
+production Google Cloud project and web client, keeps that project in **Testing** during this slice,
+limits it to the production origin and narrow `drive.appdata` scope, and records conservative quota,
+alerting and no-billing safeguards before any public access.
 
 ## Active slice
 
-The selected interface follow-up adds a permanent circular top-right menu trigger and an Ionic bottom
-drawer. The existing sync card and footer disclosure move into it unchanged, keeping those controls
-reachable without traversing the article list. Backdrop, Escape, swipe-down and a visible close
-control dismiss the sheet with focus returned to the trigger. The trigger itself now reports broad
-Drive state: pale green for a successful latest check, white while connecting/checking/sending, and
-pale red when disconnected, offline, expired or failed. Its accessible name carries the same state.
-No sync data or authorization behaviour changes in this interface slice.
+The user-visible sync behaviour should remain unchanged. This is a Google configuration, client
+transition and data-preservation slice, not a new sync design.
 
-The accepted private live-sync candidate builds on the published Drive snapshot proof without a
-Laters backend. IndexedDB version 2 records each add, update, restore and deletion atomically with a
-pending operation. Drive stores immutable hidden operation files; connected devices replay them over
-the accepted base snapshot so additions combine and deletion records remain effective. Confirmed
-local operations are cleared after upload. The post-release housekeeping follow-up folds 100 remote
-operations into a version-2 checkpoint containing the resolved list and exact covered identifiers,
-then waits for a later check to adopt the settled checkpoint before deleting only those files. Active
-devices read the latest checkpoint before upload; interrupted deletion is ignored safely and retried
-without blocking normal sync. A Google token is kept locally only until its reported expiry with a safety
-margin, and visible installations poll every 20 seconds plus open, focus and online events. OAuth
-remains in Testing with only the maintainer admitted. Release `v0.5.0` packages this accepted private
-candidate without authorising public OAuth access.
+Google documents the application data folder as private to the application. It does not precisely
+state whether a new Cloud project and OAuth client retain the old project's application identity.
+Treat the new project as a potentially empty Drive boundary until a controlled test proves otherwise.
+The current implementation uploads the complete local list when no remote article file exists, and
+that path has focused automated coverage. Therefore one installation with the complete accepted list
+must be designated as the seed device and connected to the new client first. Verify its exact list in
+the new project before connecting any other installation. Keep the old test project unchanged as the
+rollback boundary until desktop and Android acceptance passes.
 
-The post-v0.2.0 mobile interaction shell and its focused corrections are accepted for `v0.3.0`.
-Right swipe toggles Bookmark or Remove, left swipe reveals warning-red Delete, and long press opens
-the focused action sheet. The first Android test's native outline, dictionary-selection and
-lower-page scroll-jump failures were corrected. The accepted Undo presentation is a white centre,
-neon-lime outside countdown ring and black glyph. No data migration, backend or new remote service
-was introduced. The published post-release extension adds **Share this article** to that same menu
-and routes only the saved URL to Android's system share sheet. The maintainer explicitly accepts its
-long-press-only placement for this personal app. It is published in commit `8753b67`; GitHub Actions
-run `32597495286` passed and the public origin serves the matching production bundle. Physical
-testing found that receivers could misinterpret a combined title-and-URL payload; commit `69faadc`
-now shares only the URL and protects that contract with a regression test. GitHub Actions run
-`32598149427` passed and the corrected bundle is public. Physical Android acceptance passed on
-2026-08-23: the generic chooser opened, NotebookLM added a representative public article from the
-URL without the saved title contaminating the payload, and cancelling the chooser returned safely
-to Laters.
-
-The accepted desktop-parity slice keeps the existing responsive white, ink and lime presentation
-and adds **Install** beside the wordmark. The control remains absent unless the browser emits its
-native install-availability event, disappears after use or successful installation, and adds no
-installer, account, backend or platform-specific package. A clean production check confirmed that
-the reported cream and serif desktop page was a stale pre-redesign service-worker shell rather than
-the current deployed presentation. Commit `5296776` published the contextual install action;
-GitHub Actions run `32632687610` passed. A clean production browser loaded the matching JavaScript
-and CSS, displayed the accepted branding, received the browser's install-availability event and
-showed the 44px **Install** action vertically centred beside the wordmark at desktop width. The
-maintainer subsequently accepted the native installation flow on 2026-08-23.
-
-The maintainer accepted the published desktop branding and native Install flow on 2026-08-23. The
-next accepted slice is `v0.4.0`: a persistent **Paste a link** row reads clipboard text only on user
-activation and falls back to inline manual URL entry. It reuses existing HTTP(S) validation,
-hostname fallback, exact-URL refresh with bookmark preservation, newest-first order, local storage,
-source markers and visible feedback. The surrounding design mockup is placement guidance only;
-reading times, remote title enrichment and changes to existing screen presentation are excluded.
-The accepted hardening correction defaults bare article addresses to HTTPS, removes the input's
-generic heavy outline while retaining a visible container focus state, and centralises canonical URL
-validation for every capture path. Unsafe schemes, credentials, malformed escapes, control
-characters, embedded whitespace and excessive length are rejected.
-
-The maintainer confirmed the current mobile Paste-to-add implementation is working well on
-2026-08-23. The next accepted candidate is `v0.4.1`: **Edit title** appears in the existing
-long-press/context menu, persists only a deliberate title change and leaves the URL, saved time,
-queue position, bookmark state and surrounding layout unchanged. A deliberate edit is retained when
-the exact URL is captured again; sharing remains URL-only. Commit `b5d663f` published this candidate;
-96 automated tests across 17 files and every local release gate passed, a 320px browser check passed
-without errors, GitHub Actions run `32636593819` passed and deployed, and the public origin served
-the matching verified JavaScript and CSS assets.
-
-The maintainer confirmed on 2026-08-23 that the production mobile `v0.4.1` title editor works
-perfectly, closing its physical acceptance gate. The accepted `v0.4.2` follow-up adds one circular,
-desktop-only three-dot **More actions** button beside Delete, reusing the existing action sheet and
-retaining right-click and `Shift+F10`. At the 48rem desktop breakpoint the existing 34rem shell may
-grow fluidly to a 42rem maximum. Mobile presentation and interactions remain unchanged; this is not
-a general desktop redesign. Commit `2639185` published this candidate; all local release gates and
-desktop/mobile browser checks passed, GitHub Actions run `32637456916` passed and deployed, and the
-public origin served the matching verified assets. A production browser applied the update without
-losing its two saved articles and confirmed the new proportions, menu route, focus restoration and
-error-free console.
-
-The maintainer accepted the final production presentation on 2026-08-23 and authorised release
-hardening, the consolidated `v0.4.2` tag and a GitHub release. Full and production-only dependency
-audits reported zero known vulnerabilities. Release `v0.4.2` intentionally includes all accepted
-work since `v0.3.0`; no `v0.4.0` or `v0.4.1` tag or release was created.
+Do not change the client ID, create public users, link billing or move either OAuth project out of
+**Testing** without the explicit gates in `docs/roadmap.md` and
+`docs/handoffs/v0.5.5-start.md`.
 
 ## Blockers
 
-None.
+- The new project and client require the maintainer's authenticated Google Console session and
+  confirmation at the point of creation or configuration. Password, 2FA and CAPTCHA remain
+  maintainer-only actions.
+- The actual quota controls, alerts and billing state offered to the newly created project must be
+  inspected and recorded before any production client is used.
 
 ## Uncertainties
 
@@ -175,6 +115,8 @@ None.
 - Some Android news-feed shares do not supply a useful article title. Remote title enrichment is a possible later product slice with privacy, security and reliability implications; it is not part of the current design handoff.
 - The 100-operation housekeeping threshold and interruption path are covered by deterministic
   automation rather than manually manufacturing 100 changes or a forced Drive failure.
+- Whether Google treats the new production project as the same `appDataFolder` application identity
+  is not documented precisely enough to assume; the controlled seed-device transition is the gate.
 
 ## Next safe action
 
@@ -185,6 +127,12 @@ it does not authorise billing or moving OAuth out of Testing, which remains the 
 gate.
 
 ## Last meaningful update
+
+2026-08-24 — A full documentation and stale-state pass prepared the repository for a new task. The
+next slice is `v0.5.5`; its configuration boundary, current Google quota/cost facts, controlled
+Drive-data transition and verification sequence are recorded in
+`docs/handoffs/v0.5.5-start.md`. No Google project, OAuth client or application code changed in this
+documentation slice.
 
 2026-08-24 — The maintainer updated the published `v0.5.4` app, confirmed that normal Android Share
 Target capture still saves an ordinary article correctly, and accepted the result. This closes the
@@ -262,6 +210,7 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [MVP 2.0 definition](../docs/mvp-2-definition.md)
 - [Exploratory future ideas](../docs/future-ideas.md)
 - [Accepted roadmap](../docs/roadmap.md)
+- [`v0.5.5` new-task handoff](../docs/handoffs/v0.5.5-start.md)
 - [Deployment](../docs/deployment.md)
 - [Claude Design handoff](../docs/claude-design-handoff.md)
 - [Slice 6 implementation plan](../docs/planning/slice-6-mvp-design-implementation-plan.md)
@@ -270,6 +219,8 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [`v0.4.2` release record](../docs/releases/v0.4.2.md)
 - [`v0.5.0` release record](../docs/releases/v0.5.0.md)
 - [`v0.5.1` release record](../docs/releases/v0.5.1.md)
+- [Google Drive connection security plan](../docs/planning/google-drive-connection-security-plan.md)
+- [Code security hardening plan](../docs/planning/code-security-hardening-plan.md)
 - [Desktop actions and responsive-width plan](../docs/planning/desktop-actions-responsive-plan.md)
 - [MVP 2.0 Slice 3 whole-row opening plan](../docs/planning/mvp-2-slice-3-whole-row-opening-plan.md)
 - [Mobile interaction shell plan](../docs/planning/mobile-interaction-shell-plan.md)
