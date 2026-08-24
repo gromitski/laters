@@ -128,9 +128,10 @@ possible without promising it in `v0.6.0`.
 Status: implemented as a `v0.6.0` candidate. The main menu creates a user-initiated, versioned CSV
 with `url`, `title`, `created` and `tags` columns. Namespaced tags preserve bookmark and deliberate
 title-edit state without exposing local identifiers, pending operations, Drive metadata, credentials
-or connection information. Supporting browsers open a file share chooser; others download locally.
-Automated verification is complete and published human acceptance remains pending. Import is still
-outside this slice.
+or connection information. **Download CSV** starts a normal local browser download on every
+supported platform; whole-list export does not use the operating-system share chooser. Automated
+verification is complete and published human acceptance remains pending. Import is still outside
+this slice.
 
 ## After `v0.6.0`
 

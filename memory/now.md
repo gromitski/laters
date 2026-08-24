@@ -113,18 +113,23 @@ remains outside the active slice. Published human acceptance is pending.
 
 ## Next safe action
 
-Publish the verified `v0.6.0` candidate through the automatic Pages workflow, then complete the
-short human acceptance check for CSV sharing/downloading and exported content. Import remains
-explicitly outside this release.
+Publish the corrected `v0.6.0` candidate through the automatic Pages workflow, then repeat the short
+human acceptance check for direct CSV downloading and exported content. Import remains explicitly
+outside this release.
 
 ## Last meaningful update
 
-2026-08-25 — The bounded `v0.6.0` Export candidate adds **Export data** to the main menu. It creates
+2026-08-25 — Published Mac acceptance showed that Chrome's file-share capability opened a macOS
+share sheet without a reliable save destination. The bounded correction renames the action
+**Download CSV** and always starts a conventional local browser download. Article-level URL sharing
+is unchanged.
+
+2026-08-25 — The bounded `v0.6.0` Export candidate adds **Download CSV** to the main menu. It creates
 a versioned UTF-8 CSV with `url`, `title`, `created` and `tags` columns, preserves bookmark and
 deliberate-title state with namespaced tags, and reversibly protects titles that could be interpreted
-as spreadsheet formulas. Supporting browsers use the file share chooser and others download locally;
-cancellation is not an error. Focused tests prove formatting, escaping, filename, delivery fallbacks,
-accessible interaction states and that export does not mutate IndexedDB articles or pending sync
+as spreadsheet formulas. The action starts a local browser download on every supported platform.
+Focused tests prove formatting, escaping, filename, direct download delivery, accessible interaction
+states and that export does not mutate IndexedDB articles or pending sync
 operations. Credentials, accounts, connection details, local identifiers and Drive operation or
 checkpoint state are excluded. Import remains deferred.
 

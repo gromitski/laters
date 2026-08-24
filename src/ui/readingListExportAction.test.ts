@@ -3,11 +3,7 @@ import type { ReadingListExportResult } from "../export/readingListExport";
 import { installReadingListExportAction } from "./readingListExportAction";
 
 describe("reading-list export action", () => {
-  it.each([
-    ["shared", 1, "Exported 1 article."],
-    ["downloaded", 2, "Started a CSV download containing 2 articles."],
-    ["cancelled", 3, "Export cancelled. Your articles have not changed."],
-  ] as const)("reports a %s outcome accessibly", async (outcome, articleCount, message) => {
+  it("reports a started download accessibly", async () => {
     const action = createAction();
     const status = createStatus();
     const beforeExport = vi.fn();
@@ -16,19 +12,19 @@ describe("reading-list export action", () => {
       action: action as unknown as HTMLButtonElement,
       status: status as unknown as HTMLParagraphElement,
       beforeExport,
-      runExport: async () => result(outcome, articleCount),
+      runExport: async () => result(2),
     });
 
     action.dispatchEvent(new Event("click"));
     expect(action.disabled).toBe(true);
-    expect(action.textContent).toBe("Exporting…");
-    expect(status.textContent).toBe("Preparing your export…");
+    expect(action.textContent).toBe("Downloading…");
+    expect(status.textContent).toBe("Preparing your CSV…");
     await settlePromises();
 
     expect(beforeExport).toHaveBeenCalledOnce();
     expect(action.disabled).toBe(false);
-    expect(action.textContent).toBe("Export data");
-    expect(status.textContent).toBe(message);
+    expect(action.textContent).toBe("Download CSV");
+    expect(status.textContent).toBe("Started a CSV download containing 2 articles.");
     expect(status.getAttribute("role")).toBe("status");
     expect(status.getAttribute("aria-live")).toBe("polite");
     expect(status.classList.contains("is-error")).toBe(false);
@@ -50,7 +46,7 @@ describe("reading-list export action", () => {
     await settlePromises();
 
     expect(action.disabled).toBe(false);
-    expect(action.textContent).toBe("Export data");
+    expect(action.textContent).toBe("Download CSV");
     expect(status.textContent).toBe(
       "Laters could not export your data. Your articles have not changed.",
     );
@@ -77,11 +73,8 @@ describe("reading-list export action", () => {
   });
 });
 
-function result(
-  outcome: ReadingListExportResult["outcome"],
-  articleCount: number,
-): ReadingListExportResult {
-  return { articleCount, outcome, fileName: "laters-export-v1-example.csv" };
+function result(articleCount: number): ReadingListExportResult {
+  return { articleCount, fileName: "laters-export-v1-example.csv" };
 }
 
 function createAction(): EventTarget & {
@@ -90,7 +83,7 @@ function createAction(): EventTarget & {
 } {
   return Object.assign(new EventTarget(), {
     disabled: false,
-    textContent: "Export data",
+    textContent: "Download CSV",
   });
 }
 

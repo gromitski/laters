@@ -183,7 +183,7 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 
 ## Accepted v0.6.0 Export direction
 
-- Add **Export data** to the existing main application menu as an explicit user action available
+- Add **Download CSV** to the existing main application menu as an explicit user action available
   with or without Google Drive.
 - Export the resolved local reading list as version-1 UTF-8 CSV with `url`, `title`, `created` and
   `tags` columns. Keep the rows newest first and use a sortable UTC filename.
@@ -193,9 +193,10 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 - Do not export local article identifiers, pending or remote operation identifiers, deletion
   history, checkpoint cleanup state, Google credentials, account data, connection state or other
   implementation bookkeeping.
-- Prefer the browser or operating-system file share chooser when supported and fall back to a local
-  browser download. Cancellation is not an error. Export itself performs no network or Drive request
-  and does not mutate the list or sync queue.
+- Start a conventional local browser download on every supported platform. Do not use the
+  operating-system share chooser for whole-list export: its destinations do not reliably include a
+  save location. Export itself performs no network or Drive request and does not mutate the list or
+  sync queue.
 - The CSV is useful as a spreadsheet and follows common link-import columns. A future Laters Import
   may consume it, but Import behaviour, merge rules and Drive reconciliation remain outside this
   release.

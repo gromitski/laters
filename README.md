@@ -49,14 +49,13 @@ changes remain safe: open the menu and use **Resume Google Drive** to continue s
 
 ## Export your data
 
-Open the circular menu and select **Export data** to create a CSV copy of the articles stored on that
+Open the circular menu and select **Download CSV** to create a CSV copy of the articles stored on that
 device. The export contains article addresses, titles, saved times and namespaced tags for bookmarks
 and deliberately edited titles. It can be opened as a spreadsheet or used by tools that accept a CSV
 of links.
 
-Where supported, Laters opens the browser or operating-system share chooser for the CSV file. Other
-browsers start a local download. Laters does not upload the export or send it to Google Drive; the
-file reaches another destination only when you deliberately choose one. Import is not yet available.
+Your browser saves the file to its normal download location. Laters does not upload the export or
+send it to Google Drive. Import is not yet available.
 
 ## Disconnect or delete data
 
@@ -84,7 +83,7 @@ tokens remain in page memory and are not saved to browser storage or Drive.
 Laters tries to load the conventional favicon directly from each saved publisher. That request can
 reveal your IP address and request timing to the publisher, but no central favicon service receives
 your list or its source domains. Clearing browser data, storage eviction and some uninstall behaviour
-can remove a local-only list. Use **Export data** when you want a separate CSV copy.
+can remove a local-only list. Use **Download CSV** when you want a separate CSV copy.
 
 ## For developers
 

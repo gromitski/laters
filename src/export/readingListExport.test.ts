@@ -103,11 +103,9 @@ describe("reading-list CSV export", () => {
 });
 
 describe("reading-list export delivery", () => {
-  it("shares only the CSV file when file sharing is supported", async () => {
+  it("downloads the CSV file directly", async () => {
     const environment = createEnvironment();
-    environment.canShare = vi.fn(() => true);
-    environment.share = vi.fn(async () => undefined);
-    const store = { listNewestFirst: vi.fn(async () => [item("shared", 100)]) };
+    const store = { listNewestFirst: vi.fn(async () => [item("downloaded", 100)]) };
 
     await expect(
       exportReadingList(
@@ -118,76 +116,22 @@ describe("reading-list export delivery", () => {
     ).resolves.toEqual({
       articleCount: 1,
       fileName: "laters-export-v1-2026-08-25T09-08-07Z.csv",
-      outcome: "shared",
     });
 
-    expect(environment.share).toHaveBeenCalledOnce();
-    const shareData = vi.mocked(environment.share!).mock.calls[0]![0];
-    expect(Object.keys(shareData)).toEqual(["files"]);
-    expect(shareData.files).toHaveLength(1);
-    expect(shareData.files?.[0]).toMatchObject({
+    expect(environment.createObjectUrl).toHaveBeenCalledOnce();
+    const exportedFile = vi.mocked(environment.createObjectUrl).mock.calls[0]![0];
+    expect(exportedFile).toMatchObject({
       name: "laters-export-v1-2026-08-25T09-08-07Z.csv",
       type: "text/csv",
     });
-    await expect(shareData.files?.[0]?.text()).resolves.toContain(
-      '"https://example.com/shared"',
+    await expect(exportedFile.text()).resolves.toContain(
+      '"https://example.com/downloaded"',
     );
-    expect(environment.download).not.toHaveBeenCalled();
-  });
-
-  it("downloads locally when file sharing is unavailable", async () => {
-    const environment = createEnvironment();
-    environment.canShare = vi.fn(() => false);
-    environment.share = vi.fn(async () => undefined);
-
-    await expect(
-      exportReadingList(
-        { listNewestFirst: vi.fn(async () => []) },
-        environment,
-        () => new Date("2026-08-25T09:08:07.654Z"),
-      ),
-    ).resolves.toMatchObject({ outcome: "downloaded", articleCount: 0 });
-
-    expect(environment.share).not.toHaveBeenCalled();
-    expect(environment.createObjectUrl).toHaveBeenCalledOnce();
     expect(environment.download).toHaveBeenCalledWith(
       "blob:laters-export",
       "laters-export-v1-2026-08-25T09-08-07Z.csv",
     );
     expect(environment.revokeObjectUrl).toHaveBeenCalledWith("blob:laters-export");
-  });
-
-  it("falls back to a download after a non-cancellation share failure", async () => {
-    const environment = createEnvironment();
-    environment.canShare = vi.fn(() => true);
-    environment.share = vi.fn(async () => {
-      throw new Error("share failed");
-    });
-
-    await expect(
-      exportReadingList(
-        { listNewestFirst: vi.fn(async () => [item("fallback", 100)]) },
-        environment,
-      ),
-    ).resolves.toMatchObject({ outcome: "downloaded" });
-    expect(environment.download).toHaveBeenCalledOnce();
-  });
-
-  it("treats chooser cancellation as cancellation without downloading", async () => {
-    const environment = createEnvironment();
-    environment.canShare = vi.fn(() => true);
-    environment.share = vi.fn(async () => {
-      throw new DOMException("cancelled", "AbortError");
-    });
-
-    await expect(
-      exportReadingList(
-        { listNewestFirst: vi.fn(async () => [item("cancelled", 100)]) },
-        environment,
-      ),
-    ).resolves.toMatchObject({ outcome: "cancelled" });
-    expect(environment.download).not.toHaveBeenCalled();
-    expect(environment.createObjectUrl).not.toHaveBeenCalled();
   });
 
   it("uses only the read-only list boundary and does not alter source objects", async () => {

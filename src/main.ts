@@ -272,14 +272,6 @@ function showUpdateAvailable(applyUpdate: () => void): void {
 
 function browserExportEnvironment(): ReadingListExportEnvironment {
   return {
-    canShare:
-      typeof navigator.canShare === "function"
-        ? (data) => navigator.canShare(data)
-        : undefined,
-    share:
-      typeof navigator.share === "function"
-        ? (data) => navigator.share(data)
-        : undefined,
     createObjectUrl: (file) => URL.createObjectURL(file),
     download: (url, fileName) => {
       const action = document.createElement("a");

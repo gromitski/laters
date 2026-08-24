@@ -19,25 +19,17 @@ export function installReadingListExportAction({
     }
 
     beforeExport();
-    status.textContent = "Preparing your export…";
+    status.textContent = "Preparing your CSV…";
     status.classList.remove("is-error");
     status.setAttribute("role", "status");
     status.setAttribute("aria-live", "polite");
     action.disabled = true;
-    action.textContent = "Exporting…";
+    action.textContent = "Downloading…";
 
     void runExport()
-      .then(({ articleCount, outcome }) => {
-        if (outcome === "cancelled") {
-          status.textContent = "Export cancelled. Your articles have not changed.";
-          return;
-        }
-
+      .then(({ articleCount }) => {
         const articleLabel = `${articleCount} ${articleCount === 1 ? "article" : "articles"}`;
-        status.textContent =
-          outcome === "shared"
-            ? `Exported ${articleLabel}.`
-            : `Started a CSV download containing ${articleLabel}.`;
+        status.textContent = `Started a CSV download containing ${articleLabel}.`;
       })
       .catch(() => {
         status.classList.add("is-error");
@@ -48,7 +40,7 @@ export function installReadingListExportAction({
       })
       .finally(() => {
         action.disabled = false;
-        action.textContent = "Export data";
+        action.textContent = "Download CSV";
       });
   });
 }

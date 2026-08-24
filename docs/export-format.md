@@ -67,10 +67,9 @@ third-party importer will interpret additional state.
 
 ## Privacy and exclusions
 
-The export is created only after the user selects **Export data**. It contains potentially private
-article addresses and titles. Laters passes the file to the browser or operating-system share chooser
-when file sharing is supported, or starts a local browser download. Laters does not upload it or send
-it to Google Drive; data reaches another destination only if the user deliberately chooses one.
+The export is created only after the user selects **Download CSV**. It contains potentially private
+article addresses and titles. The browser starts a local download and chooses its normal download
+location. Laters does not upload the file or send it to Google Drive.
 
 The export contains no:
 

@@ -58,7 +58,7 @@ const REQUIRED_PUBLIC_CONTENT = new Map([
       "short-lived Google access token",
       "Google API Services User Data Policy",
       "Delete hidden app data",
-      "Export data",
+      "Download CSV",
       "creates a CSV file",
       "The Laters maintainer cannot see your reading list",
       'href="/terms/"',

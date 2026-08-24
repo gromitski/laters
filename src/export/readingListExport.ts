@@ -10,8 +10,6 @@ const SPREADSHEET_FORMULA_PREFIX = /^[=+\-@]/u;
 type ExportStore = Pick<ReadingListStore, "listNewestFirst">;
 
 export interface ReadingListExportEnvironment {
-  canShare?(data: ShareData): boolean;
-  share?(data: ShareData): Promise<void>;
   createObjectUrl(file: File): string;
   download(url: string, fileName: string): void;
   revokeObjectUrl(url: string): void;
@@ -20,7 +18,6 @@ export interface ReadingListExportEnvironment {
 export interface ReadingListExportResult {
   articleCount: number;
   fileName: string;
-  outcome: "cancelled" | "downloaded" | "shared";
 }
 
 export async function exportReadingList(
@@ -35,9 +32,9 @@ export async function exportReadingList(
     type: "text/csv",
     lastModified: exportedAt.getTime(),
   });
-  const outcome = await deliverReadingListExport(file, environment);
+  downloadReadingListExport(file, environment);
 
-  return { articleCount: items.length, fileName, outcome };
+  return { articleCount: items.length, fileName };
 }
 
 export function createReadingListCsv(items: SavedItem[]): string {
@@ -70,23 +67,10 @@ export function createReadingListExportFileName(exportedAt: Date): string {
   return `laters-export-v${EXPORT_FORMAT_VERSION}-${fileTime}.csv`;
 }
 
-async function deliverReadingListExport(
+function downloadReadingListExport(
   file: File,
   environment: ReadingListExportEnvironment,
-): Promise<ReadingListExportResult["outcome"]> {
-  const shareData: ShareData = { files: [file] };
-
-  if (environment.share && environment.canShare?.(shareData)) {
-    try {
-      await environment.share(shareData);
-      return "shared";
-    } catch (error) {
-      if (isAbortError(error)) {
-        return "cancelled";
-      }
-    }
-  }
-
+): void {
   const objectUrl = environment.createObjectUrl(file);
 
   try {
@@ -94,8 +78,6 @@ async function deliverReadingListExport(
   } finally {
     environment.revokeObjectUrl(objectUrl);
   }
-
-  return "downloaded";
 }
 
 function protectSpreadsheetTitle(title: string): {
@@ -111,13 +93,4 @@ function protectSpreadsheetTitle(title: string): {
 
 function escapeCsvCell(value: string): string {
   return `"${value.replaceAll('"', '""')}"`;
-}
-
-function isAbortError(error: unknown): boolean {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    "name" in error &&
-    error.name === "AbortError"
-  );
 }
