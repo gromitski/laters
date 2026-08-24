@@ -1,83 +1,92 @@
 # Laters
 
-A minimal Android-first read-later PWA. Share an article to Laters, then return to a quiet local list when you have time to read it.
+A quiet place for articles you want to read later. Save a link on Android or paste one from any
+browser, then return to a simple newest-first list when you have time.
 
-**Live app:** [laters.dustyb.in](https://laters.dustyb.in/)
+**[Open Laters](https://laters.dustyb.in/)**
 
-## What it does
+![A Laters reading queue containing three fictional sample articles](docs/screenshots/laters-reading-queue.png)
 
-- Installs as a standalone PWA, offers **Install** when a supporting browser reports that installation
-  is available, and appears in Android's Share menu.
-- Adds copied or manually entered article URLs through a persistent **Paste a link** row, defaulting
-  bare web addresses to HTTPS.
-- Stores links locally in IndexedDB, newest first, with optional private Google Drive sync.
-- Keeps Google Drive sync and Privacy in a bottom drawer opened from the top-right menu control.
-- Shows Drive state on that control: pale green when connected, white while checking or sending,
-  and pale red when disconnected or after a failed check.
-- Provides persistent per-article bookmarks without changing queue order.
-- Shows publisher favicons with deterministic local fallback tiles.
-- Opens the original article from its title or other non-interactive row space.
-- Renames an article title from the long-press menu without changing its saved URL.
-- Shows a desktop-only **More actions** control for the same article menu while retaining right-click
-  and keyboard access.
-- Swipes right to Bookmark or Remove and left to reveal warning-red Delete.
-- Opens a focused Read, Edit title, Bookmark, Share and Delete action sheet on touch long press.
-- Shares only the original article URL through the system chooser, without adding the saved title
-  or depending on a specific receiving app.
-- Supports accessible visible controls and a seven-second in-place Undo without losing scroll position.
-- Keeps the application shell available offline and offers an explicit **Update** action for new versions.
+## Get started
 
-There is no Laters account, backend or analytics. Optional Google Drive sync stores the reading-list
-base and immutable add, edit, restore and deletion records in Laters' private application-data
-folder using the narrow `drive.appdata` permission. Connected devices combine those records and
-check for changes every 20 seconds while Laters is visible. Publishing this source does not publish
-or connect anyone's saved list. Without Drive, every installation remains local to that browser and
-clearing browser data may remove it. Laters directly
-attempts the conventional favicon on each saved publisher's origin; this can reveal the device IP
-address and request timing to that publisher, but no central favicon service receives the reading
-list or source domains. See the public [privacy policy](https://laters.dustyb.in/privacy/).
-Use of the hosted app is also covered by its plain-English
-[Terms and acceptable-use rules](https://laters.dustyb.in/terms/).
+1. Open [laters.dustyb.in](https://laters.dustyb.in/) in your browser.
+2. Install it if you want app-like access. Use the **Install** action when Laters shows one, or your
+   browser's **Install app** or **Add to Home screen** option.
+3. On Android, share an article and choose **Laters**. On desktop or mobile, select **Paste a link**
+   to add a copied or manually entered web address.
+4. Open Laters whenever you want to read, bookmark or remove something from your queue.
 
-## Security
+You do not need an account. Your list starts in that browser and Laters continues to work without
+Google Drive.
 
-Laters treats article details, Android share data and Google Drive files as untrusted input. It
-accepts only HTTP(S) article URLs, renders saved titles as text rather than executable HTML, limits
-remote data size and shape, and rejects website-generated cross-site submissions to its Android
-Share Target. Google access tokens remain in page memory and the optional permission is limited to
-Laters' private Drive application-data folder.
+## Keep two devices aligned
 
-The static app also hides itself when embedded by another page as a code-level clickjacking defence.
-This is useful defence in depth, but it is not equivalent to an HTTP `frame-ancestors` policy.
-GitHub Pages does not let this repository define response headers, so Laters cannot add HSTS,
-`X-Content-Type-Options`, `Permissions-Policy` or header-level anti-framing without changing host or
-adding a proxy. That infrastructure is deliberately outside the project boundary. See
-[SECURITY.md](SECURITY.md) for reporting and the maintained limitations.
+Google Drive sync is optional and available to any Google Account.
 
-## Optional Google Drive sync
+1. Open the circular menu at the top right.
+2. Select **Connect Google Drive**.
+3. Choose the Google Account you want to use and approve the permission for Laters' own hidden
+   application data.
+4. Repeat on another device. Keep Laters open there when you want changes to arrive; a visible app
+   checks Drive every 20 seconds.
 
-Google Drive sync is optional and available to any Google Account through the production Laters
-OAuth client. Google currently identifies the unverified brand as `dustyb.in` on its account chooser
-and permission screen. The requested permission remains limited to Laters' own hidden Drive
-application-data area. The rest of Laters remains fully usable without it.
+Google currently labels the permission screen **dustyb.in**. Laters cannot see or alter your normal
+Drive files, and the maintainer cannot see your reading list.
 
-After a permitted user selects **Connect Google Drive** and approves the narrow permission, Laters
-stores its sync files in Drive's hidden application-data area. It cannot browse or alter ordinary
-Drive files. Local additions, edits, bookmarks, restores and deletions are journalled and exchanged
-with other connected Laters installations. A visible connected app checks when it opens, returns to
-the foreground or comes online, and every 20 seconds while it remains visible.
+![The Laters menu showing the optional Google Drive connection](docs/screenshots/laters-google-drive-menu.png)
 
-The Google access token is short lived and is held only in page memory, never persistent browser
-storage. A reload, full close or expiry therefore leaves local changes waiting safely for **Resume
-Google Drive**. **Disconnect** stops the live session and asks Google to revoke the active permission;
-it does not delete existing hidden Drive data. This is visible-app sync, not OS background execution:
-a closed or suspended PWA cannot promise polling. To avoid an ever-growing stockpile, Laters
-automatically folds each 100 Drive changes into the current reading list and records exactly which
-change files are covered. A later check adopts that settled checkpoint before removing those files,
-so two open devices cannot clean from competing drafts. Interrupted cleanup does not block syncing
-and is retried again later.
+Closing, reloading or leaving Laters unused may end the short-lived Google session. Your local
+changes remain safe: open the menu and use **Resume Google Drive** to continue syncing.
 
-## Development
+## Everyday controls
+
+- Select an article title or the open space in its row to read the original page.
+- Select the star to bookmark an article without moving it.
+- Select **Delete** to remove an article; **Undo** remains available for seven seconds.
+- On Android, swipe right to change the bookmark or left to reveal Delete.
+- Long-press an article for Read, Edit title, Bookmark, Share and Delete. Sharing sends only its URL.
+- On desktop, use the visible three-dot article control for the same menu.
+
+## Disconnect or delete data
+
+- **Stop syncing this browser:** open the menu and select **Disconnect**. Laters also asks Google to
+  revoke the active permission, but does not delete data already stored in Drive.
+- **Delete one article:** use its **Delete** control and let the Undo period finish. A connected
+  device sends that deletion to Drive.
+- **Delete local Laters data:** clear the site data for `laters.dustyb.in` in that browser. Do this
+  only when you no longer need its local list or have confirmed another copy is safe.
+- **Delete all hidden Drive data:** open [Google Drive settings](https://drive.google.com/drive/settings),
+  find Laters under **Manage apps**, then choose **Delete hidden app data**.
+- **Remove Google permission separately:** use your
+  [Google Account permissions](https://myaccount.google.com/permissions).
+
+Revoking permission alone may leave the hidden Drive data in place. The public
+[privacy policy](https://laters.dustyb.in/privacy/) explains the exact storage and deletion boundary;
+the hosted app also has plain-English [Terms](https://laters.dustyb.in/terms/).
+
+## Privacy in brief
+
+There is no Laters account, backend, advertising or analytics. Articles are stored locally in the
+browser. Optional sync uses only Laters' private Google Drive application-data folder. Google access
+tokens remain in page memory and are not saved to browser storage or Drive.
+
+Laters tries to load the conventional favicon directly from each saved publisher. That request can
+reveal your IP address and request timing to the publisher, but no central favicon service receives
+your list or its source domains. Clearing browser data, storage eviction and some uninstall behaviour
+can remove a local-only list; Export is planned for a later release.
+
+## For developers
+
+Laters is a framework-free TypeScript PWA built with Vite 8. IndexedDB is the local source of truth,
+the application shell works offline, and Android capture uses the Web Share Target API. The optional
+Drive connection exchanges a base list and immutable add, edit, restore and delete operations. It
+does not introduce a Laters backend or account system.
+
+Laters treats article details, Android share data and Drive files as untrusted input. It accepts only
+HTTP(S) article URLs, renders saved titles as text, bounds remote data, rejects website-generated
+cross-site Share Target submissions and hides itself when framed. GitHub Pages cannot provide
+project-defined HSTS, `X-Content-Type-Options`, `Permissions-Policy` or header-level
+`frame-ancestors`; see [SECURITY.md](SECURITY.md) for the maintained limitations and reporting route.
 
 ```bash
 npm ci
@@ -89,19 +98,15 @@ npm run build
 npm run audit:public-build
 ```
 
-See the completed [MVP definition](docs/mvp-definition.md), completed
-[MVP 2.0 definition](docs/mvp-2-definition.md), [`v0.2.0` release record](docs/releases/v0.2.0.md),
-[mobile interaction shell record](docs/planning/mobile-interaction-shell-plan.md),
-[`v0.3.0` release record](docs/releases/v0.3.0.md),
-[`v0.4.2` release record](docs/releases/v0.4.2.md),
-[`v0.5.0` release record](docs/releases/v0.5.0.md),
-[Google Drive live-sync record](docs/planning/google-drive-live-sync-plan.md),
-[application-menu record](docs/planning/application-menu-drawer-plan.md),
-[code-only security-hardening record](docs/planning/code-security-hardening-plan.md),
-[Terms and acceptable-use record](docs/planning/terms-and-acceptable-use-plan.md),
-[accepted roadmap through Export](docs/roadmap.md), [current project truth](memory/now.md) and
-remaining [exploratory future ideas](docs/future-ideas.md).
+Project records: [MVP definition](docs/mvp-definition.md),
+[MVP 2.0 definition](docs/mvp-2-definition.md),
+[`v0.4.2` release](docs/releases/v0.4.2.md),
+[`v0.5.0` release](docs/releases/v0.5.0.md),
+[Google Drive live sync](docs/planning/google-drive-live-sync-plan.md),
+[roadmap through Export](docs/roadmap.md), [current project truth](memory/now.md), and
+[exploratory future ideas](docs/future-ideas.md).
 
 ## Licence
 
-Laters is released under the [MIT Licence](LICENSE). Bricolage Grotesque is distributed separately under the [SIL Open Font License 1.1](public/fonts/OFL.txt).
+Laters is released under the [MIT Licence](LICENSE). Bricolage Grotesque is distributed separately
+under the [SIL Open Font License 1.1](public/fonts/OFL.txt).

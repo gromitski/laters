@@ -104,7 +104,11 @@ desktop/Android reconnection retained the complete 18-item list and reported Dri
 
 This slice changes documentation and presentation material, not application behaviour.
 
-Status: next active slice.
+Status: implementation candidate complete. The README now leads with opening, installation,
+capture, optional sync, everyday controls, disconnection and deletion guidance. Its two screenshots
+use only fictional `example.com`, `example.org` and `example.net` articles in an isolated local
+preview; they contain no browser chrome, accounts, email addresses, tokens or real reading-list
+content. Publication and maintainer acceptance are pending.
 
 ## `v0.6.0` — Export
 
