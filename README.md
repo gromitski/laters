@@ -39,6 +39,21 @@ list or source domains. See the public [privacy policy](https://laters.dustyb.in
 Use of the hosted app is also covered by its plain-English
 [Terms and acceptable-use rules](https://laters.dustyb.in/terms/).
 
+## Security
+
+Laters treats article details, Android share data and Google Drive files as untrusted input. It
+accepts only HTTP(S) article URLs, renders saved titles as text rather than executable HTML, limits
+remote data size and shape, and rejects website-generated cross-site submissions to its Android
+Share Target. Google access tokens remain in page memory and the optional permission is limited to
+Laters' private Drive application-data folder.
+
+The static app also hides itself when embedded by another page as a code-level clickjacking defence.
+This is useful defence in depth, but it is not equivalent to an HTTP `frame-ancestors` policy.
+GitHub Pages does not let this repository define response headers, so Laters cannot add HSTS,
+`X-Content-Type-Options`, `Permissions-Policy` or header-level anti-framing without changing host or
+adding a proxy. That infrastructure is deliberately outside the project boundary. See
+[SECURITY.md](SECURITY.md) for reporting and the maintained limitations.
+
 ## Optional Google Drive sync
 
 Google Drive sync is currently a private experiment: the OAuth app remains in Google's **Testing**
@@ -66,6 +81,7 @@ and is retried again later.
 ```bash
 npm ci
 npm test
+npm audit --audit-level=high
 npm run typecheck
 npm run audit:repository-privacy
 npm run build
@@ -80,6 +96,7 @@ See the completed [MVP definition](docs/mvp-definition.md), completed
 [`v0.5.0` release record](docs/releases/v0.5.0.md),
 [Google Drive live-sync record](docs/planning/google-drive-live-sync-plan.md),
 [application-menu record](docs/planning/application-menu-drawer-plan.md),
+[code-only security-hardening record](docs/planning/code-security-hardening-plan.md),
 [Terms and acceptable-use record](docs/planning/terms-and-acceptable-use-plan.md),
 [accepted roadmap through Export](docs/roadmap.md), [current project truth](memory/now.md) and
 remaining [exploratory future ideas](docs/future-ideas.md).

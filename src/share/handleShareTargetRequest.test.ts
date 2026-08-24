@@ -39,6 +39,69 @@ describe("handleShareTargetRequest", () => {
     expect(save).not.toHaveBeenCalled();
   });
 
+  it.each(["cross-site", "same-site"])(
+    "rejects a %s website submission without writing it",
+    async (fetchSite) => {
+      const save = vi.fn();
+      const response = await handleShareTargetRequest(
+        createShareRequest(
+          { url: "https://example.com/unwanted" },
+          { "Sec-Fetch-Site": fetchSite, Origin: "https://attacker.example" },
+        ),
+        { listNewestFirst: async () => [], save },
+      );
+
+      expect(response.headers.get("location")).toBe("https://laters.test/?share=invalid");
+      expect(save).not.toHaveBeenCalled();
+    },
+  );
+
+  it("accepts a browser-generated share navigation", async () => {
+    const save = vi.fn();
+    const response = await handleShareTargetRequest(
+      createShareRequest(
+        { url: "https://example.com/shared" },
+        {
+          "Sec-Fetch-Site": "none",
+          "Sec-Fetch-Mode": "navigate",
+          "Sec-Fetch-Dest": "document",
+          Origin: "null",
+        },
+      ),
+      { listNewestFirst: async () => [], save },
+    );
+
+    expect(response.headers.get("location")).toBe("https://laters.test/?share=saved");
+    expect(save).toHaveBeenCalledOnce();
+  });
+
+  it("rejects an oversized share before reading or writing it", async () => {
+    const save = vi.fn();
+    const response = await handleShareTargetRequest(
+      createShareRequest(
+        { url: "https://example.com/shared" },
+        { "Content-Length": String(128 * 1024 + 1) },
+      ),
+      { listNewestFirst: async () => [], save },
+    );
+
+    expect(response.headers.get("location")).toBe("https://laters.test/?share=invalid");
+    expect(save).not.toHaveBeenCalled();
+  });
+
+  it("rejects an oversized share field without writing it", async () => {
+    const save = vi.fn();
+    const response = await handleShareTargetRequest(
+      createShareRequest({
+        text: `${"a".repeat(64 * 1024 + 1)} https://example.com/shared`,
+      }),
+      { listNewestFirst: async () => [], save },
+    );
+
+    expect(response.headers.get("location")).toBe("https://laters.test/?share=invalid");
+    expect(save).not.toHaveBeenCalled();
+  });
+
   it("reports a malformed share request as invalid without writing it", async () => {
     const save = vi.fn();
     const response = await handleShareTargetRequest(
@@ -158,12 +221,16 @@ describe("handleShareTargetRequest", () => {
   });
 });
 
-function createShareRequest(fields: Record<string, string>): Request {
+function createShareRequest(
+  fields: Record<string, string>,
+  headers: Record<string, string> = {},
+): Request {
   return new Request("https://laters.test/share-target", {
     method: "POST",
     body: new URLSearchParams(fields),
     headers: {
       "content-type": "application/x-www-form-urlencoded",
+      ...headers,
     },
   });
 }

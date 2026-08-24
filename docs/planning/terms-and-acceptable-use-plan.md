@@ -2,7 +2,8 @@
 
 ## Status
 
-Implemented as the bounded `v0.5.3` candidate. This is a public policy and documentation slice; it
+Implemented, published and accepted as the bounded `v0.5.3` slice. This is a public policy and
+documentation slice; it
 does not change storage, sync, Google OAuth status or infrastructure.
 
 ## Product contract

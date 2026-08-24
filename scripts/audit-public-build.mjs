@@ -33,7 +33,19 @@ const APPROVED_PUBLIC_LITERALS = [
   "https://www.googleapis.com/upload/drive/v3/files",
 ];
 const REQUIRED_PUBLIC_CONTENT = new Map([
-  ["index.html", ['href="/privacy/"', 'href="/terms/"']],
+  [
+    "index.html",
+    [
+      'href="/privacy/"',
+      'href="/terms/"',
+      'id="frame-guard"',
+      'src="/frame-guard.js"',
+    ],
+  ],
+  [
+    "frame-guard.js",
+    ["window.self === window.top", "document.documentElement.replaceChildren()"],
+  ],
   [
     "privacy/index.html",
     [

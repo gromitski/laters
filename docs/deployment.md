@@ -12,12 +12,15 @@ Current status: the production workflow is active, the custom domain resolves to
 
 1. installs the locked dependencies;
 2. runs the automated tests;
-3. audits tracked source and the current commit identity for common private data and credentials;
-4. type-checks and builds the production application;
-5. audits `dist/` for common sensitive content, local paths, source maps and unintended external resources; and
-6. publishes only the generated `dist/` directory to GitHub Pages.
+3. rejects known high or critical dependency vulnerabilities;
+4. audits tracked source and the current commit identity for common private data and credentials;
+5. type-checks and builds the production application;
+6. audits `dist/` for common sensitive content, local paths, source maps and unintended external resources; and
+7. publishes only the generated `dist/` directory to GitHub Pages.
 
 The repository source, memory and evidence files are not part of the deployed artifact.
+Dependabot is separately configured in repository code to propose weekly npm updates and monthly
+GitHub Actions updates.
 
 ## Android acceptance
 

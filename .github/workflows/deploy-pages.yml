@@ -33,6 +33,9 @@ jobs:
       - name: Run automated tests
         run: npm test
 
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
       - name: Audit repository privacy
         run: npm run audit:repository-privacy
 

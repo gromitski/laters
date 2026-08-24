@@ -35,9 +35,23 @@ Status: implemented, published and accepted in `v0.5.2`.
 This slice is documentation and product policy. It does not claim that wording can override
 applicable law or remove responsibilities that cannot legally be excluded.
 
-Status: implemented as the `v0.5.3` candidate; published review remains the acceptance gate.
+Status: implemented, published and accepted in `v0.5.3`.
 
-### `v0.5.4` — production project and safeguards
+### `v0.5.4` — code-only security hardening
+
+- Reject website-generated cross-site submissions to the Android Share Target while preserving
+  browser-generated Android shares.
+- Bound share-request size before performing expensive parsing or writes.
+- Add a code-level anti-framing guard as defence in depth for GitHub Pages.
+- Run dependency auditing during deployment and configure automated dependency update proposals.
+- Document the response-header protections that cannot be added without leaving GitHub Pages.
+
+This slice does not add a proxy, backend, paid service or new hosting configuration. The frame guard
+does not claim to be equivalent to an HTTP `frame-ancestors` policy.
+
+Status: implemented as the `v0.5.4` candidate; published desktop and Android acceptance remain.
+
+### `v0.5.5` — production project and safeguards
 
 - Separate the public production Google Cloud project and OAuth client from personal testing.
 - Restrict authorised web origins and redirect behaviour to the production Laters domain.
@@ -49,7 +63,7 @@ Status: implemented as the `v0.5.3` candidate; published review remains the acce
 This slice requires maintainer access to the Google console. No billing commitment or paid service
 is authorised by this roadmap.
 
-### `v0.5.5` — public OAuth approval
+### `v0.5.6` — public OAuth approval
 
 - Complete the required domain, brand, support-contact and privacy/terms checks.
 - Move the production OAuth application out of Testing only after the earlier security and quota
@@ -58,7 +72,7 @@ is authorised by this roadmap.
 
 Public availability is an explicit acceptance gate, not an automatic consequence of merging code.
 
-### `v0.5.6` — non-technical introduction
+### `v0.5.7` — non-technical introduction
 
 - Reshape the README for people who simply want to use Laters, with screenshots and short guidance
   for opening, installing, connecting, disconnecting and deleting data.

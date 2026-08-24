@@ -178,23 +178,31 @@ None.
 
 ## Next safe action
 
-Complete published review of the `v0.5.3` Terms and acceptable-use candidate. Open **Terms** from the
-application drawer on phone and desktop and confirm that the presentation, plain-English tone,
-personal-responsibility boundary and data-risk explanation match the intended public product.
-Google OAuth remains in Testing and production-project work remains gated behind the later `v0.5.4`
-and `v0.5.5` slices.
+Publish and physically verify the code-only `v0.5.4` security-hardening candidate. Open Laters
+normally on desktop and Android, then share one ordinary public article from Android and confirm it
+is saved once. Google OAuth remains in Testing and production-project work remains gated behind the
+later `v0.5.5` and `v0.5.6` slices.
 
 ## Last meaningful update
 
-2026-08-24 — The bounded `v0.5.3` candidate adds public Terms and acceptable-use rules for the hosted
-app, while distinguishing separately licensed source code. Both public policies state plainly that
-the maintainer cannot see a user's reading list; optional sync stores it only in that user's private
+2026-08-24 — A focused OWASP Top 10:2025 review identified two bounded code-level opportunities and
+two repository-process gaps. The `v0.5.4` candidate rejects website-generated cross-site and
+oversized Android Share Target submissions, adds a code-level anti-framing guard, runs dependency
+auditing during deployment, configures automated npm and GitHub Actions update proposals, and
+publishes a security-reporting policy. GitHub Pages cannot provide project-defined HSTS,
+`X-Content-Type-Options`, `Permissions-Policy` or header-level `frame-ancestors`; changing host or
+adding a proxy remains explicitly outside the project boundary. Production-project, public OAuth
+and non-technical README slices move to `v0.5.5`, `v0.5.6` and `v0.5.7`; Export remains `v0.6.0`.
+
+2026-08-24 — The accepted `v0.5.3` policy slice adds public Terms and acceptable-use rules for the
+hosted app, while distinguishing separately licensed source code. Both public policies state plainly
+that the maintainer cannot see a user's reading list; optional sync stores it only in that user's private
 Google Drive application data. Users are responsible for their devices, Google Account, saved links,
 backups and acceptable use; loss and disclosure risks are allocated to the user, third parties or
 the maintainer according to cause rather than an absolute waiver; and non-excludable consumer,
 reasonable-care, negligence and fraud protections remain. Terms are linked from the app drawer,
-privacy policy and README. OAuth and application behaviour are unchanged. Published visual and
-wording acceptance remains outstanding.
+privacy policy and README. OAuth and application behaviour are unchanged. The maintainer confirmed
+that the published wording reads well.
 
 2026-08-24 — The maintainer completed the published `v0.5.2` desktop/Android check and reported that
 the connection-security behaviour appears good. This closes physical acceptance for memory-only
@@ -211,11 +219,11 @@ audit and both dependency audits pass. A local real-page check found no browser 
 confirmed the disconnected drawer and privacy page presentation. Published desktop/Android
 acceptance subsequently passed on 2026-08-24.
 
-2026-08-23 — The maintainer accepted a bounded public-readiness roadmap: `v0.5.2` connection
-security; `v0.5.3` Terms and acceptable use; `v0.5.4` a separate production Google project with
-quota/cost safeguards; `v0.5.5` public OAuth approval; `v0.5.6` a non-technical README with safe
-screenshots; and `v0.6.0` Export. Import and dark mode follow in that order but remain undefined.
-The authoritative sequence and exclusions are in `docs/roadmap.md`.
+2026-08-23 — The maintainer accepted a bounded public-readiness roadmap beginning with connection
+security and Terms before production-project, public OAuth, non-technical README and `v0.6.0`
+Export. The later insertion of code-only security hardening renumbered the remaining `v0.5.x`
+slices without changing that order. Import and dark mode follow but remain undefined. The
+authoritative sequence and exclusions are in `docs/roadmap.md`.
 
 2026-08-23 — `v0.5.1` was published as the latest GitHub release from exact deployed commit
 `83928cc` after Pages workflow `32668321345` passed. The remote lightweight tag resolves to that
