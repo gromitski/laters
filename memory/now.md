@@ -13,8 +13,8 @@ mobile interaction shell. Release `v0.4.2` consolidates the accepted sharing, de
 paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0`. Release `v0.5.0`
 records private Google Drive live sync, and `v0.5.1` records its automatic housekeeping follow-up.
 The currently deployed application bundle is `v0.5.5`; the configuration-only public OAuth gate is
-accepted as `v0.5.6`. A documentation-only `v0.5.7` non-technical introduction candidate is ready
-for publication and maintainer acceptance. The latest tagged GitHub release remains `v0.5.1`.
+accepted as `v0.5.6`. A documentation-only `v0.5.7` non-technical introduction candidate is
+published and awaits maintainer acceptance. The latest tagged GitHub release remains `v0.5.1`.
 
 ## What exists now
 
@@ -88,7 +88,7 @@ articles, accounts, email addresses, tokens or browser details.
 
 ## Active slice
 
-`v0.5.7` awaits publication and maintainer acceptance. It is documentation and presentation only;
+`v0.5.7` is published and awaits maintainer acceptance. It is documentation and presentation only;
 the application bundle, sync behaviour, OAuth configuration, storage and permissions are unchanged.
 
 ## Blockers
@@ -110,9 +110,8 @@ the application bundle, sync behaviour, OAuth configuration, storage and permiss
 
 ## Next safe action
 
-Publish the bounded `v0.5.7` candidate through the normal GitHub Pages workflow, then ask the
-maintainer to judge the rendered README and screenshots. Do not begin `v0.6.0` Export until this
-presentation slice is accepted.
+Ask the maintainer to judge the rendered `v0.5.7` README and screenshots. Do not begin `v0.6.0`
+Export until this presentation slice is accepted.
 
 ## Last meaningful update
 
@@ -122,8 +121,9 @@ data deletion. Developer setup, architecture and security limitations remain ava
 user guidance. Two screenshots were created in an isolated local preview using only fictional
 `example.com`, `example.org` and `example.net` articles; visual inspection found no personal
 articles, accounts, email addresses, tokens or browser details. Application code, bundle version,
-OAuth configuration, billing and data behaviour are unchanged. Publication and maintainer
-acceptance remain pending.
+OAuth configuration, billing and data behaviour are unchanged. Commit `13c61ef` published the
+candidate through successful GitHub Actions run `32783130212`; only maintainer acceptance remains
+pending.
 
 2026-08-24 — `v0.5.6` public OAuth approval completed. Google verified `dustyb.in` ownership, saved
 `hello@dustyb.in` as the public support and developer contact, and moved the External production
