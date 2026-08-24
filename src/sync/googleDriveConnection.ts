@@ -1,5 +1,5 @@
 export const GOOGLE_DRIVE_CLIENT_ID =
-  "66695716751-088llrf3kineuva2mq1tf7dujd47b2is.apps.googleusercontent.com";
+  "1097498587853-7cc0naone93knmrof6lf79upgqrkcavd.apps.googleusercontent.com";
 export const GOOGLE_DRIVE_SCOPE = "https://www.googleapis.com/auth/drive.appdata";
 
 const GOOGLE_IDENTITY_SCRIPT_ID = "google-identity-services";

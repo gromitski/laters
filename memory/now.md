@@ -76,11 +76,12 @@ The currently deployed application is `v0.5.4`; the latest tagged GitHub release
 
 ## Active focus
 
-`v0.5.5` production project and safeguards is the next bounded slice. Laters currently uses the
-maintainer-only OAuth test project, which remains in **Testing**. The next work creates a separate
-production Google Cloud project and web client, keeps that project in **Testing** during this slice,
-limits it to the production origin and narrow `drive.appdata` scope, and records conservative quota,
-alerting and no-billing safeguards before any public access.
+`v0.5.5` production project and safeguards is in progress. The separate `Laters Production` Google
+Cloud project and production-origin web client now exist, remain in **Testing** with only the
+maintainer admitted, and request only `drive.appdata`. Billing is unlinked, project and per-user
+request caps are set to 10,000 and 5,000 requests per minute, and automatic quota increases are off.
+The application candidate now uses the new public client ID. Publication and the controlled
+desktop/Android seed transition remain before acceptance.
 
 ## Active slice
 
@@ -102,11 +103,8 @@ Do not change the client ID, create public users, link billing or move either OA
 
 ## Blockers
 
-- The new project and client require the maintainer's authenticated Google Console session and
-  confirmation at the point of creation or configuration. Password, 2FA and CAPTCHA remain
-  maintainer-only actions.
-- The actual quota controls, alerts and billing state offered to the newly created project must be
-  inspected and recorded before any production client is used.
+- The controlled seed-device transition requires maintainer confirmation of the exact visible list
+  after the candidate is published, before a second installation connects to the new client.
 
 ## Uncertainties
 
@@ -120,20 +118,19 @@ Do not change the client ID, create public users, link billing or move either OA
 
 ## Next safe action
 
-Begin the bounded `v0.5.5` production-project and safeguards slice. Create a separate public Google
-Cloud project and OAuth client, restrict it to the production Laters origin, and set conservative
-quota and usage alerts before public access. This requires the maintainer's Google Console session;
-it does not authorise billing or moving OAuth out of Testing, which remains the separate `v0.5.6`
-gate.
+Complete the bounded `v0.5.5` candidate checks, publish the new public client ID, then update and
+connect only the verified complete seed installation. Confirm its exact list before a second
+installation connects. This does not authorise billing or moving OAuth out of Testing, which remains
+the separate `v0.5.6` gate.
 
 ## Last meaningful update
 
-2026-08-24 — A full documentation and stale-state pass prepared the repository for a new task. The
-next slice is `v0.5.5`; its configuration boundary, current Google quota/cost facts, controlled
-Drive-data transition and verification sequence are recorded in
-`docs/handoffs/v0.5.5-start.md`. Initial handoff commit `e853b65` passed GitHub Actions run
-`32727429914` and deployed successfully. No Google project, OAuth client or application code changed
-in this documentation slice.
+2026-08-24 — The separate no-billing production Google project and web client were configured with
+Testing-only maintainer access, the exact production origin and `drive.appdata` scope. Conservative
+request caps are active and automatic increases are off. A usage alert was deliberately not saved
+because Google states that its metric references become chargeable in September 2026. The bounded
+application candidate now uses the new public client ID; automated checks, publication and the
+controlled seed-device transition remain.
 
 2026-08-24 — The maintainer updated the published `v0.5.4` app, confirmed that normal Android Share
 Target capture still saves an ordinary article correctly, and accepted the result. This closes the

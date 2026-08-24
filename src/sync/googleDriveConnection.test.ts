@@ -1,11 +1,18 @@
 import { describe, expect, it, vi } from "vitest";
 import {
+  GOOGLE_DRIVE_CLIENT_ID,
   GOOGLE_DRIVE_SCOPE,
   revokeGoogleDriveAccess,
   runGoogleDriveConnectionProbe,
 } from "./googleDriveConnection";
 
 describe("Google Drive connection proof", () => {
+  it("uses the production-only web client", () => {
+    expect(GOOGLE_DRIVE_CLIENT_ID).toBe(
+      "1097498587853-7cc0naone93knmrof6lf79upgqrkcavd.apps.googleusercontent.com",
+    );
+  });
+
   it("uses only the private application-data scope", () => {
     expect(GOOGLE_DRIVE_SCOPE).toBe("https://www.googleapis.com/auth/drive.appdata");
   });

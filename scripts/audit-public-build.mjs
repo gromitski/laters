@@ -27,7 +27,7 @@ const EXTERNAL_RESOURCE_CONTENT = [
 ];
 const APPROVED_PUBLIC_LITERALS = [
   "hello@dustyb.in",
-  "66695716751-088llrf3kineuva2mq1tf7dujd47b2is.apps.googleusercontent.com",
+  "1097498587853-7cc0naone93knmrof6lf79upgqrkcavd.apps.googleusercontent.com",
   "https://accounts.google.com/gsi/client",
   "https://www.googleapis.com/drive/v3/files",
   "https://www.googleapis.com/upload/drive/v3/files",
