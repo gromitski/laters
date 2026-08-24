@@ -80,19 +80,19 @@ exact verified commit `3d4f980`.
   and a public security-reporting policy.
 - An accepted user-first `v0.5.7` README with concise opening, installation, capture, optional sync,
   everyday-use, disconnection and data-deletion guidance plus two privacy-safe sample screenshots.
-- A `v0.6.0` Export candidate in the main menu that creates a versioned CSV of local article URLs,
-  titles, saved times, bookmark state and deliberate-title state without exposing credentials,
-  connection data, internal identifiers or sync operations.
+- An accepted `v0.6.0` Export implementation in the main menu that creates a versioned CSV of local
+  article URLs, titles, saved times, bookmark state and deliberate-title state without exposing
+  credentials, connection data, internal identifiers or sync operations.
 
 ## Active focus
 
-The bounded `v0.6.0` Export candidate is implemented and agent-verified. The next work is published
-human acceptance of the main-menu CSV share/download flow and its real exported content.
+The bounded `v0.6.0` Export implementation is complete and accepted on published macOS Chrome.
+No tag or GitHub release is authorised.
 
 ## Active slice
 
-`v0.6.0` Export is implemented as a candidate. It uses the agreed portable CSV contract; Import
-remains outside the active slice. Published human acceptance is pending.
+`v0.6.0` Export is implemented and accepted. It uses the agreed portable CSV contract; Import
+remains outside the completed slice.
 
 ## Blockers
 
@@ -113,11 +113,14 @@ remains outside the active slice. Published human acceptance is pending.
 
 ## Next safe action
 
-Publish the corrected `v0.6.0` candidate through the automatic Pages workflow, then repeat the short
-human acceptance check for direct CSV downloading and exported content. Import remains explicitly
-outside this release.
+Await separate maintainer direction for any tag, GitHub release or next product slice. Import
+remains explicitly outside this release.
 
 ## Last meaningful update
+
+2026-08-25 — Published macOS Chrome acceptance passed after the direct-download correction: the
+**Download CSV** action saved the export successfully. This closes the bounded `v0.6.0` Export
+implementation slice. No tag or GitHub release was created.
 
 2026-08-25 — Published Mac acceptance showed that Chrome's file-share capability opened a macOS
 share sheet without a reliable save destination. The bounded correction renames the action
