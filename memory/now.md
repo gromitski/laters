@@ -131,8 +131,9 @@ gate.
 2026-08-24 — A full documentation and stale-state pass prepared the repository for a new task. The
 next slice is `v0.5.5`; its configuration boundary, current Google quota/cost facts, controlled
 Drive-data transition and verification sequence are recorded in
-`docs/handoffs/v0.5.5-start.md`. No Google project, OAuth client or application code changed in this
-documentation slice.
+`docs/handoffs/v0.5.5-start.md`. Initial handoff commit `e853b65` passed GitHub Actions run
+`32727429914` and deployed successfully. No Google project, OAuth client or application code changed
+in this documentation slice.
 
 2026-08-24 — The maintainer updated the published `v0.5.4` app, confirmed that normal Android Share
 Target capture still saves an ordinary article correctly, and accepted the result. This closes the
