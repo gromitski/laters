@@ -178,13 +178,18 @@ None.
 
 ## Next safe action
 
-Complete published acceptance for the `v0.5.2` connection-security candidate. On desktop and Android,
-apply the update, resume Google Drive and confirm the indicator turns green. Reload once and confirm
-Laters requires **Resume Google Drive** again. Then use **Disconnect** on one device and confirm the
-session stops without deleting the local list or hidden Drive data. Moving Google OAuth from Testing
-to public production access remains gated behind `v0.5.3` through `v0.5.5`.
+Define the bounded `v0.5.3` Terms and acceptable-use slice in plain English before implementation.
+It should explain the open-source, at-your-own-risk service; user responsibility for devices,
+accounts, saved links and use; prohibited abuse; and liability limits only to the fullest extent
+permitted by law. Google OAuth remains in Testing and production-project work remains gated behind
+the later `v0.5.4` and `v0.5.5` slices.
 
 ## Last meaningful update
+
+2026-08-24 — The maintainer completed the published `v0.5.2` desktop/Android check and reported that
+the connection-security behaviour appears good. This closes physical acceptance for memory-only
+tokens, deliberate resume and in-app disconnect/revocation. No `v0.5.2` tag or GitHub release has
+been created. The next bounded slice is `v0.5.3` Terms and acceptable use.
 
 2026-08-23 — The bounded `v0.5.2` connection-security candidate is implemented. Google access tokens
 now remain only in page memory; startup removes the earlier local-storage credential record;
@@ -194,7 +199,7 @@ README, privacy policy and Google Drive planning record describe the new resume 
 boundaries. All 131 tests, type checking, production build, repository privacy audit, public-build
 audit and both dependency audits pass. A local real-page check found no browser policy warnings and
 confirmed the disconnected drawer and privacy page presentation. Published desktop/Android
-acceptance remains outstanding.
+acceptance subsequently passed on 2026-08-24.
 
 2026-08-23 — The maintainer accepted a bounded public-readiness roadmap: `v0.5.2` connection
 security; `v0.5.3` Terms and acceptable use; `v0.5.4` a separate production Google project with

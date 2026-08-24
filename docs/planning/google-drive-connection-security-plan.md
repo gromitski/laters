@@ -2,8 +2,10 @@
 
 ## Status
 
-Implemented as the bounded `v0.5.2` candidate. It prepares the existing private Google Drive
-experiment for later public review but does not move OAuth out of Testing.
+Implemented, published and accepted as the bounded `v0.5.2` candidate. The maintainer reported the
+desktop/Android connection-security behaviour working correctly on 2026-08-24. This prepares the
+existing private Google Drive experiment for later public review but does not move OAuth out of
+Testing or create a `v0.5.2` tag or GitHub release.
 
 ## User-visible contract
 
@@ -45,3 +47,5 @@ restricted to HTTPS by the policy and continue to fall back locally on failure.
 - After publication, reconnect once on desktop and Android, confirm the green connected state, then
   test **Disconnect** on one device. A reload must show the white/red disconnected state and require
   **Resume Google Drive** before changes sync again.
+- The maintainer completed the published check and reported the resulting behaviour working
+  correctly on 2026-08-24, closing the physical acceptance gate.
