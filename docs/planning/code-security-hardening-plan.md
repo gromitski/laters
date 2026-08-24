@@ -2,9 +2,9 @@
 
 ## Status
 
-Implemented as the bounded `v0.5.4` candidate after a focused OWASP Top 10:2025 review. This slice
-uses only application and repository code. It does not add a backend, proxy, paid service or hosting
-configuration beyond the existing GitHub Pages workflow.
+Implemented, published and accepted as the bounded `v0.5.4` slice after a focused OWASP Top 10:2025
+review. This slice uses only application and repository code. It does not add a backend, proxy, paid
+service or hosting configuration beyond the existing GitHub Pages workflow.
 
 ## Threats addressed
 
@@ -64,3 +64,6 @@ architecture.
 - After publication, open Laters normally on desktop and Android and confirm the app is visible and
   usable. Then share one ordinary public article from Android and confirm it is saved once. Failure
   means the Share Target metadata boundary needs correction before release.
+
+The maintainer completed that published Android check on 2026-08-24 and accepted the result, closing
+the final physical-device gate.

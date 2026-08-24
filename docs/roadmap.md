@@ -49,7 +49,7 @@ Status: implemented, published and accepted in `v0.5.3`.
 This slice does not add a proxy, backend, paid service or new hosting configuration. The frame guard
 does not claim to be equivalent to an HTTP `frame-ancestors` policy.
 
-Status: implemented as the `v0.5.4` candidate; published desktop and Android acceptance remain.
+Status: implemented, published and accepted in `v0.5.4`.
 
 ### `v0.5.5` — production project and safeguards
 

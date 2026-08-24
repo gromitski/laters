@@ -178,12 +178,18 @@ None.
 
 ## Next safe action
 
-Publish and physically verify the code-only `v0.5.4` security-hardening candidate. Open Laters
-normally on desktop and Android, then share one ordinary public article from Android and confirm it
-is saved once. Google OAuth remains in Testing and production-project work remains gated behind the
-later `v0.5.5` and `v0.5.6` slices.
+Begin the bounded `v0.5.5` production-project and safeguards slice. Create a separate public Google
+Cloud project and OAuth client, restrict it to the production Laters origin, and set conservative
+quota and usage alerts before public access. This requires the maintainer's Google Console session;
+it does not authorise billing or moving OAuth out of Testing, which remains the separate `v0.5.6`
+gate.
 
 ## Last meaningful update
+
+2026-08-24 — The maintainer updated the published `v0.5.4` app, confirmed that normal Android Share
+Target capture still saves an ordinary article correctly, and accepted the result. This closes the
+physical-device gate for the cross-site request boundary and completes the code-only security slice.
+The next bounded slice is `v0.5.5` production project and safeguards; OAuth remains in Testing.
 
 2026-08-24 — A focused OWASP Top 10:2025 review identified two bounded code-level opportunities and
 two repository-process gaps. The `v0.5.4` candidate rejects website-generated cross-site and
