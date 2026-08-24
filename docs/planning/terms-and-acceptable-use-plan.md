@@ -10,6 +10,8 @@ does not change storage, sync, Google OAuth status or infrastructure.
 - The hosted app has plain-English Terms at `/terms/`, linked from the application menu, privacy
   policy and README.
 - The Terms distinguish the free hosted app from source code released under the MIT Licence.
+- Both public policies state plainly and prominently that the Laters maintainer cannot see a user's
+  reading list; optional sync stores it only in that user's private Google Drive application data.
 - Users are responsible for their devices, browser, Google Account, saved links, third-party terms,
   reasonable backups and ordinary connectivity or account costs.
 - Acceptable use prohibits unlawful or harmful use, malicious links or code, security interference,

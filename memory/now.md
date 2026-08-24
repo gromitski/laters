@@ -187,12 +187,14 @@ and `v0.5.5` slices.
 ## Last meaningful update
 
 2026-08-24 — The bounded `v0.5.3` candidate adds public Terms and acceptable-use rules for the hosted
-app, while distinguishing separately licensed source code. Users are responsible for their devices,
-Google Account, saved links, backups and acceptable use; loss and disclosure risks are allocated to
-the user, third parties or the maintainer according to cause rather than an absolute waiver; and
-non-excludable consumer, reasonable-care, negligence and fraud protections remain. Terms are linked
-from the app drawer, privacy policy and README. OAuth and application behaviour are unchanged.
-Published visual and wording acceptance remains outstanding.
+app, while distinguishing separately licensed source code. Both public policies state plainly that
+the maintainer cannot see a user's reading list; optional sync stores it only in that user's private
+Google Drive application data. Users are responsible for their devices, Google Account, saved links,
+backups and acceptable use; loss and disclosure risks are allocated to the user, third parties or
+the maintainer according to cause rather than an absolute waiver; and non-excludable consumer,
+reasonable-care, negligence and fraud protections remain. Terms are linked from the app drawer,
+privacy policy and README. OAuth and application behaviour are unchanged. Published visual and
+wording acceptance remains outstanding.
 
 2026-08-24 — The maintainer completed the published `v0.5.2` desktop/Android check and reported that
 the connection-security behaviour appears good. This closes physical acceptance for memory-only
