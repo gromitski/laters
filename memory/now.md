@@ -13,8 +13,8 @@ mobile interaction shell. Release `v0.4.2` consolidates the accepted sharing, de
 paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0`. Release `v0.5.0`
 records private Google Drive live sync, and `v0.5.1` records its automatic housekeeping follow-up.
 The currently deployed application bundle is `v0.5.5`; the configuration-only public OAuth gate is
-accepted as `v0.5.6`. A documentation-only `v0.5.7` non-technical introduction candidate is
-published and awaits maintainer acceptance. The latest tagged GitHub release remains `v0.5.1`.
+accepted as `v0.5.6`. The documentation-only `v0.5.7` non-technical introduction is published and
+maintainer-accepted. The latest tagged GitHub release remains `v0.5.1`.
 
 ## What exists now
 
@@ -75,21 +75,21 @@ published and awaits maintainer acceptance. The latest tagged GitHub release rem
 - Accepted `v0.5.4` code-only security hardening covering the Share Target request boundary,
   bounded request bodies, code-level anti-framing, deployment-time dependency auditing, Dependabot
   and a public security-reporting policy.
-- A user-first `v0.5.7` README candidate with concise opening, installation, capture, optional sync,
+- An accepted user-first `v0.5.7` README with concise opening, installation, capture, optional sync,
   everyday-use, disconnection and data-deletion guidance plus two privacy-safe sample screenshots.
 
 ## Active focus
 
-The `v0.5.7` non-technical introduction candidate is complete. The README now starts with the live
-app, safe sample imagery and short task-led guidance before technical architecture and development
-material. The two screenshots were created from disposable fictional `example.com`, `example.org`
-and `example.net` records in an isolated local preview; visual inspection found no personal
-articles, accounts, email addresses, tokens or browser details.
+The `v0.5.7` non-technical introduction is published and maintainer-accepted. The README starts
+with the live app, safe sample imagery and short task-led guidance before technical architecture
+and development material. Its two screenshots use disposable fictional `example.com`,
+`example.org` and `example.net` records in an isolated local preview; visual inspection found no
+personal articles, accounts, email addresses, tokens or browser details.
 
 ## Active slice
 
-`v0.5.7` is published and awaits maintainer acceptance. It is documentation and presentation only;
-the application bundle, sync behaviour, OAuth configuration, storage and permissions are unchanged.
+The next roadmap slice is `v0.6.0` Export. Its data format, precise behaviour and acceptance checks
+must be agreed before implementation. No Export work has begun.
 
 ## Blockers
 
@@ -110,8 +110,8 @@ the application bundle, sync behaviour, OAuth configuration, storage and permiss
 
 ## Next safe action
 
-Ask the maintainer to judge the rendered `v0.5.7` README and screenshots. Do not begin `v0.6.0`
-Export until this presentation slice is accepted.
+Define and agree the bounded `v0.6.0` Export format, behaviour and acceptance checks before
+implementation. Import remains explicitly outside that release.
 
 ## Last meaningful update
 
@@ -122,8 +122,8 @@ user guidance. Two screenshots were created in an isolated local preview using o
 `example.com`, `example.org` and `example.net` articles; visual inspection found no personal
 articles, accounts, email addresses, tokens or browser details. Application code, bundle version,
 OAuth configuration, billing and data behaviour are unchanged. Commit `13c61ef` published the
-candidate through successful GitHub Actions run `32783130212`; only maintainer acceptance remains
-pending.
+candidate through successful GitHub Actions run `32783130212`. The maintainer subsequently approved
+the rendered README and screenshots, closing `v0.5.7`.
 
 2026-08-24 — `v0.5.6` public OAuth approval completed. Google verified `dustyb.in` ownership, saved
 `hello@dustyb.in` as the public support and developer contact, and moved the External production
