@@ -125,17 +125,17 @@ release, tagged `v0.5.7` at exact verified commit `3d4f980`.
 Import is deliberately not bundled into this release. The export format should make a later import
 possible without promising it in `v0.6.0`.
 
-Status: implemented as a `v0.6.0` candidate. The main menu creates a user-initiated, versioned CSV
-with `url`, `title`, `created` and `tags` columns. Namespaced tags preserve bookmark and deliberate
-title-edit state without exposing local identifiers, pending operations, Drive metadata, credentials
-or connection information. **Download CSV** starts a normal local browser download on every
-supported platform; whole-list export does not use the operating-system share chooser. Automated
-verification is complete. Published acceptance on macOS Chrome confirmed that the corrected action
-downloads the CSV successfully. Import is still outside this slice.
+Status: accepted and prepared for release as `v0.6.0`. The main menu creates a user-initiated,
+versioned CSV with `url`, `title`, `created` and `tags` columns. Namespaced tags preserve bookmark
+and deliberate title-edit state without exposing local identifiers, pending operations, Drive
+metadata, credentials or connection information. **Download CSV** starts a normal local browser
+download on every supported platform; whole-list export does not use the operating-system share
+chooser. Automated verification is complete. Published acceptance on macOS Chrome confirmed that
+the corrected action downloads the CSV successfully. Import is still outside this slice.
 
 ## After `v0.6.0`
 
-- Import is the next intended product slice.
+- Import is the next intended product slice, proposed as `v0.7.0`.
 - Dark mode follows Import.
 
 Their exact version numbers, behaviour and acceptance criteria remain to be agreed when each becomes

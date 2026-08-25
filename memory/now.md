@@ -13,11 +13,11 @@ mobile interaction shell. Release `v0.4.2` consolidates the accepted sharing, de
 paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0`. Release `v0.5.0`
 records private Google Drive live sync, and `v0.5.1` records its automatic housekeeping follow-up.
 Release `v0.5.7` consolidates the accepted code, configuration and documentation delivered after
-`v0.5.1`. Package metadata is `0.6.0` for the Export candidate; `v0.5.7` remains the latest tagged
-release. The configuration-only public OAuth gate is accepted as `v0.5.6`, and the documentation-only
-`v0.5.7` non-technical introduction
-is published and maintainer-accepted. `v0.5.7` is the latest tagged GitHub release and resolves to
-exact verified commit `3d4f980`.
+`v0.5.1`. Package metadata is `0.6.0` for the accepted Export release candidate; `v0.5.7` remains
+the latest tagged release until `v0.6.0` publication. The configuration-only public OAuth gate is
+accepted as `v0.5.6`, and the documentation-only `v0.5.7` non-technical introduction is published
+and maintainer-accepted. `v0.5.7` is the latest tagged GitHub release and resolves to exact verified
+commit `3d4f980`.
 
 ## What exists now
 
@@ -86,13 +86,12 @@ exact verified commit `3d4f980`.
 
 ## Active focus
 
-The bounded `v0.6.0` Export implementation is complete and accepted on published macOS Chrome.
-No tag or GitHub release is authorised.
+Prepare and publish the authorised `v0.6.0` Export release from the exact accepted implementation.
 
 ## Active slice
 
-`v0.6.0` Export is implemented and accepted. It uses the agreed portable CSV contract; Import
-remains outside the completed slice.
+`v0.6.0` Export is implemented, accepted and prepared for release. It uses the agreed portable CSV
+contract; Import remains outside this release and is proposed as the separate `v0.7.0` slice.
 
 ## Blockers
 
@@ -113,10 +112,14 @@ remains outside the completed slice.
 
 ## Next safe action
 
-Await separate maintainer direction for any tag, GitHub release or next product slice. Import
-remains explicitly outside this release.
+Complete final verification and Pages deployment for the exact release commit, publish the
+lightweight `v0.6.0` tag and GitHub release, then define the bounded `v0.7.0` Import contract.
 
 ## Last meaningful update
+
+2026-08-25 — The maintainer authorised the `v0.6.0` tag and GitHub release after successful Export
+acceptance, and selected Import as the proposed `v0.7.0` slice. The durable release record is
+prepared; Import remains unimplemented pending product definition.
 
 2026-08-25 — Published macOS Chrome acceptance passed after the direct-download correction: the
 **Download CSV** action saved the export successfully. This closes the bounded `v0.6.0` Export
@@ -255,6 +258,7 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [`v0.5.0` release record](../docs/releases/v0.5.0.md)
 - [`v0.5.1` release record](../docs/releases/v0.5.1.md)
 - [`v0.5.7` release record](../docs/releases/v0.5.7.md)
+- [`v0.6.0` release record](../docs/releases/v0.6.0.md)
 - [CSV export format](../docs/export-format.md)
 - [Google Drive connection security plan](../docs/planning/google-drive-connection-security-plan.md)
 - [Code security hardening plan](../docs/planning/code-security-hardening-plan.md)
