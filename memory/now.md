@@ -13,11 +13,9 @@ mobile interaction shell. Release `v0.4.2` consolidates the accepted sharing, de
 paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0`. Release `v0.5.0`
 records private Google Drive live sync, and `v0.5.1` records its automatic housekeeping follow-up.
 Release `v0.5.7` consolidates the accepted code, configuration and documentation delivered after
-`v0.5.1`. Package metadata is `0.6.0` for the accepted Export release candidate; `v0.5.7` remains
-the latest tagged release until `v0.6.0` publication. The configuration-only public OAuth gate is
-accepted as `v0.5.6`, and the documentation-only `v0.5.7` non-technical introduction is published
-and maintainer-accepted. `v0.5.7` is the latest tagged GitHub release and resolves to exact verified
-commit `3d4f980`.
+`v0.5.1`. Release `v0.6.0` records the accepted portable CSV Export. Package metadata is `0.6.0`;
+`v0.6.0` is the latest tagged GitHub release and its lightweight tag resolves to exact verified
+commit `60794b0`.
 
 ## What exists now
 
@@ -86,12 +84,12 @@ commit `3d4f980`.
 
 ## Active focus
 
-Prepare and publish the authorised `v0.6.0` Export release from the exact accepted implementation.
+Define the bounded `v0.7.0` Import product contract before implementation.
 
 ## Active slice
 
-`v0.6.0` Export is implemented, accepted and prepared for release. It uses the agreed portable CSV
-contract; Import remains outside this release and is proposed as the separate `v0.7.0` slice.
+`v0.6.0` Export is released. No Import implementation has begun; `v0.7.0` scope and acceptance
+criteria are not yet agreed.
 
 ## Blockers
 
@@ -112,10 +110,15 @@ contract; Import remains outside this release and is proposed as the separate `v
 
 ## Next safe action
 
-Complete final verification and Pages deployment for the exact release commit, publish the
-lightweight `v0.6.0` tag and GitHub release, then define the bounded `v0.7.0` Import contract.
+Inspect the existing storage, sync and CSV contracts, then present a bounded `v0.7.0` Import
+proposal for maintainer agreement before implementation.
 
 ## Last meaningful update
+
+2026-08-25 — `v0.6.0` was published as the latest GitHub release from exact verified commit
+`60794b0` after GitHub Pages workflow `32847501931` passed. The remote lightweight tag resolves to
+that commit. The release records the accepted portable CSV Export; Import remains unimplemented and
+is proposed as the separately defined `v0.7.0` slice.
 
 2026-08-25 — The maintainer authorised the `v0.6.0` tag and GitHub release after successful Export
 acceptance, and selected Import as the proposed `v0.7.0` slice. The durable release record is
@@ -271,4 +274,4 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [Application menu drawer plan](../docs/planning/application-menu-drawer-plan.md)
 - [`v0.2.0` release record](../docs/releases/v0.2.0.md)
 - [`v0.3.0` release record](../docs/releases/v0.3.0.md)
-- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`, `v0.5.0`, `v0.5.1`, `v0.5.7`.
+- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`, `v0.5.0`, `v0.5.1`, `v0.5.7`, `v0.6.0`.

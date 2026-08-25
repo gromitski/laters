@@ -2,7 +2,7 @@
 
 ## Status
 
-This is the public export contract implemented for the `v0.6.0` candidate. Export is available from
+This is the public export contract released in `v0.6.0`. Export is available from
 the main application menu. Import remains a separate later release and is not implemented by this
 contract.
 
