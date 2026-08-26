@@ -47,6 +47,12 @@ changes remain safe: open the menu and use **Resume Google Drive** to continue s
 - Long-press an article for Read, Edit title, Bookmark, Share and Delete. Sharing sends only its URL.
 - On desktop, use the visible three-dot article control for the same menu.
 
+## Choose an appearance
+
+Open the circular menu and choose **System**, **Light** or **Dark** under **Appearance**. System is
+the default and follows that device's current colour preference. A manual choice is saved only in
+that browser: it is not included in Import, Export or Google Drive sync.
+
 ## Import or export your data
 
 Open the circular menu and select **Import CSV** to add articles from a local CSV file. Laters accepts
@@ -123,6 +129,7 @@ Project records: [MVP definition](docs/mvp-definition.md),
 [v0.5.7 public-readiness release](docs/releases/v0.5.7.md),
 [v0.6.0 Export release](docs/releases/v0.6.0.md),
 [v0.7.0 Import release](docs/releases/v0.7.0.md),
+[v0.8.0 dark-mode plan](docs/planning/dark-mode-plan.md),
 [Google Drive live sync](docs/planning/google-drive-live-sync-plan.md),
 [CSV export format](docs/export-format.md), [CSV import contract](docs/import-format.md),
 [roadmap](docs/roadmap.md),

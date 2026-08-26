@@ -56,6 +56,7 @@ import {
 } from "./ui/readingListImportAction";
 import { loadPublisherFavicon } from "./ui/loadPublisherFavicon";
 import { readClipboardText } from "./ui/readClipboardText";
+import { installThemePreferenceController } from "./ui/themePreference";
 import {
   ARTICLE_TITLE_CHANGED_EVENT,
   BOOKMARK_STATE_CHANGED_EVENT,
@@ -103,6 +104,12 @@ const applicationMenuCloseAction = requireElement<HTMLButtonElement>(
   "application-menu-close-action",
 );
 const applicationVersionLabel = requireElement<HTMLSpanElement>("application-version");
+const themeColorMeta = requireElement<HTMLMetaElement>("theme-color");
+const themePreferenceControls = [
+  requireElement<HTMLInputElement>("theme-system"),
+  requireElement<HTMLInputElement>("theme-light"),
+  requireElement<HTMLInputElement>("theme-dark"),
+];
 const googleDriveConnectAction = requireElement<HTMLButtonElement>(
   "google-drive-connect-action",
 );
@@ -134,6 +141,14 @@ installApplicationMenu({
   modal: applicationMenu,
   openAction: applicationMenuAction,
   closeAction: applicationMenuCloseAction,
+});
+
+installThemePreferenceController({
+  controls: themePreferenceControls,
+  documentElement: document.documentElement,
+  themeColorMeta,
+  systemPreference: window.matchMedia("(prefers-color-scheme: dark)"),
+  storage: window.localStorage,
 });
 
 applicationVersionLabel.textContent = `Version ${applicationVersion}`;

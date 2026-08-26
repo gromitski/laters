@@ -7,14 +7,15 @@
       content="default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'self'; script-src 'self' https://accounts.google.com; style-src 'self' 'unsafe-inline' https://accounts.google.com; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://accounts.google.com https://www.googleapis.com; frame-src https://accounts.google.com; worker-src 'self'; manifest-src 'self'"
     />
     <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta id="theme-color" name="theme-color" content="#ffffff" />
     <style id="frame-guard">
       html {
         visibility: hidden;
       }
     </style>
+    <script src="/theme-bootstrap.js"></script>
     <script src="/frame-guard.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
     <meta
       name="description"
       content="A minimal local-first list of articles to read later."
@@ -93,6 +94,25 @@
             </svg>
           </button>
         </header>
+
+        <fieldset class="appearance-setting">
+          <legend>Appearance</legend>
+          <p>Use your device setting, or keep Laters light or dark on this browser.</p>
+          <div class="theme-options">
+            <label class="theme-choice">
+              <input id="theme-system" type="radio" name="theme-preference" value="system">
+              <span>System</span>
+            </label>
+            <label class="theme-choice">
+              <input id="theme-light" type="radio" name="theme-preference" value="light">
+              <span>Light</span>
+            </label>
+            <label class="theme-choice">
+              <input id="theme-dark" type="radio" name="theme-preference" value="dark">
+              <span>Dark</span>
+            </label>
+          </div>
+        </fieldset>
 
         <section class="sync-experiment" aria-labelledby="sync-experiment-heading">
           <p class="sync-experiment-kicker">Experimental sync</p>

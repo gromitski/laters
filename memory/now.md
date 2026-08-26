@@ -14,8 +14,9 @@ paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0
 records private Google Drive live sync, and `v0.5.1` records its automatic housekeeping follow-up.
 Release `v0.5.7` consolidates the accepted code, configuration and documentation delivered after
 `v0.5.1`. Release `v0.6.0` records the accepted portable CSV Export, and release `v0.7.0` records
-the accepted reviewed CSV Import. Package metadata is `0.7.0`; `v0.7.0` is the latest tagged GitHub
-release and its lightweight tag resolves to exact verified commit `d13a08b`.
+the accepted reviewed CSV Import. Package metadata is `0.8.0` for the dark-mode candidate;
+`v0.7.0` remains the latest tagged GitHub release and its lightweight tag resolves to exact
+verified commit `d13a08b`.
 
 ## What exists now
 
@@ -84,16 +85,21 @@ release and its lightweight tag resolves to exact verified commit `d13a08b`.
 - A released `v0.7.0` Import beside Export that validates and reviews a local named-column CSV,
   atomically adds only new canonical URLs and queues ordinary Drive additions without uploading the
   selected file.
+- A bounded `v0.8.0` dark-mode candidate with System, Light and Dark choices in the main menu, a
+  local-only override, pre-paint theme application, runtime theme metadata and matching application,
+  overlay, Privacy and Terms presentation.
 
 ## Active focus
 
-Define the bounded dark-mode product slice without beginning implementation before agreement.
+Publish the verified dark-mode candidate through the automatic Pages workflow, then obtain human
+acceptance on macOS and the installed Android PWA before any release decision.
 
 ## Active slice
 
-`v0.7.0` Import is implemented, agent-verified, published, maintainer-accepted and released using the
-bounded add-only CSV contract. The corrected completion sequence, package-derived menu version and
-success tick are all accepted.
+The bounded `v0.8.0` dark-mode contract is agreed and implemented. System is the default; Light and
+Dark are local browser overrides in the main menu. The candidate changes presentation only and
+does not read or mutate articles, CSV data, Drive records or pending operations. Automated and local
+rendered-browser verification pass; publication and maintainer acceptance remain.
 
 ## Blockers
 
@@ -114,10 +120,18 @@ success tick are all accepted.
 
 ## Next safe action
 
-Prepare a bounded dark-mode product and technical proposal from the accepted roadmap, then stop for
-agreement before implementation.
+Commit and push the complete verified `v0.8.0` candidate to `main`, verify the automatic GitHub Pages
+workflow, then request published human acceptance. Do not create a tag or GitHub release without
+separate authority.
 
 ## Last meaningful update
+
+2026-08-26 — The agreed `v0.8.0` candidate adds System, Light and Dark in the main menu and applies a
+local-only theme across the app, Ionic overlays, Privacy and Terms. All 189 automated tests across
+28 files, type checking, production build, service-worker generation, repository and public-build
+privacy audits, both dependency audits with zero vulnerabilities and the no-attribution self-test
+pass. Local rendered checks cover narrow and desktop menus, persistence, dark list/action contrast,
+the Ionic action sheet, title dialog and production-built legal pages. Publication remains.
 
 2026-08-26 — `v0.7.0` was published as the latest GitHub release from exact verified commit
 `d13a08b` after GitHub Pages workflow `32956771733` passed. The remote lightweight tag resolves to

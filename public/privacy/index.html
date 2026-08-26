@@ -9,6 +9,7 @@
     <meta name="referrer" content="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#ffffff" />
+    <script src="/theme-bootstrap.js"></script>
     <meta
       name="description"
       content="How Laters stores local reading-list data and uses its optional Google Drive connection."
@@ -54,9 +55,11 @@
           state and any title-edit marker in your browser’s IndexedDB database. A successful Google
           Drive connection time is stored separately in local browser storage. The short-lived
           Google access token is held only in memory while the page is open; it is not written to
-          persistent browser storage. Pending add, edit, restore and deletion records are stored in
-          IndexedDB until Drive confirms them. The service worker and browser may also cache Laters
-          application files and publisher favicons so the app can load efficiently and work offline.
+          persistent browser storage. A System, Light or Dark appearance choice is stored locally in
+          that browser and is not synced. Pending add, edit, restore and deletion records are stored
+          in IndexedDB until Drive confirms them. The service worker and browser may also cache
+          Laters application files and publisher favicons so the app can load efficiently and work
+          offline.
         </p>
         <p>
           Laters itself does not set cookies. It can read clipboard text only after you deliberately

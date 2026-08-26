@@ -224,6 +224,21 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   preserved ordering, menu dismissal, version label and success presentation, then authorised the
   exact verified `v0.7.0` release.
 
+## Accepted v0.8.0 dark-mode direction
+
+- Add an **Appearance** radio group to the existing main menu with **System**, **Light** and **Dark**.
+  System is the default, follows the current operating-system preference and reacts while selected.
+- Retain a manual override only in that browser. Do not sync, import or export it, and do not touch
+  article storage or the Drive operation queue.
+- Apply the supplied semantic dark token map across the app, Ionic overlays, Privacy and Terms while
+  preserving layout, typography, motion, accessibility and every existing interaction contract.
+- Update runtime browser theme colour and apply the effective theme before the shell becomes visible.
+  Retain the static white manifest launch background as the explicit PWA compatibility boundary.
+- Keep reading-time data from the illustrative handoff screenshot, theme sync, schedules, custom
+  palettes, OLED variants, content fetching, new icons and unrelated product work outside `v0.8.0`.
+- Require focused preference and interaction tests, complete existing tests, type checking, build,
+  privacy and dependency audits, no-attribution checks and published macOS and Android acceptance.
+
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.
 The accepted interaction architecture and implementation record live in

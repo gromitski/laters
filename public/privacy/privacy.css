@@ -7,11 +7,37 @@
 }
 
 :root {
-  color: #101014;
-  background: #fff;
+  --canvas: #ffffff;
+  --text: #101014;
+  --text-meta: #6f6879;
+  --hairline: rgb(16 16 20 / 12%);
+  --hairline-strong: rgb(16 16 20 / 18%);
+  --accent: #d0ff4f;
+  --focus: #101014;
+  --canvas-inverse-text: #ffffff;
+  --code-surface: #f1f1ed;
+  color: var(--text);
+  background: var(--canvas);
   font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+  color-scheme: light dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --canvas: #101014;
+  --text: #f4f3f6;
+  --text-meta: #8b8695;
+  --hairline: rgb(244 243 246 / 14%);
+  --hairline-strong: rgb(244 243 246 / 20%);
+  --focus: #d0ff4f;
+  --canvas-inverse-text: #101014;
+  --code-surface: #26262c;
+  color-scheme: dark;
 }
 
 * {
@@ -22,6 +48,7 @@ body {
   min-width: 20rem;
   min-height: 100vh;
   margin: 0;
+  background: var(--canvas);
 }
 
 a {
@@ -32,7 +59,7 @@ a {
 
 a:focus-visible {
   border-radius: 2px;
-  outline: 3px solid #101014;
+  outline: 3px solid var(--focus);
   outline-offset: 3px;
 }
 
@@ -43,8 +70,8 @@ a:focus-visible {
   left: 0.75rem;
   padding: 0.75rem 1rem;
   border-radius: 8px;
-  color: #fff;
-  background: #101014;
+  color: var(--canvas-inverse-text);
+  background: var(--text);
   transform: translateY(-200%);
 }
 
@@ -60,7 +87,7 @@ main {
 
 header {
   padding-bottom: 2rem;
-  border-bottom: 1px solid rgb(16 16 20 / 18%);
+  border-bottom: 1px solid var(--hairline-strong);
 }
 
 .back-link {
@@ -75,7 +102,8 @@ header {
   margin: 0 0 0.85rem;
   padding: 0.25rem 0.5rem;
   border-radius: 3px;
-  background: #d0ff4f;
+  color: #101014;
+  background: var(--accent);
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -92,7 +120,7 @@ h1 {
 
 .effective-date {
   margin: 1.1rem 0 0;
-  color: #6f6879;
+  color: var(--text-meta);
   font-size: 0.78rem;
   font-weight: 700;
 }
@@ -107,7 +135,7 @@ h1 {
 
 section {
   padding: 1.75rem 0;
-  border-bottom: 1px solid rgb(16 16 20 / 12%);
+  border-bottom: 1px solid var(--hairline);
 }
 
 h2 {
@@ -138,7 +166,7 @@ li + li {
 code {
   padding: 0.08rem 0.28rem;
   border-radius: 3px;
-  background: #f1f1ed;
+  background: var(--code-surface);
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
   font-size: 0.84em;
   overflow-wrap: anywhere;

@@ -29,6 +29,18 @@
   --error-line: rgb(160 27 11 / 45%);
   --sync-connected: #eaffbd;
   --sync-disconnected: #ffe3df;
+  --canvas-inverse-text: #ffffff;
+  --button-hover: #2b2b33;
+  --surface-dim: #ececf0;
+  --icon-muted: #77727f;
+  --link-underline: var(--accent);
+  --modal-shadow: rgb(16 16 20 / 18%);
+  --dialog-shadow: rgb(16 16 20 / 24%);
+  --modal-line: transparent;
+  --favicon-ring: rgb(16 16 20 / 8%);
+  --focus-wash: rgb(208 255 79 / 50%);
+  --dialog-backdrop: rgb(16 16 20 / 48%);
+  --action-ink: #101014;
   --font: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
   --gutter: 1.375rem;
   --row-y: 1.0625rem;
@@ -42,6 +54,44 @@
   font-family: var(--font);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+  color-scheme: light dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --canvas: #101014;
+  --surface-hover: #181b10;
+  --text: #f4f3f6;
+  --text-muted: #a9a4b2;
+  --text-meta: #8b8695;
+  --hairline: rgb(244 243 246 / 14%);
+  --hairline-strong: rgb(244 243 246 / 34%);
+  --paste-border: rgb(244 243 246 / 26%);
+  --accent-text: #bfe45b;
+  --bookmark-wash: rgb(208 255 79 / 8%);
+  --bookmark-wash-hover: rgb(208 255 79 / 16%);
+  --focus: #d0ff4f;
+  --success-bg: #1c220c;
+  --success-line: #bfe45b;
+  --error: #ff8a7a;
+  --error-bg: #26120e;
+  --error-line: rgb(255 138 122 / 45%);
+  --sync-connected: #24310e;
+  --sync-disconnected: #3a1712;
+  --canvas-inverse-text: #101014;
+  --button-hover: #dddce2;
+  --surface-dim: #26262c;
+  --icon-muted: #8b8695;
+  --link-underline: rgb(208 255 79 / 32%);
+  --modal-shadow: rgb(0 0 0 / 55%);
+  --dialog-shadow: rgb(0 0 0 / 55%);
+  --modal-line: var(--hairline);
+  --favicon-ring: rgb(244 243 246 / 10%);
+  --dialog-backdrop: rgb(0 0 0 / 48%);
+  color-scheme: dark;
 }
 
 html {
@@ -79,7 +129,7 @@ a {
   left: 0.75rem;
   padding: 0.75rem 1rem;
   border-radius: 8px;
-  color: #fff;
+  color: var(--canvas-inverse-text);
   background: var(--text);
   transform: translateY(-200%);
 }
@@ -118,6 +168,7 @@ p {
   padding: 4px 8px;
   border-radius: var(--r-chip);
   background: var(--accent);
+  color: var(--action-ink);
 }
 
 h1 {
@@ -173,7 +224,7 @@ h1 {
   border: 0;
   border-radius: var(--r-pill);
   padding: 0 1rem;
-  color: #fff;
+  color: var(--canvas-inverse-text);
   background: var(--text);
   cursor: pointer;
   font-size: 0.81rem;
@@ -212,7 +263,7 @@ h1 {
 
 .application-menu-action:active,
 .application-menu-close-action:active {
-  color: #fff;
+  color: var(--canvas-inverse-text);
   background: var(--text);
   transform: scale(0.94);
 }
@@ -264,7 +315,7 @@ h1 {
   margin: 0;
   padding: 4px 11px;
   border-radius: var(--r-pill);
-  color: var(--text);
+  color: var(--action-ink);
   background: var(--accent);
   font-size: 0.78rem;
   font-weight: 800;
@@ -385,7 +436,7 @@ h1 {
   border: 0;
   border-radius: var(--r-pill);
   padding: 0 1rem;
-  color: var(--text);
+  color: var(--action-ink);
   background: var(--accent);
   cursor: pointer;
   font-size: 0.8125rem;
@@ -405,6 +456,11 @@ h1 {
 
 .article-row-shell.is-paste-highlight .article-row {
   background: var(--accent);
+}
+
+.article-row-shell.is-paste-highlight .article-link,
+.article-row-shell.is-paste-highlight .article-meta-text {
+  color: var(--action-ink);
 }
 
 .article-row-shell {
@@ -510,7 +566,7 @@ h1 {
 }
 
 .swipe-action {
-  --color: var(--text);
+  --color: var(--action-ink);
   min-width: 7rem;
   font-family: var(--font);
   font-size: 0.75rem;
@@ -571,6 +627,10 @@ h1 {
   background: var(--source-colour);
 }
 
+:root[data-theme="dark"] .source-marker {
+  box-shadow: inset 0 0 0 1px rgb(244 243 246 / 10%);
+}
+
 .source-fallback,
 .source-favicon {
   grid-area: 1 / 1;
@@ -594,7 +654,7 @@ h1 {
   height: 22px;
   border-radius: 6px;
   background: #fff;
-  box-shadow: inset 0 0 0 1px rgb(16 16 20 / 8%);
+  box-shadow: inset 0 0 0 1px var(--favicon-ring);
   object-fit: contain;
   opacity: 0;
   transition: opacity 160ms ease-out;
@@ -609,7 +669,7 @@ h1 {
   max-width: 100%;
   overflow-wrap: anywhere;
   color: var(--text);
-  background: linear-gradient(var(--accent), var(--accent)) 0 90% / 0% 36% no-repeat;
+  background: linear-gradient(var(--link-underline), var(--link-underline)) 0 90% / 0% 36% no-repeat;
   font-size: 1.09375rem;
   font-weight: 600;
   letter-spacing: -0.014em;
@@ -670,7 +730,7 @@ h1 {
   margin-left: -0.75rem;
   border: 0;
   padding: 0;
-  color: #77727f;
+  color: var(--icon-muted);
   background: transparent;
   cursor: pointer;
 }
@@ -720,7 +780,7 @@ h1 {
   border: 1px solid var(--hairline-strong);
   border-radius: 50%;
   padding: 0;
-  color: #77727f;
+  color: var(--icon-muted);
   background: transparent;
   cursor: pointer;
   transition:
@@ -751,7 +811,7 @@ h1 {
 .delete-action:active,
 .more-actions:active {
   border-color: var(--text);
-  color: #fff;
+  color: var(--canvas-inverse-text);
   background: var(--text);
   transform: scale(0.94);
 }
@@ -766,12 +826,12 @@ h1 {
 @media (hover: hover) and (pointer: fine) {
   .update-action:hover,
   .install-action:hover {
-    background: #2b2b33;
+    background: var(--button-hover);
   }
 
   .application-menu-action:hover,
   .application-menu-close-action:hover {
-    color: #fff;
+    color: var(--canvas-inverse-text);
     background: var(--text);
   }
 
@@ -786,7 +846,7 @@ h1 {
   }
 
   .article-title-cancel:hover {
-    background: #ececf0;
+    background: var(--surface-dim);
   }
 
   .article-title-save:hover {
@@ -821,14 +881,14 @@ h1 {
 
   .delete-action:hover {
     border-color: var(--accent);
-    color: var(--text);
+    color: var(--action-ink);
     background: var(--accent);
     transform: scale(1.1);
   }
 
   .more-actions:hover {
     border-color: var(--text);
-    color: #fff;
+    color: var(--canvas-inverse-text);
     background: var(--text);
     transform: scale(1.1);
   }
@@ -958,7 +1018,7 @@ h1 {
   transform: scale(1.08);
 }
 
-.article-action-sheet {
+ion-action-sheet.article-action-sheet {
   --backdrop-opacity: 0.48;
   --background: var(--canvas);
   --button-background: var(--canvas);
@@ -969,36 +1029,37 @@ h1 {
   --button-background-hover: var(--surface-hover);
   --button-background-hover-opacity: 1;
   --button-color: var(--text);
-  --button-color-activated: var(--text);
-  --button-color-focused: var(--text);
+  --button-color-activated: var(--action-ink);
+  --button-color-focused: var(--action-ink);
   --button-color-hover: var(--text);
   --color: var(--text);
   --max-width: 34rem;
   font-family: var(--font);
 }
 
-.article-action-sheet .action-sheet-wrapper {
+ion-action-sheet.article-action-sheet .action-sheet-wrapper {
   padding: 0 0 env(safe-area-inset-bottom);
 }
 
-.article-action-sheet .action-sheet-container {
+ion-action-sheet.article-action-sheet .action-sheet-container {
   padding: 0;
 }
 
-.article-action-sheet .action-sheet-group {
+ion-action-sheet.article-action-sheet .action-sheet-group {
   overflow: hidden;
   margin: 0;
   border-radius: 18px 18px 0 0;
   background: var(--canvas);
-  box-shadow: 0 -10px 34px rgb(16 16 20 / 18%);
+  border-top: 1px solid var(--modal-line);
+  box-shadow: 0 -10px 34px var(--modal-shadow);
 }
 
-.article-action-sheet .action-sheet-group-cancel {
+ion-action-sheet.article-action-sheet .action-sheet-group-cancel {
   border-radius: 0;
   box-shadow: none;
 }
 
-.article-action-sheet .action-sheet-title {
+ion-action-sheet.article-action-sheet .action-sheet-title {
   padding: 1.4rem var(--gutter) 1.05rem;
   border-bottom: 1px solid var(--hairline);
   color: var(--text);
@@ -1011,7 +1072,7 @@ h1 {
   white-space: normal;
 }
 
-.article-action-sheet .action-sheet-sub-title {
+ion-action-sheet.article-action-sheet .action-sheet-sub-title {
   margin-top: 0.35rem;
   color: var(--text-meta);
   font-size: 0.6875rem;
@@ -1021,7 +1082,7 @@ h1 {
   text-transform: uppercase;
 }
 
-.article-action-sheet .action-sheet-button {
+ion-action-sheet.article-action-sheet .action-sheet-button {
   min-height: 3.25rem;
   border-bottom: 1px solid var(--hairline);
   padding-inline: var(--gutter);
@@ -1033,11 +1094,11 @@ h1 {
   text-transform: none;
 }
 
-.article-action-sheet .action-sheet-button.action-sheet-destructive {
+ion-action-sheet.article-action-sheet .action-sheet-button.action-sheet-destructive {
   color: var(--error);
 }
 
-.article-action-sheet .action-sheet-group-cancel .action-sheet-button {
+ion-action-sheet.article-action-sheet .action-sheet-group-cancel .action-sheet-button {
   border-bottom: 0;
   font-weight: 800;
 }
@@ -1049,12 +1110,12 @@ h1 {
   padding: 0;
   color: var(--text);
   background: var(--canvas);
-  box-shadow: 0 18px 50px rgb(16 16 20 / 24%);
+  box-shadow: 0 18px 50px var(--dialog-shadow);
   font-family: var(--font);
 }
 
 .article-title-dialog::backdrop {
-  background: rgb(16 16 20 / 48%);
+  background: var(--dialog-backdrop);
 }
 
 .article-title-dialog form {
@@ -1101,7 +1162,7 @@ h1 {
 
 .article-title-dialog input:focus-visible {
   border-color: var(--accent-text);
-  box-shadow: 0 0 0 2px rgb(208 255 79 / 50%);
+  box-shadow: 0 0 0 2px var(--focus-wash);
 }
 
 .article-title-dialog input[aria-invalid="true"] {
@@ -1142,9 +1203,10 @@ h1 {
   background: var(--surface-hover);
 }
 
-.article-title-save {
+.article-title-controls .article-title-save {
   min-width: 4.75rem;
   background: var(--accent);
+  color: var(--action-ink);
 }
 
 .article-title-controls button:disabled {
@@ -1212,14 +1274,14 @@ h1 {
   border: 1.5px dashed var(--hairline-strong);
   border-radius: 12px;
   padding: 1rem;
-  background: var(--surface);
+  background: var(--canvas);
 }
 
 .application-menu-modal {
   --backdrop-opacity: 0.48;
   --background: var(--canvas);
   --border-radius: 18px 18px 0 0;
-  --box-shadow: 0 -10px 34px rgb(16 16 20 / 18%);
+  --box-shadow: 0 -10px 34px var(--modal-shadow);
   --height: min(32rem, calc(100% - 1rem));
   --max-width: 42rem;
   --overflow: hidden;
@@ -1233,6 +1295,7 @@ h1 {
   overflow-y: auto;
   padding: 1.45rem var(--gutter) calc(1rem + env(safe-area-inset-bottom));
   background: var(--canvas);
+  border-top: 1px solid var(--modal-line);
 }
 
 .application-menu-header {
@@ -1265,6 +1328,79 @@ h1 {
 
 .application-menu-modal .sync-experiment {
   margin: 0;
+}
+
+.appearance-setting {
+  min-width: 0;
+  margin: 0 0 0.75rem;
+  border: 1.5px solid var(--hairline);
+  border-radius: 12px;
+  padding: 1rem;
+  background: var(--canvas);
+}
+
+.appearance-setting legend {
+  padding: 0;
+  color: var(--accent-text);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.appearance-setting > p {
+  max-width: 32rem;
+  margin: 0.2rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.theme-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.375rem;
+  margin-top: 0.85rem;
+  padding: 0.25rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-pill);
+  background: var(--surface-hover);
+}
+
+.theme-choice {
+  position: relative;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.theme-choice input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.theme-choice span {
+  display: grid;
+  min-height: var(--target);
+  place-items: center;
+  border-radius: var(--r-pill);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.theme-choice input:checked + span {
+  color: #101014;
+  background: var(--accent);
+}
+
+.theme-choice input:focus-visible + span {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
 }
 
 .data-export {
@@ -1321,7 +1457,7 @@ h1 {
   border: 0;
   border-radius: var(--r-pill);
   padding: 0 1rem;
-  color: var(--text);
+  color: var(--action-ink);
   background: var(--accent);
   cursor: pointer;
   font: inherit;
@@ -1332,7 +1468,8 @@ h1 {
 .sync-experiment button.secondary,
 .data-export button.secondary {
   border: 1px solid var(--hairline-strong);
-  background: var(--surface);
+  color: var(--text);
+  background: transparent;
 }
 
 .sync-experiment button:focus-visible,

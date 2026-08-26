@@ -156,10 +156,19 @@ passed for update visibility, menu dismissal and revealing imported articles in 
 saved-time positions. The final visual correction restored the success mark from a downward-looking
 chevron to an accepted unambiguous tick.
 
-## After `v0.7.0`
+## `v0.8.0` — Dark mode
 
-- Dark mode is the next intended product slice.
+- Add System, Light and Dark choices to the existing main menu, with System as the default.
+- Keep the manual preference local to that browser and outside article storage, CSV files and Drive.
+- Apply a token-based theme across the app, overlays, Privacy and Terms without changing layout,
+  typography, motion or existing interactions.
+- Update runtime browser theme colour while retaining the static light manifest launch background.
 
-Their exact version numbers, behaviour and acceptance criteria remain to be agreed when each becomes
-the active slice. Folders, archive, analytics, a Laters backend and other exploratory ideas remain
-outside this roadmap.
+Status: bounded contract agreed and implementation prepared for automated, deployed and maintainer
+acceptance. Reading-time estimates shown in exploratory handoff imagery are explicitly outside this
+release, as are theme sync, scheduling, custom palettes and other product additions.
+
+## After `v0.8.0`
+
+No later product slice is currently accepted. Folders, archive, analytics, a Laters backend and
+other exploratory ideas remain outside this roadmap until separately defined.
