@@ -147,8 +147,11 @@ reports ignored columns and unsupported tags, and blocks the whole file on inval
 Drive is refreshed before review when connected; a disconnected remembered connection produces a
 clear local-only duplicate warning. Initial published acceptance identified that an older imported
 article could remain hidden behind the open menu. The corrected candidate closes the menu and
-reveals the first imported article while preserving its saved time and normal list order. Automated
-and isolated-browser verification pass; published human acceptance remains.
+reveals the first imported article while preserving its saved time and normal list order. A second
+published Chrome acceptance showed that Ionic could reject dismissal while Import controls were
+still disabled. The current correction restores those controls before dismissing on the next frame,
+provides an explicit fallback and shows the package version in the menu. Published human acceptance
+remains.
 
 ## After `v0.7.0`
 

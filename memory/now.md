@@ -93,8 +93,9 @@ check before releasing `v0.7.0`.
 ## Active slice
 
 `v0.7.0` Import is implemented and agent-verified as a candidate using the accepted add-only CSV
-contract. Its first published acceptance found that a successful older-dated import could remain
-hidden behind the open menu; the correction is complete and awaits publication and repeat acceptance.
+contract. Published acceptance found that a successful older-dated import could remain hidden behind
+the open menu. The first correction was confirmed live but still failed in the maintainer's Chrome
+installation; the sequencing correction and menu version label now await publication and acceptance.
 
 ## Blockers
 
@@ -115,10 +116,22 @@ hidden behind the open menu; the correction is complete and awaits publication a
 
 ## Next safe action
 
-Commit and push the verified visibility correction to `main`, verify automatic Pages publication,
-then request the bounded human file-picker, review and reveal check.
+Complete automated and browser verification of the sequencing correction and menu version label,
+then commit and push to `main`, verify Pages publication and request the bounded reveal check.
 
 ## Last meaningful update
+
+2026-08-26 — The maintainer's open Chrome tab was read-only inspected after the first correction
+still failed. It was already running the exact corrected public bundle, proving that the missing
+update prompt was expected and stale caching was not the cause. The remaining failure is consistent
+with Ionic rejecting dismissal while the Import controls are still disabled. The next bounded
+correction restores all controls before invoking the completion callback, dismisses on the next
+rendered frame, keeps an explicit manual-close fallback, and adds a package-derived **Version 0.7.0**
+label to the menu for future support diagnosis. All 183 tests across 27 files, type-checking,
+production build and service-worker generation,
+repository and public-build privacy audits, full and production dependency audits with zero
+vulnerabilities, attribution-guard checks and the isolated browser interaction pass. Publication
+remains.
 
 2026-08-26 — Published Import acceptance returned a successful committed response but did not show
 the imported article. Repository inspection confirmed that the atomic write and list render ran, but

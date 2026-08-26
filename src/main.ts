@@ -1,5 +1,6 @@
 import "@ionic/core/css/core.css";
 import "./styles.css";
+import { version as applicationVersion } from "../package.json";
 import { saveCapturedItem } from "./capture/saveCapturedItem";
 import type { SavedItem } from "./domain/savedItem";
 import { createSavedItem, SavedItemValidationError } from "./domain/savedItem";
@@ -101,6 +102,7 @@ const applicationMenuAction = requireElement<HTMLButtonElement>(
 const applicationMenuCloseAction = requireElement<HTMLButtonElement>(
   "application-menu-close-action",
 );
+const applicationVersionLabel = requireElement<HTMLSpanElement>("application-version");
 const googleDriveConnectAction = requireElement<HTMLButtonElement>(
   "google-drive-connect-action",
 );
@@ -133,6 +135,8 @@ installApplicationMenu({
   openAction: applicationMenuAction,
   closeAction: applicationMenuCloseAction,
 });
+
+applicationVersionLabel.textContent = `Version ${applicationVersion}`;
 setGoogleDriveMenuState("disconnected");
 removeStoredGoogleDriveCredential();
 
@@ -404,20 +408,21 @@ function revealCompletedImport(result: ReadingListImportResult): void {
     return;
   }
 
-  void applicationMenu
-    .dismiss(undefined, "import-complete")
-    .then(() => {
-      showStatus(
-        `Imported ${result.importedCount} ${result.importedCount === 1 ? "article" : "articles"}. Showing the first imported article.`,
-      );
-      window.requestAnimationFrame(() => {
+  window.requestAnimationFrame(() => {
+    void applicationMenu
+      .dismiss(undefined, "import-complete")
+      .then(() => {
+        showStatus(
+          `Imported ${result.importedCount} ${result.importedCount === 1 ? "article" : "articles"}. Showing the first imported article.`,
+        );
         highlightSavedArticle(firstImportedItemId, "center");
         focusArticle(firstImportedItemId, true);
+      })
+      .catch(() => {
+        importDataStatus.textContent = `Imported ${result.importedCount} ${result.importedCount === 1 ? "article" : "articles"}. Close the menu to view the imported list.`;
+        importDataAction.focus({ preventScroll: true });
       });
-    })
-    .catch(() => {
-      importDataAction.focus({ preventScroll: true });
-    });
+  });
 }
 
 function readingListImportError(error: unknown): string {

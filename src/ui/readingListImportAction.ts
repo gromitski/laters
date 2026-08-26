@@ -108,6 +108,7 @@ export function installReadingListImportAction({
 
   confirmAction.addEventListener("click", () => {
     const plan = activePlan;
+    let completedImport: ReadingListImportResult | undefined;
 
     if (!plan || isBusy) {
       return;
@@ -124,12 +125,7 @@ export function installReadingListImportAction({
         review.hidden = true;
         fileInput.value = "";
         setStatus(status, `Imported ${articleLabel(result.importedCount)}.`);
-
-        if (afterImport) {
-          afterImport(result);
-        } else {
-          action.focus({ preventScroll: true });
-        }
+        completedImport = result;
       })
       .catch((error: unknown) => {
         setError(status, readError(error));
@@ -138,6 +134,12 @@ export function installReadingListImportAction({
         setBusy(false);
         confirmAction.disabled = false;
         cancelAction.disabled = false;
+
+        if (completedImport && afterImport) {
+          afterImport(completedImport);
+        } else if (completedImport) {
+          action.focus({ preventScroll: true });
+        }
       });
   });
 

@@ -53,7 +53,11 @@ describe("reading-list import action", () => {
 
   it("imports only after confirmation and reports the committed count", async () => {
     const elements = createElements();
-    const afterImport = vi.fn();
+    const afterImport = vi.fn(() => {
+      expect(elements.action.disabled).toBe(false);
+      expect(elements.confirmAction.disabled).toBe(false);
+      expect(elements.cancelAction.disabled).toBe(false);
+    });
     const result = { importedCount: 2, firstImportedItemId: "one" };
     const runImport = vi.fn(async () => result);
     install(elements, { runImport, afterImport });

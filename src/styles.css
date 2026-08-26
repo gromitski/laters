@@ -1427,6 +1427,11 @@ h1 {
   outline-offset: 3px;
 }
 
+.application-menu-modal footer .application-version {
+  flex-basis: 100%;
+  color: var(--text-meta);
+}
+
 @media (max-width: 23rem) {
   .has-install-action .masthead-title-row {
     gap: 0.5rem;
