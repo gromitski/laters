@@ -133,10 +133,24 @@ local browser download on every supported platform; whole-list export does not u
 operating-system share chooser. Automated verification and published macOS Chrome acceptance
 passed. Import is outside this release.
 
-## After `v0.6.0`
+## `v0.7.0` — Import
 
-- Import is the next intended product slice, proposed as `v0.7.0`.
-- Dark mode follows Import.
+- Add an explicit, local CSV import beside Export in the main menu.
+- Accept a compatible named-column CSV with required `url` and optional `title`, `created` and
+  `tags`, including complete round-trip support for the version-1 Laters export.
+- Validate the whole file, show a review and require confirmation before one atomic add-only merge.
+- Skip exact canonical URL duplicates without overwriting existing user data.
+- Queue ordinary add operations for the existing private Drive sync without uploading the CSV file.
+
+Status: implemented as a `v0.7.0` candidate. Import accepts at most 1,000 article rows and 10 MB,
+reports ignored columns and unsupported tags, and blocks the whole file on invalid data. Google
+Drive is refreshed before review when connected; a disconnected remembered connection produces a
+clear local-only duplicate warning. Automated verification is complete; published human acceptance
+remains.
+
+## After `v0.7.0`
+
+- Dark mode is the next intended product slice.
 
 Their exact version numbers, behaviour and acceptance criteria remain to be agreed when each becomes
 the active slice. Folders, archive, analytics, a Laters backend and other exploratory ideas remain

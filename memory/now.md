@@ -13,9 +13,9 @@ mobile interaction shell. Release `v0.4.2` consolidates the accepted sharing, de
 paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0`. Release `v0.5.0`
 records private Google Drive live sync, and `v0.5.1` records its automatic housekeeping follow-up.
 Release `v0.5.7` consolidates the accepted code, configuration and documentation delivered after
-`v0.5.1`. Release `v0.6.0` records the accepted portable CSV Export. Package metadata is `0.6.0`;
-`v0.6.0` is the latest tagged GitHub release and its lightweight tag resolves to exact verified
-commit `60794b0`.
+`v0.5.1`. Release `v0.6.0` records the accepted portable CSV Export. Package metadata is `0.7.0`
+for the Import candidate; `v0.6.0` remains the latest tagged GitHub release and its lightweight tag
+resolves to exact verified commit `60794b0`.
 
 ## What exists now
 
@@ -81,15 +81,19 @@ commit `60794b0`.
 - An accepted `v0.6.0` Export implementation in the main menu that creates a versioned CSV of local
   article URLs, titles, saved times, bookmark state and deliberate-title state without exposing
   credentials, connection data, internal identifiers or sync operations.
+- A `v0.7.0` Import candidate beside Export that validates and reviews a local named-column CSV,
+  atomically adds only new canonical URLs and queues ordinary Drive additions without uploading the
+  selected file.
 
 ## Active focus
 
-Define the bounded `v0.7.0` Import product contract before implementation.
+Complete technical verification and publish the bounded `v0.7.0` Import candidate for maintainer
+acceptance.
 
 ## Active slice
 
-`v0.6.0` Export is released. No Import implementation has begun; `v0.7.0` scope and acceptance
-criteria are not yet agreed.
+`v0.7.0` Import is implemented and agent-verified as a candidate using the accepted add-only CSV
+contract. Published human acceptance remains before release.
 
 ## Blockers
 
@@ -110,10 +114,20 @@ criteria are not yet agreed.
 
 ## Next safe action
 
-Inspect the existing storage, sync and CSV contracts, then present a bounded `v0.7.0` Import
-proposal for maintainer agreement before implementation.
+Finish automated and browser verification, commit and push the complete candidate to `main`, verify
+automatic Pages publication, then request the bounded human file-picker, review and import checks.
 
 ## Last meaningful update
+
+2026-08-26 — The bounded `v0.7.0` Import candidate adds **Import CSV** beside Export. It accepts a
+10 MB, 1,000-row UTF-8 named-column CSV, round-trips Laters exports, supports simpler URL-based
+spreadsheets, reports duplicates and ignored data, and requires review confirmation. New articles
+and normal pending add operations commit atomically; existing URLs are never overwritten and the
+selected file is never uploaded. A connected Drive list refreshes before duplicate review, while a
+disconnected remembered connection produces a local-only warning. Focused parser, interaction and
+IndexedDB tests pass. All 182 tests across 27 files, type-checking, the production build,
+service-worker generation and repository and public-build privacy audits pass; published acceptance
+remains.
 
 2026-08-25 — `v0.6.0` was published as the latest GitHub release from exact verified commit
 `60794b0` after GitHub Pages workflow `32847501931` passed. The remote lightweight tag resolves to
@@ -263,6 +277,7 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [`v0.5.7` release record](../docs/releases/v0.5.7.md)
 - [`v0.6.0` release record](../docs/releases/v0.6.0.md)
 - [CSV export format](../docs/export-format.md)
+- [CSV import contract](../docs/import-format.md)
 - [Google Drive connection security plan](../docs/planning/google-drive-connection-security-plan.md)
 - [Code security hardening plan](../docs/planning/code-security-hardening-plan.md)
 - [Desktop actions and responsive-width plan](../docs/planning/desktop-actions-responsive-plan.md)

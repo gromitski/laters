@@ -4,8 +4,14 @@ import type {
   SavedItemSyncAction,
 } from "../sync/readingListSyncOperation";
 
+export interface ImportedReadingListResult {
+  importedItems: SavedItem[];
+  items: SavedItem[];
+}
+
 export interface ReadingListStore {
   save(item: SavedItem, syncAction?: SavedItemSyncAction): Promise<void>;
+  importNew(items: SavedItem[]): Promise<ImportedReadingListResult>;
   restore(item: SavedItem): Promise<void>;
   listNewestFirst(): Promise<SavedItem[]>;
   replaceAll(items: SavedItem[]): Promise<void>;

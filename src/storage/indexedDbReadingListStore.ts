@@ -3,7 +3,10 @@ import {
   normaliseArticleTitle,
   type SavedItem,
 } from "../domain/savedItem";
-import type { ReadingListStore } from "./readingListStore";
+import type {
+  ImportedReadingListResult,
+  ReadingListStore,
+} from "./readingListStore";
 import {
   createDeleteSyncOperation,
   createSavedItemSyncOperation,
@@ -39,6 +42,71 @@ export class IndexedDbReadingListStore implements ReadingListStore {
 
   async restore(item: SavedItem): Promise<void> {
     return this.save(item, "restore");
+  }
+
+  async importNew(items: SavedItem[]): Promise<ImportedReadingListResult> {
+    if (!items.every(isSavedItem)) {
+      throw new Error("Imported article data is invalid.");
+    }
+
+    const inputIds = new Set<string>();
+
+    for (const item of items) {
+      if (inputIds.has(item.id)) {
+        throw new Error("Imported article identifiers must be unique.");
+      }
+      inputIds.add(item.id);
+    }
+
+    const database = await this.openDatabase();
+
+    try {
+      const transaction = database.transaction(
+        [ITEM_STORE, SYNC_OPERATION_STORE],
+        "readwrite",
+      );
+      const itemStore = transaction.objectStore(ITEM_STORE);
+      const existingItems = await waitForRequest(itemStore.getAll());
+
+      if (!existingItems.every(isSavedItem)) {
+        transaction.abort();
+        throw new Error("Saved article data is invalid.");
+      }
+
+      const existingUrls = new Set(existingItems.map((item) => item.url));
+      const existingIds = new Set(existingItems.map((item) => item.id));
+      const importedItems: SavedItem[] = [];
+
+      for (const item of items) {
+        if (existingUrls.has(item.url)) {
+          continue;
+        }
+
+        if (existingIds.has(item.id)) {
+          transaction.abort();
+          throw new Error("An imported article identifier conflicts with saved data.");
+        }
+
+        existingUrls.add(item.url);
+        existingIds.add(item.id);
+        itemStore.put(item);
+        transaction
+          .objectStore(SYNC_OPERATION_STORE)
+          .put(createSavedItemSyncOperation("add", item));
+        importedItems.push({ ...item });
+      }
+
+      await waitForTransaction(transaction);
+      return {
+        importedItems,
+        items: [...existingItems, ...importedItems].sort(
+          (left, right) =>
+            right.savedAt - left.savedAt || right.id.localeCompare(left.id),
+        ),
+      };
+    } finally {
+      database.close();
+    }
   }
 
   async listNewestFirst(): Promise<SavedItem[]> {

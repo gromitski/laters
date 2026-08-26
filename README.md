@@ -47,15 +47,22 @@ changes remain safe: open the menu and use **Resume Google Drive** to continue s
 - Long-press an article for Read, Edit title, Bookmark, Share and Delete. Sharing sends only its URL.
 - On desktop, use the visible three-dot article control for the same menu.
 
-## Export your data
+## Import or export your data
+
+Open the circular menu and select **Import CSV** to add articles from a local CSV file. Laters accepts
+its own export format and simpler spreadsheets containing a `url` column, with optional `title`,
+`created` and `tags` columns. It checks the complete file and shows a review before changing anything.
+Import adds only new URLs: it never replaces or deletes existing articles. Files are limited to
+1,000 article rows and 10 MB.
 
 Open the circular menu and select **Download CSV** to create a CSV copy of the articles stored on that
 device. The export contains article addresses, titles, saved times and namespaced tags for bookmarks
 and deliberately edited titles. It can be opened as a spreadsheet or used by tools that accept a CSV
 of links.
 
-Your browser saves the file to its normal download location. Laters does not upload the export or
-send it to Google Drive. Import is not yet available.
+Your browser saves the file to its normal download location. Laters does not upload import or export
+files. A connected import creates ordinary article additions that use the existing private Google
+Drive sync.
 
 ## Disconnect or delete data
 
@@ -115,7 +122,8 @@ Project records: [MVP definition](docs/mvp-definition.md),
 [v0.5.7 public-readiness release](docs/releases/v0.5.7.md),
 [v0.6.0 Export release](docs/releases/v0.6.0.md),
 [Google Drive live sync](docs/planning/google-drive-live-sync-plan.md),
-[CSV export format](docs/export-format.md), [roadmap](docs/roadmap.md),
+[CSV export format](docs/export-format.md), [CSV import contract](docs/import-format.md),
+[roadmap](docs/roadmap.md),
 [current project truth](memory/now.md), and
 [exploratory future ideas](docs/future-ideas.md).
 

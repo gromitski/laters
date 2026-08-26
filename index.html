@@ -114,12 +114,26 @@
 
         <section class="data-export" aria-labelledby="data-export-heading">
           <p class="data-export-kicker">Your data</p>
-          <h2 id="data-export-heading">Export</h2>
+          <h2 id="data-export-heading">Import and export</h2>
           <p>
-            Download a CSV copy of the article links, titles, saved times and bookmark state stored
-            on this device. The file may contain private reading information.
+            Import new URLs from a reviewed CSV without replacing existing articles, or download a
+            CSV copy of this device's list. These files may contain private reading information.
           </p>
-          <button id="export-data-action" type="button">Download CSV</button>
+          <div class="data-export-actions">
+            <button id="import-data-action" type="button">Import CSV</button>
+            <button id="export-data-action" class="secondary" type="button">Download CSV</button>
+            <input id="import-data-file" type="file" accept=".csv,text/csv" hidden>
+          </div>
+          <div id="import-data-review" class="data-import-review" role="group" aria-labelledby="import-data-review-heading" hidden>
+            <h3 id="import-data-review-heading">Review import</h3>
+            <p id="import-data-summary"></p>
+            <p id="import-data-warning" class="data-import-warning" hidden></p>
+            <div class="data-import-review-actions">
+              <button id="import-data-confirm-action" type="button">Import articles</button>
+              <button id="import-data-cancel-action" class="secondary" type="button">Cancel</button>
+            </div>
+          </div>
+          <p id="import-data-status" class="data-export-status" role="status" aria-live="polite"></p>
           <p id="export-data-status" class="data-export-status" role="status" aria-live="polite"></p>
         </section>
 

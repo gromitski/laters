@@ -38,6 +38,7 @@ const REQUIRED_PUBLIC_CONTENT = new Map([
     [
       'href="/privacy/"',
       'href="/terms/"',
+      'id="import-data-action"',
       'id="export-data-action"',
       'id="frame-guard"',
       'src="/frame-guard.js"',
@@ -51,6 +52,7 @@ const REQUIRED_PUBLIC_CONTENT = new Map([
     "privacy/index.html",
     [
       "mailto:hello@dustyb.in",
+      "Effective 26 August 2026",
       "laters-connection.json",
       "laters-reading-list.json",
       "laters-operation-*.json",
@@ -58,6 +60,8 @@ const REQUIRED_PUBLIC_CONTENT = new Map([
       "short-lived Google access token",
       "Google API Services User Data Policy",
       "Delete hidden app data",
+      "Import CSV",
+      "1,000 article rows",
       "Download CSV",
       "creates a CSV file",
       "The Laters maintainer cannot see your reading list",

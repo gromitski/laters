@@ -201,6 +201,26 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   may consume it, but Import behaviour, merge rules and Drive reconciliation remain outside this
   release.
 
+## Accepted v0.7.0 Import direction
+
+- Add **Import CSV** beside **Download CSV** in the existing main application menu.
+- Accept a local UTF-8 CSV of no more than 1,000 article rows or 10 MB. Require a case-insensitive
+  `url` header; recognise optional `title`, `created` and `tags` columns in any order; report and
+  ignore additional named columns and unsupported tags.
+- Round-trip the `v0.6.0` Laters export exactly. Also accept simpler URL-only or URL-and-title CSVs,
+  using the hostname for a missing title and import time in file order for a missing saved time.
+- Validate the complete file and present new, existing, duplicate and ignored-data counts before
+  confirmation. Invalid data blocks the whole file; picker or review cancellation creates no import
+  changes, although a connected pre-review Drive refresh may apply existing remote changes.
+- Merge add-only. Skip exact canonical URLs already on the device and repeated rows without
+  overwriting existing article data. Generate fresh private identifiers for new articles.
+- Commit accepted articles and normal pending add operations in one local transaction, then invoke
+  the existing Drive sync once. Refresh Drive before duplicate review when connected; when a prior
+  connection is currently disconnected, warn that duplicate checking covers only this device.
+- Never upload the CSV or accept internal identifiers, operations, credentials, account details,
+  connection state, deletion history or Drive bookkeeping. Do not add replace, overwrite, delete or
+  rollback modes in this release.
+
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.
 The accepted interaction architecture and implementation record live in

@@ -70,6 +70,75 @@ describe("IndexedDbReadingListStore", () => {
     expect(operations.map((operation) => operation.type)).toEqual(["delete", "restore"]);
   });
 
+  it("atomically imports only new URLs and queues one add operation per article", async () => {
+    const databaseName = createDatabaseName();
+    const store = new IndexedDbReadingListStore(databaseName);
+    const existing = item("existing", 100);
+    await store.save(existing);
+    const initialOperations = await store.listPendingSyncOperations();
+    await store.removePendingSyncOperations(
+      initialOperations.map((operation) => operation.operationId),
+    );
+    const imported = [
+      { ...item("duplicate", 200), url: existing.url, title: "Do not overwrite" },
+      item("new-one", 300),
+      item("new-two", 400),
+    ];
+
+    await expect(store.importNew(imported)).resolves.toEqual({
+      importedItems: imported.slice(1),
+      items: [item("new-two", 400), item("new-one", 300), existing],
+    });
+    await expect(store.listNewestFirst()).resolves.toEqual([
+      item("new-two", 400),
+      item("new-one", 300),
+      existing,
+    ]);
+    const operations = await store.listPendingSyncOperations();
+    expect(operations).toHaveLength(2);
+    expect(operations.map((operation) => operation.type)).toEqual(["add", "add"]);
+    expect(operations.map((operation) => operation.type === "add" && operation.item.id)).toEqual([
+      "new-one",
+      "new-two",
+    ]);
+  });
+
+  it("rejects an invalid import without changing articles or the sync queue", async () => {
+    const databaseName = createDatabaseName();
+    const store = new IndexedDbReadingListStore(databaseName);
+    const existing = item("existing", 100);
+    await store.save(existing);
+    const itemsBefore = await store.listNewestFirst();
+    const operationsBefore = await store.listPendingSyncOperations();
+
+    await expect(
+      store.importNew([
+        item("valid", 200),
+        { ...item("invalid", 300), url: "javascript:alert(1)" },
+      ]),
+    ).rejects.toThrow("invalid");
+    await expect(store.listNewestFirst()).resolves.toEqual(itemsBefore);
+    await expect(store.listPendingSyncOperations()).resolves.toEqual(operationsBefore);
+  });
+
+  it("rolls back earlier writes when a later imported identifier conflicts", async () => {
+    const databaseName = createDatabaseName();
+    const store = new IndexedDbReadingListStore(databaseName);
+    const existing = item("existing", 100);
+    await store.save(existing);
+    const itemsBefore = await store.listNewestFirst();
+    const operationsBefore = await store.listPendingSyncOperations();
+
+    await expect(
+      store.importNew([
+        item("would-be-written", 200),
+        { ...item("existing", 300), url: "https://example.com/conflict" },
+      ]),
+    ).rejects.toThrow("conflicts");
+    await expect(store.listNewestFirst()).resolves.toEqual(itemsBefore);
+    await expect(store.listPendingSyncOperations()).resolves.toEqual(operationsBefore);
+  });
+
   it("persists across store instances", async () => {
     const databaseName = createDatabaseName();
     await new IndexedDbReadingListStore(databaseName).save(item("persistent", 300));

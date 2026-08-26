@@ -1329,7 +1329,8 @@ h1 {
   font-weight: 800;
 }
 
-.sync-experiment button.secondary {
+.sync-experiment button.secondary,
+.data-export button.secondary {
   border: 1px solid var(--hairline-strong);
   background: var(--surface);
 }
@@ -1353,8 +1354,39 @@ h1 {
   font-weight: 700;
 }
 
-.data-export button {
+.data-export-actions,
+.data-import-review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
   margin-top: 0.85rem;
+}
+
+.data-import-review {
+  margin-top: 1rem;
+  border-top: 1px solid var(--hairline);
+  padding-top: 0.9rem;
+}
+
+.data-import-review h3,
+.data-import-review p {
+  margin: 0;
+}
+
+.data-import-review h3 {
+  font-size: 0.88rem;
+}
+
+.data-import-review p {
+  margin-top: 0.35rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.data-import-review .data-import-warning {
+  color: var(--accent-text);
+  font-weight: 700;
 }
 
 .data-export-status {

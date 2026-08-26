@@ -25,7 +25,7 @@
         <a class="back-link" href="/" aria-label="Back to Laters">← Laters</a>
         <p class="eyebrow">Your data, plainly</p>
         <h1>Privacy policy</h1>
-        <p class="effective-date">Effective 25 August 2026</p>
+        <p class="effective-date">Effective 26 August 2026</p>
         <p class="summary">
           Laters is a local-first read-later app. Your reading list stays in your browser unless you
           choose the optional Google Drive sync. If connected, Laters stores a private copy in your
@@ -41,6 +41,7 @@
           <li>Saved article details are stored locally on your device.</li>
           <li>Publisher favicons are requested directly from those publishers.</li>
           <li>The optional Google Drive sync stores your reading list in private application data.</li>
+          <li>Import reads a local CSV file only after you choose it and confirm the review.</li>
           <li>Export creates a CSV file only when you choose it.</li>
           <li>Laters does not sell personal information.</li>
         </ul>
@@ -60,6 +61,24 @@
         <p>
           Laters itself does not set cookies. It can read clipboard text only after you deliberately
           choose <strong>Paste a link</strong>. That text is processed locally.
+        </p>
+      </section>
+
+      <section aria-labelledby="import-data">
+        <h2 id="import-data">Importing your data</h2>
+        <p>
+          When you choose <strong>Import CSV</strong>, Laters reads the local file selected through
+          your browser or operating system. It checks article web addresses, titles, saved times and
+          recognised bookmark or title-state tags, then shows a review before saving anything. The
+          file is limited to 1,000 article rows and 10 MB.
+        </p>
+        <p>
+          Laters does not upload the CSV file or tell the maintainer what it contains. Confirmed new
+          articles are stored locally. If Google Drive is connected, Laters first refreshes its
+          private application data for duplicate checking and then syncs the imported articles as
+          ordinary additions; the CSV file itself is never sent to Google Drive. Cancelling or an
+          invalid file creates no articles or pending changes from that file. A connected Drive
+          refresh may still apply existing changes made on another device.
         </p>
       </section>
 

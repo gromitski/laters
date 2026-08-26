@@ -7,6 +7,12 @@ import {
   exportReadingList,
   type ReadingListExportEnvironment,
 } from "./export/readingListExport";
+import {
+  createReadingListImportPlan,
+  readReadingListImportFile,
+  ReadingListImportError,
+  type ReadingListImportPlan,
+} from "./import/readingListImport";
 import { createSourceIdentity, type SourceIdentity } from "./domain/sourceIdentity";
 import {
   requestApplicationInstall,
@@ -42,6 +48,10 @@ import {
 } from "./ui/applicationMenu";
 import { createReadingListEntries } from "./ui/readingListPresentation";
 import { installReadingListExportAction } from "./ui/readingListExportAction";
+import {
+  installReadingListImportAction,
+  type ReadingListImportReview,
+} from "./ui/readingListImportAction";
 import { loadPublisherFavicon } from "./ui/loadPublisherFavicon";
 import { readClipboardText } from "./ui/readClipboardText";
 import {
@@ -101,6 +111,18 @@ const googleDriveConnectionStatus = requireElement<HTMLParagraphElement>(
 );
 const exportDataAction = requireElement<HTMLButtonElement>("export-data-action");
 const exportDataStatus = requireElement<HTMLParagraphElement>("export-data-status");
+const importDataAction = requireElement<HTMLButtonElement>("import-data-action");
+const importDataFile = requireElement<HTMLInputElement>("import-data-file");
+const importDataReview = requireElement<HTMLElement>("import-data-review");
+const importDataSummary = requireElement<HTMLParagraphElement>("import-data-summary");
+const importDataWarning = requireElement<HTMLParagraphElement>("import-data-warning");
+const importDataConfirmAction = requireElement<HTMLButtonElement>(
+  "import-data-confirm-action",
+);
+const importDataCancelAction = requireElement<HTMLButtonElement>(
+  "import-data-cancel-action",
+);
+const importDataStatus = requireElement<HTMLParagraphElement>("import-data-status");
 const pasteRow = createPasteToAddRow();
 
 let applicationInstallPrompt: ApplicationInstallPrompt | undefined;
@@ -226,6 +248,24 @@ installReadingListExportAction({
   runExport: () => exportReadingList(store, browserExportEnvironment()),
 });
 
+installReadingListImportAction({
+  action: importDataAction,
+  fileInput: importDataFile,
+  review: importDataReview,
+  summary: importDataSummary,
+  warning: importDataWarning,
+  confirmAction: importDataConfirmAction,
+  cancelAction: importDataCancelAction,
+  status: importDataStatus,
+  beforeChoose: () => {
+    clearFeedback();
+    exportDataStatus.textContent = "";
+  },
+  prepareImport: prepareReadingListImport,
+  runImport: commitReadingListImport,
+  readError: readingListImportError,
+});
+
 showRememberedGoogleDriveConnection();
 
 showShareResult();
@@ -284,6 +324,82 @@ function browserExportEnvironment(): ReadingListExportEnvironment {
     },
     revokeObjectUrl: (url) => URL.revokeObjectURL(url),
   };
+}
+
+async function prepareReadingListImport(file: File): Promise<ReadingListImportReview> {
+  const csv = await readReadingListImportFile(file);
+  createReadingListImportPlan(csv, []);
+  const session = googleDriveSyncSession;
+
+  if (session) {
+    setBusy(true);
+    setGoogleDriveMenuState("checking");
+    googleDriveConnectionStatus.textContent =
+      "Checking Google Drive before reviewing this import…";
+
+    try {
+      const result = await session.sync(store);
+
+      if (session !== googleDriveSyncSession) {
+        throw new Error("Google Drive disconnected during import review.");
+      }
+
+      finalisePendingDeletion();
+      currentItems = result.items;
+      renderItems();
+      setGoogleDriveMenuState("connected");
+      googleDriveConnectionStatus.textContent = `Up to date in Google Drive. Checking every ${GOOGLE_DRIVE_POLL_MS / 1_000} seconds while open.`;
+    } catch (error) {
+      handleGoogleDriveSyncError(error);
+      throw new ReadingListImportError(
+        "Laters could not refresh Google Drive before the import. No articles were imported. Resume or disconnect Drive, then try again.",
+      );
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  const existingItems = await store.listNewestFirst();
+  const plan = createReadingListImportPlan(csv, existingItems);
+
+  return {
+    ...plan,
+    ...(!session && hasRememberedGoogleDriveConnection()
+      ? {
+          connectionWarning:
+            "Google Drive is not connected, so duplicate checking covers this device only. Resume Drive first if you want its latest list included.",
+        }
+      : {}),
+  };
+}
+
+async function commitReadingListImport(
+  plan: ReadingListImportPlan,
+): Promise<{ importedCount: number }> {
+  clearFeedback();
+  finalisePendingDeletion();
+  setBusy(true);
+
+  try {
+    const result = await store.importNew(plan.items);
+    currentItems = result.items;
+    renderItems();
+    syncArticlesToGoogleDrive("Syncing imported articles to Google Drive…");
+    announceHiddenStatus(
+      `Imported ${result.importedItems.length} ${result.importedItems.length === 1 ? "article" : "articles"}.`,
+    );
+    return { importedCount: result.importedItems.length };
+  } finally {
+    setBusy(false);
+  }
+}
+
+function readingListImportError(error: unknown): string {
+  if (error instanceof ReadingListImportError) {
+    return error.message;
+  }
+
+  return "Laters could not import that CSV. No articles were imported.";
 }
 
 function hideInstallAction(): void {
