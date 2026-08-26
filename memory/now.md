@@ -96,10 +96,11 @@ acceptance on macOS and the installed Android PWA before any release decision.
 
 ## Active slice
 
-The bounded `v0.8.0` dark-mode contract is agreed and implemented. System is the default; Light and
-Dark are local browser overrides in the main menu. The candidate changes presentation only and
-does not read or mutate articles, CSV data, Drive records or pending operations. Automated and local
-rendered-browser verification pass; publication and maintainer acceptance remain.
+The bounded `v0.8.0` dark-mode contract is agreed and implemented. Experimental sync remains first
+in the menu; Import and Export follow; Appearance is the final section above the footer. System is
+the default, with Light and Dark as local browser overrides. The candidate changes presentation only
+and does not read or mutate articles, CSV data, Drive records or pending operations. Automated and
+local rendered-browser verification pass; publication and maintainer acceptance remain.
 
 ## Blockers
 
@@ -125,6 +126,12 @@ workflow, then request published human acceptance. Do not create a tag or GitHub
 separate authority.
 
 ## Last meaningful update
+
+2026-08-26 — Maintainer acceptance of the theme itself passed, with one requested hierarchy
+correction: Experimental sync must remain at the top and Appearance belongs at the bottom. The
+candidate now orders Experimental sync, Import and Export, then Appearance above the footer. All
+189 tests, type checking, build, service-worker generation, both privacy audits, dependency audits
+with zero vulnerabilities and no-attribution checks pass. Publication of this correction remains.
 
 2026-08-26 — The agreed `v0.8.0` candidate adds System, Light and Dark in the main menu and applies a
 local-only theme across the app, Ionic overlays, Privacy and Terms. All 189 automated tests across

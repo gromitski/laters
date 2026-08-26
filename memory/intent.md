@@ -226,8 +226,10 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 
 ## Accepted v0.8.0 dark-mode direction
 
-- Add an **Appearance** radio group to the existing main menu with **System**, **Light** and **Dark**.
-  System is the default, follows the current operating-system preference and reacts while selected.
+- Add an **Appearance** radio group to the bottom of the existing main menu, after Google Drive and
+  Import and Export, with **System**, **Light** and **Dark**. Experimental sync remains the first menu
+  section. System is the default, follows the current operating-system preference and reacts while
+  selected.
 - Retain a manual override only in that browser. Do not sync, import or export it, and do not touch
   article storage or the Drive operation queue.
 - Apply the supplied semantic dark token map across the app, Ionic overlays, Privacy and Terms while

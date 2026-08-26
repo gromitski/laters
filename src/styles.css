@@ -1332,7 +1332,7 @@ ion-action-sheet.article-action-sheet .action-sheet-group-cancel .action-sheet-b
 
 .appearance-setting {
   min-width: 0;
-  margin: 0 0 0.75rem;
+  margin: 0.75rem 0 0;
   border: 1.5px solid var(--hairline);
   border-radius: 12px;
   padding: 1rem;

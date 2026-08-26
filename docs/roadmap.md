@@ -158,7 +158,8 @@ chevron to an accepted unambiguous tick.
 
 ## `v0.8.0` — Dark mode
 
-- Add System, Light and Dark choices to the existing main menu, with System as the default.
+- Add System, Light and Dark choices at the bottom of the existing main menu, after Google Drive and
+  Import and Export, with Experimental sync remaining first and System as the default.
 - Keep the manual preference local to that browser and outside article storage, CSV files and Drive.
 - Apply a token-based theme across the app, overlays, Privacy and Terms without changing layout,
   typography, motion or existing interactions.
