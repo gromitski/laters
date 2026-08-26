@@ -47,10 +47,10 @@ table is still exploratory rather than an accepted roadmap.
 | Cross-device sync | Private Google Drive article sync is released in `v0.5.0`, with automatic 100-change housekeeping released in `v0.5.1`. Phone/desktop add, delete and Undo propagation are accepted. | `v0.5.5` covers the separate production project and safe client transition; `v0.5.6` is the explicit public OAuth gate. |
 | Dark mode with a toggle | Intended after released `v0.7.0` Import, but not yet defined as a bounded release. | Consider system preference plus a local override, while preserving contrast, icons, theme metadata and splash behaviour. |
 | Folders and archive | Supports a larger or longer-lived collection. | Explicitly much later: both features risk turning a temporary reading tray into a system that needs organisation and maintenance. |
-| Export | Released in `v0.6.0` using a versioned, spreadsheet-safe CSV from the main menu. | Published macOS acceptance passed. The separate add-only CSV Import is approved for `v0.7.0` release. |
+| Export | Released in `v0.6.0` using a versioned, spreadsheet-safe CSV from the main menu. | Published macOS acceptance passed. The separate add-only CSV Import is released in `v0.7.0`. |
 | Optional article images | Adds visual recognition. | Must be controlled by one global toggle. Remote image fetching can add tracking, bandwidth, layout and caching concerns; useful fallbacks are required. |
 | Source favicons | Gives a quick source cue and was delivered in `v0.2.0`. | The accepted approach tries the publisher origin's `/favicon.ico` directly, never uses a central service and generates a stable hostname-derived fallback on any failure. See the MVP 2.0 definition. |
-| More capture paths and bulk intake | A single pasted or manually entered URL was delivered in `v0.4.0`; add-only CSV Import is approved for `v0.7.0` release; desktop extensions otherwise remain exploratory. | Import is bounded to 1,000 named-column CSV rows with review and confirmation. Browser extensions and other bulk capture still require separate evidence and decisions. |
+| More capture paths and bulk intake | A single pasted or manually entered URL was delivered in `v0.4.0`; add-only CSV Import is released in `v0.7.0`; desktop extensions otherwise remain exploratory. | Import is bounded to 1,000 named-column CSV rows with review and confirmation. Browser extensions and other bulk capture still require separate evidence and decisions. |
 
 ## Related opportunity
 

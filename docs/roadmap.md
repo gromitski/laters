@@ -142,8 +142,8 @@ passed. Import is outside this release.
 - Skip exact canonical URL duplicates without overwriting existing user data.
 - Queue ordinary add operations for the existing private Drive sync without uploading the CSV file.
 
-Status: implemented, published, maintainer-accepted and authorised for `v0.7.0` release. Import
-accepts at most 1,000 article rows and 10 MB,
+Status: released as `v0.7.0` from exact verified commit `d13a08b` after published maintainer
+acceptance. Import accepts at most 1,000 article rows and 10 MB,
 reports ignored columns and unsupported tags, and blocks the whole file on invalid data. Google
 Drive is refreshed before review when connected; a disconnected remembered connection produces a
 clear local-only duplicate warning. Initial published acceptance identified that an older imported

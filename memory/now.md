@@ -13,9 +13,9 @@ mobile interaction shell. Release `v0.4.2` consolidates the accepted sharing, de
 paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0`. Release `v0.5.0`
 records private Google Drive live sync, and `v0.5.1` records its automatic housekeeping follow-up.
 Release `v0.5.7` consolidates the accepted code, configuration and documentation delivered after
-`v0.5.1`. Release `v0.6.0` records the accepted portable CSV Export. Package metadata is `0.7.0`
-for the accepted and release-authorised Import candidate; `v0.6.0` remains the latest tagged GitHub
-release and its lightweight tag resolves to exact verified commit `60794b0` until publication.
+`v0.5.1`. Release `v0.6.0` records the accepted portable CSV Export, and release `v0.7.0` records
+the accepted reviewed CSV Import. Package metadata is `0.7.0`; `v0.7.0` is the latest tagged GitHub
+release and its lightweight tag resolves to exact verified commit `d13a08b`.
 
 ## What exists now
 
@@ -81,19 +81,19 @@ release and its lightweight tag resolves to exact verified commit `60794b0` unti
 - An accepted `v0.6.0` Export implementation in the main menu that creates a versioned CSV of local
   article URLs, titles, saved times, bookmark state and deliberate-title state without exposing
   credentials, connection data, internal identifiers or sync operations.
-- An accepted `v0.7.0` Import candidate beside Export that validates and reviews a local named-column CSV,
+- A released `v0.7.0` Import beside Export that validates and reviews a local named-column CSV,
   atomically adds only new canonical URLs and queues ordinary Drive additions without uploading the
   selected file.
 
 ## Active focus
 
-Prepare, verify and publish the authorised `v0.7.0` Import release from the exact accepted state.
+Define the bounded dark-mode product slice without beginning implementation before agreement.
 
 ## Active slice
 
-`v0.7.0` Import is implemented, agent-verified, published and maintainer-accepted using the bounded
-add-only CSV contract. The corrected completion sequence, package-derived menu version and success
-tick are all accepted. Release publication is authorised.
+`v0.7.0` Import is implemented, agent-verified, published, maintainer-accepted and released using the
+bounded add-only CSV contract. The corrected completion sequence, package-derived menu version and
+success tick are all accepted.
 
 ## Blockers
 
@@ -114,10 +114,15 @@ tick are all accepted. Release publication is authorised.
 
 ## Next safe action
 
-Complete release-candidate verification and Pages publication for the exact release commit, create
-and verify the authorised lightweight `v0.7.0` tag and GitHub release, then record publication.
+Prepare a bounded dark-mode product and technical proposal from the accepted roadmap, then stop for
+agreement before implementation.
 
 ## Last meaningful update
+
+2026-08-26 — `v0.7.0` was published as the latest GitHub release from exact verified commit
+`d13a08b` after GitHub Pages workflow `32956771733` passed. The remote lightweight tag resolves to
+that commit. The release records the accepted reviewed, local, add-only CSV Import, package-derived
+menu version and corrected completion presentation.
 
 2026-08-26 — The maintainer verified the corrected success tick, closing published `v0.7.0` Import
 acceptance, and explicitly authorised release. The release record is prepared from the exact
@@ -323,4 +328,4 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [Application menu drawer plan](../docs/planning/application-menu-drawer-plan.md)
 - [`v0.2.0` release record](../docs/releases/v0.2.0.md)
 - [`v0.3.0` release record](../docs/releases/v0.3.0.md)
-- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`, `v0.5.0`, `v0.5.1`, `v0.5.7`, `v0.6.0`.
+- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`, `v0.5.0`, `v0.5.1`, `v0.5.7`, `v0.6.0`, `v0.7.0`.

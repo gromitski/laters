@@ -220,6 +220,9 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 - Never upload the CSV or accept internal identifiers, operations, credentials, account details,
   connection state, deletion history or Drive bookkeeping. Do not add replace, overwrite, delete or
   rollback modes in this release.
+- Release closure: the maintainer accepted the published file selection, review, add-only merge,
+  preserved ordering, menu dismissal, version label and success presentation, then authorised the
+  exact verified `v0.7.0` release.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.
