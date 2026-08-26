@@ -2,8 +2,8 @@
 
 ## Status
 
-Accepted, implemented, published and maintainer-accepted as the `v1.0.0` candidate. Package metadata
-is aligned to `1.0.0`; final release verification, tagging and publication are authorised and remain.
+Accepted, implemented, published, maintainer-accepted and released as `v1.0.0` from exact verified
+commit `565cd59` after Pages workflow `32967914059` passed.
 
 ## Product outcome
 
@@ -124,8 +124,8 @@ feature-update path.
 rules, reading time, remote title enrichment, images, bulk actions, bookmark pinning, a bookmarked
 database, a remembered default view or changes to article capture, sharing, swipe or sync contracts.
 
-Package metadata, release documentation, the `v1.0.0` tag and GitHub release remain later closure
-steps after the exact release-preparation commit passes verification.
+Package metadata, release documentation, the lightweight `v1.0.0` tag and GitHub release are
+complete.
 
 ## Candidate verification
 
@@ -142,3 +142,7 @@ the check. Published installed-Android and macOS acceptance passed.
 Candidate commit `3690512` passed GitHub Pages workflows `32967338184` and `32967338912`. The public
 origin exposed and successfully applied the existing visible update path. The maintainer accepted
 the installed Android and macOS result and authorised `v1.0.0` release closure.
+
+Release commit `565cd59` passed Pages workflow `32967914059`; the public update path then showed
+**Version 1.0.0** without browser errors. The remote lightweight tag resolves exactly to that commit
+and the GitHub release is published as Latest.

@@ -259,8 +259,11 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   approved or versioned. Search, sorting, archive, automatic tidy rules and other future ideas remain
   outside the closing MVP slice.
 - The detailed contract in `docs/planning/bookmark-filter-plan.md` is accepted and implemented as
-  published candidate. The maintainer accepted the installed Android and macOS result and authorised
-  `v1.0.0` release closure.
+  the published candidate. The maintainer accepted the installed Android and macOS result and
+  authorised `v1.0.0` release closure.
+- Release commit `565cd59` passed Pages workflow `32967914059`; the lightweight `v1.0.0` tag
+  resolves exactly to that commit and `v1.0.0` is the latest public GitHub release. Laters now moves
+  to maintenance rather than assuming another product slice.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.

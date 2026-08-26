@@ -15,9 +15,9 @@ records private Google Drive live sync, and `v0.5.1` records its automatic house
 Release `v0.5.7` consolidates the accepted code, configuration and documentation delivered after
 `v0.5.1`. Release `v0.6.0` records the accepted portable CSV Export, release `v0.7.0` records the
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
-appearance. Package metadata is aligned to the accepted `1.0.0` release candidate; `v0.8.0` remains
-the latest public GitHub release until final release closure and its lightweight tag resolves exactly
-to verified release commit `5be7553`.
+appearance. Release `v1.0.0` records the accepted subtle Bookmark filter that completes the intended
+personal reading queue. Package metadata is aligned to `1.0.0`; `v1.0.0` is the latest public GitHub
+release and its lightweight tag resolves exactly to verified release commit `565cd59`.
 
 ## What exists now
 
@@ -89,25 +89,27 @@ to verified release commit `5be7553`.
 - An accepted and published `v0.8.0` dark-mode implementation with System, Light and Dark choices in
   the main menu, a local-only override, pre-paint theme application, runtime theme metadata and
   matching application, overlay, Privacy and Terms presentation.
-- An accepted and published `v1.0.0` candidate with one subtle **Show bookmarks** or **Show all**
-  action in the existing list-heading row. The transient filtered view preserves newest-first order
-  and adds no stored, synced, imported or exported state.
+- A released `v1.0.0` with one subtle **Show bookmarks** or **Show all** action in the existing
+  list-heading row. The transient filtered view preserves newest-first order and adds no stored,
+  synced, imported or exported state.
 
 ## Active focus
 
-Complete the authorised `v1.0.0` release from the exact verified release-preparation commit, then
-record the final public tag, release and post-publication workflow state.
+Maintain the completed `v1.0.0` release. Define grouping or tagging only if a later, separately
+justified and approved product proposal is wanted.
 
 ## Active slice
 
-The accepted `v1.0.0` closing candidate adds one subtle **Show bookmarks** or **Show all** action in
+The released `v1.0.0` closing slice adds one subtle **Show bookmarks** or **Show all** action in
 the existing list-heading area. The full newest-first queue remains the default and the filtered
 view is transient presentation state. It adds no article field, migration, Drive behaviour, CSV
 change or network request. All 195 tests across 29 files, type checking, production build,
 service-worker generation, privacy audits, dependency audits with zero vulnerabilities and local
 rendered interaction checks pass. Candidate commit `3690512` passed Pages workflows `32967338184`
-and `32967338912`; the maintainer accepted the installed Android and macOS result. Package metadata
-is aligned to `1.0.0`; final release verification, tagging and publication remain authorised work.
+and `32967338912`; the maintainer accepted the installed Android and macOS result. Release commit
+`565cd59` passed Pages workflow `32967914059`; the remote lightweight tag resolves exactly to it and
+the GitHub release is published as Latest. The intended MVP is complete and maintenance is now the
+active posture.
 
 ## Blockers
 
@@ -128,10 +130,15 @@ is aligned to `1.0.0`; final release verification, tagging and publication remai
 
 ## Next safe action
 
-Run the complete release checks, commit and push the package and release records, and tag only that
-exact Pages-verified commit. Publish and verify the GitHub release, then record the final state.
+Keep released `v1.0.0` stable and respond to maintenance needs. No later product slice is approved
+or versioned; grouping and tagging remain exploratory possibilities only.
 
 ## Last meaningful update
+
+2026-08-26 — `v1.0.0` was published as the latest GitHub release from exact verified commit
+`565cd59` after GitHub Pages workflow `32967914059` passed. The remote lightweight tag resolves to
+that commit. The release records the accepted subtle Bookmark filter, closes the intended MVP and
+moves the project to maintenance; no later product slice is approved or versioned.
 
 2026-08-26 — The maintainer accepted the published Bookmark filter on installed Android and macOS
 and authorised release closure. Candidate commit `3690512` passed Pages workflows `32967338184` and
@@ -387,4 +394,4 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [Application menu drawer plan](../docs/planning/application-menu-drawer-plan.md)
 - [`v0.2.0` release record](../docs/releases/v0.2.0.md)
 - [`v0.3.0` release record](../docs/releases/v0.3.0.md)
-- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`, `v0.5.0`, `v0.5.1`, `v0.5.7`, `v0.6.0`, `v0.7.0`, `v0.8.0`.
+- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`, `v0.5.0`, `v0.5.1`, `v0.5.7`, `v0.6.0`, `v0.7.0`, `v0.8.0`, `v1.0.0`.
