@@ -151,7 +151,9 @@ reveals the first imported article while preserving its saved time and normal li
 published Chrome acceptance showed that Ionic could reject dismissal while Import controls were
 still disabled. The current correction restores those controls before dismissing on the next frame,
 provides an explicit fallback and shows the package version in the menu. Published human acceptance
-remains.
+passed for update visibility, menu dismissal and revealing imported articles in their preserved
+saved-time positions. A final visual correction restores the success mark from a downward-looking
+chevron to an unambiguous tick before release.
 
 ## After `v0.7.0`
 

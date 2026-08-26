@@ -1172,8 +1172,8 @@ h1 {
 }
 
 .status-message:not(:empty):not(.is-announcement-only)::before {
-  width: 0.55rem;
-  height: 0.3rem;
+  width: 0.3rem;
+  height: 0.55rem;
   flex: none;
   border-right: 2px solid var(--accent-text);
   border-bottom: 2px solid var(--accent-text);

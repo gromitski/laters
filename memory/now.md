@@ -87,15 +87,16 @@ resolves to exact verified commit `60794b0`.
 
 ## Active focus
 
-Publish the verified Import visibility correction, then repeat the bounded maintainer acceptance
-check before releasing `v0.7.0`.
+Publish the accepted success-tick visual correction, then prepare the verified `v0.7.0` candidate
+for release authorisation.
 
 ## Active slice
 
 `v0.7.0` Import is implemented and agent-verified as a candidate using the accepted add-only CSV
 contract. Published acceptance found that a successful older-dated import could remain hidden behind
 the open menu. The first correction was confirmed live but still failed in the maintainer's Chrome
-installation; the sequencing correction and menu version label now await publication and acceptance.
+installation. The sequencing correction and menu version label are published and accepted; only the
+success-tick visual correction remains before release preparation.
 
 ## Blockers
 
@@ -116,10 +117,17 @@ installation; the sequencing correction and menu version label now await publica
 
 ## Next safe action
 
-Complete automated and browser verification of the sequencing correction and menu version label,
-then commit and push to `main`, verify Pages publication and request the bounded reveal check.
+Verify, commit and publish the success-tick visual correction, then prepare the exact accepted
+`v0.7.0` release candidate without creating a tag or release before separate authorisation.
 
 ## Last meaningful update
+
+2026-08-26 — Published Chrome acceptance passed after the sequenced Import correction: the new
+worker activated, the menu showed **Version 0.7.0**, a confirmed two-article import closed the menu
+and the first imported article was revealed in its preserved saved-time position. The remaining
+success icon looked like a downward chevron because its CSS width and height were reversed before a
+45-degree rotation. Swapping those proportions produces the intended conventional tick; isolated
+visual inspection passes and publication remains.
 
 2026-08-26 — The maintainer's open Chrome tab was read-only inspected after the first correction
 still failed. It was already running the exact corrected public bundle, proving that the missing
