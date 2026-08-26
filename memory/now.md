@@ -13,10 +13,10 @@ mobile interaction shell. Release `v0.4.2` consolidates the accepted sharing, de
 paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0`. Release `v0.5.0`
 records private Google Drive live sync, and `v0.5.1` records its automatic housekeeping follow-up.
 Release `v0.5.7` consolidates the accepted code, configuration and documentation delivered after
-`v0.5.1`. Release `v0.6.0` records the accepted portable CSV Export, and release `v0.7.0` records
-the accepted reviewed CSV Import. Package metadata is `0.8.0` for the accepted dark-mode release;
-`v0.7.0` remains the latest tagged GitHub release, at exact verified commit `d13a08b`, until the
-authorised `v0.8.0` publication completes.
+`v0.5.1`. Release `v0.6.0` records the accepted portable CSV Export, release `v0.7.0` records the
+accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
+appearance. Package metadata is `0.8.0`; `v0.8.0` is the latest public GitHub release and its
+lightweight tag resolves exactly to verified release commit `5be7553`.
 
 ## What exists now
 
@@ -91,16 +91,16 @@ authorised `v0.8.0` publication completes.
 
 ## Active focus
 
-Prepare and verify the complete `v0.8.0` release record, publish its exact commit through the
-automatic Pages workflow, then create the explicitly authorised lightweight tag and GitHub release.
+Keep the completed accepted roadmap and futures list current, then discuss which unversioned future
+possibility, if any, is worth defining as the next bounded product slice.
 
 ## Active slice
 
-The bounded `v0.8.0` dark-mode contract is implemented, published and accepted. Experimental sync
-remains first in the menu; Import and Export follow; Appearance is the final section above the
-footer. System is the default, with Light and Dark as local browser overrides. The release changes
-presentation only and does not read or mutate articles, CSV data, Drive records or pending
-operations. The maintainer has authorised release publication.
+The bounded `v0.8.0` dark-mode contract is implemented, published, accepted and released from exact
+verified commit `5be7553`. Experimental sync remains first in the menu; Import and Export follow;
+Appearance is the final section above the footer. System is the default, with Light and Dark as
+local browser overrides. The release changes presentation only and does not read or mutate
+articles, CSV data, Drive records or pending operations.
 
 ## Blockers
 
@@ -121,11 +121,16 @@ operations. The maintainer has authorised release publication.
 
 ## Next safe action
 
-Run the complete release verification, commit and push the release record to `main`, verify the
-automatic GitHub Pages workflow, then create the authorised lightweight `v0.8.0` tag and GitHub
-release. Record publication on `main` and verify its follow-up workflow.
+Begin a new thread by reading canonical memory and the cleaned futures list, then discuss and
+prioritise the open possibilities. Do not assign a version or begin implementation until a bounded
+product contract is separately agreed.
 
 ## Last meaningful update
+
+2026-08-26 — `v0.8.0` was published as the latest GitHub release from exact verified commit
+`5be7553` after GitHub Pages workflow `32963690674` passed. The remote lightweight tag resolves to
+that commit. The release records accepted local System, Light and Dark appearance with Experimental
+sync retained first and Appearance at the bottom of the menu.
 
 2026-08-26 — The maintainer accepted the corrected published menu hierarchy and explicitly
 authorised the `v0.8.0` release. The durable release record and cleaned, unversioned futures list are

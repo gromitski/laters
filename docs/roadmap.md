@@ -165,11 +165,12 @@ chevron to an accepted unambiguous tick.
   typography, motion or existing interactions.
 - Update runtime browser theme colour while retaining the static light manifest launch background.
 
-Status: implemented, published, maintainer-accepted and authorised for `v0.8.0` release. The final
-menu hierarchy retains Experimental sync first and places Appearance at the bottom. All 189 tests,
-type checking, build, privacy and dependency audits pass; corrected Pages workflow `32962723247`
-passed. Reading-time estimates shown in exploratory handoff imagery are explicitly outside this
-release, as are theme sync, scheduling, custom palettes and other product additions.
+Status: implemented, published, maintainer-accepted and released as `v0.8.0` from exact verified
+commit `5be7553`. The final menu hierarchy retains Experimental sync first and places Appearance at
+the bottom. All 189 tests, type checking, build, privacy and dependency audits pass; release Pages
+workflow `32963690674` passed. Reading-time estimates shown in exploratory handoff imagery are
+explicitly outside this release, as are theme sync, scheduling, custom palettes and other product
+additions.
 
 ## After `v0.8.0`
 
