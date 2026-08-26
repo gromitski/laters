@@ -243,6 +243,24 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 - Release closure: the maintainer accepted the published theme and corrected menu hierarchy, then
   explicitly authorised the exact verified `v0.8.0` tag and GitHub release.
 
+## Accepted `v1.0.0` closing direction
+
+- Make a subtle Bookmark filter the final MVP product slice and intended `v1.0.0` release. Laters
+  then moves to a complete, maintenance-focused state rather than assuming another feature roadmap.
+- Keep articles visually dominant. Use one restrained **Show bookmarks** or **Show all** text action
+  in the existing list-heading area; do not add tabs, a segmented control, toolbar, filter panel or
+  another prominent interface section.
+- Keep the complete newest-first queue as the default. The filtered view is transient presentation
+  state, preserves saved order and adds no stored preference, article field, migration, Drive or CSV
+  behaviour.
+- Preserve Paste, capture and Import reveal behaviour, accessibility, Delete/Undo, swipe directions,
+  bookmark actions, article menus and exact URL-only sharing.
+- Grouping and tagging may be explored after `v1.0.0`, but they are not currently necessary,
+  approved or versioned. Search, sorting, archive, automatic tidy rules and other future ideas remain
+  outside the closing MVP slice.
+- The detailed contract in `docs/planning/bookmark-filter-plan.md` is accepted and implemented as
+  the local candidate. Package versioning, publication, acceptance and release closure remain.
+
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.
 The accepted interaction architecture and implementation record live in

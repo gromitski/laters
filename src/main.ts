@@ -48,6 +48,14 @@ import {
   setApplicationMenuSyncState,
 } from "./ui/applicationMenu";
 import { createReadingListEntries } from "./ui/readingListPresentation";
+import {
+  countVisibleReadingListItems,
+  filterReadingListEntries,
+  getFocusIndexAfterRemoval,
+  getReadingListViewPresentation,
+  toggleReadingListView,
+  type ReadingListView,
+} from "./ui/readingListFilter";
 import { installReadingListExportAction } from "./ui/readingListExportAction";
 import {
   installReadingListImportAction,
@@ -76,6 +84,7 @@ interface PendingDeletion {
 }
 
 let currentItems: SavedItem[] = [];
+let readingListView: ReadingListView = "all";
 let pendingDeletion: PendingDeletion | undefined;
 let undoTimer: number | undefined;
 let collapseTimer: number | undefined;
@@ -91,6 +100,7 @@ const loadingState = requireElement<HTMLParagraphElement>("loading-state");
 const emptyState = requireElement<HTMLParagraphElement>("empty-state");
 const itemCount = requireElement<HTMLParagraphElement>("item-count");
 const listHeading = requireElement<HTMLHeadingElement>("list-heading");
+const articleFilterAction = requireElement<HTMLButtonElement>("article-filter-action");
 const statusMessage = requireElement<HTMLDivElement>("status-message");
 const errorMessage = requireElement<HTMLParagraphElement>("error-message");
 const updateMessage = requireElement<HTMLDivElement>("update-message");
@@ -154,6 +164,21 @@ installThemePreferenceController({
 applicationVersionLabel.textContent = `Version ${applicationVersion}`;
 setGoogleDriveMenuState("disconnected");
 removeStoredGoogleDriveCredential();
+
+articleFilterAction.addEventListener("click", () => {
+  clearFeedback();
+  readingListView = toggleReadingListView(readingListView);
+  renderItems();
+});
+articleFilterAction.addEventListener("pointerdown", () => {
+  articleFilterAction.classList.add("is-pointer-focus");
+});
+articleFilterAction.addEventListener("keydown", () => {
+  articleFilterAction.classList.remove("is-pointer-focus");
+});
+articleFilterAction.addEventListener("blur", () => {
+  articleFilterAction.classList.remove("is-pointer-focus");
+});
 
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
@@ -404,6 +429,7 @@ async function commitReadingListImport(
   try {
     const result = await store.importNew(plan.items);
     currentItems = result.items;
+    readingListView = "all";
     renderItems();
     syncArticlesToGoogleDrive("Syncing imported articles to Google Drive…");
     return {
@@ -721,7 +747,8 @@ async function refreshList(): Promise<void> {
 }
 
 function renderItems(animateEntries = false): void {
-  const entries = createReadingListEntries(currentItems, pendingDeletion?.item);
+  const allEntries = createReadingListEntries(currentItems, pendingDeletion?.item);
+  const entries = filterReadingListEntries(allEntries, readingListView);
   const rows = entries.map((entry, index) =>
     entry.isGhost
       ? createGhostRow(entry.item, pendingDeletion?.isLeaving ?? false)
@@ -729,12 +756,32 @@ function renderItems(animateEntries = false): void {
   );
 
   list.replaceChildren(pasteRow, ...rows);
-  updateListSummary();
+  updateListSummary(entries);
 }
 
-function updateListSummary(): void {
-  emptyState.hidden = currentItems.length > 0;
-  itemCount.textContent = `${currentItems.length} ${currentItems.length === 1 ? "item" : "items"}`;
+function updateListSummary(
+  visibleEntries = filterReadingListEntries(
+    createReadingListEntries(currentItems, pendingDeletion?.item),
+    readingListView,
+  ),
+): void {
+  const visibleCount = countVisibleReadingListItems(
+    createReadingListEntries(currentItems),
+    readingListView,
+  );
+  const presentation = getReadingListViewPresentation(
+    readingListView,
+    currentItems.length,
+    visibleCount,
+  );
+
+  listHeading.textContent = presentation.heading;
+  list.setAttribute("aria-label", presentation.listLabel);
+  articleFilterAction.textContent = presentation.actionLabel;
+  articleFilterAction.hidden = readingListView === "all" && currentItems.length === 0;
+  itemCount.textContent = presentation.countLabel;
+  emptyState.textContent = presentation.emptyMessage;
+  emptyState.hidden = visibleEntries.length > 0;
 }
 
 function createPasteToAddRow(): HTMLLIElement {
@@ -894,6 +941,9 @@ function createPasteToAddRow(): HTMLLIElement {
     try {
       const result = await saveCapturedItem(candidate, store);
       currentItems = result.items;
+      if (result.item.bookmarked !== true) {
+        readingListView = "all";
+      }
       syncArticlesToGoogleDrive();
       showPasteButton();
       renderItems();
@@ -1193,6 +1243,7 @@ async function setArticleBookmarked(
   button: HTMLButtonElement,
 ): Promise<SavedItem | undefined> {
   clearFeedback();
+  const filteredIndex = getVisibleArticleIndex(item.id);
   setRowActionsDisabled(row, true);
   setBookmarkPresentation(button, item, bookmarked);
   row.classList.toggle("is-bookmarked", bookmarked);
@@ -1206,6 +1257,15 @@ async function setArticleBookmarked(
       candidate.id === updatedItem.id ? updatedItem : candidate,
     );
     syncArticlesToGoogleDrive();
+
+    if (readingListView === "bookmarked" && !bookmarked) {
+      renderItems();
+      announceHiddenStatus(
+        `Removed bookmark from “${item.title}”. The article remains saved and is no longer shown.`,
+      );
+      window.requestAnimationFrame(() => focusAfterFilteredRemoval(filteredIndex));
+    }
+
     return updatedItem;
   } catch {
     setBookmarkPresentation(button, item, item.bookmarked === true);
@@ -1438,6 +1498,30 @@ function focusArticle(itemId: string, preventScroll = false): void {
     ?.focus({ preventScroll });
 }
 
+function getVisibleArticleIndex(itemId: string): number {
+  return getVisibleArticleRows().findIndex((row) => row.dataset.itemId === itemId);
+}
+
+function focusAfterFilteredRemoval(removedIndex: number): void {
+  const rows = getVisibleArticleRows();
+  const focusIndex = getFocusIndexAfterRemoval(removedIndex, rows.length);
+
+  if (focusIndex === undefined) {
+    articleFilterAction.focus({ preventScroll: true });
+    return;
+  }
+
+  rows[focusIndex]
+    ?.querySelector<HTMLAnchorElement>(".article-link")
+    ?.focus({ preventScroll: true });
+}
+
+function getVisibleArticleRows(): HTMLElement[] {
+  return [...list.querySelectorAll<HTMLElement>(".article-row-shell[data-item-id]")].filter(
+    (row) => row.querySelector(".article-link") !== null,
+  );
+}
+
 function focusBesideRow(row: HTMLElement | undefined): void {
   const adjacentLink =
     row?.nextElementSibling?.querySelector<HTMLAnchorElement>(".article-link") ??
@@ -1503,6 +1587,7 @@ function showShareResult(): void {
 
 function setBusy(isBusy: boolean): void {
   list.setAttribute("aria-busy", String(isBusy));
+  articleFilterAction.disabled = isBusy;
 
   list
     .querySelectorAll<HTMLButtonElement | HTMLInputElement>("button, input")

@@ -88,19 +88,24 @@ lightweight tag resolves exactly to verified release commit `5be7553`.
 - An accepted and published `v0.8.0` dark-mode implementation with System, Light and Dark choices in
   the main menu, a local-only override, pre-paint theme application, runtime theme metadata and
   matching application, overlay, Privacy and Terms presentation.
+- An accepted local `v1.0.0` candidate with one subtle **Show bookmarks** or **Show all** action in
+  the existing list-heading row. The transient filtered view preserves newest-first order and adds
+  no stored, synced, imported or exported state.
 
 ## Active focus
 
-Keep the completed accepted roadmap and futures list current, then discuss which unversioned future
-possibility, if any, is worth defining as the next bounded product slice.
+Publish the accepted bounded `v1.0.0` Bookmark-filter candidate to `main`, then obtain installed
+Android and macOS browser acceptance before package versioning and release closure.
 
 ## Active slice
 
-The bounded `v0.8.0` dark-mode contract is implemented, published, accepted and released from exact
-verified commit `5be7553`. Experimental sync remains first in the menu; Import and Export follow;
-Appearance is the final section above the footer. System is the default, with Light and Dark as
-local browser overrides. The release changes presentation only and does not read or mutate
-articles, CSV data, Drive records or pending operations.
+The accepted `v1.0.0` closing candidate adds one subtle **Show bookmarks** or **Show all** action in
+the existing list-heading area. The full newest-first queue remains the default and the filtered
+view is transient presentation state. It adds no article field, migration, Drive behaviour, CSV
+change or network request. All 195 tests across 29 files, type checking, production build,
+service-worker generation, privacy audits, dependency audits with zero vulnerabilities and local
+rendered interaction checks pass. Package metadata remains `0.8.0`; publication and human
+acceptance remain.
 
 ## Blockers
 
@@ -121,11 +126,25 @@ articles, CSV data, Drive records or pending operations.
 
 ## Next safe action
 
-Begin a new thread by reading canonical memory and the cleaned futures list, then discuss and
-prioritise the open possibilities. Do not assign a version or begin implementation until a bounded
-product contract is separately agreed.
+Commit and push the complete bounded candidate to `main`, verify its Pages workflow, then ask the
+maintainer to accept the installed Android update and macOS browser presentation and interaction.
 
 ## Last meaningful update
+
+2026-08-26 — The maintainer accepted the detailed `v1.0.0` Bookmark-filter contract. The local
+candidate uses one quiet text action beside the existing count, retains the full newest-first queue
+as the default and derives the bookmarked view without storage, Drive, CSV or network changes. All
+195 tests across 29 files, type checking, build, service-worker generation, privacy audits, both
+dependency audits with zero vulnerabilities and attribution checks pass. Rendered checks at the
+320px minimum and desktop width cover hierarchy, no horizontal overflow, pointer and keyboard focus,
+the filtered empty state, unbookmark messaging and next-article focus recovery. Publication remains.
+
+2026-08-26 — The maintainer selected a subtle Bookmark filter as the final MVP product slice and
+intended `v1.0.0` release, with articles retaining visual priority and grouping or tagging left as
+unnecessary, unversioned post-1.0 possibilities. The proposed bounded contract uses one restrained
+**Show bookmarks** or **Show all** action in the existing list-heading area, retains the complete
+newest-first list as the default and adds no stored, synced, imported or exported filter state.
+Application implementation remains unstarted pending review of the detailed plan.
 
 2026-08-26 — `v0.8.0` was published as the latest GitHub release from exact verified commit
 `5be7553` after GitHub Pages workflow `32963690674` passed. The remote lightweight tag resolves to
@@ -349,6 +368,7 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [CSV import contract](../docs/import-format.md)
 - [Google Drive connection security plan](../docs/planning/google-drive-connection-security-plan.md)
 - [Code security hardening plan](../docs/planning/code-security-hardening-plan.md)
+- [`v1.0.0` Bookmark-filter plan](../docs/planning/bookmark-filter-plan.md)
 - [Desktop actions and responsive-width plan](../docs/planning/desktop-actions-responsive-plan.md)
 - [MVP 2.0 Slice 3 whole-row opening plan](../docs/planning/mvp-2-slice-3-whole-row-opening-plan.md)
 - [Mobile interaction shell plan](../docs/planning/mobile-interaction-shell-plan.md)
@@ -358,4 +378,4 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [Application menu drawer plan](../docs/planning/application-menu-drawer-plan.md)
 - [`v0.2.0` release record](../docs/releases/v0.2.0.md)
 - [`v0.3.0` release record](../docs/releases/v0.3.0.md)
-- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`, `v0.5.0`, `v0.5.1`, `v0.5.7`, `v0.6.0`, `v0.7.0`.
+- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`, `v0.5.0`, `v0.5.1`, `v0.5.7`, `v0.6.0`, `v0.7.0`, `v0.8.0`.

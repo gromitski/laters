@@ -300,6 +300,14 @@ h1 {
   padding: 0.75rem var(--gutter) 1rem;
 }
 
+.list-heading-summary {
+  display: flex;
+  min-width: 0;
+  flex: none;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 #list-heading {
   margin: 0;
   color: var(--text-meta);
@@ -308,6 +316,40 @@ h1 {
   letter-spacing: 0.18em;
   line-height: 1.2;
   text-transform: uppercase;
+}
+
+.article-filter-action {
+  min-height: var(--target);
+  border: 0;
+  padding: 0 0.125rem;
+  color: var(--text-meta);
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.71875rem;
+  font-weight: 650;
+  line-height: 1.2;
+  text-decoration: underline;
+  text-decoration-color: var(--link-underline);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25rem;
+  white-space: nowrap;
+}
+
+.article-filter-action:active {
+  color: var(--text);
+}
+
+.article-filter-action.is-pointer-focus:focus-visible {
+  outline: none;
+}
+
+.article-filter-action:disabled {
+  cursor: wait;
+  opacity: 0.5;
+}
+
+.article-filter-action[hidden] {
+  display: none;
 }
 
 .item-count {
@@ -839,6 +881,10 @@ h1 {
     border-color: var(--accent-ink);
     color: var(--text);
     background: var(--surface-hover);
+  }
+
+  .article-filter-action:hover {
+    color: var(--text);
   }
 
   .paste-add-action:hover {

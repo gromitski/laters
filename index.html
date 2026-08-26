@@ -59,7 +59,16 @@
       <section id="saved-articles" class="reading-list" aria-labelledby="list-heading">
         <div class="list-heading-row">
           <h2 id="list-heading" tabindex="-1">Saved articles</h2>
-          <p id="item-count" class="item-count" aria-live="polite"></p>
+          <div class="list-heading-summary">
+            <button
+              id="article-filter-action"
+              class="article-filter-action"
+              type="button"
+              aria-controls="article-list"
+              hidden
+            >Show bookmarks</button>
+            <p id="item-count" class="item-count" aria-live="polite"></p>
+          </div>
         </div>
 
         <p id="loading-state" class="state-card">Loading your saved articles…</p>

@@ -172,7 +172,26 @@ workflow `32963690674` passed. Reading-time estimates shown in exploratory hando
 explicitly outside this release, as are theme sync, scheduling, custom palettes and other product
 additions.
 
-## After `v0.8.0`
+## `v1.0.0` — Bookmark filter
 
-No later product slice is currently accepted. Folders, archive, analytics, a Laters backend and
-other exploratory ideas remain outside this roadmap until separately defined.
+- Add one subtle **Show bookmarks** action beside the existing list summary, changing to **Show all**
+  in the filtered view. Do not add tabs, a toolbar, filter panel or another visually dominant area.
+- Keep **Saved articles** as the default full newest-first queue. The temporary bookmarked view
+  preserves that order and adds no stored preference or article state.
+- Keep Paste available and preserve the accepted reveal behaviour for capture and Import. Existing
+  bookmark, Delete/Undo, swipe, article-menu and URL-only sharing contracts remain unchanged.
+- Add no IndexedDB migration, Drive or pending-operation behaviour, CSV field, network request,
+  content fetching, account, backend or analytics.
+
+Status: the bounded contract is accepted and implemented as the local `v1.0.0` candidate. All 195
+tests across 29 files, type checking, build, privacy and dependency audits pass. Package metadata
+remains `0.8.0`; publication and maintainer acceptance remain before release closure. The detailed
+contract and candidate evidence are in
+[`bookmark-filter-plan.md`](planning/bookmark-filter-plan.md).
+
+## After `v1.0.0`
+
+Laters is intended to move to a complete, maintenance-focused state after the accepted Bookmark
+filter release. Grouping and tagging may be explored later but are not currently necessary,
+approved or versioned. Folders, archive, analytics, a Laters backend and other exploratory ideas
+remain outside this roadmap until separately defined.
