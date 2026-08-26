@@ -14,9 +14,9 @@ paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0
 records private Google Drive live sync, and `v0.5.1` records its automatic housekeeping follow-up.
 Release `v0.5.7` consolidates the accepted code, configuration and documentation delivered after
 `v0.5.1`. Release `v0.6.0` records the accepted portable CSV Export, and release `v0.7.0` records
-the accepted reviewed CSV Import. Package metadata is `0.8.0` for the dark-mode candidate;
-`v0.7.0` remains the latest tagged GitHub release and its lightweight tag resolves to exact
-verified commit `d13a08b`.
+the accepted reviewed CSV Import. Package metadata is `0.8.0` for the accepted dark-mode release;
+`v0.7.0` remains the latest tagged GitHub release, at exact verified commit `d13a08b`, until the
+authorised `v0.8.0` publication completes.
 
 ## What exists now
 
@@ -85,22 +85,22 @@ verified commit `d13a08b`.
 - A released `v0.7.0` Import beside Export that validates and reviews a local named-column CSV,
   atomically adds only new canonical URLs and queues ordinary Drive additions without uploading the
   selected file.
-- A bounded `v0.8.0` dark-mode candidate with System, Light and Dark choices in the main menu, a
-  local-only override, pre-paint theme application, runtime theme metadata and matching application,
-  overlay, Privacy and Terms presentation.
+- An accepted and published `v0.8.0` dark-mode implementation with System, Light and Dark choices in
+  the main menu, a local-only override, pre-paint theme application, runtime theme metadata and
+  matching application, overlay, Privacy and Terms presentation.
 
 ## Active focus
 
-Publish the verified dark-mode candidate through the automatic Pages workflow, then obtain human
-acceptance on macOS and the installed Android PWA before any release decision.
+Prepare and verify the complete `v0.8.0` release record, publish its exact commit through the
+automatic Pages workflow, then create the explicitly authorised lightweight tag and GitHub release.
 
 ## Active slice
 
-The bounded `v0.8.0` dark-mode contract is agreed and implemented. Experimental sync remains first
-in the menu; Import and Export follow; Appearance is the final section above the footer. System is
-the default, with Light and Dark as local browser overrides. The candidate changes presentation only
-and does not read or mutate articles, CSV data, Drive records or pending operations. Automated and
-local rendered-browser verification pass; publication and maintainer acceptance remain.
+The bounded `v0.8.0` dark-mode contract is implemented, published and accepted. Experimental sync
+remains first in the menu; Import and Export follow; Appearance is the final section above the
+footer. System is the default, with Light and Dark as local browser overrides. The release changes
+presentation only and does not read or mutate articles, CSV data, Drive records or pending
+operations. The maintainer has authorised release publication.
 
 ## Blockers
 
@@ -121,11 +121,15 @@ local rendered-browser verification pass; publication and maintainer acceptance 
 
 ## Next safe action
 
-Commit and push the complete verified `v0.8.0` candidate to `main`, verify the automatic GitHub Pages
-workflow, then request published human acceptance. Do not create a tag or GitHub release without
-separate authority.
+Run the complete release verification, commit and push the release record to `main`, verify the
+automatic GitHub Pages workflow, then create the authorised lightweight `v0.8.0` tag and GitHub
+release. Record publication on `main` and verify its follow-up workflow.
 
 ## Last meaningful update
+
+2026-08-26 — The maintainer accepted the corrected published menu hierarchy and explicitly
+authorised the `v0.8.0` release. The durable release record and cleaned, unversioned futures list are
+being prepared before tagging the exact Pages-verified release commit.
 
 2026-08-26 — Maintainer acceptance of the theme itself passed, with one requested hierarchy
 correction: Experimental sync must remain at the top and Appearance belongs at the bottom. The

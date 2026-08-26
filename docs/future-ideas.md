@@ -2,67 +2,35 @@
 
 ## Status
 
-These are observations collected after the successful personal MVP, not a promise to expand the
-product. The selected public-readiness sequence through Import now lives in the
-[accepted roadmap](roadmap.md); every other idea here still needs its own evidence, privacy review
-and bounded release decision before implementation.
+`v0.8.0` completes the currently accepted roadmap. Nothing in this file is approved for
+implementation or assigned a version. Each idea needs evidence, a privacy and compatibility review,
+clear exclusions, acceptance criteria and a separately agreed bounded release before work begins.
 
-## Public Google Drive access
+Laters should remain a fast, local-first personal reading queue. A future idea must not silently add
+a Laters account, public reading list, shared database, analytics, committed credential, automatic
+cloud upload or paid service.
 
-- The production OAuth app moved to **In production** and passed desktop/mobile acceptance on
-  2026-08-24. Any Google Account can now connect.
-- The OAuth support and developer contact is `hello@dustyb.in`; `dustyb.in` ownership is verified,
-  and the public privacy policy and Terms links are saved and live.
-- Google requires no data-access verification for the exact non-sensitive `drive.appdata` scope.
-  It currently presents the consent request as `dustyb.in`, because the Verification Centre says
-  branding is not shown and the Branding page offers no verification action for this configuration.
-- The separate production project, no-billing safeguards, data-preserving client transition and
-  public OAuth gate are accepted as `v0.5.5` and `v0.5.6` respectively.
-
-The MVP should remain fast, local-first and focused. Public source code must never imply a public reading list, shared database or committed credentials.
-
-Bookmarks, source favicons and a non-conflicting whole-row pointer action were delivered and
-accepted in `v0.2.0`; their contract is governed by [`mvp-2-definition.md`](mvp-2-definition.md).
-Bidirectional Bookmark/Delete swipes and the long-press action sheet were delivered and accepted in
-`v0.3.0`; their contract is governed by the
-[mobile interaction shell record](planning/mobile-interaction-shell-plan.md). Their appearance in the
-broader futures exploration does not bring the adjacent reading-time or sorting concepts into scope.
-User-initiated sharing was subsequently selected as a small extension to that sheet: it opens the
-system share chooser with only the saved URL, without a provider integration. The URL-only build is
-published and passed its focused Android chooser, NotebookLM import and cancellation checks on
-2026-08-23. A single pasted or manually entered URL was subsequently selected as the bounded
-`v0.4.0` capture-path slice; bulk intake and every other entry below remain exploratory.
-Manual title editing was then selected as the bounded `v0.4.1` follow-up; remote title enrichment
-remains exploratory. A visible desktop route to the existing article menu and a modest wide-screen
-shell expansion were selected as the bounded `v0.4.2` follow-up; no general desktop redesign is
-selected. These accepted post-`v0.3.0` slices are consolidated in release `v0.4.2`; the remaining
-table is still exploratory rather than an accepted roadmap.
-
-## Possibilities
+## Open possibilities
 
 | Idea | Potential value | Questions and constraints to resolve first |
 | --- | --- | --- |
-| Approximate reading time | Helps choose an article that fits the time available. | A reliable estimate usually needs article content or trustworthy metadata. Cross-origin access, extraction quality, privacy and failure fallbacks need investigation. |
-| Order by reading time | Makes quick reads easy to prioritise. | Depends on credible reading-time data. Newest-first should remain available and the default must not change without evidence. |
-| Cross-device sync | Private Google Drive article sync is released in `v0.5.0`, with automatic 100-change housekeeping released in `v0.5.1`. Phone/desktop add, delete and Undo propagation are accepted. | `v0.5.5` covers the separate production project and safe client transition; `v0.5.6` is the explicit public OAuth gate. |
-| Dark mode with a toggle | Accepted as the bounded `v0.8.0` slice with System, Light and Dark choices in the main menu. | The preference remains local; runtime theme metadata follows it while the static manifest launch background remains light. Published acceptance remains. |
-| Folders and archive | Supports a larger or longer-lived collection. | Explicitly much later: both features risk turning a temporary reading tray into a system that needs organisation and maintenance. |
-| Export | Released in `v0.6.0` using a versioned, spreadsheet-safe CSV from the main menu. | Published macOS acceptance passed. The separate add-only CSV Import is released in `v0.7.0`. |
-| Optional article images | Adds visual recognition. | Must be controlled by one global toggle. Remote image fetching can add tracking, bandwidth, layout and caching concerns; useful fallbacks are required. |
-| Source favicons | Gives a quick source cue and was delivered in `v0.2.0`. | The accepted approach tries the publisher origin's `/favicon.ico` directly, never uses a central service and generates a stable hostname-derived fallback on any failure. See the MVP 2.0 definition. |
-| More capture paths and bulk intake | A single pasted or manually entered URL was delivered in `v0.4.0`; add-only CSV Import is released in `v0.7.0`; desktop extensions otherwise remain exploratory. | Import is bounded to 1,000 named-column CSV rows with review and confirmation. Browser extensions and other bulk capture still require separate evidence and decisions. |
+| Approximate reading time | Helps choose an article that fits the time available. | A credible estimate may require article content or trustworthy metadata. Cross-origin access, extraction quality, publisher requests, privacy and failure fallbacks need investigation. |
+| Order by reading time | Makes quick reads easier to prioritise. | Depends on credible reading-time data. Newest-first must remain available, and its default must not change without evidence. |
+| Folders | Groups a larger collection by subject or purpose. | Risks turning a temporary reading queue into a filing system that needs naming, moving, sync, import/export and empty-folder rules. |
+| Archive | Retains completed or deferred links outside the active queue. | Needs a clear distinction from Delete and Bookmark, plus storage, sync, export/import and list-growth rules. |
+| Optional article images | Adds visual recognition. | Must be controlled by one global setting. Remote fetching can introduce tracking, bandwidth, layout, caching and unreliable-image concerns. |
+| More capture paths and bulk intake | Makes desktop and multi-link capture easier beyond Paste and CSV Import. | Browser extensions and other capture routes require separate security, maintenance and distribution decisions. Existing add-only CSV Import remains bounded to 1,000 rows and 10 MB. |
+| Automatic title enrichment | Improves Android news-feed shares that provide weak titles. | Fetching or extracting metadata has the same privacy, security, cross-origin and reliability concerns as reading-time and image enrichment. Manual title editing already provides a local fallback. |
+| Bookmark-focused view or filtering | Makes bookmarked articles easier to revisit without changing their saved order. | Needs evidence for a separate view versus a temporary filter, accessible state and a clear return to the normal queue. |
+| Automatic tidy rules | Reduces long-term list growth. | Automatic movement or deletion could undermine the local-first recovery model. Any rule would need explicit control, reversibility and sync semantics. |
 
-## Related opportunity
+## Delivered context
 
-Some Android news-feed shares do not provide a useful article title. `v0.4.1` provides deliberate
-local title editing without fetching anything. Automatic title enrichment remains a separate
-possibility because fetching or extracting metadata has the same privacy, security and reliability
-implications as reading-time and image enrichment.
+Bookmarks and source favicons were released in `v0.2.0`; mobile gestures in `v0.3.0`; URL-only
+article sharing, Paste, manual title editing and desktop article actions in `v0.4.2`; private Google
+Drive sync in `v0.5.0` and `v0.5.1`; portable CSV Export in `v0.6.0`; reviewed add-only CSV Import
+in `v0.7.0`; and System, Light and Dark appearance in `v0.8.0`.
 
-## Selected idea retained for context
-
-Bookmarking was added late to the visual exploration rather than the original possibilities table.
-Release `v0.2.0` delivers only a persistent per-row bookmark toggle and its accepted hollow-star,
-filled-star and subtle-wash states. It does not select bookmark filtering, sorting, a separate view,
-or future automatic-tidy behaviour. Release `v0.3.0` adds a second route to the same bookmark toggle
-through right swipe and the long-press action sheet; it does not expand bookmark scope.
+Those delivered features remain governed by the accepted roadmap, release records and canonical
+project memory. Their presence here as context does not reopen their contracts or bring adjacent
+ideas into scope.

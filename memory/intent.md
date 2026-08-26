@@ -240,6 +240,8 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   palettes, OLED variants, content fetching, new icons and unrelated product work outside `v0.8.0`.
 - Require focused preference and interaction tests, complete existing tests, type checking, build,
   privacy and dependency audits, no-attribution checks and published macOS and Android acceptance.
+- Release closure: the maintainer accepted the published theme and corrected menu hierarchy, then
+  explicitly authorised the exact verified `v0.8.0` tag and GitHub release.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.
