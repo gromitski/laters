@@ -15,8 +15,9 @@ records private Google Drive live sync, and `v0.5.1` records its automatic house
 Release `v0.5.7` consolidates the accepted code, configuration and documentation delivered after
 `v0.5.1`. Release `v0.6.0` records the accepted portable CSV Export, release `v0.7.0` records the
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
-appearance. Package metadata is `0.8.0`; `v0.8.0` is the latest public GitHub release and its
-lightweight tag resolves exactly to verified release commit `5be7553`.
+appearance. Package metadata is aligned to the accepted `1.0.0` release candidate; `v0.8.0` remains
+the latest public GitHub release until final release closure and its lightweight tag resolves exactly
+to verified release commit `5be7553`.
 
 ## What exists now
 
@@ -88,14 +89,14 @@ lightweight tag resolves exactly to verified release commit `5be7553`.
 - An accepted and published `v0.8.0` dark-mode implementation with System, Light and Dark choices in
   the main menu, a local-only override, pre-paint theme application, runtime theme metadata and
   matching application, overlay, Privacy and Terms presentation.
-- An accepted local `v1.0.0` candidate with one subtle **Show bookmarks** or **Show all** action in
-  the existing list-heading row. The transient filtered view preserves newest-first order and adds
-  no stored, synced, imported or exported state.
+- An accepted and published `v1.0.0` candidate with one subtle **Show bookmarks** or **Show all**
+  action in the existing list-heading row. The transient filtered view preserves newest-first order
+  and adds no stored, synced, imported or exported state.
 
 ## Active focus
 
-Publish the accepted bounded `v1.0.0` Bookmark-filter candidate to `main`, then obtain installed
-Android and macOS browser acceptance before package versioning and release closure.
+Complete the authorised `v1.0.0` release from the exact verified release-preparation commit, then
+record the final public tag, release and post-publication workflow state.
 
 ## Active slice
 
@@ -104,8 +105,9 @@ the existing list-heading area. The full newest-first queue remains the default 
 view is transient presentation state. It adds no article field, migration, Drive behaviour, CSV
 change or network request. All 195 tests across 29 files, type checking, production build,
 service-worker generation, privacy audits, dependency audits with zero vulnerabilities and local
-rendered interaction checks pass. Package metadata remains `0.8.0`; publication and human
-acceptance remain.
+rendered interaction checks pass. Candidate commit `3690512` passed Pages workflows `32967338184`
+and `32967338912`; the maintainer accepted the installed Android and macOS result. Package metadata
+is aligned to `1.0.0`; final release verification, tagging and publication remain authorised work.
 
 ## Blockers
 
@@ -126,10 +128,16 @@ acceptance remain.
 
 ## Next safe action
 
-Commit and push the complete bounded candidate to `main`, verify its Pages workflow, then ask the
-maintainer to accept the installed Android update and macOS browser presentation and interaction.
+Run the complete release checks, commit and push the package and release records, and tag only that
+exact Pages-verified commit. Publish and verify the GitHub release, then record the final state.
 
 ## Last meaningful update
+
+2026-08-26 — The maintainer accepted the published Bookmark filter on installed Android and macOS
+and authorised release closure. Candidate commit `3690512` passed Pages workflows `32967338184` and
+`32967338912`; the public app exposed and successfully applied the visible feature-update path.
+Package metadata is aligned to `1.0.0` and the durable release record is being prepared. No tag or
+GitHub release exists yet.
 
 2026-08-26 — The maintainer accepted the detailed `v1.0.0` Bookmark-filter contract. The local
 candidate uses one quiet text action beside the existing count, retains the full newest-first queue
@@ -364,6 +372,7 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [`v0.5.7` release record](../docs/releases/v0.5.7.md)
 - [`v0.6.0` release record](../docs/releases/v0.6.0.md)
 - [`v0.7.0` release record](../docs/releases/v0.7.0.md)
+- [`v1.0.0` release record](../docs/releases/v1.0.0.md)
 - [CSV export format](../docs/export-format.md)
 - [CSV import contract](../docs/import-format.md)
 - [Google Drive connection security plan](../docs/planning/google-drive-connection-security-plan.md)

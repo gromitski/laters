@@ -259,7 +259,8 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   approved or versioned. Search, sorting, archive, automatic tidy rules and other future ideas remain
   outside the closing MVP slice.
 - The detailed contract in `docs/planning/bookmark-filter-plan.md` is accepted and implemented as
-  the local candidate. Package versioning, publication, acceptance and release closure remain.
+  published candidate. The maintainer accepted the installed Android and macOS result and authorised
+  `v1.0.0` release closure.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.

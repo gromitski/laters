@@ -2,8 +2,8 @@
 
 ## Status
 
-Accepted and implemented as the local `v1.0.0` candidate. Package metadata remains `0.8.0`; a tag
-and release remain unauthorised closure steps after published maintainer acceptance.
+Accepted, implemented, published and maintainer-accepted as the `v1.0.0` candidate. Package metadata
+is aligned to `1.0.0`; final release verification, tagging and publication are authorised and remain.
 
 ## Product outcome
 
@@ -125,7 +125,7 @@ rules, reading time, remote title enrichment, images, bulk actions, bookmark pin
 database, a remembered default view or changes to article capture, sharing, swipe or sync contracts.
 
 Package metadata, release documentation, the `v1.0.0` tag and GitHub release remain later closure
-steps after the bounded implementation is accepted and separately authorised where required.
+steps after the exact release-preparation commit passes verification.
 
 ## Candidate verification
 
@@ -137,4 +137,8 @@ Local rendered checks cover the 320px minimum and desktop width in Dark appearan
 text action and count fit without horizontal overflow; pointer focus remains quiet while keyboard
 focus remains visible. The full and bookmarked views, filtered empty state, unbookmark announcement
 and next-article focus recovery passed. The fictional local test bookmark state was restored after
-the check. Published installed-Android and macOS acceptance remains.
+the check. Published installed-Android and macOS acceptance passed.
+
+Candidate commit `3690512` passed GitHub Pages workflows `32967338184` and `32967338912`. The public
+origin exposed and successfully applied the existing visible update path. The maintainer accepted
+the installed Android and macOS result and authorised `v1.0.0` release closure.

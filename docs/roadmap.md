@@ -183,10 +183,11 @@ additions.
 - Add no IndexedDB migration, Drive or pending-operation behaviour, CSV field, network request,
   content fetching, account, backend or analytics.
 
-Status: the bounded contract is accepted and implemented as the local `v1.0.0` candidate. All 195
-tests across 29 files, type checking, build, privacy and dependency audits pass. Package metadata
-remains `0.8.0`; publication and maintainer acceptance remain before release closure. The detailed
-contract and candidate evidence are in
+Status: the bounded contract is accepted, implemented, published and maintainer-accepted. Candidate
+commit `3690512` passed Pages workflows `32967338184` and `32967338912`. All 195 tests across 29
+files, type checking, build, privacy and dependency audits pass. Package metadata is aligned to
+`1.0.0`; final release verification, tagging and publication are authorised and remain. The detailed
+contract and evidence are in
 [`bookmark-filter-plan.md`](planning/bookmark-filter-plan.md).
 
 ## After `v1.0.0`

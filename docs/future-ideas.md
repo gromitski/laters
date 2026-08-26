@@ -4,10 +4,10 @@
 
 The subtle Bookmark filter has been selected as the final MVP slice and intended `v1.0.0` release;
 its accepted implementation contract and candidate evidence are maintained in
-[`bookmark-filter-plan.md`](planning/bookmark-filter-plan.md). Published acceptance and release
-closure remain. Nothing remaining in this file is approved for implementation or assigned a
-version. Each idea needs evidence, a privacy and compatibility review, clear exclusions, acceptance
-criteria and a separately agreed bounded release before work begins.
+[`bookmark-filter-plan.md`](planning/bookmark-filter-plan.md). Published acceptance passed and
+`v1.0.0` release closure is authorised. Nothing remaining in this file is approved for
+implementation or assigned a version. Each idea needs evidence, a privacy and compatibility review,
+clear exclusions, acceptance criteria and a separately agreed bounded release before work begins.
 
 Laters should remain a fast, local-first personal reading queue. A future idea must not silently add
 a Laters account, public reading list, shared database, analytics, committed credential, automatic
