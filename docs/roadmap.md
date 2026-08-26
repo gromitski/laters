@@ -145,8 +145,10 @@ passed. Import is outside this release.
 Status: implemented as a `v0.7.0` candidate. Import accepts at most 1,000 article rows and 10 MB,
 reports ignored columns and unsupported tags, and blocks the whole file on invalid data. Google
 Drive is refreshed before review when connected; a disconnected remembered connection produces a
-clear local-only duplicate warning. Automated verification is complete; published human acceptance
-remains.
+clear local-only duplicate warning. Initial published acceptance identified that an older imported
+article could remain hidden behind the open menu. The corrected candidate closes the menu and
+reveals the first imported article while preserving its saved time and normal list order. Automated
+and isolated-browser verification pass; published human acceptance remains.
 
 ## After `v0.7.0`
 

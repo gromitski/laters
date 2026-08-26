@@ -87,13 +87,14 @@ resolves to exact verified commit `60794b0`.
 
 ## Active focus
 
-Complete technical verification and publish the bounded `v0.7.0` Import candidate for maintainer
-acceptance.
+Publish the verified Import visibility correction, then repeat the bounded maintainer acceptance
+check before releasing `v0.7.0`.
 
 ## Active slice
 
 `v0.7.0` Import is implemented and agent-verified as a candidate using the accepted add-only CSV
-contract. Published human acceptance remains before release.
+contract. Its first published acceptance found that a successful older-dated import could remain
+hidden behind the open menu; the correction is complete and awaits publication and repeat acceptance.
 
 ## Blockers
 
@@ -114,10 +115,20 @@ contract. Published human acceptance remains before release.
 
 ## Next safe action
 
-Finish automated and browser verification, commit and push the complete candidate to `main`, verify
-automatic Pages publication, then request the bounded human file-picker, review and import checks.
+Commit and push the verified visibility correction to `main`, verify automatic Pages publication,
+then request the bounded human file-picker, review and reveal check.
 
 ## Last meaningful update
+
+2026-08-26 — Published Import acceptance returned a successful committed response but did not show
+the imported article. Repository inspection confirmed that the atomic write and list render ran, but
+the menu remained open and an article retaining an older saved time could sit below newer items.
+The bounded correction closes the menu after success, scrolls to and focuses the first imported
+article, and shows visible completion feedback without changing saved-time ordering, article data or
+sync operations. All 183 tests across 27 files, type-checking, production build and service-worker
+generation, repository and public-build privacy audits, full and production dependency audits with
+zero vulnerabilities, and attribution-guard checks pass. An isolated browser import dated 2020
+verified menu dismissal, bottom-of-list reveal, focus and visible status; publication remains.
 
 2026-08-26 — The bounded `v0.7.0` Import candidate adds **Import CSV** beside Export. It accepts a
 10 MB, 1,000-row UTF-8 named-column CSV, round-trips Laters exports, supports simpler URL-based

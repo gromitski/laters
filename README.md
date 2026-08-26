@@ -53,7 +53,8 @@ Open the circular menu and select **Import CSV** to add articles from a local CS
 its own export format and simpler spreadsheets containing a `url` column, with optional `title`,
 `created` and `tags` columns. It checks the complete file and shows a review before changing anything.
 Import adds only new URLs: it never replaces or deletes existing articles. Files are limited to
-1,000 article rows and 10 MB.
+1,000 article rows and 10 MB. After a successful import, the menu closes and Laters shows the first
+imported article in its saved-time position.
 
 Open the circular menu and select **Download CSV** to create a CSV copy of the articles stored on that
 device. The export contains article addresses, titles, saved times and namespaced tags for bookmarks

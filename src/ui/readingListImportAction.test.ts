@@ -54,7 +54,8 @@ describe("reading-list import action", () => {
   it("imports only after confirmation and reports the committed count", async () => {
     const elements = createElements();
     const afterImport = vi.fn();
-    const runImport = vi.fn(async () => ({ importedCount: 2 }));
+    const result = { importedCount: 2, firstImportedItemId: "one" };
+    const runImport = vi.fn(async () => result);
     install(elements, { runImport, afterImport });
     await chooseFile(elements);
 
@@ -66,12 +67,24 @@ describe("reading-list import action", () => {
     await settlePromises();
 
     expect(runImport).toHaveBeenCalledWith(expect.objectContaining({ newArticleCount: 2 }));
-    expect(afterImport).toHaveBeenCalledOnce();
+    expect(afterImport).toHaveBeenCalledWith(result);
+    expect(elements.action.focus).not.toHaveBeenCalled();
     expect(elements.review.hidden).toBe(true);
     expect(elements.status.textContent).toBe("Imported 2 articles.");
     expect(elements.status.getAttribute("role")).toBe("status");
     expect(elements.action.disabled).toBe(false);
     expect(elements.confirmAction.disabled).toBe(false);
+  });
+
+  it("returns focus to the import action when no completion handler is installed", async () => {
+    const elements = createElements();
+    install(elements);
+    await chooseFile(elements);
+
+    elements.confirmAction.dispatchEvent(new Event("click"));
+    await settlePromises();
+
+    expect(elements.action.focus).toHaveBeenCalledOnce();
   });
 
   it("reports validation failure as an alert without offering confirmation", async () => {
@@ -160,8 +173,14 @@ function install(
   elements: FakeElements,
   overrides: {
     prepareImport?: (file: File) => Promise<ReadingListImportReview>;
-    runImport?: (plan: ReadingListImportReview) => Promise<{ importedCount: number }>;
-    afterImport?: () => void;
+    runImport?: (plan: ReadingListImportReview) => Promise<{
+      importedCount: number;
+      firstImportedItemId?: string;
+    }>;
+    afterImport?: (result: {
+      importedCount: number;
+      firstImportedItemId?: string;
+    }) => void;
   } = {},
 ): void {
   installReadingListImportAction({

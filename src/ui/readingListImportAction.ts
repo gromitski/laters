@@ -4,6 +4,11 @@ export interface ReadingListImportReview extends ReadingListImportPlan {
   connectionWarning?: string;
 }
 
+export interface ReadingListImportResult {
+  importedCount: number;
+  firstImportedItemId?: string;
+}
+
 interface ReadingListImportActionOptions {
   action: HTMLButtonElement;
   fileInput: HTMLInputElement;
@@ -14,10 +19,10 @@ interface ReadingListImportActionOptions {
   cancelAction: HTMLButtonElement;
   status: HTMLParagraphElement;
   prepareImport(file: File): Promise<ReadingListImportReview>;
-  runImport(plan: ReadingListImportReview): Promise<{ importedCount: number }>;
+  runImport(plan: ReadingListImportReview): Promise<ReadingListImportResult>;
   readError(error: unknown): string;
   beforeChoose?(): void;
-  afterImport?(): void;
+  afterImport?(result: ReadingListImportResult): void;
 }
 
 export function installReadingListImportAction({
@@ -33,7 +38,7 @@ export function installReadingListImportAction({
   runImport,
   readError,
   beforeChoose = () => undefined,
-  afterImport = () => undefined,
+  afterImport,
 }: ReadingListImportActionOptions): void {
   let activePlan: ReadingListImportReview | undefined;
   let isBusy = false;
@@ -114,13 +119,17 @@ export function installReadingListImportAction({
     setStatus(status, "Importing your articles…");
 
     void runImport(plan)
-      .then(({ importedCount }) => {
+      .then((result) => {
         activePlan = undefined;
         review.hidden = true;
         fileInput.value = "";
-        setStatus(status, `Imported ${articleLabel(importedCount)}.`);
-        afterImport();
-        action.focus({ preventScroll: true });
+        setStatus(status, `Imported ${articleLabel(result.importedCount)}.`);
+
+        if (afterImport) {
+          afterImport(result);
+        } else {
+          action.focus({ preventScroll: true });
+        }
       })
       .catch((error: unknown) => {
         setError(status, readError(error));

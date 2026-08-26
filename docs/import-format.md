@@ -56,6 +56,10 @@ and unsupported tags. No data from the selected file is saved until the user con
 the picker or review creates no articles or pending operations from that file. A connected pre-review
 Drive refresh may still apply existing changes made on another device.
 
+After a successful confirmed import, Laters closes the menu and reveals the first imported article.
+Imported articles still retain their original saved times and remain in the normal newest-first list
+order, so the revealed article may be below more recently saved items.
+
 ## Merge and identity rules
 
 - Import is add-only.

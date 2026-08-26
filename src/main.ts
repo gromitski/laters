@@ -51,6 +51,7 @@ import { installReadingListExportAction } from "./ui/readingListExportAction";
 import {
   installReadingListImportAction,
   type ReadingListImportReview,
+  type ReadingListImportResult,
 } from "./ui/readingListImportAction";
 import { loadPublisherFavicon } from "./ui/loadPublisherFavicon";
 import { readClipboardText } from "./ui/readClipboardText";
@@ -264,6 +265,7 @@ installReadingListImportAction({
   prepareImport: prepareReadingListImport,
   runImport: commitReadingListImport,
   readError: readingListImportError,
+  afterImport: revealCompletedImport,
 });
 
 showRememberedGoogleDriveConnection();
@@ -375,7 +377,7 @@ async function prepareReadingListImport(file: File): Promise<ReadingListImportRe
 
 async function commitReadingListImport(
   plan: ReadingListImportPlan,
-): Promise<{ importedCount: number }> {
+): Promise<ReadingListImportResult> {
   clearFeedback();
   finalisePendingDeletion();
   setBusy(true);
@@ -385,13 +387,37 @@ async function commitReadingListImport(
     currentItems = result.items;
     renderItems();
     syncArticlesToGoogleDrive("Syncing imported articles to Google Drive…");
-    announceHiddenStatus(
-      `Imported ${result.importedItems.length} ${result.importedItems.length === 1 ? "article" : "articles"}.`,
-    );
-    return { importedCount: result.importedItems.length };
+    return {
+      importedCount: result.importedItems.length,
+      firstImportedItemId: result.importedItems[0]?.id,
+    };
   } finally {
     setBusy(false);
   }
+}
+
+function revealCompletedImport(result: ReadingListImportResult): void {
+  const firstImportedItemId = result.firstImportedItemId;
+
+  if (!firstImportedItemId) {
+    importDataAction.focus({ preventScroll: true });
+    return;
+  }
+
+  void applicationMenu
+    .dismiss(undefined, "import-complete")
+    .then(() => {
+      showStatus(
+        `Imported ${result.importedCount} ${result.importedCount === 1 ? "article" : "articles"}. Showing the first imported article.`,
+      );
+      window.requestAnimationFrame(() => {
+        highlightSavedArticle(firstImportedItemId, "center");
+        focusArticle(firstImportedItemId, true);
+      });
+    })
+    .catch(() => {
+      importDataAction.focus({ preventScroll: true });
+    });
 }
 
 function readingListImportError(error: unknown): string {
@@ -851,7 +877,7 @@ function createPasteToAddRow(): HTMLLIElement {
       syncArticlesToGoogleDrive();
       showPasteButton();
       renderItems();
-      highlightPastedArticle(result.item.id);
+      highlightSavedArticle(result.item.id);
       announceHiddenStatus(
         `Saved. ${currentItems.length} ${currentItems.length === 1 ? "article" : "articles"}.`,
       );
@@ -865,7 +891,10 @@ function createPasteToAddRow(): HTMLLIElement {
   }
 }
 
-function highlightPastedArticle(itemId: string): void {
+function highlightSavedArticle(
+  itemId: string,
+  block: ScrollLogicalPosition = "nearest",
+): void {
   const row = findRow(itemId);
 
   if (!row) {
@@ -873,7 +902,7 @@ function highlightPastedArticle(itemId: string): void {
   }
 
   row.classList.add("is-paste-highlight");
-  row.scrollIntoView({ block: "nearest" });
+  row.scrollIntoView({ block });
   window.setTimeout(() => row.classList.remove("is-paste-highlight"), 1_100);
 }
 
