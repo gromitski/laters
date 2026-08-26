@@ -3,6 +3,7 @@ import type { SavedItem } from "../domain/savedItem";
 import type { ReadingListSyncOperation } from "./readingListSyncOperation";
 import {
   GOOGLE_DRIVE_OPERATION_COMPACTION_THRESHOLD,
+  GOOGLE_DRIVE_OPERATION_DOWNLOAD_CONCURRENCY,
   GoogleDriveLiveSyncSession,
 } from "./googleDriveLiveSync";
 
@@ -76,6 +77,165 @@ describe("Google Drive live sync", () => {
 
     await expect(session.sync(store)).resolves.toMatchObject({ items: [] });
     expect(store.replaceAll).toHaveBeenCalledWith([]);
+  });
+
+  it("downloads at most four operations together and applies them deterministically", async () => {
+    const operations: ReadingListSyncOperation[] = [
+      addOperation("op-a", article("shared", 100)),
+      {
+        operationId: "op-b",
+        type: "update",
+        occurredAt: 20,
+        item: article("shared", 200),
+      },
+      { operationId: "op-c", type: "delete", occurredAt: 30, itemId: "shared" },
+      {
+        operationId: "op-d",
+        type: "restore",
+        occurredAt: 40,
+        item: article("shared", 300),
+      },
+      {
+        operationId: "op-e",
+        type: "update",
+        occurredAt: 50,
+        item: article("shared", 400),
+      },
+    ];
+    const files = operations
+      .map((operation) => ({
+        id: `file-${operation.operationId}`,
+        name: `laters-operation-${operation.operationId}.json`,
+      }))
+      .reverse();
+    const operationsByFileId = new Map(
+      operations.map((operation) => [`file-${operation.operationId}`, operation]),
+    );
+    const releases = new Map<string, () => void>();
+    let activeDownloads = 0;
+    let maximumActiveDownloads = 0;
+    const request = vi.fn<typeof fetch>(async (input) => {
+      const url = String(input);
+
+      if (url.endsWith("/article-file?alt=media")) {
+        return checkpointResponse([]);
+      }
+
+      if (!url.includes("?alt=media")) {
+        return jsonResponse({ files });
+      }
+
+      const fileId = new URL(url).pathname.split("/").at(-1)!;
+      const operation = operationsByFileId.get(fileId)!;
+      activeDownloads += 1;
+      maximumActiveDownloads = Math.max(maximumActiveDownloads, activeDownloads);
+
+      return new Promise<Response>((resolve) => {
+        releases.set(fileId, () => {
+          activeDownloads -= 1;
+          resolve(jsonResponse(operation));
+        });
+      });
+    });
+    const store = createStore([]);
+    const session = new GoogleDriveLiveSyncSession(
+      request,
+      "temporary-token",
+      "article-file",
+      checkpoint([]),
+    );
+
+    const syncing = session.sync(store);
+    await vi.waitFor(() => {
+      expect(releases.size).toBe(GOOGLE_DRIVE_OPERATION_DOWNLOAD_CONCURRENCY);
+    });
+    expect(maximumActiveDownloads).toBe(GOOGLE_DRIVE_OPERATION_DOWNLOAD_CONCURRENCY);
+
+    for (const fileId of ["file-op-d", "file-op-c", "file-op-b", "file-op-a"]) {
+      releases.get(fileId)!();
+    }
+
+    await vi.waitFor(() => {
+      expect(releases.has("file-op-e")).toBe(true);
+    });
+    releases.get("file-op-e")!();
+
+    await expect(syncing).resolves.toMatchObject({
+      items: [article("shared", 400)],
+      operationCount: 5,
+    });
+    expect(store.replaceAll).toHaveBeenCalledWith([article("shared", 400)]);
+  });
+
+  it("keeps local changes untouched and retries the complete batch after a download fails", async () => {
+    const operations = [
+      addOperation("op-a", article("a", 100)),
+      addOperation("op-b", article("b", 200)),
+      addOperation("op-c", article("c", 300)),
+      addOperation("op-d", article("d", 400)),
+    ];
+    const files = operations.map((operation) => ({
+      id: `file-${operation.operationId}`,
+      name: `laters-operation-${operation.operationId}.json`,
+    }));
+    const operationsByFileId = new Map(
+      operations.map((operation) => [`file-${operation.operationId}`, operation]),
+    );
+    const downloadAttempts = new Map<string, number>();
+    const request = vi.fn<typeof fetch>(async (input, init) => {
+      const url = String(input);
+
+      if (url.endsWith("/article-file?alt=media")) {
+        return checkpointResponse([]);
+      }
+
+      if (init?.method === "POST") {
+        return jsonResponse({ id: "uploaded-local-operation" });
+      }
+
+      if (!url.includes("?alt=media")) {
+        return jsonResponse({ files });
+      }
+
+      const fileId = new URL(url).pathname.split("/").at(-1)!;
+      const attempt = (downloadAttempts.get(fileId) ?? 0) + 1;
+      downloadAttempts.set(fileId, attempt);
+
+      if (fileId === "file-op-b" && attempt === 1) {
+        return new Response(null, { status: 503 });
+      }
+
+      return jsonResponse(operationsByFileId.get(fileId));
+    });
+    const pendingOperation = addOperation("local-pending", article("local", 500));
+    const store = createStore([pendingOperation]);
+    const session = new GoogleDriveLiveSyncSession(
+      request,
+      "temporary-token",
+      "article-file",
+      checkpoint([]),
+    );
+
+    await expect(session.sync(store)).rejects.toThrow(
+      "Google Drive live-sync request failed (503).",
+    );
+    expect(store.listPendingSyncOperations).not.toHaveBeenCalled();
+    expect(store.removePendingSyncOperations).not.toHaveBeenCalled();
+    expect(store.replaceAll).not.toHaveBeenCalled();
+
+    await expect(session.sync(store)).resolves.toMatchObject({
+      items: [
+        article("local", 500),
+        article("d", 400),
+        article("c", 300),
+        article("b", 200),
+        article("a", 100),
+      ],
+      operationCount: 5,
+      uploadedCount: 1,
+    });
+    expect([...downloadAttempts.values()]).toEqual([2, 2, 2, 2]);
+    expect(store.removePendingSyncOperations).toHaveBeenCalledWith(["local-pending"]);
   });
 
   it("reuses an existing immutable operation after an uncertain prior upload", async () => {

@@ -17,6 +17,7 @@ const DRIVE_UPLOAD_FILES_URL = "https://www.googleapis.com/upload/drive/v3/files
 const OPERATION_FILE_PREFIX = "laters-operation-";
 const MAX_OPERATION_FILES = 10_000;
 const MAX_OPERATION_BYTES = 32 * 1024;
+export const GOOGLE_DRIVE_OPERATION_DOWNLOAD_CONCURRENCY = 4;
 export const GOOGLE_DRIVE_OPERATION_COMPACTION_THRESHOLD = 100;
 
 type LiveSyncStore = Pick<
@@ -238,19 +239,57 @@ export class GoogleDriveLiveSyncSession {
   }
 
   private async downloadUnseenOperations(files: DriveOperationFile[]): Promise<void> {
-    for (const file of files) {
-      const operationId = operationIdFromFileName(file.name);
+    const unseenFiles = files
+      .map((file) => ({ file, operationId: operationIdFromFileName(file.name) }))
+      .filter(
+        (entry): entry is { file: DriveOperationFile; operationId: string } =>
+          entry.operationId !== undefined && !this.remoteOperations.has(entry.operationId),
+      );
+    const downloadedOperations: ReadingListSyncOperation[] = [];
 
-      if (!operationId || this.remoteOperations.has(operationId)) {
-        continue;
+    for (
+      let offset = 0;
+      offset < unseenFiles.length;
+      offset += GOOGLE_DRIVE_OPERATION_DOWNLOAD_CONCURRENCY
+    ) {
+      const batch = unseenFiles.slice(
+        offset,
+        offset + GOOGLE_DRIVE_OPERATION_DOWNLOAD_CONCURRENCY,
+      );
+      const results = await Promise.allSettled(
+        batch.map(async ({ file, operationId }) => {
+          const operation = await downloadOperation(
+            this.request,
+            this.accessToken,
+            file.id,
+          );
+
+          if (operation.operationId !== operationId) {
+            throw new Error("A Google Drive sync operation has an unexpected identifier.");
+          }
+
+          return operation;
+        }),
+      );
+      const failedDownloads = results.filter(
+        (result): result is PromiseRejectedResult => result.status === "rejected",
+      );
+      const failedDownload =
+        failedDownloads.find((result) => isAuthorizationError(result.reason)) ??
+        failedDownloads[0];
+
+      if (failedDownload) {
+        throw failedDownload.reason;
       }
 
-      const operation = await downloadOperation(this.request, this.accessToken, file.id);
-
-      if (operation.operationId !== operationId) {
-        throw new Error("A Google Drive sync operation has an unexpected identifier.");
+      for (const result of results) {
+        if (result.status === "fulfilled") {
+          downloadedOperations.push(result.value);
+        }
       }
+    }
 
+    for (const operation of downloadedOperations) {
       this.remoteOperations.set(operation.operationId, operation);
     }
   }

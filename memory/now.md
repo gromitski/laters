@@ -92,11 +92,16 @@ release and its lightweight tag resolves exactly to verified release commit `565
 - A released `v1.0.0` with one subtle **Show bookmarks** or **Show all** action in the existing
   list-heading row. The transient filtered view preserves newest-first order and adds no stored,
   synced, imported or exported state.
+- A verified maintenance candidate that downloads existing Google Drive operation records in
+  deterministic batches of no more than four instead of waiting for every small record in turn.
+  A failed batch leaves local pending changes untouched and is retried in full; Drive formats,
+  housekeeping thresholds and application behaviour are unchanged.
 
 ## Active focus
 
-Maintain the completed `v1.0.0` release. Define grouping or tagging only if a later, separately
-justified and approved product proposal is wanted.
+Publish and verify the approved Google Drive reconnect-performance maintenance correction for the
+completed `v1.0.0` application. Define grouping or tagging only if a later, separately justified and
+approved product proposal is wanted.
 
 ## Active slice
 
@@ -118,6 +123,8 @@ active posture.
 ## Uncertainties
 
 - A minimum Chrome for Android version is not yet evidenced.
+- The exact production reconnect improvement from four-at-a-time operation downloads remains to be
+  measured after the visible application update is published and applied.
 - Android's news feed may provide distinct rotating or tracking URLs for the same apparent article; exact-URL deduplication correctly retains these as separate items.
 - Some Android news-feed shares do not supply a useful article title. Remote title enrichment is a possible later product slice with privacy, security and reliability implications; it is not part of the current design handoff.
 - The 100-operation housekeeping threshold and interruption path are covered by deterministic
@@ -130,10 +137,21 @@ active posture.
 
 ## Next safe action
 
-Keep released `v1.0.0` stable and respond to maintenance needs. No later product slice is approved
-or versioned; grouping and tagging remain exploratory possibilities only.
+Publish the verified maintenance candidate through the normal `main` Pages workflow, then apply the
+visible application update and time one fresh Google Drive resume. No later product slice is
+approved or versioned; grouping and tagging remain exploratory possibilities only.
 
 ## Last meaningful update
+
+2026-08-26 — A repeated production reconnect taking roughly 88 seconds was traced to dozens of
+small Drive operation records being downloaded sequentially, rather than repeated housekeeping or
+large data transfer. The maintainer approved a bounded correction. The candidate downloads at most
+four records together, validates the complete set before updating the session cache and preserves
+authorisation handling, deterministic operation application and local pending-change safety. All
+197 tests across 29 files, type checking, production build, service-worker generation, repository
+and public-build privacy audits, both dependency audits with zero vulnerabilities and the
+no-attribution self-test pass. Drive formats, compaction thresholds, UI and package metadata remain
+unchanged; published reconnect acceptance remains.
 
 2026-08-26 — `v1.0.0` was published as the latest GitHub release from exact verified commit
 `565cd59` after GitHub Pages workflow `32967914059` passed. The remote lightweight tag resolves to
