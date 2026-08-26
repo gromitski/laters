@@ -2,7 +2,7 @@
 
 ## Status
 
-This is the public import contract implemented for the `v0.7.0` candidate. Import is available from
+This is the public import contract released in `v0.7.0`. Import is available from
 the main application menu. It adds new articles to the current device; it never replaces or deletes
 the existing reading list.
 

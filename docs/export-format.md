@@ -2,9 +2,9 @@
 
 ## Status
 
-This is the public export contract released in `v0.6.0`. Export is available from
-the main application menu. Import remains a separate later release and is not implemented by this
-contract.
+This is the public export contract released in `v0.6.0`. Export is available from the main
+application menu. The separate `v0.7.0` Import release consumes this format without changing the
+version-1 export contract.
 
 ## File
 
@@ -88,7 +88,7 @@ a Google Drive refresh.
 
 ## Compatibility boundary
 
-A later Laters Import is expected to validate this version-1 header, accept the documented rows,
-restore bookmark and title-edit state from the namespaced tags, reverse protected titles only when
-marked and create fresh internal article identifiers. Import merge, duplicate, deletion and Google
-Drive reconciliation rules remain deliberately undefined until that release is agreed.
+Laters Import validates this version-1 header, accepts the documented rows, restores bookmark and
+title-edit state from the namespaced tags, reverses protected titles only when marked and creates
+fresh internal article identifiers. Import merge, duplicate, deletion and Google Drive
+reconciliation rules remain defined by the separate Import contract.

@@ -14,8 +14,8 @@ paste-to-add, title-edit and desktop-responsiveness work delivered after `v0.3.0
 records private Google Drive live sync, and `v0.5.1` records its automatic housekeeping follow-up.
 Release `v0.5.7` consolidates the accepted code, configuration and documentation delivered after
 `v0.5.1`. Release `v0.6.0` records the accepted portable CSV Export. Package metadata is `0.7.0`
-for the Import candidate; `v0.6.0` remains the latest tagged GitHub release and its lightweight tag
-resolves to exact verified commit `60794b0`.
+for the accepted and release-authorised Import candidate; `v0.6.0` remains the latest tagged GitHub
+release and its lightweight tag resolves to exact verified commit `60794b0` until publication.
 
 ## What exists now
 
@@ -81,22 +81,19 @@ resolves to exact verified commit `60794b0`.
 - An accepted `v0.6.0` Export implementation in the main menu that creates a versioned CSV of local
   article URLs, titles, saved times, bookmark state and deliberate-title state without exposing
   credentials, connection data, internal identifiers or sync operations.
-- A `v0.7.0` Import candidate beside Export that validates and reviews a local named-column CSV,
+- An accepted `v0.7.0` Import candidate beside Export that validates and reviews a local named-column CSV,
   atomically adds only new canonical URLs and queues ordinary Drive additions without uploading the
   selected file.
 
 ## Active focus
 
-Publish the accepted success-tick visual correction, then prepare the verified `v0.7.0` candidate
-for release authorisation.
+Prepare, verify and publish the authorised `v0.7.0` Import release from the exact accepted state.
 
 ## Active slice
 
-`v0.7.0` Import is implemented and agent-verified as a candidate using the accepted add-only CSV
-contract. Published acceptance found that a successful older-dated import could remain hidden behind
-the open menu. The first correction was confirmed live but still failed in the maintainer's Chrome
-installation. The sequencing correction and menu version label are published and accepted; only the
-success-tick visual correction remains before release preparation.
+`v0.7.0` Import is implemented, agent-verified, published and maintainer-accepted using the bounded
+add-only CSV contract. The corrected completion sequence, package-derived menu version and success
+tick are all accepted. Release publication is authorised.
 
 ## Blockers
 
@@ -117,10 +114,14 @@ success-tick visual correction remains before release preparation.
 
 ## Next safe action
 
-Verify, commit and publish the success-tick visual correction, then prepare the exact accepted
-`v0.7.0` release candidate without creating a tag or release before separate authorisation.
+Complete release-candidate verification and Pages publication for the exact release commit, create
+and verify the authorised lightweight `v0.7.0` tag and GitHub release, then record publication.
 
 ## Last meaningful update
+
+2026-08-26 — The maintainer verified the corrected success tick, closing published `v0.7.0` Import
+acceptance, and explicitly authorised release. The release record is prepared from the exact
+accepted add-only CSV contract; package metadata is already `0.7.0`. No tag or release exists yet.
 
 2026-08-26 — Published Chrome acceptance passed after the sequenced Import correction: the new
 worker activated, the menu showed **Version 0.7.0**, a confirmed two-article import closed the menu
@@ -308,6 +309,7 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [`v0.5.1` release record](../docs/releases/v0.5.1.md)
 - [`v0.5.7` release record](../docs/releases/v0.5.7.md)
 - [`v0.6.0` release record](../docs/releases/v0.6.0.md)
+- [`v0.7.0` release record](../docs/releases/v0.7.0.md)
 - [CSV export format](../docs/export-format.md)
 - [CSV import contract](../docs/import-format.md)
 - [Google Drive connection security plan](../docs/planning/google-drive-connection-security-plan.md)

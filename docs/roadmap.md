@@ -142,7 +142,8 @@ passed. Import is outside this release.
 - Skip exact canonical URL duplicates without overwriting existing user data.
 - Queue ordinary add operations for the existing private Drive sync without uploading the CSV file.
 
-Status: implemented as a `v0.7.0` candidate. Import accepts at most 1,000 article rows and 10 MB,
+Status: implemented, published, maintainer-accepted and authorised for `v0.7.0` release. Import
+accepts at most 1,000 article rows and 10 MB,
 reports ignored columns and unsupported tags, and blocks the whole file on invalid data. Google
 Drive is refreshed before review when connected; a disconnected remembered connection produces a
 clear local-only duplicate warning. Initial published acceptance identified that an older imported
@@ -152,8 +153,8 @@ published Chrome acceptance showed that Ionic could reject dismissal while Impor
 still disabled. The current correction restores those controls before dismissing on the next frame,
 provides an explicit fallback and shows the package version in the menu. Published human acceptance
 passed for update visibility, menu dismissal and revealing imported articles in their preserved
-saved-time positions. A final visual correction restores the success mark from a downward-looking
-chevron to an unambiguous tick before release.
+saved-time positions. The final visual correction restored the success mark from a downward-looking
+chevron to an accepted unambiguous tick.
 
 ## After `v0.7.0`
 
