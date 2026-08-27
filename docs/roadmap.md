@@ -2,9 +2,10 @@
 
 ## Status
 
-This is the accepted delivery order after the private Google Drive sync release. Each version is a
-bounded slice: completing one does not silently authorise work from the next. Laters remains a
-local-first personal tool with no Laters account, backend or public database.
+The accepted delivery roadmap is complete through `v1.0.0`, and Laters is now maintenance-focused.
+The version sections below preserve the bounded delivery record: completing one never silently
+authorised work from the next. Laters remains a local-first personal tool with no Laters account,
+backend or public database. No later product slice is approved or versioned.
 
 ## `v0.5.x` — prepare for public use
 
@@ -191,7 +192,7 @@ and dependency audits pass. The detailed contract and evidence are in
 
 ## After `v1.0.0`
 
-Laters is intended to move to a complete, maintenance-focused state after the accepted Bookmark
-filter release. Grouping and tagging may be explored later but are not currently necessary,
+Laters moved to a complete, maintenance-focused state after the accepted Bookmark filter release.
+Grouping and tagging may be explored later but are not currently necessary,
 approved or versioned. Folders, archive, analytics, a Laters backend and other exploratory ideas
 remain outside this roadmap until separately defined.

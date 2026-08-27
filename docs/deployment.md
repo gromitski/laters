@@ -2,7 +2,7 @@
 
 ## Production address
 
-Laters is intended to run at `https://laters.dustyb.in/` using GitHub Pages. The custom subdomain gives the PWA its own browser origin, keeping its IndexedDB data and service worker separate from other sites.
+Laters runs at `https://laters.dustyb.in/` using GitHub Pages. The custom subdomain gives the PWA its own browser origin, keeping its IndexedDB data and service worker separate from other sites.
 
 Current status: the production workflow is active, the custom domain resolves to GitHub Pages, the GitHub-issued certificate is approved, and HTTPS is enforced.
 
@@ -37,8 +37,11 @@ then confirmed ordinary Android Share Target capture still worked after updating
 
 GitHub Pages still cannot provide repository-defined HSTS, `X-Content-Type-Options`,
 `Permissions-Policy` or response-header `frame-ancestors`. Adding a proxy, backend or different host
-is outside the accepted project boundary. The separate production Google project and client have
-not yet been created; that controlled transition is `v0.5.5`.
+is outside the accepted project boundary. The separate production Google project and client were
+created through the accepted `v0.5.5` transition. The OAuth application moved to **In production**
+in `v0.5.6`, remains available to any Google Account with only the non-sensitive `drive.appdata`
+scope, and has no linked billing account. The maintained boundary and acceptance evidence are in
+[`google-drive-production-project-plan.md`](planning/google-drive-production-project-plan.md).
 
 ## Android acceptance
 

@@ -1,5 +1,9 @@
 # Laters — Dark mode handoff
 
+> **Historical design handoff:** dark mode was implemented and released in `v0.8.0`. Use
+> [`../../memory/now.md`](../../memory/now.md) and
+> [`../releases/v0.8.0.md`](../releases/v0.8.0.md) for current truth.
+
 Implementation handoff for the dark colour scheme. Grounded in the shipped `src/styles.css` (all theming is CSS custom properties on `:root`), `index.html` and `src/ui/applicationMenu.ts` at v0.7.0.
 
 Screenshots (2×): `screens/7a-dark-list.png` (reading list), `screens/7b-token-map.png` (full token table), `screens/7c-dark-menu.png` (main menu sheet).

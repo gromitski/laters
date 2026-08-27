@@ -92,16 +92,15 @@ release and its lightweight tag resolves exactly to verified release commit `565
 - A released `v1.0.0` with one subtle **Show bookmarks** or **Show all** action in the existing
   list-heading row. The transient filtered view preserves newest-first order and adds no stored,
   synced, imported or exported state.
-- A verified maintenance candidate that downloads existing Google Drive operation records in
+- A published maintenance correction that downloads existing Google Drive operation records in
   deterministic batches of no more than four instead of waiting for every small record in turn.
   A failed batch leaves local pending changes untouched and is retried in full; Drive formats,
   housekeeping thresholds and application behaviour are unchanged.
 
 ## Active focus
 
-Publish and verify the approved Google Drive reconnect-performance maintenance correction for the
-completed `v1.0.0` application. Define grouping or tagging only if a later, separately justified and
-approved product proposal is wanted.
+Maintain the completed `v1.0.0` application. Define grouping or tagging only if a later, separately
+justified and approved product proposal is wanted.
 
 ## Active slice
 
@@ -123,8 +122,9 @@ active posture.
 ## Uncertainties
 
 - A minimum Chrome for Android version is not yet evidenced.
-- The exact production reconnect improvement from four-at-a-time operation downloads remains to be
-  measured after the visible application update is published and applied.
+- The published four-at-a-time operation download reduced the observed Google Drive reconnect time,
+  but one maintainer check still felt closer to 30 seconds. The exact split between Google's
+  permission flow and Laters' Drive work remains unmeasured.
 - Android's news feed may provide distinct rotating or tracking URLs for the same apparent article; exact-URL deduplication correctly retains these as separate items.
 - Some Android news-feed shares do not supply a useful article title. Remote title enrichment is a possible later product slice with privacy, security and reliability implications; it is not part of the current design handoff.
 - The 100-operation housekeeping threshold and interruption path are covered by deterministic
@@ -134,14 +134,25 @@ active posture.
 - Google currently shows `dustyb.in`, rather than `Laters`, on public consent. Its Verification
   Centre says branding is not shown, but the Branding page exposes no **Verify branding** action for
   the current no-logo, one-domain, non-sensitive configuration.
+- GitHub has not yet displayed the repository Sponsor button even though Sponsorships is enabled and
+  `.github/FUNDING.yml` contains the same valid Buy Me a Coffee entry as working repositories. This
+  is a GitHub indexing or repository-administration issue, not unfinished application work.
 
 ## Next safe action
 
-Publish the verified maintenance candidate through the normal `main` Pages workflow, then apply the
-visible application update and time one fresh Google Drive resume. No later product slice is
-approved or versioned; grouping and tagging remain exploratory possibilities only.
+Keep released `v1.0.0` stable and respond to maintenance needs. Recheck GitHub's Sponsor-button
+indexing later. No later product slice is approved or versioned; grouping and tagging remain
+exploratory possibilities only.
 
 ## Last meaningful update
+
+2026-08-27 — The Google Drive reconnect correction was published from commit `49242b1` after Pages
+workflow `32997513632` passed. It retains complete validation and local pending-change safety while
+downloading at most four existing operation records together. The maintainer observed a quicker
+reconnect, although one attempt still felt closer to 30 seconds. A later repository-only funding
+commit was repaired to privacy-safe commit `c2d34d6`; Pages workflow `33060132454` passed. GitHub's
+Sponsor button remains unindexed despite valid configuration and is separate from application
+completion.
 
 2026-08-26 — A repeated production reconnect taking roughly 88 seconds was traced to dozens of
 small Drive operation records being downloaded sequentially, rather than repeated housekeeping or

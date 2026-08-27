@@ -1,5 +1,9 @@
 # Laters — Paste-to-add: Ghost row (option 6c)
 
+> **Historical design handoff:** Paste-to-add was implemented and consolidated into `v0.4.2`.
+> Use [`../../memory/now.md`](../../memory/now.md) and
+> [`../releases/v0.4.2.md`](../releases/v0.4.2.md) for current truth.
+
 Handoff for implementation. One new UI element lets users add a URL they have copied elsewhere. Chosen for its clean clipboard-privacy story, built-in gesture-free fallback, and minimal standing chrome.
 
 Screenshot: `screens/6c-ghost-paste-row.png` (Android frame, 2× resolution).
