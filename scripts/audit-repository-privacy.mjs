@@ -4,6 +4,8 @@ import { readFile } from "node:fs/promises";
 import { extname } from "node:path";
 import { spawnSync } from "node:child_process";
 
+import { inspectRepositoryCommitIdentity } from "./repository-privacy-identity.mjs";
+
 const ALLOWED_EMAILS = new Set([
   "hello@dustyb.in",
   "i@izs.me",
@@ -83,24 +85,15 @@ const [authorName, authorEmail, committerName, committerEmail] = runGit([
   "-1",
   "--format=%an%x00%ae%x00%cn%x00%ce",
 ]).split("\0");
+const commitHeaders = runGit(["cat-file", "commit", "HEAD"]).split("\n\n", 1)[0];
 
-for (const [label, value] of [
-  ["author name", authorName],
-  ["committer name", committerName],
-]) {
-  if (value !== "gromitski") {
-    findings.push(`HEAD: unexpected ${label}`);
-  }
-}
-
-for (const [label, value] of [
-  ["author email", authorEmail],
-  ["committer email", committerEmail],
-]) {
-  if (!value?.endsWith("@users.noreply.github.com")) {
-    findings.push(`HEAD: ${label} is not a GitHub noreply address`);
-  }
-}
+findings.push(...inspectRepositoryCommitIdentity({
+  authorName,
+  authorEmail,
+  committerName,
+  committerEmail,
+  hasSignature: /(?:^|\n)gpgsig /u.test(commitHeaders),
+}));
 
 if (findings.length > 0) {
   console.error("Repository privacy audit failed:");
