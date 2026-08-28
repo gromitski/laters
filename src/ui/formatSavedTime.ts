@@ -9,12 +9,12 @@ export function formatSavedTime(savedAt: number, now = Date.now()): string {
 
   const elapsedMinutes = Math.floor(elapsedSeconds / 60);
   if (elapsedMinutes < 60) {
-    return relativeTime.format(-elapsedMinutes, "minute");
+    return `${elapsedMinutes}${elapsedMinutes === 1 ? "min" : "mins"} old`;
   }
 
   const elapsedHours = Math.floor(elapsedMinutes / 60);
   if (elapsedHours < 24) {
-    return relativeTime.format(-elapsedHours, "hour");
+    return `${elapsedHours}${elapsedHours === 1 ? "hr" : "hrs"} old`;
   }
 
   const elapsedDays = Math.floor(elapsedHours / 24);

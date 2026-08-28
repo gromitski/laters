@@ -272,7 +272,7 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   existing Import behaviour.
 - Store a supplied estimate as optional article data, preserve it through IndexedDB, private Google
   Drive sync and version-2 CSV Export, and show it quietly in the existing row metadata as
-  **≈ N min**.
+  **≈ N min read** beside the compact saved age, such as **8hrs old**.
 - Keep Android Share, Paste, simpler CSV files and existing articles fully usable without reading
   time. Exact canonical URLs retain the established add-only Import rule and are not enriched or
   overwritten by a later CSV row.

@@ -35,10 +35,11 @@ files without the column. Export remains local, newest first and read-only.
 
 ## Interface and accessibility
 
-When an estimate exists, append **· ≈ N min** to the existing hostname and saved-time metadata.
-When it does not exist, render the row exactly as before. Reuse the established wrapping metadata
-layout at narrow widths and retain the title, Bookmark, Delete, gestures, menus and whole-row action.
-The separator is decorative; the readable estimate remains normal text.
+Recent saved ages use compact **Nmins old** or **Nhrs old** wording. When an estimate exists, append
+**· ≈ N min read** to the existing hostname and age metadata. When it does not exist, omit only the
+estimate. Reuse the established wrapping metadata layout at narrow widths and retain the title,
+Bookmark, Delete, gestures, menus and whole-row action. The separator is decorative; the readable
+estimate remains normal text.
 
 ## Explicit exclusions
 

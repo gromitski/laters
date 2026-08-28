@@ -1064,7 +1064,7 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
   separator.textContent = "·";
 
   const savedTime = document.createElement("span");
-  savedTime.textContent = `Saved ${formatSavedTime(item.savedAt)}`;
+  savedTime.textContent = formatSavedTime(item.savedAt);
 
   metaText.append(hostname, separator, savedTime);
 
@@ -1075,7 +1075,7 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
     readTimeSeparator.textContent = "·";
 
     const readTime = document.createElement("span");
-    readTime.textContent = `≈ ${item.readTimeMinutes} min`;
+    readTime.textContent = `≈ ${item.readTimeMinutes} min read`;
     metaText.append(readTimeSeparator, readTime);
   }
 

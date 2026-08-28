@@ -96,7 +96,8 @@ to verified release commit `565cd59`.
   synced, imported or exported state.
 - A published `v1.1.0` candidate that recognises optional positive whole-minute `readtime` CSV
   values, preserves them through IndexedDB, private Drive sync and version-2 Export, and quietly
-  displays **≈ N min** without changing rows whose estimate is unknown.
+  displays **≈ N min read** beside a compact saved age without changing rows whose estimate is
+  unknown.
 - A published maintenance correction that downloads existing Google Drive operation records in
   deterministic batches of no more than four instead of waiting for every small record in turn.
   A failed batch leaves local pending changes untouched and is retried in full; Drive formats,
@@ -111,8 +112,9 @@ application. No further product slice is approved.
 
 The accepted `v1.1.0` candidate recognises optional positive whole-minute `readtime` CSV values,
 retains files and articles without them, and preserves supplied estimates through local storage,
-private Drive sync and version-2 Export. Rows with an estimate append **≈ N min** to the existing
-metadata; no automatic estimation, publisher fetch, editing, sorting or totals are added. All 213
+private Drive sync and version-2 Export. Recent saved ages use compact **Nmins old** or **Nhrs old**
+wording, and rows with an estimate append **≈ N min read**. No automatic estimation, publisher
+fetch, editing, sorting or totals are added. All 215
 tests across 30 files, type checking, production build, service-worker generation, privacy audits,
 both dependency audits with zero vulnerabilities and no-attribution checks pass. Local rendered
 checks at 320px, desktop width and in Dark appearance show no horizontal overflow and confirm that
@@ -152,8 +154,9 @@ Ask the maintainer to accept the installed result using a CSV with one populated
 
 2026-08-28 — The maintainer accepted and requested implementation of `v1.1.0` CSV-supplied reading
 times. The candidate recognises optional positive whole-minute `readtime`, preserves it through
-IndexedDB, private Drive sync and version-2 Export, and appends **≈ N min** only when present. All
-213 tests across 30 files, type checking, production build, privacy and dependency audits and
+IndexedDB, private Drive sync and version-2 Export, and appends **≈ N min read** only when present.
+Recent saved ages use compact **Nmins old** or **Nhrs old** wording. All
+215 tests across 30 files, type checking, production build, privacy and dependency audits and
 no-attribution checks pass. Rendered 320px, desktop and Dark checks passed without overflow.
 Candidate commit `537d765` passed Pages workflow `33204432044`; the live visible update path applied
 and reported **Version 1.1.0** without browser warnings or errors. Installed-application maintainer
