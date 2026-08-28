@@ -37,6 +37,11 @@ Each later row represents one currently saved article, newest first.
 
 An empty reading list produces the header and final row ending with no article rows.
 
+The same column can be populated by someone creating an article-list CSV manually. Laters accepts
+an integer number of minutes and displays it in the reading list, but it does not fetch the article
+or calculate the estimate itself. See the [CSV import contract](import-format.md) for a manual
+example and validation rules.
+
 ## Recovery tags
 
 - `laters-bookmarked` means the article was bookmarked.

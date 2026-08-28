@@ -59,8 +59,11 @@ that browser: it is not included in Import, Export or Google Drive sync.
 
 Open the circular menu and select **Import CSV** to add articles from a local CSV file. Laters accepts
 its own export format and simpler spreadsheets containing a `url` column, with optional `title`,
-`created`, `tags` and `readtime` columns. `readtime` is a positive whole-number estimate in minutes;
-blank values are allowed. It checks the complete file and shows a review before changing anything.
+`created`, `tags` and `readtime` columns. This means you can create an article list manually and put
+an estimated reading time in `readtime` as an integer number of minutes, such as `4`. Blank values
+are allowed. Laters does not calculate reading time from an article; when a valid value is supplied,
+the list displays it as **≈ 4 min read**. Laters checks the complete file and shows a review before
+changing anything.
 Import adds only new URLs: it never replaces or deletes existing articles. Files are limited to
 1,000 article rows and 10 MB. After a successful import, the menu closes and Laters shows the first
 imported article in its saved-time position.
@@ -72,7 +75,8 @@ or used by tools that accept a CSV of links.
 
 Your browser saves the file to its normal download location. Laters does not upload import or export
 files. A connected import creates ordinary article additions that use the existing private Google
-Drive sync.
+Drive sync. The complete column rules and a manual example are in the
+[CSV import contract](docs/import-format.md).
 
 ## Disconnect or delete data
 

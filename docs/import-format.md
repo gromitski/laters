@@ -37,6 +37,25 @@ This named-column boundary lets a Laters export round-trip fully while also acce
 spreadsheet or another system's CSV containing only `url`, or `url` and `title`. CSV files without
 `readtime` retain their existing behaviour.
 
+## Adding articles manually
+
+The CSV format can be used to prepare an article list manually. Add a `readtime` column when you
+already have an estimated reading time and enter it as an integer number of minutes. The column and
+individual values are optional:
+
+```csv
+url,title,readtime
+https://example.com/short-article,A short article,4
+https://example.org/unknown-length,An article without an estimate,
+```
+
+Laters does not visit the article or calculate its reading time. A supplied value of `4` is stored
+with that article and displayed in the reading list as **≈ 4 min read**. A blank cell or a CSV
+without the column leaves the estimate unknown and shows no reading-time label.
+
+Use digits for a positive whole number only. Decimal values such as `4.5`, zero, negative values and
+text such as `4 min` are invalid and block the import during validation.
+
 ## Recognised tags
 
 - `laters-bookmarked` restores the bookmark state.
@@ -91,5 +110,5 @@ connection state, deletion history, Drive metadata or other implementation bookk
 
 Import does not calculate reading times or map arbitrary third-party column names, folders,
 archives, general tags, article content or attachments. It does not offer replace, overwrite,
-deletion or rollback modes. Those
-behaviours would materially expand the data-loss and sync contract and require separate agreement.
+deletion or rollback modes. Those behaviours would materially expand the data-loss and sync
+contract and require separate agreement.
