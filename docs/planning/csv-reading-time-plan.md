@@ -2,8 +2,8 @@
 
 ## Status
 
-Accepted and implemented locally as a bounded compatibility slice. Publication and maintainer
-acceptance remain until the verified candidate is available through GitHub Pages.
+Accepted, implemented and published as a bounded compatibility candidate in commit `537d765` after
+GitHub Pages workflow `33204432044` passed. Installed-application maintainer acceptance remains.
 
 ## Product outcome
 

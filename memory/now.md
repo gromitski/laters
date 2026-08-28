@@ -16,10 +16,10 @@ Release `v0.5.7` consolidates the accepted code, configuration and documentation
 `v0.5.1`. Release `v0.6.0` records the accepted portable CSV Export, release `v0.7.0` records the
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
 appearance. Release `v1.0.0` records the accepted subtle Bookmark filter that completes the intended
-personal reading queue. An accepted `v1.1.0` candidate adds optional CSV-supplied reading-time
-estimates; publication and maintainer acceptance remain. Package metadata is aligned to `1.1.0`.
-`v1.0.0` remains the latest public GitHub release and its lightweight tag resolves exactly to
-verified release commit `565cd59`.
+personal reading queue. A published `v1.1.0` candidate adds optional CSV-supplied reading-time
+estimates; installed-application maintainer acceptance remains. Package metadata is aligned to
+`1.1.0`. `v1.0.0` remains the latest public GitHub release and its lightweight tag resolves exactly
+to verified release commit `565cd59`.
 
 ## What exists now
 
@@ -94,7 +94,7 @@ verified release commit `565cd59`.
 - A released `v1.0.0` with one subtle **Show bookmarks** or **Show all** action in the existing
   list-heading row. The transient filtered view preserves newest-first order and adds no stored,
   synced, imported or exported state.
-- An implemented `v1.1.0` candidate that recognises optional positive whole-minute `readtime` CSV
+- A published `v1.1.0` candidate that recognises optional positive whole-minute `readtime` CSV
   values, preserves them through IndexedDB, private Drive sync and version-2 Export, and quietly
   displays **≈ N min** without changing rows whose estimate is unknown.
 - A published maintenance correction that downloads existing Google Drive operation records in
@@ -104,8 +104,8 @@ verified release commit `565cd59`.
 
 ## Active focus
 
-Publish and inspect the bounded `v1.1.0` candidate, then obtain maintainer acceptance of the visible
-optional metadata on the installed application. No further product slice is approved.
+Obtain maintainer acceptance of the published `v1.1.0` optional metadata on the installed
+application. No further product slice is approved.
 
 ## Active slice
 
@@ -116,8 +116,9 @@ metadata; no automatic estimation, publisher fetch, editing, sorting or totals a
 tests across 30 files, type checking, production build, service-worker generation, privacy audits,
 both dependency audits with zero vulnerabilities and no-attribution checks pass. Local rendered
 checks at 320px, desktop width and in Dark appearance show no horizontal overflow and confirm that
-unknown estimates leave the old row presentation unchanged. Publication and maintainer acceptance
-remain.
+unknown estimates leave the old row presentation unchanged. Candidate commit `537d765` passed Pages
+workflow `33204432044`; the live visible update path applied and then reported **Version 1.1.0**
+without browser warnings or errors. Installed-application maintainer acceptance remains.
 
 ## Blockers
 
@@ -144,8 +145,7 @@ remain.
 
 ## Next safe action
 
-Commit and push the complete bounded `v1.1.0` candidate to `main`, verify the Pages workflow, then
-ask the maintainer to accept the installed result using a CSV with one populated and one blank
+Ask the maintainer to accept the installed result using a CSV with one populated and one blank
 `readtime`. Do not tag or create a GitHub release without separate authorisation.
 
 ## Last meaningful update
@@ -155,7 +155,9 @@ times. The candidate recognises optional positive whole-minute `readtime`, prese
 IndexedDB, private Drive sync and version-2 Export, and appends **≈ N min** only when present. All
 213 tests across 30 files, type checking, production build, privacy and dependency audits and
 no-attribution checks pass. Rendered 320px, desktop and Dark checks passed without overflow.
-Publication and maintainer acceptance remain.
+Candidate commit `537d765` passed Pages workflow `33204432044`; the live visible update path applied
+and reported **Version 1.1.0** without browser warnings or errors. Installed-application maintainer
+acceptance remains.
 
 2026-08-27 — The Google Drive reconnect correction was published from commit `49242b1` after Pages
 workflow `32997513632` passed. It retains complete validation and local pending-change safety while
