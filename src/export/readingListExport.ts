@@ -1,7 +1,7 @@
 import { isSavedItem, type SavedItem } from "../domain/savedItem";
 import type { ReadingListStore } from "../storage/readingListStore";
 
-const EXPORT_FORMAT_VERSION = 1;
+const EXPORT_FORMAT_VERSION = 2;
 const BOOKMARKED_TAG = "laters-bookmarked";
 const TITLE_EDITED_TAG = "laters-title-edited";
 const PROTECTED_TITLE_TAG = "laters-protected-title";
@@ -53,12 +53,18 @@ export function createReadingListCsv(items: SavedItem[]): string {
       ...(wasProtected ? [PROTECTED_TITLE_TAG] : []),
     ];
 
-    return [item.url, title, new Date(item.savedAt).toISOString(), tags.join(", ")]
+    return [
+      item.url,
+      title,
+      new Date(item.savedAt).toISOString(),
+      tags.join(", "),
+      item.readTimeMinutes?.toString() ?? "",
+    ]
       .map(escapeCsvCell)
       .join(",");
   });
 
-  return ["url,title,created,tags", ...rows, ""].join("\r\n");
+  return ["url,title,created,tags,readtime", ...rows, ""].join("\r\n");
 }
 
 export function createReadingListExportFileName(exportedAt: Date): string {

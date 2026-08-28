@@ -17,8 +17,7 @@ cloud upload or paid service.
 
 | Idea | Potential value | Questions and constraints to resolve first |
 | --- | --- | --- |
-| Approximate reading time | Helps choose an article that fits the time available. | A credible estimate may require article content or trustworthy metadata. Cross-origin access, extraction quality, publisher requests, privacy and failure fallbacks need investigation. |
-| Order by reading time | Makes quick reads easier to prioritise. | Depends on credible reading-time data. Newest-first must remain available, and its default must not change without evidence. |
+| Order by reading time | Makes quick reads easier to prioritise. | `v1.1.0` can store supplied estimates, but many articles may have none. Newest-first must remain available, and its default must not change without evidence. |
 | Grouping and tagging | Groups a larger collection by subject, purpose or a small user-defined label. | This is the only direction currently identified for possible post-1.0 exploration, but it is not considered necessary. It risks turning a temporary reading queue into a filing system that needs naming, moving, sync, import/export and empty-group rules. |
 | Archive | Retains completed or deferred links outside the active queue. | Needs a clear distinction from Delete and Bookmark, plus storage, sync, export/import and list-growth rules. |
 | Optional article images | Adds visual recognition. | Must be controlled by one global setting. Remote fetching can introduce tracking, bandwidth, layout, caching and unreliable-image concerns. |
@@ -34,6 +33,8 @@ Drive sync in `v0.5.0` and `v0.5.1`; portable CSV Export in `v0.6.0`; reviewed a
 in `v0.7.0`; and System, Light and Dark appearance in `v0.8.0`.
 
 The subtle Bookmark filter was released in `v1.0.0`, completing the personal-reading-queue MVP.
+Optional CSV-supplied reading-time estimates are implemented in the `v1.1.0` candidate without
+publisher fetching, automatic estimation, sorting or totals. Publication and acceptance remain.
 
 Those delivered features remain governed by the accepted roadmap, release records and canonical
 project memory. Their presence here as context does not reopen their contracts or bring adjacent

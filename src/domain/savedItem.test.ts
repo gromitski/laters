@@ -62,6 +62,33 @@ describe("createSavedItem", () => {
 });
 
 describe("isSavedItem", () => {
+  it("accepts an optional positive whole-minute reading-time estimate", () => {
+    expect(
+      isSavedItem({
+        id: "item-1",
+        title: "Article",
+        url: "https://example.com/article",
+        savedAt: 1,
+        readTimeMinutes: 7,
+      }),
+    ).toBe(true);
+  });
+
+  it.each([0, -1, 1.5, Number.MAX_SAFE_INTEGER + 1, "7"])(
+    "rejects invalid persisted reading time %s",
+    (readTimeMinutes) => {
+      expect(
+        isSavedItem({
+          id: "item-1",
+          title: "Article",
+          url: "https://example.com/article",
+          savedAt: 1,
+          readTimeMinutes,
+        }),
+      ).toBe(false);
+    },
+  );
+
   it("accepts the backward-compatible edited-title marker", () => {
     expect(
       isSavedItem({

@@ -3,6 +3,7 @@ export interface SavedItem {
   url: string;
   title: string;
   savedAt: number;
+  readTimeMinutes?: number;
   bookmarked?: boolean;
   titleEdited?: boolean;
 }
@@ -63,6 +64,10 @@ export function isSavedItem(value: unknown): value is SavedItem {
     typeof candidate.savedAt === "number" &&
     Number.isFinite(candidate.savedAt) &&
     candidate.savedAt >= 0 &&
+    (candidate.readTimeMinutes === undefined ||
+      (typeof candidate.readTimeMinutes === "number" &&
+        Number.isSafeInteger(candidate.readTimeMinutes) &&
+        candidate.readTimeMinutes > 0)) &&
     (candidate.bookmarked === undefined || typeof candidate.bookmarked === "boolean") &&
     (candidate.titleEdited === undefined || typeof candidate.titleEdited === "boolean")
   );

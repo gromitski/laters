@@ -9,7 +9,7 @@ import {
 
 describe("Google Drive article sync", () => {
   it("uploads the local list when Drive has no article snapshot", async () => {
-    const items = [article("local", 100)];
+    const items = [{ ...article("local", 100), readTimeMinutes: 8 }];
     const request = vi
       .fn<typeof fetch>()
       .mockResolvedValueOnce(jsonResponse({ files: [] }))
@@ -56,7 +56,7 @@ describe("Google Drive article sync", () => {
   });
 
   it("loads an existing Drive snapshot without uploading local data", async () => {
-    const remoteItems = [article("remote", 200)];
+    const remoteItems = [{ ...article("remote", 200), readTimeMinutes: 12 }];
     const request = vi
       .fn<typeof fetch>()
       .mockResolvedValueOnce(jsonResponse({ files: [{ id: "existing-file" }] }))

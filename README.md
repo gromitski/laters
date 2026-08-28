@@ -59,15 +59,16 @@ that browser: it is not included in Import, Export or Google Drive sync.
 
 Open the circular menu and select **Import CSV** to add articles from a local CSV file. Laters accepts
 its own export format and simpler spreadsheets containing a `url` column, with optional `title`,
-`created` and `tags` columns. It checks the complete file and shows a review before changing anything.
+`created`, `tags` and `readtime` columns. `readtime` is a positive whole-number estimate in minutes;
+blank values are allowed. It checks the complete file and shows a review before changing anything.
 Import adds only new URLs: it never replaces or deletes existing articles. Files are limited to
 1,000 article rows and 10 MB. After a successful import, the menu closes and Laters shows the first
 imported article in its saved-time position.
 
 Open the circular menu and select **Download CSV** to create a CSV copy of the articles stored on that
-device. The export contains article addresses, titles, saved times and namespaced tags for bookmarks
-and deliberately edited titles. It can be opened as a spreadsheet or used by tools that accept a CSV
-of links.
+device. The export contains article addresses, titles, saved times, optional reading-time estimates
+and namespaced tags for bookmarks and deliberately edited titles. It can be opened as a spreadsheet
+or used by tools that accept a CSV of links.
 
 Your browser saves the file to its normal download location. Laters does not upload import or export
 files. A connected import creates ordinary article additions that use the existing private Google
@@ -133,6 +134,7 @@ Project records: [MVP definition](docs/mvp-definition.md),
 [v0.7.0 Import release](docs/releases/v0.7.0.md),
 [`v0.8.0` dark-mode release](docs/releases/v0.8.0.md),
 [`v1.0.0` completed personal-reading-queue release](docs/releases/v1.0.0.md),
+[`v1.1.0` CSV reading-time candidate](docs/releases/v1.1.0.md),
 [Google Drive live sync](docs/planning/google-drive-live-sync-plan.md),
 [CSV export format](docs/export-format.md), [CSV import contract](docs/import-format.md),
 [roadmap](docs/roadmap.md),

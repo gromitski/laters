@@ -265,6 +265,22 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   resolves exactly to that commit and `v1.0.0` is the latest public GitHub release. Laters now moves
   to maintenance rather than assuming another product slice.
 
+## Accepted `v1.1.0` reading-time direction
+
+- Recognise an optional case-insensitive `readtime` CSV column containing a positive whole-number
+  estimate in minutes. A missing column or blank cell leaves the estimate unknown and preserves the
+  existing Import behaviour.
+- Store a supplied estimate as optional article data, preserve it through IndexedDB, private Google
+  Drive sync and version-2 CSV Export, and show it quietly in the existing row metadata as
+  **≈ N min**.
+- Keep Android Share, Paste, simpler CSV files and existing articles fully usable without reading
+  time. Exact canonical URLs retain the established add-only Import rule and are not enriched or
+  overwritten by a later CSV row.
+- Validate all non-blank values before review and block the whole file if any estimate is not a
+  positive whole number.
+- Do not fetch article content, contact publishers, calculate or edit estimates, sort by reading
+  time, total the queue, add a backend or introduce analytics.
+
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.
 The accepted interaction architecture and implementation record live in

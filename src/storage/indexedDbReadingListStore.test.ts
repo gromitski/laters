@@ -25,6 +25,20 @@ describe("IndexedDbReadingListStore", () => {
     ]);
   });
 
+  it("persists an optional reading-time estimate without changing older items", async () => {
+    const databaseName = createDatabaseName();
+    const store = new IndexedDbReadingListStore(databaseName);
+    const estimated = { ...item("estimated", 200), readTimeMinutes: 9 };
+
+    await store.save(item("unknown", 100));
+    await store.save(estimated);
+
+    await expect(store.listNewestFirst()).resolves.toEqual([
+      estimated,
+      item("unknown", 100),
+    ]);
+  });
+
   it("records local mutations as pending sync operations and removes acknowledged ones", async () => {
     const databaseName = createDatabaseName();
     const store = new IndexedDbReadingListStore(databaseName);

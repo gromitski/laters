@@ -16,6 +16,7 @@ describe("reading-list CSV import", () => {
         url: "https://example.com/newer",
         title: "=Remember this",
         savedAt: 1_800_000_000_000,
+        readTimeMinutes: 7,
         bookmarked: true,
         titleEdited: true,
       },
@@ -72,6 +73,23 @@ describe("reading-list CSV import", () => {
         savedAt: 999,
       },
     ]);
+  });
+
+  it("imports optional reading times while leaving blank values absent", () => {
+    const ids = ["with-time", "without-time"];
+    const plan = createReadingListImportPlan(
+      [
+        "url,title,readtime",
+        "https://example.com/with,With estimate, 12 ",
+        "https://example.com/without,Without estimate,",
+      ].join("\n"),
+      [],
+      { createId: () => ids.shift()!, now: () => 100 },
+    );
+
+    expect(plan.ignoredColumnCount).toBe(0);
+    expect(plan.items[0]).toMatchObject({ readTimeMinutes: 12 });
+    expect(plan.items[1]).not.toHaveProperty("readTimeMinutes");
   });
 
   it("recognises columns in any case and order while reporting ignored data", () => {
@@ -197,6 +215,21 @@ describe("reading-list CSV import", () => {
       "impossible calendar time",
       "url,created\nhttps://example.com,2026-02-31T25:00:00Z",
       /invalid created time/u,
+    ],
+    [
+      "zero readtime",
+      "url,readtime\nhttps://example.com,0",
+      /invalid readtime/u,
+    ],
+    [
+      "fractional readtime",
+      "url,readtime\nhttps://example.com,4.5",
+      /invalid readtime/u,
+    ],
+    [
+      "labelled readtime",
+      "url,readtime\nhttps://example.com,7 min",
+      /invalid readtime/u,
     ],
   ])("rejects %s", (_case, csv, expected) => {
     expect(() => createReadingListImportPlan(csv, [])).toThrow(expected);

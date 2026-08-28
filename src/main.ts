@@ -1067,6 +1067,18 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
   savedTime.textContent = `Saved ${formatSavedTime(item.savedAt)}`;
 
   metaText.append(hostname, separator, savedTime);
+
+  if (item.readTimeMinutes !== undefined) {
+    const readTimeSeparator = document.createElement("span");
+    readTimeSeparator.className = "article-meta-separator";
+    readTimeSeparator.setAttribute("aria-hidden", "true");
+    readTimeSeparator.textContent = "·";
+
+    const readTime = document.createElement("span");
+    readTime.textContent = `≈ ${item.readTimeMinutes} min`;
+    metaText.append(readTimeSeparator, readTime);
+  }
+
   meta.append(bookmarkButton, metaText);
 
   const deleteButton = createIconButton(`Delete “${item.title}”`);

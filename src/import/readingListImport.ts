@@ -8,7 +8,7 @@ import {
 export const MAX_IMPORT_FILE_BYTES = 10 * 1024 * 1024;
 export const MAX_IMPORT_ARTICLE_ROWS = 1_000;
 
-const RECOGNISED_COLUMNS = new Set(["url", "title", "created", "tags"]);
+const RECOGNISED_COLUMNS = new Set(["url", "title", "created", "tags", "readtime"]);
 const BOOKMARKED_TAG = "laters-bookmarked";
 const TITLE_EDITED_TAG = "laters-title-edited";
 const PROTECTED_TITLE_TAG = "laters-protected-title";
@@ -116,6 +116,9 @@ export function createReadingListImportPlan(
         readCell(row, columnIndexes, "created"),
         Math.max(0, importedAt - index),
       );
+      const readTimeMinutes = readReadTime(
+        readCell(row, columnIndexes, "readtime"),
+      );
       const normalisedTitle = normaliseArticleTitle(title);
 
       if (fileUrls.has(url)) {
@@ -135,6 +138,7 @@ export function createReadingListImportPlan(
         url,
         title: normalisedTitle,
         savedAt,
+        ...(readTimeMinutes === undefined ? {} : { readTimeMinutes }),
         ...(tags.includes(BOOKMARKED_TAG) ? { bookmarked: true } : {}),
         ...(tags.includes(TITLE_EDITED_TAG) ? { titleEdited: true } : {}),
       };
@@ -240,6 +244,26 @@ function readSavedAt(value: string, fallback: number): number {
   }
 
   return savedAt;
+}
+
+function readReadTime(value: string): number | undefined {
+  const trimmed = value.trim();
+
+  if (!trimmed) {
+    return undefined;
+  }
+
+  if (!/^[1-9]\d*$/u.test(trimmed)) {
+    throw new ReadingListImportError("has an invalid readtime");
+  }
+
+  const readTimeMinutes = Number(trimmed);
+
+  if (!Number.isSafeInteger(readTimeMinutes)) {
+    throw new ReadingListImportError("has an invalid readtime");
+  }
+
+  return readTimeMinutes;
 }
 
 function hasValidDateTimeParts(match: RegExpMatchArray): boolean {

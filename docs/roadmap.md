@@ -2,10 +2,11 @@
 
 ## Status
 
-The accepted delivery roadmap is complete through `v1.0.0`, and Laters is now maintenance-focused.
-The version sections below preserve the bounded delivery record: completing one never silently
-authorised work from the next. Laters remains a local-first personal tool with no Laters account,
-backend or public database. No later product slice is approved or versioned.
+The accepted delivery roadmap includes an implemented `v1.1.0` candidate for optional CSV-supplied
+reading-time estimates. Publication and maintainer acceptance remain. The version sections below
+preserve the bounded delivery record: completing one never silently authorised work from the next.
+Laters remains a local-first personal tool with no Laters account, backend or public database. No
+later product slice is approved or versioned.
 
 ## `v0.5.x` — prepare for public use
 
@@ -193,6 +194,11 @@ and dependency audits pass. The detailed contract and evidence are in
 ## After `v1.0.0`
 
 Laters moved to a complete, maintenance-focused state after the accepted Bookmark filter release.
-Grouping and tagging may be explored later but are not currently necessary,
-approved or versioned. Folders, archive, analytics, a Laters backend and other exploratory ideas
-remain outside this roadmap until separately defined.
+The maintainer later accepted one bounded `v1.1.0` compatibility slice: optional reading-time
+estimates supplied in imported CSV files. Laters stores, syncs, exports and quietly displays a valid
+estimate while every existing capture and CSV shape continues to work without one. Laters does not
+fetch article content, calculate estimates, sort by time or add queue totals.
+
+Grouping and tagging may be explored later but are not currently necessary, approved or versioned.
+Folders, archive, analytics, a Laters backend and other exploratory ideas remain outside this
+roadmap until separately defined.

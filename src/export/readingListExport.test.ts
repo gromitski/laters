@@ -22,15 +22,16 @@ describe("reading-list CSV export", () => {
         item("older", 1_700_000_000_000),
         {
           ...item("newer", 1_800_000_000_000),
+          readTimeMinutes: 7,
           bookmarked: true,
           titleEdited: true,
         },
       ]),
     ).toBe(
       [
-        "url,title,created,tags",
-        '"https://example.com/newer","Article newer","2027-01-15T08:00:00.000Z","laters-bookmarked, laters-title-edited"',
-        '"https://example.com/older","Article older","2023-11-14T22:13:20.000Z",""',
+        "url,title,created,tags,readtime",
+        '"https://example.com/newer","Article newer","2027-01-15T08:00:00.000Z","laters-bookmarked, laters-title-edited","7"',
+        '"https://example.com/older","Article older","2023-11-14T22:13:20.000Z","",""',
         "",
       ].join("\r\n"),
     );
@@ -67,7 +68,7 @@ describe("reading-list CSV export", () => {
   });
 
   it("creates a valid header-only export for an empty list", () => {
-    expect(createReadingListCsv([])).toBe("url,title,created,tags\r\n");
+    expect(createReadingListCsv([])).toBe("url,title,created,tags,readtime\r\n");
   });
 
   it("rejects invalid saved data rather than exporting it", () => {
@@ -98,7 +99,7 @@ describe("reading-list CSV export", () => {
   it("uses a sortable, versioned UTC filename", () => {
     expect(
       createReadingListExportFileName(new Date("2026-08-25T09:08:07.654Z")),
-    ).toBe("laters-export-v1-2026-08-25T09-08-07Z.csv");
+    ).toBe("laters-export-v2-2026-08-25T09-08-07Z.csv");
   });
 });
 
@@ -115,13 +116,13 @@ describe("reading-list export delivery", () => {
       ),
     ).resolves.toEqual({
       articleCount: 1,
-      fileName: "laters-export-v1-2026-08-25T09-08-07Z.csv",
+      fileName: "laters-export-v2-2026-08-25T09-08-07Z.csv",
     });
 
     expect(environment.createObjectUrl).toHaveBeenCalledOnce();
     const exportedFile = vi.mocked(environment.createObjectUrl).mock.calls[0]![0];
     expect(exportedFile).toMatchObject({
-      name: "laters-export-v1-2026-08-25T09-08-07Z.csv",
+      name: "laters-export-v2-2026-08-25T09-08-07Z.csv",
       type: "text/csv",
     });
     await expect(exportedFile.text()).resolves.toContain(
@@ -129,7 +130,7 @@ describe("reading-list export delivery", () => {
     );
     expect(environment.download).toHaveBeenCalledWith(
       "blob:laters-export",
-      "laters-export-v1-2026-08-25T09-08-07Z.csv",
+      "laters-export-v2-2026-08-25T09-08-07Z.csv",
     );
     expect(environment.revokeObjectUrl).toHaveBeenCalledWith("blob:laters-export");
   });
