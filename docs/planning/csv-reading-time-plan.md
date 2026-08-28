@@ -2,9 +2,9 @@
 
 ## Status
 
-Accepted, implemented, published and maintainer-accepted as a bounded compatibility release.
-Feature commit `537d765` passed GitHub Pages workflow `33204432044`; release closure was authorised
-on 2026-08-28 and final verification, tagging and publication remain.
+Accepted, implemented, published, maintainer-accepted and released as `v1.1.0` from exact verified
+commit `1e95804`. Feature commit `537d765` passed GitHub Pages workflow `33204432044`; release
+workflow `33206076911` passed before the lightweight tag and GitHub release were published.
 
 ## Product outcome
 

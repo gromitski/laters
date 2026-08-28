@@ -16,10 +16,9 @@ Release `v0.5.7` consolidates the accepted code, configuration and documentation
 `v0.5.1`. Release `v0.6.0` records the accepted portable CSV Export, release `v0.7.0` records the
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
 appearance. Release `v1.0.0` records the accepted subtle Bookmark filter that completes the intended
-personal reading queue. An accepted, published `v1.1.0` release candidate adds optional CSV-supplied
-reading-time estimates. Package metadata is aligned to `1.1.0`; release closure is authorised.
-`v1.0.0` remains the latest public GitHub release until that closure and its lightweight tag resolves
-exactly to verified release commit `565cd59`.
+personal reading queue. Release `v1.1.0` adds optional CSV-supplied reading-time estimates. Package
+metadata is aligned to `1.1.0`; `v1.1.0` is the latest public GitHub release and its lightweight tag
+resolves exactly to verified release commit `1e95804`.
 
 ## What exists now
 
@@ -94,7 +93,7 @@ exactly to verified release commit `565cd59`.
 - A released `v1.0.0` with one subtle **Show bookmarks** or **Show all** action in the existing
   list-heading row. The transient filtered view preserves newest-first order and adds no stored,
   synced, imported or exported state.
-- An accepted and published `v1.1.0` candidate that recognises optional positive whole-minute
+- A released `v1.1.0` that recognises optional positive whole-minute
   `readtime` CSV values, preserves them through IndexedDB, private Drive sync and version-2 Export,
   and quietly displays **≈ N min read** beside a compact saved age without changing rows whose
   estimate is unknown.
@@ -105,13 +104,11 @@ exactly to verified release commit `565cd59`.
 
 ## Active focus
 
-Complete the authorised `v1.1.0` release from the exact verified release-preparation commit, then
-record the final public tag, release and post-publication workflow state. No further product slice
-is approved.
+Maintain the released `v1.1.0` reading-time compatibility. No further product slice is approved.
 
 ## Active slice
 
-The accepted `v1.1.0` candidate recognises optional positive whole-minute `readtime` CSV values,
+The released `v1.1.0` slice recognises optional positive whole-minute `readtime` CSV values,
 retains files and articles without them, and preserves supplied estimates through local storage,
 private Drive sync and version-2 Export. Recent saved ages use compact **Nmins old** or **Nhrs old**
 wording, and rows with an estimate append **≈ N min read**. No automatic estimation, publisher
@@ -121,8 +118,8 @@ both dependency audits with zero vulnerabilities and no-attribution checks pass.
 checks at 320px, desktop width and in Dark appearance show no horizontal overflow and confirm that
 unknown estimates leave the old row presentation unchanged. Candidate commit `537d765` passed Pages
 workflow `33204432044`; the live visible update path applied and then reported **Version 1.1.0**
-without browser warnings or errors. The maintainer accepted the published result and authorised
-release closure; final release verification, tagging and publication remain.
+without browser warnings or errors. Release commit `1e95804` passed Pages workflow `33206076911`;
+the remote lightweight tag resolves exactly to it and the GitHub release is published as Latest.
 
 ## Blockers
 
@@ -149,10 +146,16 @@ release closure; final release verification, tagging and publication remain.
 
 ## Next safe action
 
-Run the complete release checks, commit and push the release records, and tag only that exact
-Pages-verified commit. Publish and verify the GitHub release, then record the final state.
+Keep released `v1.1.0` stable and respond to maintenance needs. No later product slice is approved
+or versioned; remaining ideas stay exploratory.
 
 ## Last meaningful update
+
+2026-08-28 — `v1.1.0` was published as the latest GitHub release from exact verified commit
+`1e95804` after GitHub Pages workflow `33206076911` passed. The remote lightweight tag resolves to
+that commit. The release records accepted optional CSV-supplied reading times, compact saved-age
+copy and manual CSV guidance while preserving existing articles and capture paths without an
+estimate.
 
 2026-08-28 — The maintainer accepted the published `v1.1.0` result and explicitly authorised the
 GitHub release. Package metadata is aligned to `1.1.0`; the durable release record is being prepared
@@ -447,4 +450,4 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [Application menu drawer plan](../docs/planning/application-menu-drawer-plan.md)
 - [`v0.2.0` release record](../docs/releases/v0.2.0.md)
 - [`v0.3.0` release record](../docs/releases/v0.3.0.md)
-- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`, `v0.5.0`, `v0.5.1`, `v0.5.7`, `v0.6.0`, `v0.7.0`, `v0.8.0`, `v1.0.0`.
+- Published GitHub releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.2`, `v0.5.0`, `v0.5.1`, `v0.5.7`, `v0.6.0`, `v0.7.0`, `v0.8.0`, `v1.0.0`, `v1.1.0`.

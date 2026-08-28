@@ -282,6 +282,8 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   time, total the queue, add a backend or introduce analytics.
 - Release closure: the maintainer accepted the published result and explicitly authorised the
   exact verified `v1.1.0` tag and GitHub release.
+- Release commit `1e95804` passed Pages workflow `33206076911`; the lightweight `v1.1.0` tag
+  resolves exactly to that commit and `v1.1.0` is the latest public GitHub release.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.
