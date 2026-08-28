@@ -2,8 +2,9 @@
 
 ## Status
 
-Accepted, implemented and published as a bounded compatibility candidate in commit `537d765` after
-GitHub Pages workflow `33204432044` passed. Installed-application maintainer acceptance remains.
+Accepted, implemented, published and maintainer-accepted as a bounded compatibility release.
+Feature commit `537d765` passed GitHub Pages workflow `33204432044`; release closure was authorised
+on 2026-08-28 and final verification, tagging and publication remain.
 
 ## Product outcome
 

@@ -16,10 +16,10 @@ Release `v0.5.7` consolidates the accepted code, configuration and documentation
 `v0.5.1`. Release `v0.6.0` records the accepted portable CSV Export, release `v0.7.0` records the
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
 appearance. Release `v1.0.0` records the accepted subtle Bookmark filter that completes the intended
-personal reading queue. A published `v1.1.0` candidate adds optional CSV-supplied reading-time
-estimates; installed-application maintainer acceptance remains. Package metadata is aligned to
-`1.1.0`. `v1.0.0` remains the latest public GitHub release and its lightweight tag resolves exactly
-to verified release commit `565cd59`.
+personal reading queue. An accepted, published `v1.1.0` release candidate adds optional CSV-supplied
+reading-time estimates. Package metadata is aligned to `1.1.0`; release closure is authorised.
+`v1.0.0` remains the latest public GitHub release until that closure and its lightweight tag resolves
+exactly to verified release commit `565cd59`.
 
 ## What exists now
 
@@ -94,10 +94,10 @@ to verified release commit `565cd59`.
 - A released `v1.0.0` with one subtle **Show bookmarks** or **Show all** action in the existing
   list-heading row. The transient filtered view preserves newest-first order and adds no stored,
   synced, imported or exported state.
-- A published `v1.1.0` candidate that recognises optional positive whole-minute `readtime` CSV
-  values, preserves them through IndexedDB, private Drive sync and version-2 Export, and quietly
-  displays **≈ N min read** beside a compact saved age without changing rows whose estimate is
-  unknown.
+- An accepted and published `v1.1.0` candidate that recognises optional positive whole-minute
+  `readtime` CSV values, preserves them through IndexedDB, private Drive sync and version-2 Export,
+  and quietly displays **≈ N min read** beside a compact saved age without changing rows whose
+  estimate is unknown.
 - A published maintenance correction that downloads existing Google Drive operation records in
   deterministic batches of no more than four instead of waiting for every small record in turn.
   A failed batch leaves local pending changes untouched and is retried in full; Drive formats,
@@ -105,8 +105,9 @@ to verified release commit `565cd59`.
 
 ## Active focus
 
-Obtain maintainer acceptance of the published `v1.1.0` optional metadata on the installed
-application. No further product slice is approved.
+Complete the authorised `v1.1.0` release from the exact verified release-preparation commit, then
+record the final public tag, release and post-publication workflow state. No further product slice
+is approved.
 
 ## Active slice
 
@@ -120,7 +121,8 @@ both dependency audits with zero vulnerabilities and no-attribution checks pass.
 checks at 320px, desktop width and in Dark appearance show no horizontal overflow and confirm that
 unknown estimates leave the old row presentation unchanged. Candidate commit `537d765` passed Pages
 workflow `33204432044`; the live visible update path applied and then reported **Version 1.1.0**
-without browser warnings or errors. Installed-application maintainer acceptance remains.
+without browser warnings or errors. The maintainer accepted the published result and authorised
+release closure; final release verification, tagging and publication remain.
 
 ## Blockers
 
@@ -147,10 +149,14 @@ without browser warnings or errors. Installed-application maintainer acceptance 
 
 ## Next safe action
 
-Ask the maintainer to accept the installed result using a CSV with one populated and one blank
-`readtime`. Do not tag or create a GitHub release without separate authorisation.
+Run the complete release checks, commit and push the release records, and tag only that exact
+Pages-verified commit. Publish and verify the GitHub release, then record the final state.
 
 ## Last meaningful update
+
+2026-08-28 — The maintainer accepted the published `v1.1.0` result and explicitly authorised the
+GitHub release. Package metadata is aligned to `1.1.0`; the durable release record is being prepared
+before final verification, the exact lightweight tag and release publication.
 
 2026-08-28 — The maintainer accepted and requested implementation of `v1.1.0` CSV-supplied reading
 times. The candidate recognises optional positive whole-minute `readtime`, preserves it through
@@ -425,7 +431,7 @@ the final physical acceptance check for automatic Drive housekeeping.
 - [`v0.6.0` release record](../docs/releases/v0.6.0.md)
 - [`v0.7.0` release record](../docs/releases/v0.7.0.md)
 - [`v1.0.0` release record](../docs/releases/v1.0.0.md)
-- [`v1.1.0` candidate record](../docs/releases/v1.1.0.md)
+- [`v1.1.0` release record](../docs/releases/v1.1.0.md)
 - [CSV export format](../docs/export-format.md)
 - [CSV import contract](../docs/import-format.md)
 - [Google Drive connection security plan](../docs/planning/google-drive-connection-security-plan.md)

@@ -280,6 +280,8 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   positive whole number.
 - Do not fetch article content, contact publishers, calculate or edit estimates, sort by reading
   time, total the queue, add a backend or introduce analytics.
+- Release closure: the maintainer accepted the published result and explicitly authorised the
+  exact verified `v1.1.0` tag and GitHub release.
 
 Completed MVP 2.0 scope, acceptance evidence and delivery records live in
 `docs/mvp-2-definition.md` and `docs/releases/v0.2.0.md`.

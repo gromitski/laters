@@ -33,9 +33,9 @@ Drive sync in `v0.5.0` and `v0.5.1`; portable CSV Export in `v0.6.0`; reviewed a
 in `v0.7.0`; and System, Light and Dark appearance in `v0.8.0`.
 
 The subtle Bookmark filter was released in `v1.0.0`, completing the personal-reading-queue MVP.
-Optional CSV-supplied reading-time estimates are implemented in the `v1.1.0` candidate without
-publisher fetching, automatic estimation, sorting or totals. The candidate is published; installed-
-application acceptance remains.
+Optional CSV-supplied reading-time estimates are implemented, published and maintainer-accepted for
+`v1.1.0` without publisher fetching, automatic estimation, sorting or totals. Release closure is
+authorised.
 
 Those delivered features remain governed by the accepted roadmap, release records and canonical
 project memory. Their presence here as context does not reopen their contracts or bring adjacent

@@ -2,11 +2,12 @@
 
 ## Status
 
-The accepted delivery roadmap includes an implemented `v1.1.0` candidate for optional CSV-supplied
-reading-time estimates. The candidate is published; installed-application maintainer acceptance
-remains. The version sections below preserve the bounded delivery record: completing one never
-silently authorised work from the next. Laters remains a local-first personal tool with no Laters
-account, backend or public database. No later product slice is approved or versioned.
+The accepted delivery roadmap includes an implemented and maintainer-accepted `v1.1.0` release for
+optional CSV-supplied reading-time estimates. Release closure is authorised and final verification,
+tagging and publication remain. The version sections below preserve the bounded delivery record:
+completing one never silently authorised work from the next. Laters remains a local-first personal
+tool with no Laters account, backend or public database. No later product slice is approved or
+versioned.
 
 ## `v0.5.x` — prepare for public use
 
