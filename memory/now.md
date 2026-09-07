@@ -151,6 +151,15 @@ or versioned; remaining ideas stay exploratory.
 
 ## Last meaningful update
 
+2026-09-07 — Reviewed and integrated the two Dependabot maintenance proposals: Ionic Core
+9.0.0 to 9.0.2 and Vitest 4.1.11 to 5.0.0. The existing indirect build dependency
+fast-uri was updated from 3.1.5 to 3.1.7 to clear the high-severity audit finding.
+All 215 tests pass on Node 24; type checking, production build, service-worker generation
+and both privacy audits pass, with zero reported dependency vulnerabilities. An isolated
+browser check passed article capture, menu opening/dismissal and action-sheet bookmarking
+with focus restored. Application version, data formats and sync behaviour are unchanged.
+Publication verification follows the normal Pages workflow; no new release is requested.
+
 2026-08-28 — `v1.1.0` was published as the latest GitHub release from exact verified commit
 `1e95804` after GitHub Pages workflow `33206076911` passed. The remote lightweight tag resolves to
 that commit. The release records accepted optional CSV-supplied reading times, compact saved-age
