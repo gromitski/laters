@@ -17,7 +17,7 @@ Release `v0.5.7` consolidates the accepted code, configuration and documentation
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
 appearance. Release `v1.0.0` records the accepted subtle Bookmark filter that completes the intended
 personal reading queue. Release `v1.1.0` adds optional CSV-supplied reading-time estimates. Package
-metadata is now `1.1.1` for the published connection-diagnostics maintenance candidate. `v1.1.0`
+metadata is now `1.1.2` for the connection-diagnostics and progress-label maintenance candidate. `v1.1.0`
 remains the latest tagged GitHub release; its tag resolves to verified release commit `1e95804`.
 
 ## What exists now
@@ -104,11 +104,24 @@ remains the latest tagged GitHub release; its tag resolves to verified release c
 
 ## Active focus
 
-Investigate using the published `v1.1.1` Google Drive connection-diagnostics maintenance slice while
+Deliver the authorised `v1.1.2` progress-label correction and investigate using the connection diagnostics while
 preserving the accepted reading list and memory-only credential contracts. Frequent desktop and
 Android reconnection after 15–20 minutes is reported; its cause is still unknown.
 
 ## Active slice
+
+The `v1.1.2` maintenance candidate changes the Google Drive button to **Reconnecting…** during
+an attempt or automatic Drive check for an existing connection, then restores its idle action when
+the check completes or fails. First-time connection still says **Connecting…** and the explicit
+Disconnect flow keeps its existing presentation. The existing menu footer shows **Version 1.1.2**.
+The maintainer reported the diagnostics working and requested this small progress-label correction;
+the root cause of the original background interruption is still unconfirmed. No Google permission,
+credential, storage, sync or retry behaviour changes. All 225 tests, type checking, production
+build, service-worker generation, privacy audits and dependency audits pass with zero reported
+vulnerabilities. Publication follows the normal Pages workflow; device acceptance of the new
+progress wording remains.
+
+### Connection diagnostics baseline
 
 The published `v1.1.1` candidate adds collapsed **Connection details** in the Google Drive menu card and
 shows **Version 1.1.1** in the existing menu footer. It keeps at most eight local tab-session
@@ -167,13 +180,19 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Use **Version 1.1.1** on each installation, connect normally, return after the usual background
-interval and inspect **Connection details** before
-reconnecting. Establish whether the page restarted, Google's supplied lifetime elapsed or a request
+Use **Version 1.1.2** on each installation and check that the button says **Reconnecting…**
+while a connection attempt or Drive check is active. Connect normally, return after the usual
+background interval and inspect **Connection details** before reconnecting. Establish whether the page restarted, Google's supplied lifetime elapsed or a request
 failure cleared access. Any connection-behaviour change follows that evidence; a backend is not
 approved.
 
 ## Last meaningful update
+
+2026-10-08 — The maintainer reported the connection diagnostics working and requested
+**Reconnecting…** while the app is attempting reconnection. The bounded `v1.1.2` correction updates
+the button from the same checking/connected/disconnected state used by the menu indicator, covering
+manual attempts and automatic Drive checks. The menu version is updated; the connection and data
+contracts are unchanged. Publication follows the normal checked Pages workflow.
 
 2026-10-08 — The maintainer authorised a small connection-diagnostics update following frequent
 reconnection on desktop and Android, and required a new menu version to identify the installed

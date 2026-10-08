@@ -223,7 +223,6 @@ googleDriveConnectAction.addEventListener("click", () => {
   googleDriveDiagnostics.record("permission_requested");
   setGoogleDriveMenuState("checking");
   googleDriveConnectAction.disabled = true;
-  googleDriveConnectAction.textContent = "Connecting…";
   googleDriveConnectionStatus.textContent = "Opening Google’s private permission screen…";
 
   void connectGoogleDrive(GOOGLE_DRIVE_CLIENT_ID)
@@ -554,7 +553,8 @@ async function showWaitingGoogleDriveChanges(): Promise<void> {
   try {
     const pendingOperations = await store.listPendingSyncOperations();
 
-    if (pendingOperations.length > 0 && hasRememberedGoogleDriveConnection()) {
+    if (pendingOperations.length > 0 && hasRememberedGoogleDriveConnection() &&
+        !googleDriveConnectAction.disabled) {
       googleDriveConnectAction.textContent = "Resume Google Drive";
       googleDriveConnectionStatus.textContent = `${pendingOperations.length} ${pendingOperations.length === 1 ? "change is" : "changes are"} waiting to sync.`;
     }
@@ -615,6 +615,9 @@ function syncArticlesToGoogleDrive(
   const session = googleDriveSyncSession;
 
   if (!session) {
+    if (googleDriveConnectAction.disabled) {
+      return;
+    }
     setGoogleDriveMenuState("disconnected");
 
     if (hasRememberedGoogleDriveConnection()) {
@@ -770,6 +773,17 @@ function setGoogleDriveMenuState(
   state: "connected" | "checking" | "disconnected",
 ): void {
   setApplicationMenuSyncState(applicationMenuAction, state);
+  if (state === "checking" && !googleDriveDisconnectAction.disabled) {
+    googleDriveConnectAction.textContent = googleDriveSyncSession || hasRememberedGoogleDriveConnection()
+      ? "Reconnecting…"
+      : "Connecting…";
+  } else if (state === "connected") {
+    googleDriveConnectAction.textContent = "Reconnect Google Drive";
+  } else if (state === "disconnected" && !googleDriveConnectAction.disabled) {
+    googleDriveConnectAction.textContent = googleDriveSyncSession
+      ? "Reconnect Google Drive"
+      : hasRememberedGoogleDriveConnection() ? "Resume Google Drive" : "Connect Google Drive";
+  }
 }
 
 function savedItemListsEqual(left: SavedItem[], right: SavedItem[]): boolean {

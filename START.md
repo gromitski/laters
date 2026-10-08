@@ -8,7 +8,8 @@ Read these in order before repository-dependent work:
 - [Accepted roadmap](docs/roadmap.md)
 - [Exploratory future ideas](docs/future-ideas.md) when discussing later product scope
 
-Laters `v1.1.0` is the latest accepted tagged release. The published `v1.1.1` maintenance
-candidate adds local connection diagnostics; device investigation remains. Dated design packages, release records and
-handoffs preserve historical evidence; they do not override the current memory files.
-The original project idea is archived under `evidence/origin/`.
+Laters `v1.1.0` is the latest accepted tagged release. The `v1.1.2` maintenance candidate
+keeps the connection diagnostics and shows **Reconnecting…** while reconnection or a Drive check
+is in progress. Device investigation of the original interruption remains. Dated design packages,
+release records and handoffs preserve historical evidence; they do not override the current memory
+files. The original project idea is archived under `evidence/origin/`.
