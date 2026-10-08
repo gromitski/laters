@@ -158,6 +158,27 @@ cross-platform sequence works, including additions, deletions and Undo alignment
 desktop. Expiry, rejected-token cleanup and failed-upload retention remain deterministic automated
 checks rather than manually forced failure conditions.
 
+The preceding live-sync checklist preserves the original release acceptance. Connection hardening
+in `v0.5.2` deliberately superseded step 6: the current memory-only credential contract requires
+manual resume after a reload. A background return to the same surviving page should reuse its
+unexpired access; it is not itself an inactivity cutoff.
+
+## Connection diagnostics maintenance candidate `v1.1.1`
+
+Commit `97bc3b0` passed Pages workflow `37831620980`. The public HTML, JavaScript and CSS match the
+verified production build. The production browser applied the offered update, then showed
+**Version 1.1.1**, **Connection details** and reload evidence without warnings or errors. All 225
+tests, type checking, production build, privacy audits and dependency audits pass. Narrow browser
+checks cover expansion, keyboard use, reload persistence and Light/Dark presentation at 320px.
+
+On desktop and Android, apply the offered update and confirm **Version 1.1.1** at the bottom of the
+menu. Connect normally, leave the app in the background for the usual 15–20 minutes, then inspect
+**Connection details** before reconnecting. Report its lifetime, planned pause and recent events.
+A page restart, planned expiry or failed Google request are distinct evidence; the candidate does
+not change reconnection or retry behaviour and no root cause is yet confirmed. The bounded history
+stays in tab session storage, contains no credentials or reading-list content, and is never synced,
+exported or uploaded. No backend, new Google permission, tag or release is introduced.
+
 ## Google Drive housekeeping acceptance
 
 1. Confirm automation proves that fewer than 100 operation files do not trigger housekeeping and

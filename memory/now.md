@@ -17,8 +17,8 @@ Release `v0.5.7` consolidates the accepted code, configuration and documentation
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
 appearance. Release `v1.0.0` records the accepted subtle Bookmark filter that completes the intended
 personal reading queue. Release `v1.1.0` adds optional CSV-supplied reading-time estimates. Package
-metadata is aligned to `1.1.0`; `v1.1.0` is the latest public GitHub release and its lightweight tag
-resolves exactly to verified release commit `1e95804`.
+metadata is now `1.1.1` for the published connection-diagnostics maintenance candidate. `v1.1.0`
+remains the latest tagged GitHub release; its tag resolves to verified release commit `1e95804`.
 
 ## What exists now
 
@@ -104,16 +104,16 @@ resolves exactly to verified release commit `1e95804`.
 
 ## Active focus
 
-Deliver the authorised `v1.1.1` Google Drive connection-diagnostics maintenance slice while
+Investigate using the published `v1.1.1` Google Drive connection-diagnostics maintenance slice while
 preserving the accepted reading list and memory-only credential contracts. Frequent desktop and
 Android reconnection after 15–20 minutes is reported; its cause is still unknown.
 
 ## Active slice
 
-The `v1.1.1` candidate adds collapsed **Connection details** in the Google Drive menu card and
+The published `v1.1.1` candidate adds collapsed **Connection details** in the Google Drive menu card and
 shows **Version 1.1.1** in the existing menu footer. It keeps at most eight local tab-session
 events through reloads, plus the last supplied access lifetime and planned expiry. It distinguishes
-new/reloaded/discarded pages, background returns, real expiry, Google request rejection and
+new/reloaded/discarded pages, background returns, planned expiry, Google request rejection and
 interruption. HTTP status and allowlisted Drive error reasons are recorded without credentials,
 account details, article content or free-text Google errors. Diagnostics never change the Google
 permission flow, token persistence, retry policy, reading-list storage, sync format or CSV contract.
@@ -121,8 +121,11 @@ All 225 tests across 32 files, type checking, production build, service-worker g
 public-build audit pass. Both dependency audits report zero vulnerabilities after compatible fixes
 for existing indirect build dependencies: brace-expansion, source-map-js and fast-uri. Browser
 checks confirm the footer version, persisted reload evidence, keyboard-native disclosure and
-no horizontal overflow at 320px in Light and Dark appearances. Publication and maintainer
-observation on both devices remain.
+no horizontal overflow at 320px in Light and Dark appearances. Candidate commit `97bc3b0`
+passed Pages workflow `37831620980`; live HTML, JavaScript and CSS match the verified build.
+The offered update was applied in the production browser, which then displayed **Version 1.1.1**,
+the diagnostics panel and reload evidence without warnings or errors. Maintainer observation of
+the 15–20 minute interruption on both devices remains.
 
 ### Accepted release baseline
 
@@ -164,8 +167,8 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Verify and publish the bounded `v1.1.1` diagnostics, then ask the maintainer to connect each
-installation, return after the usual background interval and inspect **Connection details** before
+Use **Version 1.1.1** on each installation, connect normally, return after the usual background
+interval and inspect **Connection details** before
 reconnecting. Establish whether the page restarted, Google's supplied lifetime elapsed or a request
 failure cleared access. Any connection-behaviour change follows that evidence; a backend is not
 approved.
@@ -174,10 +177,12 @@ approved.
 
 2026-10-08 — The maintainer authorised a small connection-diagnostics update following frequent
 reconnection on desktop and Android, and required a new menu version to identify the installed
-build. The `v1.1.1` candidate preserves the existing connection behaviour and records only bounded,
-local diagnostic metadata. All 225 tests and the build/public-build checks pass; dependency audits
-report zero vulnerabilities after the narrow indirect build dependency updates. Publication and
-device evidence remain.
+build. The published `v1.1.1` candidate preserves the existing connection behaviour and records only
+bounded local diagnostic metadata. All 225 tests and the build/privacy checks pass; dependency
+audits report zero vulnerabilities after the narrow indirect build dependency updates. Commit
+`97bc3b0` passed Pages workflow `37831620980` and its exact assets are public. Production browser
+update acceptance confirmed the visible version and diagnostic panel; actual background interruption
+evidence and any connection-behaviour correction remain. No tag or GitHub release was requested.
 
 2026-09-07 — Reviewed and integrated the two Dependabot maintenance proposals: Ionic Core
 9.0.0 to 9.0.2 and Vitest 4.1.11 to 5.0.0. The existing indirect build dependency
