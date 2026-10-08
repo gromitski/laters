@@ -104,9 +104,27 @@ resolves exactly to verified release commit `1e95804`.
 
 ## Active focus
 
-Maintain the released `v1.1.0` reading-time compatibility. No further product slice is approved.
+Deliver the authorised `v1.1.1` Google Drive connection-diagnostics maintenance slice while
+preserving the accepted reading list and memory-only credential contracts. Frequent desktop and
+Android reconnection after 15–20 minutes is reported; its cause is still unknown.
 
 ## Active slice
+
+The `v1.1.1` candidate adds collapsed **Connection details** in the Google Drive menu card and
+shows **Version 1.1.1** in the existing menu footer. It keeps at most eight local tab-session
+events through reloads, plus the last supplied access lifetime and planned expiry. It distinguishes
+new/reloaded/discarded pages, background returns, real expiry, Google request rejection and
+interruption. HTTP status and allowlisted Drive error reasons are recorded without credentials,
+account details, article content or free-text Google errors. Diagnostics never change the Google
+permission flow, token persistence, retry policy, reading-list storage, sync format or CSV contract.
+All 225 tests across 32 files, type checking, production build, service-worker generation and
+public-build audit pass. Both dependency audits report zero vulnerabilities after compatible fixes
+for existing indirect build dependencies: brace-expansion, source-map-js and fast-uri. Browser
+checks confirm the footer version, persisted reload evidence, keyboard-native disclosure and
+no horizontal overflow at 320px in Light and Dark appearances. Publication and maintainer
+observation on both devices remain.
+
+### Accepted release baseline
 
 The released `v1.1.0` slice recognises optional positive whole-minute `readtime` CSV values,
 retains files and articles without them, and preserves supplied estimates through local storage,
@@ -146,10 +164,20 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Keep released `v1.1.0` stable and respond to maintenance needs. No later product slice is approved
-or versioned; remaining ideas stay exploratory.
+Verify and publish the bounded `v1.1.1` diagnostics, then ask the maintainer to connect each
+installation, return after the usual background interval and inspect **Connection details** before
+reconnecting. Establish whether the page restarted, Google's supplied lifetime elapsed or a request
+failure cleared access. Any connection-behaviour change follows that evidence; a backend is not
+approved.
 
 ## Last meaningful update
+
+2026-10-08 — The maintainer authorised a small connection-diagnostics update following frequent
+reconnection on desktop and Android, and required a new menu version to identify the installed
+build. The `v1.1.1` candidate preserves the existing connection behaviour and records only bounded,
+local diagnostic metadata. All 225 tests and the build/public-build checks pass; dependency audits
+report zero vulnerabilities after the narrow indirect build dependency updates. Publication and
+device evidence remain.
 
 2026-09-07 — Reviewed and integrated the two Dependabot maintenance proposals: Ionic Core
 9.0.0 to 9.0.2 and Vitest 4.1.11 to 5.0.0. The existing indirect build dependency

@@ -38,6 +38,13 @@ Drive files, and the maintainer cannot see your reading list.
 Closing, reloading or leaving Laters unused may end the short-lived Google session. Your local
 changes remain safe: open the menu and use **Resume Google Drive** to continue syncing.
 
+If the connection keeps dropping, expand **Connection details** under Google Drive in the menu.
+Version **1.1.1** shows page restarts, returns from the background, Google's supplied access
+lifetime and recent failures. This short history stays in that browser tab through reloads; it is
+not uploaded and contains no credentials, account details or article data. It helps distinguish a
+page restart from expiry or a failed request. Reconnection behaviour is unchanged while the cause
+is investigated.
+
 ## Everyday controls
 
 - Select an article title or the open space in its row to read the original page.

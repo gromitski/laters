@@ -1,3 +1,4 @@
+import { readGoogleDriveErrorReason } from "./googleDriveErrorReason";
 import { isSavedItem, type SavedItem } from "../domain/savedItem";
 
 const DRIVE_FILES_URL = "https://www.googleapis.com/drive/v3/files";
@@ -38,6 +39,7 @@ export class GoogleDriveRequestError extends Error {
   constructor(
     message: string,
     readonly status: number,
+    readonly reason?: string,
   ) {
     super(message);
     this.name = "GoogleDriveRequestError";
@@ -269,6 +271,7 @@ async function writeArticleSnapshot(
     throw new GoogleDriveRequestError(
       `Google Drive reading-list write failed (${response.status}).`,
       response.status,
+      await readGoogleDriveErrorReason(response),
     );
   }
 }
@@ -386,6 +389,7 @@ async function readText(response: Response): Promise<string> {
     throw new GoogleDriveRequestError(
       `Google Drive reading-list request failed (${response.status}).`,
       response.status,
+      await readGoogleDriveErrorReason(response),
     );
   }
 

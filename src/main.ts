@@ -37,6 +37,7 @@ import {
   calculateGoogleDriveCredentialExpiry,
   removeLegacyGoogleDriveCredential,
 } from "./sync/googleDriveSessionToken";
+import { GoogleDriveConnectionDiagnostics } from "./sync/googleDriveConnectionDiagnostics";
 import { GoogleDriveLiveSyncSession } from "./sync/googleDriveLiveSync";
 import { parseShareTarget } from "./share/parseShareTarget";
 import { shouldActivateArticleRow } from "./ui/articleRowActivation";
@@ -94,6 +95,7 @@ let googleDriveAccessToken: string | undefined;
 let googleDriveCredentialExpiresAt: number | undefined;
 let googleDrivePollTimer: number | undefined;
 let googleDriveStatusVersion = 0;
+let googleDriveBackgroundedAt: number | undefined;
 
 const list = requireElement<HTMLUListElement>("article-list");
 const loadingState = requireElement<HTMLParagraphElement>("loading-state");
@@ -129,6 +131,13 @@ const googleDriveDisconnectAction = requireElement<HTMLButtonElement>(
 const googleDriveConnectionStatus = requireElement<HTMLParagraphElement>(
   "google-drive-connection-status",
 );
+const googleDriveDiagnosticsText = requireElement<HTMLPreElement>("google-drive-diagnostics");
+const googleDriveDiagnostics = new GoogleDriveConnectionDiagnostics({
+  getStorage: () => window.sessionStorage,
+  navigationType: (performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined)?.type,
+  wasDiscarded: (document as Document & { wasDiscarded?: boolean }).wasDiscarded,
+  onChange: (report) => { googleDriveDiagnosticsText.textContent = report; },
+});
 const exportDataAction = requireElement<HTMLButtonElement>("export-data-action");
 const exportDataStatus = requireElement<HTMLParagraphElement>("export-data-status");
 const importDataAction = requireElement<HTMLButtonElement>("import-data-action");
@@ -211,6 +220,7 @@ installAction.addEventListener("click", () => {
 
 googleDriveConnectAction.addEventListener("click", () => {
   const activeSessionAtStart = googleDriveSyncSession;
+  googleDriveDiagnostics.record("permission_requested");
   setGoogleDriveMenuState("checking");
   googleDriveConnectAction.disabled = true;
   googleDriveConnectAction.textContent = "Connecting…";
@@ -219,9 +229,11 @@ googleDriveConnectAction.addEventListener("click", () => {
   void connectGoogleDrive(GOOGLE_DRIVE_CLIENT_ID)
     .then(async ({ accessToken, expiresInSeconds }) => {
       const expiresAt = calculateGoogleDriveCredentialExpiry(expiresInSeconds);
+      googleDriveDiagnostics.accessGranted(expiresInSeconds, expiresAt);
       await establishGoogleDriveLiveSync(accessToken, expiresAt);
     })
     .catch((error) => {
+      recordGoogleDriveFailure("connection_failed", error);
       if (isGoogleDriveAuthorizationError(error)) {
         pauseGoogleDriveSync(
           "Google permission expired. Your changes are safe locally; resume sync to send them.",
@@ -253,6 +265,7 @@ googleDriveConnectAction.addEventListener("click", () => {
 });
 
 googleDriveDisconnectAction.addEventListener("click", () => {
+  googleDriveDiagnostics.record("disconnected");
   const accessToken = googleDriveAccessToken;
 
   if (!accessToken) {
@@ -322,11 +335,18 @@ void registerServiceWorker(showUpdateAvailable);
 
 document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "visible") {
+    googleDriveDiagnostics.record(googleDriveAccessToken ? "returned_connected" : "returned_disconnected", {
+      seconds: googleDriveBackgroundedAt === undefined ? undefined : (Date.now() - googleDriveBackgroundedAt) / 1_000,
+    });
+    googleDriveBackgroundedAt = undefined;
     if (googleDriveSyncSession) {
       syncArticlesToGoogleDrive("Checking Google Drive for changes…");
     } else {
       void refreshList();
     }
+  } else {
+    googleDriveBackgroundedAt = Date.now();
+    googleDriveDiagnostics.record("backgrounded");
   }
 });
 
@@ -335,6 +355,7 @@ window.addEventListener("online", () => {
 });
 
 window.addEventListener("offline", () => {
+  googleDriveDiagnostics.record("offline");
   setGoogleDriveMenuState("disconnected");
 
   if (googleDriveSyncSession) {
@@ -565,6 +586,7 @@ async function establishGoogleDriveLiveSync(
   currentItems = result.items;
   renderItems();
   rememberGoogleDriveConnection(probe.lastConnectedAt);
+  googleDriveDiagnostics.record("connected");
   startGoogleDrivePolling();
   setGoogleDriveMenuState("connected");
   googleDriveDisconnectAction.hidden = false;
@@ -606,6 +628,7 @@ function syncArticlesToGoogleDrive(
     googleDriveCredentialExpiresAt !== undefined &&
     googleDriveCredentialExpiresAt <= Date.now()
   ) {
+    googleDriveDiagnostics.record("expired");
     pauseGoogleDriveSync(
       "Google permission expired. Your changes are safe locally; resume sync to send them.",
     );
@@ -649,6 +672,7 @@ function syncArticlesToGoogleDrive(
 }
 
 function handleGoogleDriveSyncError(error: unknown): void {
+  recordGoogleDriveFailure("sync_failed", error);
   if (isGoogleDriveAuthorizationError(error)) {
     pauseGoogleDriveSync(
       "Google permission expired. Your changes are safe locally; resume sync to send them.",
@@ -659,6 +683,30 @@ function handleGoogleDriveSyncError(error: unknown): void {
   googleDriveConnectionStatus.textContent =
     "Google Drive could not sync just now. Changes remain queued safely on this device.";
   setGoogleDriveMenuState("disconnected");
+}
+
+function recordGoogleDriveFailure(kind: "connection_failed" | "sync_failed", error: unknown): void {
+  if (error instanceof Error) {
+    if (error.message === "google-popup-closed" || error.message === "access_denied") {
+      googleDriveDiagnostics.record("permission_cancelled");
+      return;
+    }
+    if (error.message === "google-popup-failed") {
+      googleDriveDiagnostics.record("popup_failed");
+      return;
+    }
+    if (error.message === "Google’s permission service did not become available." ||
+        error.message === "Google’s permission service could not be loaded.") {
+      googleDriveDiagnostics.record("identity_failed");
+      return;
+    }
+  }
+  const requestError = error instanceof GoogleDriveRequestError || error instanceof GoogleDriveConnectionRequestError
+    ? error : undefined;
+  googleDriveDiagnostics.record(isGoogleDriveAuthorizationError(error) ? "rejected" : kind, {
+    status: requestError?.status,
+    reason: requestError?.reason,
+  });
 }
 
 function isGoogleDriveAuthorizationError(error: unknown): boolean {

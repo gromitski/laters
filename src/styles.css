@@ -1537,6 +1537,34 @@ ion-action-sheet.article-action-sheet .action-sheet-group-cancel .action-sheet-b
   font-weight: 700;
 }
 
+.connection-details {
+  margin-top: 0.65rem;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.connection-details summary {
+  min-height: var(--target);
+  align-content: center;
+  cursor: pointer;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.connection-details summary:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.connection-details pre {
+  margin: 0.6rem 0 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: inherit;
+}
+
 .data-export-actions,
 .data-import-review-actions {
   display: flex;

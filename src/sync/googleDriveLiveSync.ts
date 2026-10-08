@@ -1,3 +1,4 @@
+import { readGoogleDriveErrorReason } from "./googleDriveErrorReason";
 import type { SavedItem } from "../domain/savedItem";
 import type { ReadingListStore } from "../storage/readingListStore";
 import {
@@ -444,6 +445,7 @@ async function deleteOperationFile(
     throw new GoogleDriveRequestError(
       `Google Drive cleanup request failed (${response.status}).`,
       response.status,
+      await readGoogleDriveErrorReason(response),
     );
   }
 }
@@ -485,6 +487,7 @@ async function readText(response: Response): Promise<string> {
     throw new GoogleDriveRequestError(
       `Google Drive live-sync request failed (${response.status}).`,
       response.status,
+      await readGoogleDriveErrorReason(response),
     );
   }
 

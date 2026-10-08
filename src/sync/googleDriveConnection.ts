@@ -1,3 +1,4 @@
+import { readGoogleDriveErrorReason } from "./googleDriveErrorReason";
 export const GOOGLE_DRIVE_CLIENT_ID =
   "1097498587853-7cc0naone93knmrof6lf79upgqrkcavd.apps.googleusercontent.com";
 export const GOOGLE_DRIVE_SCOPE = "https://www.googleapis.com/auth/drive.appdata";
@@ -54,7 +55,7 @@ export interface GoogleDriveConnectionProbe {
 }
 
 export class GoogleDriveConnectionRequestError extends Error {
-  constructor(message: string, readonly status: number) {
+  constructor(message: string, readonly status: number, readonly reason?: string) {
     super(message);
     this.name = "GoogleDriveConnectionRequestError";
   }
@@ -270,6 +271,7 @@ async function writeConnectionFile(
     throw new GoogleDriveConnectionRequestError(
       `Google Drive connection write failed (${response.status}).`,
       response.status,
+      await readGoogleDriveErrorReason(response),
     );
   }
 }
@@ -296,6 +298,7 @@ async function readJson<T>(response: Response): Promise<T> {
     throw new GoogleDriveConnectionRequestError(
       `Google Drive connection request failed (${response.status}).`,
       response.status,
+      await readGoogleDriveErrorReason(response),
     );
   }
 
