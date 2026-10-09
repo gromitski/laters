@@ -17,9 +17,9 @@ Release `v0.5.7` consolidates the accepted code, configuration and documentation
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
 appearance. Release `v1.0.0` records the accepted subtle Bookmark filter that completes the intended
 personal reading queue. Release `v1.1.0` adds optional CSV-supplied reading-time estimates. Package
-metadata is now `1.2.0` for the optional add-link handoff candidate, retaining the diagnostics and
-progress-label maintenance work. `v1.1.0`
-remains the latest tagged GitHub release; its tag resolves to verified release commit `1e95804`.
+metadata is now `1.2.1` for manual device pairing of the optional add-link handoff candidate,
+retaining the diagnostics and progress-label maintenance work. `v1.1.0` remains the latest tagged
+GitHub release; its tag resolves to verified release commit `1e95804`.
 
 ## What exists now
 
@@ -112,15 +112,18 @@ diagnostics investigation remains open: frequent desktop and Android reconnectio
 
 ## Active slice
 
-The `v1.2.0` candidate adds collapsed **Add from a chat** under Import and export. Users enable a
+The `v1.2.1` candidate extends collapsed **Add from a chat** under Import and export. Users enable a
 private revocable add-only code for their browser and copy generic instructions into a trusted
 private chat once. Opening a correctly encoded authorised link saves only new validated URLs with
-no second review. Other browsers/profiles need separate setup. Codes are not Google credentials,
-never committed, logged, synced or exported. Disabled, revoked, malformed and oversized links
+no second review. **Copy code for another device** and **Use code from another device** deliberately
+pair phone and desktop to use one triage chat. Pairing replaces the local code without changing
+articles or Google credentials. Disabling here leaves other paired browsers enabled; revoke on
+each device when necessary. Codes are not Google credentials and stay outside repository content,
+logs, Drive sync, CSV and diagnostics. Disabled, revoked, malformed and oversized links
 make no changes. Ordinary CSV review and the existing Google connection behaviour remain.
 The public contract is in `docs/add-link-format.md` and the bounded plan in
 `docs/planning/add-links-plan.md`. Automated and isolated-browser verification is recorded below;
-candidate commit `2dfa4e3` passed Pages workflow `37980471971`; live HTML, application assets and
+the original `v1.2.0` candidate commit `2dfa4e3` passed Pages workflow `37980471971`; live HTML, application assets and
 the privacy-policy date match the verified build. Real-chat/device acceptance remains. No tag or
 release is authorised.
 
@@ -196,9 +199,11 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Use the visible Update path to load the published **Version 1.2.0** candidate. In the intended
-browser, enable **Add from a chat**, copy its private instructions into the
-real triage chat and open a generated accepted-article link. Success adds only selected new URLs
+Publish the verified **Version 1.2.1** candidate, then use the visible Update path on
+both intended devices. On the configured browser, select **Copy code for another device**; on the
+second, choose **Use code from another device**, paste and submit. Keep the existing triage chat's
+instructions when the shared code is unchanged. Open a generated accepted-article link on each
+device. Success adds only selected new URLs
 without a file picker or second confirmation; malformed links, missing metadata, unexpected browser
 routing or missing articles are failures to investigate. Do not paste a live code into public
 repository material. Physical Android routing and the real chat's ability to generate clickable
@@ -211,6 +216,18 @@ failure cleared access. Any connection-behaviour change follows that evidence; a
 approved.
 
 ## Last meaningful update
+
+2026-10-09 — The maintainer authorised manual pairing after clarifying that one triage chat should
+work on phone and desktop. Version `1.2.1` adds explicit code copying/pasting with strict validation,
+clipboard fallback and clear browser-local revocation. Pairing changes no articles or Google
+credentials; replaced codes are rechecked before pending imports commit. All 257 tests across 34
+files pass, including paired imports and ordinary pending sync operations without codes. Type
+checking, production build, privacy audits, dependency audits and attribution self-test pass.
+Two separately stored local browser origins accepted the same fictional batch fragment after
+pairing; invalid input was rejected and disabling one left the other accepting additions.
+320px Light/Dark checks found no horizontal overflow. A password-manager prompt caught during
+testing was avoided by using an ordinary code field. The normal Update path applied that correction.
+Publication and real phone/desktop/chat acceptance follow; no tag or release is authorised.
 
 2026-10-09 — The maintainer selected the one-click handoff and required public usability. The
 `v1.2.0` candidate implements browser-local revocable authorisation, generic copyable chat

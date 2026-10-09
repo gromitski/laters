@@ -1625,6 +1625,7 @@ ion-action-sheet.article-action-sheet .action-sheet-group-cancel .action-sheet-b
 }
 
 .add-links-setup summary:focus-visible,
+.add-links-setup input:focus-visible,
 .add-links-setup textarea:focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
@@ -1642,19 +1643,31 @@ ion-action-sheet.article-action-sheet .action-sheet-group-cancel .action-sheet-b
   font-weight: 700;
 }
 
-.add-links-setup textarea {
+.add-links-setup textarea,
+.add-links-setup input {
   box-sizing: border-box;
   width: 100%;
-  min-height: 8rem;
   margin-top: 0.35rem;
   border: 1px solid var(--hairline);
   border-radius: 6px;
   padding: 0.6rem;
-  resize: vertical;
   color: var(--text);
   background: var(--canvas);
   font: inherit;
   line-height: 1.45;
+}
+
+.add-links-setup textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.add-links-setup #add-links-code {
+  min-height: 3.5rem;
+}
+
+.add-links-pairing {
+  margin-top: 0.85rem;
 }
 
 .application-menu-modal footer {

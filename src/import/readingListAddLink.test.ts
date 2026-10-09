@@ -2,7 +2,7 @@ import "fake-indexeddb/auto";
 import { describe, expect, it, vi } from "vitest";
 import {
   ADD_LINK_STORAGE_KEY, createAddLinkInstructions, enableAddLinks, importReadingListAddLink,
-  MAX_ADD_LINK_LENGTH, readAddLinkCode, readReadingListAddLink,
+  MAX_ADD_LINK_LENGTH, readAddLinkCode, readReadingListAddLink, useAddLinkCode,
 } from "./readingListAddLink";
 import { createReadingListImportPlan } from "./readingListImport";
 import { IndexedDbReadingListStore } from "../storage/indexedDbReadingListStore";
@@ -38,6 +38,41 @@ describe("reading-list add-links", () => {
     preferences.setItem(ADD_LINK_STORAGE_KEY, "not-a-code");
     expect(readAddLinkCode(preferences)).toBeUndefined();
     expect(() => enableAddLinks({ ...preferences, setItem: () => { throw new Error("Denied"); } })).toThrow("Denied");
+  });
+
+  it("accepts only a complete pasted code and preserves existing authorisation on invalid input", () => {
+    const preferences = storage();
+    useAddLinkCode(preferences, " \n" + code + "\n ");
+    for (const value of ["", "not-a-code", "a".repeat(63), "a".repeat(65), "A".repeat(64), "a".repeat(32) + " " + "a".repeat(32)]) {
+      expect(() => useAddLinkCode(preferences, value)).toThrow("64-character");
+      expect(readAddLinkCode(preferences)).toBe(code);
+    }
+    expect(() => useAddLinkCode({ getItem: () => null, setItem: () => undefined }, code)).toThrow("could not be saved");
+  });
+
+  it("uses the same handoff on two explicitly paired installations with normal article sync operations", async () => {
+    const desktop = storage();
+    const mobile = storage();
+    const sharedCode = enableAddLinks(desktop);
+    const previousMobileCode = enableAddLinks(mobile);
+    expect(() => readReadingListAddLink(link(csv, sharedCode), readAddLinkCode(mobile))).toThrow("Nothing was added");
+    useAddLinkCode(mobile, sharedCode);
+    expect(() => readReadingListAddLink(link(csv, previousMobileCode), readAddLinkCode(mobile))).toThrow("Nothing was added");
+    for (const preferences of [desktop, mobile]) {
+      const store = new IndexedDbReadingListStore("paired-add-link-test-" + crypto.randomUUID());
+      const { result } = await importReadingListAddLink(link(csv, sharedCode), {
+        readCode: () => readAddLinkCode(preferences),
+        prepareImport: async (data) => createReadingListImportPlan(data, await store.listNewestFirst()),
+        commitImport: (plan) => store.importNew(plan.items),
+      });
+      expect(result.importedItems).toHaveLength(1);
+      const pending = await store.listPendingSyncOperations();
+      expect(pending).toHaveLength(1);
+      expect(JSON.stringify(pending)).not.toContain(sharedCode);
+    }
+    mobile.removeItem(ADD_LINK_STORAGE_KEY);
+    expect(() => readReadingListAddLink(link(csv, sharedCode), readAddLinkCode(mobile))).toThrow("Nothing was added");
+    expect(readReadingListAddLink(link(csv, sharedCode), readAddLinkCode(desktop)).csv).toBe(csv);
   });
 
   it("preserves Unicode, quoted CSV titles, plus signs and URL query and fragment data", () => {
@@ -105,6 +140,22 @@ describe("reading-list add-links", () => {
       prepareImport: async (data) => {
         const plan = createReadingListImportPlan(data, []);
         activeCode = undefined;
+        return plan;
+      },
+      commitImport,
+    })).rejects.toThrow("Nothing was added");
+    expect(commitImport).not.toHaveBeenCalled();
+  });
+
+  it("rejects a pending import if pairing replaces its code during preparation", async () => {
+    const preferences = storage();
+    useAddLinkCode(preferences, code);
+    const commitImport = vi.fn();
+    await expect(importReadingListAddLink(link(), {
+      readCode: () => readAddLinkCode(preferences),
+      prepareImport: async (data) => {
+        const plan = createReadingListImportPlan(data, []);
+        useAddLinkCode(preferences, "b".repeat(64));
         return plan;
       },
       commitImport,

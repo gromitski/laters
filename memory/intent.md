@@ -229,7 +229,11 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 - The maintainer selected a one-click handoff after explicit article acceptance and required it
   to be usable by others. The `v1.2.0` candidate adds an optional generic public format and
   self-service instructions; no particular newsletter, chat account or maintainer code is built in.
-- Each browser deliberately enables a private revocable add-only code and copies instructions into
+- Each browser deliberately enables a private revocable add-only code or uses a code copied from
+  another owned device. The maintainer authorised manual pairing so one triage chat's links work
+  on phone and desktop. Pairing replaces local authorisation only; articles continue through normal
+  optional Drive sync. Codes stay outside Drive, CSV, diagnostics and the repository. Revocation is
+  per browser; disabling on one device does not disable other paired devices. Copy instructions into
   a trusted private chat once. Authorised links add new URLs without a second review; ordinary CSV
   Import retains its confirmation. Disabled, revoked and wrong-browser links save nothing.
 - Reuse whole-batch validation, exact-URL add-only merging, atomic local storage and normal Drive

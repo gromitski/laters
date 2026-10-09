@@ -157,13 +157,30 @@
             <div class="data-export-actions">
               <button id="add-links-enable" type="button">Enable add-links</button>
               <button id="add-links-copy" type="button" hidden>Copy chat instructions</button>
+              <button id="add-links-copy-code" class="secondary" type="button" hidden>Copy code for another device</button>
               <button id="add-links-disable" class="secondary" type="button" hidden>Turn off add-links</button>
             </div>
             <div id="add-links-instructions-group" hidden>
               <label for="add-links-instructions">Private chat instructions</label>
               <textarea id="add-links-instructions" readonly spellcheck="false" aria-describedby="add-links-browser-note"></textarea>
             </div>
-            <p id="add-links-browser-note">Open links in this browser and profile. Other browsers and in-app browsers have a separate list. Turning off invalidates old links without deleting articles.</p>
+            <div id="add-links-code-group" hidden>
+              <label for="add-links-code">Private code for another device</label>
+              <textarea id="add-links-code" readonly spellcheck="false" rows="2"></textarea>
+            </div>
+            <details id="add-links-pairing" class="add-links-pairing">
+              <summary>Use code from another device</summary>
+              <p>On your other device, select Copy code for another device. Paste it here to use links from the same triage chat on both devices.</p>
+              <form id="add-links-pairing-form">
+                <label for="add-links-pairing-code">Private code from your other device</label>
+                <input id="add-links-pairing-code" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" required aria-describedby="add-links-pairing-note">
+                <p id="add-links-pairing-note">This replaces this browser’s existing code. Links using its previous code stop working here. Your articles and Google Drive connection stay as they are.</p>
+                <div class="data-export-actions">
+                  <button type="submit">Use this code</button>
+                </div>
+              </form>
+            </details>
+            <p id="add-links-browser-note">Open links in a browser using this same code. In-app browsers may have a separate list. Turning off affects only this browser; paired devices stay enabled.</p>
             <p id="add-links-status" class="data-export-status" role="status" aria-live="polite"></p>
           </details>
         </section>

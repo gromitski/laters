@@ -24,7 +24,10 @@ be assessed and addressed proportionately.
 - Access tokens remain in page memory and are not written to browser storage, Drive or the repository.
 - Article, share-target and Drive data are validated and rendered as text, not executable markup.
 - Optional add-links require a browser-generated revocable add-only code, enabled deliberately.
-  It is stored separately from Google credentials and never synced or exported. Unauthorised
+  It is stored separately from Google credentials and excluded from Drive, CSV and diagnostics.
+  Users may explicitly copy their code to pair their own browsers; there is no universal code or
+  automatic authorisation sync. Disabling affects that browser only; revoke on every paired browser
+  if a shared code is exposed. Unauthorised
   links make no changes. Treat chat instructions and links containing the code as private; see
   [the capability boundary](docs/add-link-format.md#authorisation-and-privacy).
 - Automated tests, repository privacy checks, dependency auditing and public-build checks run before

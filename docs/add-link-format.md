@@ -2,10 +2,18 @@
 
 ## Status and use
 
-The `v1.2.0` candidate adds an optional one-click batch handoff. Users explicitly enable it in
+The `v1.2.1` candidate adds manual device pairing to the optional one-click batch handoff.
+Users explicitly enable it in
 **Add from a chat**, copy their browser's private instructions once, then open a link for articles
 they accepted. It works with any generator able to encode UTF-8 CSV reliably. CSV Import remains
 available with its existing review; no chat provider or newsletter account is built into Laters.
+
+To use one triage chat across devices, select **Copy code for another device** on the configured
+installation. On the other installation, open **Use code from another device**, paste the complete
+code and select **Use this code**. Both then accept the same links. Pairing works before or after
+local enabling, replaces the target's previous code and leaves articles and Drive credentials alone.
+Input must be exactly 64 lowercase hexadecimal characters after surrounding whitespace is trimmed;
+invalid input leaves the current code unchanged. No link can enable or pair a browser automatically.
 
 ## Format
 
@@ -37,7 +45,11 @@ Enabling creates 32 cryptographically random bytes stored in local browser prefe
 code permits only add-only imports in that browser/profile/origin. It cannot read the list,
 replace existing data, delete articles, change Google permissions or obtain Google tokens. The
 code is independent of Google credentials and excluded from Drive, CSV and connection diagnostics.
-Disabling removes it immediately; enabling again produces a different code. Clearing site data
+Users can deliberately copy this add-only code between their own browsers through the pairing
+controls; it is not automatically distributed through Drive. Disabling removes it immediately in
+that browser only; other paired browsers remain enabled. To revoke a shared code everywhere,
+disable each paired installation. Enabling again produces a different code: pair the replacement
+on the other installations and copy fresh chat instructions. Clearing site data
 also disables it. Opening an unauthorised link does not enable the feature or save its articles.
 
 Treat the instructions and links as private capabilities. Anyone who obtains the code can make
@@ -60,7 +72,7 @@ duplicate and ignored-data counts and reveals the first added article. Titles ar
 An already-connected Drive session refreshes before planning. A newly opened page has no saved
 Google token: additions work locally, with pending changes retained until deliberate resume. A
 remembered disconnected connection produces local-only completion wording. Links do not perform
-background delivery while Laters is closed or synchronise authorisation across devices.
+background delivery while Laters is closed or automatically synchronise authorisation across devices.
 
 Reloading a consumed page does not replay its batch. Re-opening the original link skips existing
 URLs; after deliberate deletion, opening it again can add those URLs again. No replay ledger,
@@ -68,6 +80,7 @@ batch deletion or automatic Undo mode is introduced.
 
 The installed PWA and an ordinary tab can share storage in the same browser/profile/origin, but
 window routing is browser-controlled. In-app webviews, private browsing, other profiles, other
-devices and self-hosted origins have separate storage and need separate setup. The copyable
+devices and self-hosted origins have separate storage and need deliberate enabling or pairing. A
+shared code does not share reading lists or change the link's destination host. The copyable
 instructions use the current host, so a root-hosted fork does not need the public service's origin
 or the maintainer's code.

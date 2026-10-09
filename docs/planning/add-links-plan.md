@@ -61,3 +61,30 @@ query strings and supplied reading time, duplicates, reload without replay, wron
 `2dfa4e3` passed Pages workflow `37980471971`; live HTML, JavaScript, CSS and privacy date match the
 verified build. The real newsletter chat's clickable output and physical-device routing remain
 human acceptance gates. No live add-only code or private articles are retained in repository evidence.
+
+## Authorised device-pairing correction — v1.2.1
+
+The maintainer clarified that one ChatGPT triage chat must generate links usable on both phone and
+desktop, with normal optional article sync. The maintainer authorised a complete bounded manual
+pairing addition: **Copy code for another device** on the configured installation and **Use code
+from another device** on the target. Keep fresh random codes for each person; there is no shared
+public or built-in key. This explicit manual transfer extends the original browser-local setup,
+without automatically syncing authorisation or including codes in CSV, Drive or diagnostics.
+
+Accept only a full 64-character lowercase hexadecimal code, trimming surrounding whitespace.
+Invalid input preserves existing authorisation. Deliberate submission can enable an unconfigured
+browser or replace an existing code; it changes no articles or Google credentials. Replacement
+must block pending imports still carrying the previous code. Show private-code clipboard fallback
+and explain local-only revocation: disabling here leaves other paired browsers enabled. To revoke
+everywhere, disable each paired browser; re-enable, pair a replacement and update chat instructions.
+
+Verify the same fictional handoff in two separately stored local installations, local disabling,
+replacement, invalid input, selectable clipboard fallback and narrow Light/Dark layout. Run the
+existing delivery gates and publish version 1.2.1 for real-device acceptance, with no tag or release.
+
+All 257 tests across 34 files, type checking, build, both privacy audits and attribution self-test
+pass. Full and production dependency audits report zero vulnerabilities. Two separately stored
+local browser origins accepted the same fictional batch fragment after pairing, rejected invalid
+codes and kept revocation local. 320px Light/Dark checks showed no horizontal overflow. A normal
+code field avoids an observed password-manager paste prompt. Physical phone/desktop routing and
+the real triage chat remain acceptance gates; no live code is retained in repository evidence.

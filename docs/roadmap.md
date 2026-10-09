@@ -214,6 +214,18 @@ Real-chat and device acceptance remain. The bounded plan is in
 [`add-links-plan.md`](planning/add-links-plan.md), with the public format and capability/privacy
 boundary in [`add-link-format.md`](add-link-format.md). This does not authorise a tag or release.
 
+### `v1.2.1` — Use one triage chat across devices
+
+The maintainer authorised manual code pairing after clarifying that phone and desktop should use
+links from the same triage chat. Add **Copy code for another device** and deliberate **Use code from
+another device** setup. Each person still generates their own random code. Pairing changes only
+local add-link authorisation; article sync remains the existing optional Drive flow. Replacing or
+disabling a code affects that browser only, including any pending import using its previous code.
+Codes remain outside Drive, CSV, diagnostics and repository content. No automatic pairing through
+incoming links or account-wide revocation is implied. All 257 tests, build/privacy gates and isolated
+browser pairing checks pass. Status: verified locally; publication is in progress. Real phone/desktop
+and chat acceptance follow publication.
+
 Grouping and tagging may be explored later but are not currently necessary, approved or versioned.
 Folders, archive, analytics, a Laters backend and other exploratory ideas remain outside this
 roadmap until separately defined.

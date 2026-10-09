@@ -77,10 +77,18 @@ provider.
 4. Accept articles as usual. Open the chat's **Add accepted articles to Laters** link in that same
    browser. Laters saves new URLs, skips duplicates and reports the result without another review.
 
-The instructions contain a private, add-only code for this browser. Keep them and generated links
-private. **Turn off add-links** invalidates them without deleting articles; enabling again creates
-a fresh code and requires fresh chat instructions. Each browser/profile needs its own setup. An
-in-app browser may open a separate, unconfigured list: use the browser where you enabled the feature.
+To use the same triage chat on your phone and desktop, select **Copy code for another device**
+on the device already set up. On your other device, open **Add from a chat → Use code from another
+device**, paste that code and select **Use this code**. This replaces any previous code there.
+You can now triage and open links on either device. Article sync still uses your optional Google
+Drive connection; pairing the code does not connect Drive or copy your reading list.
+
+The instructions contain a private, add-only code. Keep them, copied codes and generated links
+private. Each person generates their own code and pairs only their own devices. **Turn off add-links**
+invalidates links only in that browser, without deleting articles; paired devices stay enabled.
+To revoke a shared code everywhere, turn off add-links on each paired device. Enabling again creates
+a fresh code: pair it on the other devices and replace the chat instructions. An in-app browser
+may open a separate, unconfigured list: use a browser where you enabled or paired the feature.
 The browser controls whether a link opens the installed PWA window or an ordinary tab.
 
 Links carry at most 25 articles and 8,000 fragment characters. The sending chat needs a code tool to
