@@ -64,6 +64,34 @@ that browser: it is not included in Import, Export or Google Drive sync.
 
 ## Import or export your data
 
+### Add accepted articles from a chat
+
+If you triage newsletter articles in a chat, you can add the accepted batch by opening one link.
+Anyone can set this up; it needs no account, extension, server or connection to a particular chat
+provider.
+
+1. Open Laters in the browser/profile that holds your reading list.
+2. Open the circular menu, expand **Add from a chat**, then select **Enable add-links**.
+3. Select **Copy chat instructions** and paste them into your trusted private triage chat or its
+   saved instructions. If copying is unavailable, select and copy the text below the button.
+4. Accept articles as usual. Open the chat's **Add accepted articles to Laters** link in that same
+   browser. Laters saves new URLs, skips duplicates and reports the result without another review.
+
+The instructions contain a private, add-only code for this browser. Keep them and generated links
+private. **Turn off add-links** invalidates them without deleting articles; enabling again creates
+a fresh code and requires fresh chat instructions. Each browser/profile needs its own setup. An
+in-app browser may open a separate, unconfigured list: use the browser where you enabled the feature.
+The browser controls whether a link opens the installed PWA window or an ordinary tab.
+
+Links carry at most 25 articles and 8,000 fragment characters. The sending chat needs a code tool to
+encode links reliably and may split a large batch across numbered links. If it cannot generate a
+valid clickable link, use CSV. The fragment is processed locally and cleared from the address;
+your chat provider can still see instructions and links. Ordinary optional Drive sync applies after
+local saving; a newly opened page may require **Resume Google Drive** before sending additions to
+another device. See the [add-link format](docs/add-link-format.md) for generators and self-hosting.
+
+### CSV files
+
 Open the circular menu and select **Import CSV** to add articles from a local CSV file. Laters accepts
 its own export format and simpler spreadsheets containing a `url` column, with optional `title`,
 `created`, `tags` and `readtime` columns. This means you can create an article list manually and put

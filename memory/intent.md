@@ -224,6 +224,21 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   preserved ordering, menu dismissal, version label and success presentation, then authorised the
   exact verified `v0.7.0` release.
 
+## Accepted add-link handoff direction
+
+- The maintainer selected a one-click handoff after explicit article acceptance and required it
+  to be usable by others. The `v1.2.0` candidate adds an optional generic public format and
+  self-service instructions; no particular newsletter, chat account or maintainer code is built in.
+- Each browser deliberately enables a private revocable add-only code and copies instructions into
+  a trusted private chat once. Authorised links add new URLs without a second review; ordinary CSV
+  Import retains its confirmation. Disabled, revoked and wrong-browser links save nothing.
+- Reuse whole-batch validation, exact-URL add-only merging, atomic local storage and normal Drive
+  operations. Keep Google credentials and the existing reading list unchanged; no backend, account,
+  extension or paid service. Browser routing and chat-generated link compatibility require human
+  acceptance, independently of automated and isolated-browser checks.
+- The format, limits, capability/privacy boundary and self-hosting guidance live in
+  `docs/add-link-format.md`; the bounded candidate plan is in `docs/planning/add-links-plan.md`.
+
 ## Accepted v0.8.0 dark-mode direction
 
 - Add an **Appearance** radio group to the bottom of the existing main menu, after Google Drive and

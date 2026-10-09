@@ -150,6 +150,22 @@
           </div>
           <p id="import-data-status" class="data-export-status" role="status" aria-live="polite"></p>
           <p id="export-data-status" class="data-export-status" role="status" aria-live="polite"></p>
+          <details class="add-links-setup">
+            <summary>Add from a chat</summary>
+            <p>Accept articles in your chat, then open its add-link to save them here without downloading a file.</p>
+            <p>Enable once in this browser and copy the instructions into a trusted private chat. They contain a private code that allows additions. Keep the instructions and links private.</p>
+            <div class="data-export-actions">
+              <button id="add-links-enable" type="button">Enable add-links</button>
+              <button id="add-links-copy" type="button" hidden>Copy chat instructions</button>
+              <button id="add-links-disable" class="secondary" type="button" hidden>Turn off add-links</button>
+            </div>
+            <div id="add-links-instructions-group" hidden>
+              <label for="add-links-instructions">Private chat instructions</label>
+              <textarea id="add-links-instructions" readonly spellcheck="false" aria-describedby="add-links-browser-note"></textarea>
+            </div>
+            <p id="add-links-browser-note">Open links in this browser and profile. Other browsers and in-app browsers have a separate list. Turning off invalidates old links without deleting articles.</p>
+            <p id="add-links-status" class="data-export-status" role="status" aria-live="polite"></p>
+          </details>
         </section>
 
         <fieldset class="appearance-setting">

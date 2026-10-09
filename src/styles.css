@@ -1612,6 +1612,51 @@ ion-action-sheet.article-action-sheet .action-sheet-group-cancel .action-sheet-b
   color: var(--error);
 }
 
+.add-links-setup {
+  margin-top: 0.8rem;
+  border-top: 1px solid var(--hairline);
+  padding-top: 0.8rem;
+  font-size: 0.78rem;
+}
+
+.add-links-setup summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.add-links-setup summary:focus-visible,
+.add-links-setup textarea:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.add-links-setup p {
+  margin-top: 0.55rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.add-links-setup label {
+  display: block;
+  margin-top: 0.85rem;
+  font-weight: 700;
+}
+
+.add-links-setup textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 8rem;
+  margin-top: 0.35rem;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  padding: 0.6rem;
+  resize: vertical;
+  color: var(--text);
+  background: var(--canvas);
+  font: inherit;
+  line-height: 1.45;
+}
+
 .application-menu-modal footer {
   display: flex;
   flex-wrap: wrap;

@@ -6,7 +6,8 @@ The accepted delivery roadmap includes the released `v1.1.0` optional CSV-suppli
 estimates. Exact release commit `1e95804` passed GitHub Pages workflow `33206076911` before tagging
 and publication. The version sections below preserve the bounded delivery record: completing one
 never silently authorised work from the next. Laters remains a local-first personal tool with no
-Laters account, backend or public database. No later product slice is approved or versioned.
+Laters account, backend or public database. The maintainer has since selected the bounded `v1.2.0`
+add-link handoff below; other exploratory features remain unapproved.
 
 ## `v0.5.x` — prepare for public use
 
@@ -198,6 +199,18 @@ The maintainer later accepted one bounded `v1.1.0` compatibility slice: optional
 estimates supplied in imported CSV files. Laters stores, syncs, exports and quietly displays a valid
 estimate while every existing capture and CSV shape continues to work without one. Laters does not
 fetch article content, calculate estimates, sort by time or add queue totals.
+
+## `v1.2.0` — Add accepted articles by link
+
+The maintainer selected a one-click batch handoff after explicit triage and required public usability.
+Anyone can enable **Add from a chat** once in their browser, copy private instructions to a trusted
+chat, then open links for accepted articles. A per-browser revocable add-only code protects the
+handoff. Reuse whole-batch validation, atomic add-only import, duplicate preservation and ordinary
+Drive operations. No backend, account, chat-provider dependency or paid service is added.
+
+Status: implemented candidate; real-chat and device acceptance remain. The bounded plan is in
+[`add-links-plan.md`](planning/add-links-plan.md), with the public format and capability/privacy
+boundary in [`add-link-format.md`](add-link-format.md). This does not authorise a tag or release.
 
 Grouping and tagging may be explored later but are not currently necessary, approved or versioned.
 Folders, archive, analytics, a Laters backend and other exploratory ideas remain outside this

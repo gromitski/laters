@@ -1,0 +1,52 @@
+# Add-links candidate
+
+## Agreed scope
+
+The maintainer selected a one-click handoff after explicit article triage and required it to be
+usable by others. Deliver a complete bounded `v1.2.0` candidate, retaining the `v1.1.2` maintenance
+behaviour. A tag or release is not authorised. Public device acceptance follows publication.
+
+Anyone can enable **Add from a chat** in the existing menu and copy instructions into a private
+triage chat. Each browser creates its own revocable random add-only code. A valid handoff link
+opens Laters and adds only new articles, with no second confirmation. Disabled, wrong-browser,
+revoked, malformed and oversized links make no changes. Ordinary CSV review remains unchanged.
+
+## Contract and boundaries
+
+- Use the root-page fragment `#add=v1&key=CODE&data=ENCODED_CSV`. The data is UTF-8 named-column
+  CSV encoded with `encodeURIComponent` plus Markdown-safe escaping of `!'()*`, using the existing
+  public import columns and validation.
+- Limit each link to 8,000 fragment characters and 25 article rows. Generators must calculate and
+  split longer batches; they must never truncate articles or guess encoded output. CSV remains the
+  fallback when the sending chat cannot generate a reliable clickable link.
+- Set up only after a deliberate local action; use 32 cryptographically random bytes, stored in
+  local browser preferences. This code is independent of Google credentials, never synced or
+  exported. Disabling removes it; enabling again creates a different code. It grants additions
+  only and must be shared only with trusted private chats, never published.
+- Remove the fragment from the address before processing. It is not sent to the hosting server,
+  but the sending chat and browser can see the complete link. Do not claim encryption or secrecy
+  from the chat provider. No payload or code logging, telemetry or diagnostic entries.
+- Authenticate before CSV parsing, check authorisation again immediately before the local write,
+  validate the entire batch, then reuse atomic add-only IndexedDB import and ordinary pending
+  sync operations. Existing titles, times, bookmarks and estimates are never overwritten.
+- Refresh an already-connected Drive session before duplicate planning. A newly opened page does
+  not acquire Google credentials automatically; imports remain local and safely queued until
+  the user resumes sync. Show this boundary in completion feedback when relevant.
+- Consume startup links and later fragment navigations, serialize them, remove consumed address
+  data and do not re-import on reload. Duplicates are harmless; re-opening a link after deliberately
+  deleting its articles can add them again. There is no receipt registry or automatic rollback.
+- Links must open in the browser/profile where setup was completed. Other browser profiles,
+  in-app webviews and self-hosted origins do not share that authorisation or reading list. Installed
+  PWA routing is platform-controlled; do not promise the standalone window always opens.
+- Keep setup collapsed in the existing data menu with accessible controls, a selectable copy
+  fallback and visible status. No permanent reading-list toolbar or redesign.
+
+## Verification
+
+Focused tests cover code setup/revocation, wrong and disabled authorisation, strict fragment
+decoding, limits, invalid whole-batch rejection, URL/title safety, atomic storage and duplicate
+preservation. Verify the actual rendered setup and startup/fragment handoff in an isolated browser
+with fictional articles, including reload, bad-code rejection and narrow Light/Dark layout.
+Run the existing test, type, build, privacy, dependency and attribution gates; review and publish
+the complete slice through the repository's normal end-of-slice workflow. The maintainer then
+checks a real triage-generated link in the intended browser.

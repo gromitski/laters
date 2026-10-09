@@ -52,7 +52,7 @@ const REQUIRED_PUBLIC_CONTENT = new Map([
     "privacy/index.html",
     [
       "mailto:hello@dustyb.in",
-      "Effective 26 August 2026",
+      "Effective 9 October 2026",
       "laters-connection.json",
       "laters-reading-list.json",
       "laters-operation-*.json",
@@ -64,6 +64,9 @@ const REQUIRED_PUBLIC_CONTENT = new Map([
       "1,000 article rows",
       "Download CSV",
       "creates a CSV file",
+      "random add-only code",
+      "Turn off",
+      "not sent to the hosting server",
       "The Laters maintainer cannot see your reading list",
       'href="/terms/"',
     ],

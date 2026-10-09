@@ -23,6 +23,10 @@ be assessed and addressed proportionately.
 - Drive access uses Google's short-lived browser token and the narrow `drive.appdata` permission.
 - Access tokens remain in page memory and are not written to browser storage, Drive or the repository.
 - Article, share-target and Drive data are validated and rendered as text, not executable markup.
+- Optional add-links require a browser-generated revocable add-only code, enabled deliberately.
+  It is stored separately from Google credentials and never synced or exported. Unauthorised
+  links make no changes. Treat chat instructions and links containing the code as private; see
+  [the capability boundary](docs/add-link-format.md#authorisation-and-privacy).
 - Automated tests, repository privacy checks, dependency auditing and public-build checks run before
   GitHub Pages deployment.
 - Dependency update proposals are configured for npm packages and GitHub Actions.

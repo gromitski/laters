@@ -2,6 +2,10 @@ import "@ionic/core/css/core.css";
 import "./styles.css";
 import { version as applicationVersion } from "../package.json";
 import { saveCapturedItem } from "./capture/saveCapturedItem";
+import {
+  ADD_LINK_STORAGE_KEY, importReadingListAddLink, readAddLinkCode, readAddLinkError,
+} from "./import/readingListAddLink";
+import { installAddLinkSetup } from "./ui/addLinkSetup";
 import type { SavedItem } from "./domain/savedItem";
 import { createSavedItem, SavedItemValidationError } from "./domain/savedItem";
 import {
@@ -171,6 +175,20 @@ installThemePreferenceController({
 });
 
 applicationVersionLabel.textContent = `Version ${applicationVersion}`;
+const refreshAddLinkSetup = installAddLinkSetup({
+  enableAction: requireElement<HTMLButtonElement>("add-links-enable"),
+  disableAction: requireElement<HTMLButtonElement>("add-links-disable"),
+  copyAction: requireElement<HTMLButtonElement>("add-links-copy"),
+  instructions: requireElement<HTMLTextAreaElement>("add-links-instructions"),
+  instructionsGroup: requireElement<HTMLElement>("add-links-instructions-group"),
+  status: requireElement<HTMLParagraphElement>("add-links-status"),
+  baseUrl: window.location.origin,
+  getStorage: () => window.localStorage,
+  copyText: (text) => navigator.clipboard.writeText(text),
+});
+window.addEventListener("storage", (event) => {
+  if (event.key === ADD_LINK_STORAGE_KEY || event.key === null) refreshAddLinkSetup();
+});
 setGoogleDriveMenuState("disconnected");
 removeStoredGoogleDriveCredential();
 
@@ -329,6 +347,9 @@ showRememberedGoogleDriveConnection();
 showShareResult();
 const initialListLoad = refreshList();
 void initialListLoad.then(showWaitingGoogleDriveChanges);
+let addLinkQueue = initialListLoad;
+receiveAddLink();
+window.addEventListener("hashchange", receiveAddLink);
 void requestPersistentStorage();
 void registerServiceWorker(showUpdateAvailable);
 
@@ -394,6 +415,10 @@ function browserExportEnvironment(): ReadingListExportEnvironment {
 
 async function prepareReadingListImport(file: File): Promise<ReadingListImportReview> {
   const csv = await readReadingListImportFile(file);
+  return prepareReadingListImportCsv(csv);
+}
+
+async function prepareReadingListImportCsv(csv: string): Promise<ReadingListImportReview> {
   createReadingListImportPlan(csv, []);
   const session = googleDriveSyncSession;
 
@@ -437,6 +462,50 @@ async function prepareReadingListImport(file: File): Promise<ReadingListImportRe
         }
       : {}),
   };
+}
+
+function currentAddLinkCode(): string | undefined {
+  try { return readAddLinkCode(window.localStorage); } catch { return undefined; }
+}
+
+function receiveAddLink(): void {
+  const fragment = window.location.hash;
+  if (!fragment.startsWith("#add=")) return;
+  try {
+    // Consume before parsing, rendering articles or making sync requests.
+    window.history.replaceState(null, "", window.location.pathname + window.location.search);
+  } catch {
+    showError("Nothing was added. Laters could not clear this private add-link from the address.");
+    return;
+  }
+  addLinkQueue = addLinkQueue.then(async () => {
+    try {
+      clearFeedback();
+      showStatus("Adding your accepted articles…");
+      const { plan, result } = await importReadingListAddLink(fragment, {
+        readCode: currentAddLinkCode,
+        prepareImport: prepareReadingListImportCsv,
+        commitImport: commitReadingListImport,
+      });
+      const skipped = plan.totalArticleCount - result.importedCount;
+      const localWarning = !googleDriveSyncSession && hasRememberedGoogleDriveConnection()
+        ? " Saved on this device; resume Google Drive to sync and check its latest list." : "";
+      const ignored = plan.ignoredColumnCount || plan.ignoredTagCount
+        ? ` Ignored ${plan.ignoredColumnCount} additional columns and ${plan.ignoredTagCount} unsupported tags.` : "";
+      const message = `Added ${result.importedCount} ${result.importedCount === 1 ? "article" : "articles"}.${skipped ? ` ${skipped} already saved or repeated.` : ""}${ignored}${localWarning}`;
+      await applicationMenu.dismiss(undefined, "add-link-complete").catch(() => undefined);
+      showStatus(message);
+      if (result.firstImportedItemId) {
+        const id = result.firstImportedItemId;
+        window.requestAnimationFrame(() => {
+          highlightSavedArticle(id, "center");
+          focusArticle(id, true);
+        });
+      }
+    } catch (error) {
+      showError(readAddLinkError(error));
+    }
+  });
 }
 
 async function commitReadingListImport(

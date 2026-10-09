@@ -17,7 +17,8 @@ Release `v0.5.7` consolidates the accepted code, configuration and documentation
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
 appearance. Release `v1.0.0` records the accepted subtle Bookmark filter that completes the intended
 personal reading queue. Release `v1.1.0` adds optional CSV-supplied reading-time estimates. Package
-metadata is now `1.1.2` for the connection-diagnostics and progress-label maintenance candidate. `v1.1.0`
+metadata is now `1.2.0` for the optional add-link handoff candidate, retaining the diagnostics and
+progress-label maintenance work. `v1.1.0`
 remains the latest tagged GitHub release; its tag resolves to verified release commit `1e95804`.
 
 ## What exists now
@@ -104,11 +105,24 @@ remains the latest tagged GitHub release; its tag resolves to verified release c
 
 ## Active focus
 
-Deliver the authorised `v1.1.2` progress-label correction and investigate using the connection diagnostics while
-preserving the accepted reading list and memory-only credential contracts. Frequent desktop and
-Android reconnection after 15–20 minutes is reported; its cause is still unknown.
+Deliver the selected one-click article-triage handoff as a public, self-service feature. Preserve
+the local-first reading list and memory-only Google credential contracts. The separate connection
+diagnostics investigation remains open: frequent desktop and Android reconnection after
+15–20 minutes is reported; its cause is still unknown.
 
 ## Active slice
+
+The `v1.2.0` candidate adds collapsed **Add from a chat** under Import and export. Users enable a
+private revocable add-only code for their browser and copy generic instructions into a trusted
+private chat once. Opening a correctly encoded authorised link saves only new validated URLs with
+no second review. Other browsers/profiles need separate setup. Codes are not Google credentials,
+never committed, logged, synced or exported. Disabled, revoked, malformed and oversized links
+make no changes. Ordinary CSV review and the existing Google connection behaviour remain.
+The public contract is in `docs/add-link-format.md` and the bounded plan in
+`docs/planning/add-links-plan.md`. Automated and isolated-browser verification is recorded below;
+publication and real-chat/device acceptance follow. No tag or release is authorised.
+
+### Retained progress-label maintenance
 
 The `v1.1.2` maintenance candidate changes the Google Drive button to **Reconnecting…** during
 an attempt or automatic Drive check for an existing connection, then restores its idle action when
@@ -180,13 +194,34 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Use **Version 1.1.2** on each installation and check that the button says **Reconnecting…**
+Publish the checked `v1.2.0` candidate through the normal Pages workflow, then use the visible Update
+path. In the intended browser, enable **Add from a chat**, copy its private instructions into the
+real triage chat and open a generated accepted-article link. Success adds only selected new URLs
+without a file picker or second confirmation; malformed links, missing metadata, unexpected browser
+routing or missing articles are failures to investigate. Do not paste a live code into public
+repository material. Physical Android routing and the real chat's ability to generate clickable
+links remain human acceptance checks.
+
+Separately check that the Google Drive button says **Reconnecting…**
 while a connection attempt or Drive check is active. Connect normally, return after the usual
 background interval and inspect **Connection details** before reconnecting. Establish whether the page restarted, Google's supplied lifetime elapsed or a request
 failure cleared access. Any connection-behaviour change follows that evidence; a backend is not
 approved.
 
 ## Last meaningful update
+
+2026-10-09 — The maintainer selected the one-click handoff and required public usability. The
+`v1.2.0` candidate implements browser-local revocable authorisation, generic copyable chat
+instructions, bounded fragment CSV input and reuse of the atomic add-only import. Focused checks
+cover authorisation, revocation during asynchronous preparation, strict decoding, Unicode and URL
+preservation, malformed and oversized batches, existing article preservation and normal queued
+sync. An isolated browser verified setup, copying, later-fragment and fresh-page delivery,
+duplicate skips, reload without replay, wrong and revoked codes, and 320px Light/Dark layout without
+horizontal overflow. The privacy policy and public documentation explain the capability and browser
+boundaries. All 249 tests across 34 files, type checking, production build, service-worker generation,
+public-build and repository privacy audits pass; both dependency audits report zero vulnerabilities.
+The browser's normal Update path retained all fictional articles. Publication follows; the real
+triage flow remains unaccepted.
 
 2026-10-08 — The maintainer reported the connection diagnostics working and requested
 **Reconnecting…** while the app is attempting reconnection. The bounded `v1.1.2` correction updates

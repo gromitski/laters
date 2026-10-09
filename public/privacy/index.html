@@ -26,7 +26,7 @@
         <a class="back-link" href="/" aria-label="Back to Laters">← Laters</a>
         <p class="eyebrow">Your data, plainly</p>
         <h1>Privacy policy</h1>
-        <p class="effective-date">Effective 26 August 2026</p>
+        <p class="effective-date">Effective 9 October 2026</p>
         <p class="summary">
           Laters is a local-first read-later app. Your reading list stays in your browser unless you
           choose the optional Google Drive sync. If connected, Laters stores a private copy in your
@@ -44,6 +44,7 @@
           <li>The optional Google Drive sync stores your reading list in private application data.</li>
           <li>Import reads a local CSV file only after you choose it and confirm the review.</li>
           <li>Export creates a CSV file only when you choose it.</li>
+          <li>Optional add-links save accepted batches after one-time setup in your browser.</li>
           <li>Laters does not sell personal information.</li>
         </ul>
       </section>
@@ -82,6 +83,31 @@
           ordinary additions; the CSV file itself is never sent to Google Drive. Cancelling or an
           invalid file creates no articles or pending changes from that file. A connected Drive
           refresh may still apply existing changes made on another device.
+        </p>
+      </section>
+
+      <section aria-labelledby="add-links">
+        <h2 id="add-links">Adding articles from a chat</h2>
+        <p>
+          If you enable <strong>Add from a chat</strong>, Laters creates a random add-only code in
+          local browser storage. Copyable instructions let a trusted private chat generate links
+          for articles you accept. The code is separate from Google credentials and is never
+          included in CSV exports, Drive sync or connection diagnostics. <strong>Turn off
+          add-links</strong> invalidates existing instructions and links without deleting articles.
+        </p>
+        <p>
+          Keep these instructions and links private: anyone who obtains the code can make links
+          that add articles when opened in your configured browser. The chat provider can see the
+          instructions and article links you share with it. Links carry article data and the code
+          after the address's hash sign, which is not sent to the hosting server. Laters clears
+          that part of the address before processing; browsers, extensions and other software
+          handling the link may still see it. Laters does not log it or send it to the maintainer.
+        </p>
+        <p>
+          Opening an authorised link saves only new, validated article URLs in the current browser.
+          Existing articles are not replaced or deleted. Optional Drive sync processes ordinary
+          additions under the connection rules below; a new page may require you to resume it.
+          Other browsers and profiles require their own setup.
         </p>
       </section>
 
