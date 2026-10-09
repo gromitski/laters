@@ -223,8 +223,8 @@ local add-link authorisation; article sync remains the existing optional Drive f
 disabling a code affects that browser only, including any pending import using its previous code.
 Codes remain outside Drive, CSV, diagnostics and repository content. No automatic pairing through
 incoming links or account-wide revocation is implied. All 257 tests, build/privacy gates and isolated
-browser pairing checks pass. Status: verified locally; publication is in progress. Real phone/desktop
-and chat acceptance follow publication.
+browser pairing checks pass. Status: published candidate from commit `7e924c5`, with Pages workflow
+`37984824896` successful and live assets verified. Real phone/desktop and chat acceptance remain.
 
 Grouping and tagging may be explored later but are not currently necessary, approved or versioned.
 Folders, archive, analytics, a Laters backend and other exploratory ideas remain outside this

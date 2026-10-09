@@ -123,8 +123,8 @@ logs, Drive sync, CSV and diagnostics. Disabled, revoked, malformed and oversize
 make no changes. Ordinary CSV review and the existing Google connection behaviour remain.
 The public contract is in `docs/add-link-format.md` and the bounded plan in
 `docs/planning/add-links-plan.md`. Automated and isolated-browser verification is recorded below;
-the original `v1.2.0` candidate commit `2dfa4e3` passed Pages workflow `37980471971`; live HTML, application assets and
-the privacy-policy date match the verified build. Real-chat/device acceptance remains. No tag or
+`v1.2.1` candidate commit `7e924c5` passed Pages workflow `37984824896`; live HTML and application
+assets match the verified build. Real-chat/device acceptance remains. No tag or
 release is authorised.
 
 ### Retained progress-label maintenance
@@ -199,8 +199,8 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Publish the verified **Version 1.2.1** candidate, then use the visible Update path on
-both intended devices. On the configured browser, select **Copy code for another device**; on the
+Use the visible Update path to load the published **Version 1.2.1** candidate on both intended
+devices. On the configured browser, select **Copy code for another device**; on the
 second, choose **Use code from another device**, paste and submit. Keep the existing triage chat's
 instructions when the shared code is unchanged. Open a generated accepted-article link on each
 device. Success adds only selected new URLs
@@ -227,7 +227,8 @@ Two separately stored local browser origins accepted the same fictional batch fr
 pairing; invalid input was rejected and disabling one left the other accepting additions.
 320px Light/Dark checks found no horizontal overflow. A password-manager prompt caught during
 testing was avoided by using an ordinary code field. The normal Update path applied that correction.
-Publication and real phone/desktop/chat acceptance follow; no tag or release is authorised.
+Candidate commit `7e924c5` passed Pages workflow `37984824896`; live HTML, JavaScript and CSS
+match the tested build. Real phone/desktop/chat acceptance remains; no tag or release was created.
 
 2026-10-09 — The maintainer selected the one-click handoff and required public usability. The
 `v1.2.0` candidate implements browser-local revocable authorisation, generic copyable chat

@@ -88,3 +88,5 @@ local browser origins accepted the same fictional batch fragment after pairing, 
 codes and kept revocation local. 320px Light/Dark checks showed no horizontal overflow. A normal
 code field avoids an observed password-manager paste prompt. Physical phone/desktop routing and
 the real triage chat remain acceptance gates; no live code is retained in repository evidence.
+Candidate commit `7e924c5` passed Pages workflow `37984824896`; live HTML, JavaScript and CSS
+match the tested build. No tag or GitHub release was created.
