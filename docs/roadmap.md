@@ -208,7 +208,9 @@ chat, then open links for accepted articles. A per-browser revocable add-only co
 handoff. Reuse whole-batch validation, atomic add-only import, duplicate preservation and ordinary
 Drive operations. No backend, account, chat-provider dependency or paid service is added.
 
-Status: implemented candidate; real-chat and device acceptance remain. The bounded plan is in
+Status: implemented and published candidate. All 249 tests and the build/privacy checks pass;
+commit `2dfa4e3` passed Pages workflow `37980471971` and the live assets match the verified build.
+Real-chat and device acceptance remain. The bounded plan is in
 [`add-links-plan.md`](planning/add-links-plan.md), with the public format and capability/privacy
 boundary in [`add-link-format.md`](add-link-format.md). This does not authorise a tag or release.
 

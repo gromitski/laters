@@ -120,7 +120,9 @@ never committed, logged, synced or exported. Disabled, revoked, malformed and ov
 make no changes. Ordinary CSV review and the existing Google connection behaviour remain.
 The public contract is in `docs/add-link-format.md` and the bounded plan in
 `docs/planning/add-links-plan.md`. Automated and isolated-browser verification is recorded below;
-publication and real-chat/device acceptance follow. No tag or release is authorised.
+candidate commit `2dfa4e3` passed Pages workflow `37980471971`; live HTML, application assets and
+the privacy-policy date match the verified build. Real-chat/device acceptance remains. No tag or
+release is authorised.
 
 ### Retained progress-label maintenance
 
@@ -194,8 +196,8 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Publish the checked `v1.2.0` candidate through the normal Pages workflow, then use the visible Update
-path. In the intended browser, enable **Add from a chat**, copy its private instructions into the
+Use the visible Update path to load the published **Version 1.2.0** candidate. In the intended
+browser, enable **Add from a chat**, copy its private instructions into the
 real triage chat and open a generated accepted-article link. Success adds only selected new URLs
 without a file picker or second confirmation; malformed links, missing metadata, unexpected browser
 routing or missing articles are failures to investigate. Do not paste a live code into public
@@ -220,8 +222,9 @@ duplicate skips, reload without replay, wrong and revoked codes, and 320px Light
 horizontal overflow. The privacy policy and public documentation explain the capability and browser
 boundaries. All 249 tests across 34 files, type checking, production build, service-worker generation,
 public-build and repository privacy audits pass; both dependency audits report zero vulnerabilities.
-The browser's normal Update path retained all fictional articles. Publication follows; the real
-triage flow remains unaccepted.
+The browser's normal Update path retained all fictional articles. Candidate commit `2dfa4e3`
+passed Pages workflow `37980471971`; live HTML, JavaScript, CSS and policy date were verified.
+The real triage flow remains unaccepted. No tag or GitHub release was created.
 
 2026-10-08 — The maintainer reported the connection diagnostics working and requested
 **Reconnecting…** while the app is attempting reconnection. The bounded `v1.1.2` correction updates

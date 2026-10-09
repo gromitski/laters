@@ -50,3 +50,14 @@ with fictional articles, including reload, bad-code rejection and narrow Light/D
 Run the existing test, type, build, privacy, dependency and attribution gates; review and publish
 the complete slice through the repository's normal end-of-slice workflow. The maintainer then
 checks a real triage-generated link in the intended browser.
+
+## Candidate delivery evidence
+
+All 249 tests across 34 files, type checking, production build, service-worker generation and both
+privacy audits pass. Full and production dependency audits report zero vulnerabilities. Isolated
+browser checks proved setup, copying, later-fragment and fresh-page import, preservation of Unicode,
+query strings and supplied reading time, duplicates, reload without replay, wrong and revoked codes,
+320px Light/Dark layout and the ordinary Update path retaining the test list. Candidate commit
+`2dfa4e3` passed Pages workflow `37980471971`; live HTML, JavaScript, CSS and privacy date match the
+verified build. The real newsletter chat's clickable output and physical-device routing remain
+human acceptance gates. No live add-only code or private articles are retained in repository evidence.
