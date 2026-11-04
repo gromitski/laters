@@ -105,22 +105,32 @@ GitHub release; its tag resolves to verified release commit `1e95804`.
 
 ## Active focus
 
-Obtain human acceptance of the published [Search slice](../docs/planning/article-search-plan.md)
-before starting the documented
-[publisher organisation slice](../docs/planning/publisher-organisation-plan.md). The
-[sprint plan](../docs/planning/search-and-publisher-sprint-plan.md) records the sequence.
+The completed-triage sending workflow has been repaired to produce direct Laters links. The
+[real-chat Chrome handoff](../docs/planning/add-links-plan.md#real-chat-desktop-handoff-verified)
+was verified without CSV download/import. The test batch was already saved, so all three URLs
+were skipped and the 100-item list retained. Confirm the next fresh batch and phone routing.
+Search is published but maintainer acceptance remains; publisher organisation has not started.
+The [sprint plan](../docs/planning/search-and-publisher-sprint-plan.md) retains that feature sequence.
 Optional article images are low priority. Preserve the local-first reading
 list and memory-only Google credential contracts. The separate connection diagnostics
 investigation remains open: frequent desktop and Android reconnection after 15–20 minutes is
 reported; its cause is still unknown.
 
-The user now reports that newsletter triage transfer still does not work. The open defect is
-tracked under the [existing add-link roadmap entry](../docs/roadmap.md#open-defect--newsletter-triage-transfer);
-real-chat/device acceptance remains outstanding. The broader filing need remains in
+The user reported that newsletter triage transfer still did not work. Its repair and remaining
+device checks are tracked under the [existing add-link roadmap entry](../docs/roadmap.md#open-defect--newsletter-triage-transfer);
+the real-chat Chrome route is verified; phone acceptance remains. The broader filing need remains in
 [future ideas](../docs/future-ideas.md#open-possibilities); publisher organisation is the selected
 direction for the next feature plan, without approving tags, folders or manual filing.
 
 ## Active slice
+
+Completed the authorised private setup transfer, completion-rule update and real accepted-batch
+handoff test using the existing add-only route. The chat reports its saved recurring completion
+wording was also updated with timing/intake rules unchanged; that saved configuration is not
+independently inspectable from this repository. The real Chrome result and preserved visible
+titles/bookmarks were checked directly. Version remains `1.3.0`; no application code changed.
+
+### Published Search candidate
 
 The maintainer authorised starting Search on 2026-11-03. Version `1.3.0` adds temporary local
 title/publisher matching with Clear/Escape, existing Bookmark-filter composition and truthful
@@ -131,7 +141,7 @@ passes after a narrow Vite patch; 14 low/moderate development-tree findings rema
 The candidate is published and its exact assets verified; the normal Update path retained the
 production browser's fictional article and showed **Version 1.3.0**. Publication receipts are in
 the Search plan. Real Android/desktop maintainer acceptance remains; no tag or release is claimed.
-The add-link candidate below remains unaccepted; its reported defect is tracked separately.
+The add-link candidate below now has a real-chat Chrome handoff check; phone routing remains.
 
 ### Published add-link candidate
 
@@ -222,6 +232,14 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
+At the next completed triage, open **Add accepted articles to Laters** in the configured browser;
+no CSV download or file picker should be needed. Confirm new accepted articles and the phone
+browser route. Use the existing explicit pairing controls if the phone uses a different code.
+Keep private setup/payloads out of repository evidence and distinguish generated, imported and
+synced states. Do not claim a queued local import has already reached Google Drive.
+
+The separate Search acceptance check remains:
+
 Use the visible Update path to load **Version 1.3.0** on Android and desktop. Search for a saved
 title or publisher, try the Bookmark filter, then Clear; results should remain usable and the
 ordinary list should return. Check a Delete/Undo while changing the query. Missing Undo, lost
@@ -250,6 +268,12 @@ failure cleared access. Any connection-behaviour change follows that evidence; a
 approved.
 
 ## Last meaningful update
+
+2026-11-04 — Repaired the authorised private triage completion setup and exercised its actual
+three-article link in the intended Chrome browser. It reported zero additions and three duplicates
+because the earlier manual import had already saved them. The 100-item list and visible
+titles/bookmarks were preserved; the private fragment was cleared. Confirmed the result back to
+the triage chat. No app-code/version change; phone and next-fresh-batch checks remain.
 
 2026-11-04 — Published Search candidate `abe6795` through the successful checked Pages workflow.
 Exact live HTML/assets match the verified build. Production Update retained the fictional local

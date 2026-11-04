@@ -1,5 +1,56 @@
 # Add-links candidate
 
+## Current triage investigation — 2026-11-04
+
+The maintainer prioritised removing the CSV download/import steps from completed newsletter
+triage. Inspection of the current sending chat found that its final-batch request still asks for
+a downloadable CSV, and its completion supplies that file rather than an add-link. The intended
+Chrome Laters installation already has add-links enabled. This establishes a sending-workflow
+gap; it does not establish a failure in the receiver's add-only import implementation.
+
+Repair the current private triage completion instructions using the existing browser setup, then
+generate a correctly encoded link for an explicitly accepted batch and verify its handoff in that
+browser. Preserve the existing newsletter intake/review rules and accepted article metadata.
+Keep selections recoverable until successful saving is confirmed; generating a link is not proof
+of import. CSV remains a deliberate fallback, not the normal completion.
+
+Changing another chat requires explicit permission to message it, including permission to transfer
+the existing private add-only instructions to that named private chat. No code, live link, private
+article list or chat identifier belongs in this repository. Do not rotate or enable a new code,
+alter Google permissions, introduce a backend or change newsletter schedules to repair this gap.
+Real-chat/browser acceptance remains open until the generated link has been exercised; phone
+routing/pairing is a separate check.
+
+The maintainer explicitly authorised that private setup transfer and a test of the latest accepted
+batch on 2026-11-04. The current triage chat has been sent the existing browser setup and updated
+completion rules, including retained accepted selections until handoff is confirmed. It was asked
+to check any saved recurring completion instruction without changing intake rules or timing.
+
+### Real-chat desktop handoff verified
+
+The triage chat generated a direct link for the latest three explicitly accepted articles rather
+than a download. Independent decoding verified the exact `url,title,readtime` header, three rows,
+the expected titles, reading-time values of 5, 6 and blank, valid HTTP(S) article URLs, complete CSV
+termination and a 459-character fragment. The link's private prefix matched the intended browser's
+existing setup. No new code, application feature or Google permission was needed.
+
+Opening that actual chat-generated link in the configured Chrome installation reported:
+**Added 0 articles. 3 already saved or repeated.** The articles were already present from the
+earlier manual import. The saved list remained at 100 items, and all visible article titles and
+bookmark states were preserved. The private fragment was removed from the address. No CSV file,
+file picker or import-review confirmation was used. This verifies the real chat-to-browser route
+and duplicate preservation; it does not claim three new records were added or prove phone routing.
+
+The triage chat reports reading back the saved recurring instructions with direct links as the
+default, retaining its existing timing and intake/review rules. That recurring configuration is
+reported by the triage chat; it is not independently inspectable through this repository. The
+browser result was confirmed back to the chat, which acknowledged the test batch as handed off
+and read back the saved completion rule with its private prefix redacted.
+
+No private code, generated URL or accepted article payload is retained here. The application
+remains Version `1.3.0`; this was a private sending-workflow repair, not an application-code change.
+Phone routing/pairing and the next fresh accepted batch remain practical acceptance checks.
+
 ## Agreed scope
 
 The maintainer selected a one-click handoff after explicit article triage and required it to be

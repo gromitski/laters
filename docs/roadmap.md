@@ -229,17 +229,23 @@ browser pairing checks pass. Status: published candidate from commit `7e924c5`, 
 
 #### Open defect — newsletter triage transfer
 
-Reported on 2026-11-03: direct import/transfer from newsletter triage to Laters still does not work
-for the user. This is an unresolved defect in the existing add-link handoff, not another capture
-feature. The published candidate and earlier automated checks do not establish real-chat/device
-acceptance. The failing step, affected version/browser/device and root cause are not yet known.
+Status on 2026-11-04: the sending workflow is repaired and a real Chrome handoff is verified.
+Phone routing/pairing remains to be checked; the stable heading is retained for existing links.
 
-Follow-up: establish a reproducible failing handoff, distinguish chat link generation, browser/PWA
-routing, local authorisation and article import, and record privacy-safe evidence without live
-codes or private article links. Resolution must demonstrate that an accepted batch reaches the
-intended list, adds only new validated URLs and preserves existing articles through the existing
-add-only workflow. Real-chat and intended-device acceptance are still required. Backlog recording
-does not authorise implementation, a tag or a release.
+Reported on 2026-11-03: direct import/transfer from newsletter triage to Laters still does not work
+for the user. This was recorded against the existing add-link handoff, not another capture
+feature. The published candidate and earlier automated checks did not establish real-chat/device
+acceptance. On 2026-11-04 the maintainer confirmed that ChatGPT still supplies a CSV download.
+Inspection found a CSV-specific final-batch request and completion in the current sending chat;
+the intended Chrome installation already has add-links enabled. With explicit permission, the
+chat's completion setup was updated and its generated three-article link exercised in that browser.
+It correctly skipped the three already-saved URLs, retained the 100-item list and cleared its
+private fragment, without a file download or picker. Evidence and remaining limits are in the
+[add-link plan](planning/add-links-plan.md#real-chat-desktop-handoff-verified).
+
+Follow-up: confirm the next fresh accepted batch and intended phone browser/PWA routing. Preserve
+the existing add-only workflow; do not treat generated links as proof of saving or record private
+codes/payloads. No application-code change, version bump, tag or release was needed for this repair.
 
 ## Next feature sprint — search and publisher organisation
 
