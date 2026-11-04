@@ -126,8 +126,12 @@ out-of-view Undo now chooses the visible Search action when its field is collaps
 An isolated fictional list checked keyboard opening, title/publisher matching, Clear, both Escape
 steps, closing an active query within bookmarks, Delete/Undo across closing and view changes,
 visible focus recovery, and collapsed/empty query state after reload. Light/Dark 320px and 1024px
-desktop layouts were checked. No production articles or pairing settings were used or changed.
+desktop layouts were checked. The maintainer's saved collection and pairing settings were not changed.
 All 262 existing tests across 34 files, type checking, production build, public-build/repository
 privacy audits and attribution self-test pass. The dependency gate reports no high/critical
 findings; the current full audit reports 3 low and 7 moderate development findings, production zero.
-Publication is pending; maintainer visual and physical-device acceptance remain separate.
+Candidate commit `37afd27` passed [Pages workflow `41906585865`](https://github.com/gromitski/laters/actions/runs/41906585865).
+The public HTML, both JavaScript assets and stylesheet exactly match the checked production build.
+The normal public Update prompt applied the refinement and retained the isolated browser's existing
+fictional article. Search started collapsed, found that article and closed back to the unchanged list.
+Maintainer visual and physical-device acceptance remain separate; no tag or release was created.

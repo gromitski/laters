@@ -113,8 +113,9 @@ separate embedded browser and correctly failed there. Use the ORIGINAL chat link
 Chrome profile; the consumed error-page address cannot retry it. Phone routing remains unchecked.
 Search's matching behaviour was accepted on 2026-11-04, but its permanent field was rejected as too
 dominant. The authorised refinement puts a small Search disclosure beside Show bookmarks; its
-field appears only when requested, and closing clears the query. Verification/publication and
-maintainer visual acceptance of this refinement remain. Publisher organisation has not started.
+field appears only when requested, and closing clears the query. The refinement is technically
+verified and published; maintainer visual/device acceptance remains. Publisher organisation has
+not started.
 The [sprint plan](../docs/planning/search-and-publisher-sprint-plan.md) retains that feature sequence.
 Optional article images are low priority. Preserve the local-first reading
 list and memory-only Google credential contracts. The separate connection diagnostics
@@ -129,13 +130,14 @@ direction for the next feature plan, without approving tags, folders or manual f
 
 ## Active slice
 
-Implement the authorised quieter Search refinement within candidate `1.3.0`: one small Search
+Published the authorised quieter Search refinement within candidate `1.3.0`: one small Search
 action beside Show bookmarks, a field revealed/focused only on request, and Close search clearing
 and hiding it. Matching/filtering behaviour is retained. Narrow headings put the count above the
 text actions; keyboard, bookmark, Undo, focus recovery and reload checks pass on an isolated
 fictional list, with 320px Light/Dark and desktop layout checks. All 262 tests, type/build and privacy
 gates pass; the dependency gate has no high/critical findings (10 lower-severity development
-findings, production zero). Publication and maintainer visual/device acceptance remain.
+findings, production zero). Commit `37afd27` passed Pages workflow `41906585865`; public application
+assets match the checked build. Maintainer visual/device acceptance remains.
 Wider list-control presentation is deferred until more functionality justifies reconsidering it;
 publisher organisation has not started.
 
