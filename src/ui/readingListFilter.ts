@@ -1,4 +1,5 @@
 import type { ReadingListEntry } from "./readingListPresentation";
+import { normaliseSourceHostname } from "../domain/sourceIdentity";
 
 export type ReadingListView = "all" | "bookmarked";
 
@@ -20,19 +21,28 @@ export function toggleReadingListView(view: ReadingListView): ReadingListView {
 export function filterReadingListEntries(
   entries: ReadingListEntry[],
   view: ReadingListView,
+  query = "",
 ): ReadingListEntry[] {
-  return view === "bookmarked"
-    ? entries.filter((entry) => entry.item.bookmarked === true)
-    : entries;
+  const terms = query.trim().toLowerCase().split(/\s+/u).filter(Boolean);
+  return entries.filter(({ item, isGhost }) => {
+    // Undo must remain available even when the view or query changes.
+    if (isGhost) return true;
+    if (view === "bookmarked" && item.bookmarked !== true) return false;
+    if (terms.length === 0) return true;
+    const searchable = `${item.title} ${normaliseSourceHostname(item.url)}`.toLowerCase();
+    return terms.every((term) => searchable.includes(term));
+  });
 }
 
 export function countVisibleReadingListItems(
   entries: ReadingListEntry[],
   view: ReadingListView,
+  query = "",
 ): number {
   return filterReadingListEntries(
     entries.filter((entry) => !entry.isGhost),
     view,
+    query,
   ).length;
 }
 
@@ -40,7 +50,19 @@ export function getReadingListViewPresentation(
   view: ReadingListView,
   totalCount: number,
   visibleCount: number,
+  query = "",
 ): ReadingListViewPresentation {
+  const searching = query.trim().length > 0;
+  const searchPresentation = searching
+    ? {
+        countLabel: `${visibleCount} ${visibleCount === 1 ? "match" : "matches"}`,
+        emptyMessage: totalCount === 0
+          ? WHOLE_LIST_EMPTY_MESSAGE
+          : view === "bookmarked"
+            ? "No bookmarked articles match. Try another search, clear it or show all articles."
+            : "No articles match. Try another search or clear it to see your saved articles.",
+      }
+    : {};
   if (view === "bookmarked") {
     return {
       actionLabel: "Show all",
@@ -51,6 +73,7 @@ export function getReadingListViewPresentation(
           : "No bookmarked articles yet. Bookmark one to keep it easy to find.",
       heading: "Bookmarked articles",
       listLabel: "Bookmarked articles",
+      ...searchPresentation,
     };
   }
 
@@ -60,6 +83,7 @@ export function getReadingListViewPresentation(
     emptyMessage: WHOLE_LIST_EMPTY_MESSAGE,
     heading: "Saved articles",
     listLabel: "Saved articles",
+    ...searchPresentation,
   };
 }
 

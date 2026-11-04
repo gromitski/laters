@@ -51,6 +51,8 @@ is investigated.
 - Select the star to bookmark an article without moving it.
 - Select **Show bookmarks** beside the list count to see only bookmarked articles, then **Show all**
   to return to the complete newest-first queue.
+- Use **Search articles** to find saved titles or publishers. Search also works within bookmarks;
+  **Clear** or Escape restores the current view. Search stays on this device and resets on reload.
 - Select **Delete** to remove an article; **Undo** remains available for seven seconds.
 - On Android, swipe right to change the bookmark or left to reveal Delete.
 - Long-press an article for Read, Edit title, Bookmark, Share and Delete. Sharing sends only its URL.

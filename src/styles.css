@@ -303,9 +303,87 @@ h1 {
 .list-heading-summary {
   display: flex;
   min-width: 0;
-  flex: none;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
   gap: 0.5rem;
+}
+
+.article-search {
+  padding: 0 var(--gutter) 1rem;
+}
+
+.article-search label {
+  display: block;
+  margin-bottom: 0.375rem;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  font-weight: 650;
+}
+
+.article-search-controls {
+  display: flex;
+  gap: 0.5rem;
+  min-width: 0;
+  border: 1px solid var(--paste-border);
+  border-radius: 10px;
+  padding: 0.125rem 0.5rem;
+}
+
+.article-search-controls:focus-within {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.article-search input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--target);
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  color: var(--text);
+  background: transparent;
+  font: inherit;
+  font-size: 1rem;
+  appearance: none;
+}
+
+.article-search input:focus-visible {
+  outline: none;
+}
+
+.article-search input::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.article-search input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.article-search button {
+  min-width: var(--target);
+  min-height: var(--target);
+  border: 0;
+  padding: 0 0.25rem;
+  color: var(--text);
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.8125rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.article-search button[hidden] {
+  display: none;
+}
+
+.article-search :disabled {
+  cursor: wait;
+  opacity: 0.5;
 }
 
 #list-heading {

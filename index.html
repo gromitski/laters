@@ -71,6 +71,16 @@
           </div>
         </div>
 
+        <form id="article-search-form" class="article-search" role="search" aria-label="Saved articles">
+          <label for="article-search">Search articles</label>
+          <div class="article-search-controls">
+            <input id="article-search" type="search" placeholder="Search titles or publishers"
+              maxlength="240" autocomplete="off" spellcheck="false" enterkeyhint="search"
+              aria-controls="article-list" />
+            <button id="article-search-clear" type="button" hidden>Clear</button>
+          </div>
+        </form>
+
         <p id="loading-state" class="state-card">Loading your saved articles…</p>
         <ul id="article-list" class="articles" aria-label="Saved articles"></ul>
         <p id="empty-state" class="state-card" hidden>

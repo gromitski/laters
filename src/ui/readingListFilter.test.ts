@@ -66,6 +66,62 @@ describe("reading-list filter", () => {
     expect(getFocusIndexAfterRemoval(2, 2)).toBe(1);
     expect(getFocusIndexAfterRemoval(0, 0)).toBeUndefined();
   });
+
+  it("matches title and normalised publisher terms in any order without reordering or mutation", () => {
+    const first = entry("new", 300, true);
+    first.item.title = "A Walk Along the Coast";
+    first.item.url = "https://www.Example.org./private-path?token=hidden-value";
+    const second = entry("old", 100);
+    second.item.title = "Coastal Notes";
+    second.item.url = "https://example.net/another";
+    const entries = [first, second];
+    const before = structuredClone(entries);
+
+    expect(filterReadingListEntries(entries, "all", "  EXAMPLE.ORG \t walk  ")).toEqual([first]);
+    expect(filterReadingListEntries(entries, "all", "coast")).toEqual(entries);
+    expect(filterReadingListEntries(entries, "all", "hidden-value")).toEqual([]);
+    expect(filterReadingListEntries(entries, "all", "private-path")).toEqual([]);
+    expect(filterReadingListEntries(entries, "all", "www.")).toEqual([]);
+    expect(entries).toEqual(before);
+  });
+
+  it("combines search with bookmarks and treats blank queries as the current view", () => {
+    const entries = [entry("saved", 300), entry("bookmark", 200, true)];
+    expect(filterReadingListEntries(entries, "bookmarked", "article")).toEqual([entries[1]]);
+    expect(filterReadingListEntries(entries, "all", " \n\t ")).toEqual(entries);
+    expect(filterReadingListEntries(entries, "bookmarked", "saved")).toEqual([]);
+    expect(filterReadingListEntries(entries, "all", ".*|<script>")).toEqual([]);
+  });
+
+  it("retains Undo through query and bookmark changes without counting a ghost as a match", () => {
+    const ghost = entry("deleted", 300, false, true);
+    const saved = entry("bookmark", 100, true);
+    const entries = [ghost, saved];
+
+    expect(filterReadingListEntries(entries, "bookmarked", "no results")).toEqual([ghost]);
+    expect(countVisibleReadingListItems(entries, "bookmarked", "no results")).toBe(0);
+    expect(filterReadingListEntries(entries, "all", "bookmark")).toEqual(entries);
+    expect(countVisibleReadingListItems(entries, "all", "bookmark")).toBe(1);
+    expect(filterReadingListEntries([{ ...ghost, isGhost: false }], "bookmarked", "no results")).toEqual([]);
+  });
+
+  it("reflects edited titles, bookmark updates and new resolved data using the same query", () => {
+    const original = entry("one", 100);
+    const renamed = { ...original, item: { ...original.item, title: "Renamed", bookmarked: true } };
+    expect(filterReadingListEntries([original], "all", "article")).toHaveLength(1);
+    expect(filterReadingListEntries([renamed], "all", "article")).toEqual([]);
+    expect(filterReadingListEntries([renamed], "bookmarked", "renamed")).toEqual([renamed]);
+    expect(filterReadingListEntries([], "bookmarked", "renamed")).toEqual([]);
+  });
+
+  it("distinguishes matching counts and search-empty states while retaining empty-library guidance", () => {
+    expect(getReadingListViewPresentation("all", 4, 1, "walk").countLabel).toBe("1 match");
+    expect(getReadingListViewPresentation("bookmarked", 4, 2, "walk").countLabel).toBe("2 matches");
+    expect(getReadingListViewPresentation("all", 4, 0, "walk").emptyMessage).toMatch(/^No articles match/);
+    expect(getReadingListViewPresentation("bookmarked", 4, 0, "walk").emptyMessage).toMatch(/^No bookmarked articles match/);
+    expect(getReadingListViewPresentation("all", 0, 0, "walk").emptyMessage).toMatch(/^Nothing saved yet/);
+    expect(getReadingListViewPresentation("all", 4, 4, "  ").countLabel).toBe("4 items");
+  });
 });
 
 function entry(

@@ -17,8 +17,8 @@ Release `v0.5.7` consolidates the accepted code, configuration and documentation
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
 appearance. Release `v1.0.0` records the accepted subtle Bookmark filter that completes the intended
 personal reading queue. Release `v1.1.0` adds optional CSV-supplied reading-time estimates. Package
-metadata is now `1.2.1` for manual device pairing of the optional add-link handoff candidate,
-retaining the diagnostics and progress-label maintenance work. `v1.1.0` remains the latest tagged
+metadata is now `1.3.0` for the authorised local Search candidate, retaining the add-link pairing,
+diagnostics and progress-label maintenance work. `v1.1.0` remains the latest tagged
 GitHub release; its tag resolves to verified release commit `1e95804`.
 
 ## What exists now
@@ -105,12 +105,33 @@ GitHub release; its tag resolves to verified release commit `1e95804`.
 
 ## Active focus
 
-Deliver the selected one-click article-triage handoff as a public, self-service feature. Preserve
-the local-first reading list and memory-only Google credential contracts. The separate connection
-diagnostics investigation remains open: frequent desktop and Android reconnection after
-15–20 minutes is reported; its cause is still unknown.
+Publish the technically verified [Search slice](../docs/planning/article-search-plan.md), then
+obtain human acceptance before starting the documented
+[publisher organisation slice](../docs/planning/publisher-organisation-plan.md). The
+[sprint plan](../docs/planning/search-and-publisher-sprint-plan.md) records the sequence.
+Optional article images are low priority. Preserve the local-first reading
+list and memory-only Google credential contracts. The separate connection diagnostics
+investigation remains open: frequent desktop and Android reconnection after 15–20 minutes is
+reported; its cause is still unknown.
+
+The user now reports that newsletter triage transfer still does not work. The open defect is
+tracked under the [existing add-link roadmap entry](../docs/roadmap.md#open-defect--newsletter-triage-transfer);
+real-chat/device acceptance remains outstanding. The broader filing need remains in
+[future ideas](../docs/future-ideas.md#open-possibilities); publisher organisation is the selected
+direction for the next feature plan, without approving tags, folders or manual filing.
 
 ## Active slice
+
+The maintainer authorised starting Search on 2026-11-03. Version `1.3.0` adds temporary local
+title/publisher matching with Clear/Escape, existing Bookmark-filter composition and truthful
+matching counts. Pending-deletion Undo remains available across view/query changes. Successful
+capture/import clears Search for the existing reveal flow. No storage, Drive or CSV schema changes.
+All 262 tests, type checking, build and focused browser checks pass. The required dependency gate
+passes after a narrow Vite patch; 14 low/moderate development-tree findings remain, production zero.
+Publication verification and human acceptance remain; no tag or GitHub release is claimed.
+The add-link candidate below remains unaccepted; its reported defect is tracked separately.
+
+### Published add-link candidate
 
 The `v1.2.1` candidate extends collapsed **Add from a chat** under Import and export. Users enable a
 private revocable add-only code for their browser and copy generic instructions into a trusted
@@ -199,6 +220,15 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
+Follow the checked implementation-slice commit/push workflow and verify Search's Pages publication.
+Obtain a
+short Android/desktop acceptance check before proceeding to publisher organisation. Its flat sort
+versus grouped presentation remains a product choice; do not bundle it into Search.
+
+For the reported triage-transfer defect, establish the failing step and privacy-safe reproduction
+evidence before proposing a correction. The existing acceptance path below describes the expected
+handoff; its success must not be assumed from previous automated checks.
+
 Use the visible Update path to load the published **Version 1.2.1** candidate on both intended
 devices. On the configured browser, select **Copy code for another device**; on the
 second, choose **Use code from another device**, paste and submit. Keep the existing triage chat's
@@ -216,6 +246,25 @@ failure cleared access. Any connection-behaviour change follows that evidence; a
 approved.
 
 ## Last meaningful update
+
+2026-11-04 — Implemented the Search candidate and passed 262 tests, type/build/public-build checks,
+focused local browser interaction checks and Light/Dark layouts. The 1,000-match narrow-heading
+overflow is corrected. Updated only Vite to its compatible `8.2.4` patch for the high-severity gate;
+remaining low/moderate development-tool advisories are recorded in the Search plan. Publication
+and human acceptance remain.
+
+2026-11-03 — The maintainer authorised documenting both slices and starting Search. Added the
+bounded `v1.3.0` Search contract and separate publisher follow-on document. Search implementation
+and verification are in progress; earlier planning-only statements are superseded for Search.
+
+2026-11-03 — The maintainer prioritised search and sorting, chose publisher grouping or sorting,
+and deprioritised optional article images. Added the proposed two-slice sprint plan and updated
+the existing backlog priorities. This is planning only; implementation and version choices remain.
+
+2026-11-03 — Recorded the user's unresolved newsletter triage-transfer defect against the existing
+add-link candidate. Expanded the existing organisation idea to cover filing and sorting, and added
+article search to the exploratory backlog. This is documentation-only backlog maintenance;
+implementation, product design, versioning and release decisions remain separate.
 
 2026-10-09 — The maintainer authorised manual pairing after clarifying that one triage chat should
 work on phone and desktop. Version `1.2.1` adds explicit code copying/pasting with strict validation,

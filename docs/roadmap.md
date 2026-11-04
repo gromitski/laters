@@ -7,7 +7,8 @@ estimates. Exact release commit `1e95804` passed GitHub Pages workflow `33206076
 and publication. The version sections below preserve the bounded delivery record: completing one
 never silently authorised work from the next. Laters remains a local-first personal tool with no
 Laters account, backend or public database. The maintainer has since selected the bounded `v1.2.0`
-add-link handoff below; other exploratory features remain unapproved.
+add-link handoff below. Search and publisher organisation are now prioritised for sprint planning;
+the bounded `v1.3.0` Search implementation is now authorised, with publisher organisation following.
 
 ## `v0.5.x` — prepare for public use
 
@@ -226,6 +227,35 @@ incoming links or account-wide revocation is implied. All 257 tests, build/priva
 browser pairing checks pass. Status: published candidate from commit `7e924c5`, with Pages workflow
 `37984824896` successful and live assets verified. Real phone/desktop and chat acceptance remain.
 
-Grouping and tagging may be explored later but are not currently necessary, approved or versioned.
-Folders, archive, analytics, a Laters backend and other exploratory ideas remain outside this
-roadmap until separately defined.
+#### Open defect — newsletter triage transfer
+
+Reported on 2026-11-03: direct import/transfer from newsletter triage to Laters still does not work
+for the user. This is an unresolved defect in the existing add-link handoff, not another capture
+feature. The published candidate and earlier automated checks do not establish real-chat/device
+acceptance. The failing step, affected version/browser/device and root cause are not yet known.
+
+Follow-up: establish a reproducible failing handoff, distinguish chat link generation, browser/PWA
+routing, local authorisation and article import, and record privacy-safe evidence without live
+codes or private article links. Resolution must demonstrate that an accepted batch reaches the
+intended list, adds only new validated URLs and preserves existing articles through the existing
+add-only workflow. Real-chat and intended-device acceptance are still required. Backlog recording
+does not authorise implementation, a tag or a release.
+
+## Next feature sprint — search and publisher organisation
+
+On 2026-11-03 the maintainer prioritised search and sorting, selected publisher grouping or sorting
+as the useful organisation direction, and deprioritised optional article images. The
+[sprint plan](planning/search-and-publisher-sprint-plan.md) proposes search first, then publisher
+organisation, as two independently reviewable slices. The maintainer subsequently authorised
+documenting both slices and starting Search. The bounded
+[`v1.3.0` Search contract](planning/article-search-plan.md) uses local title/publisher matching,
+temporary query state and the existing Bookmark filter. The implemented candidate passes its
+technical checks; publication verification and human acceptance remain. No tag or GitHub release
+is authorised.
+
+[Publisher organisation](planning/publisher-organisation-plan.md) is documented but not started;
+flat sorting versus grouped headings and its version remain open.
+
+The broader filing need remains in [future ideas](future-ideas.md#open-possibilities). Tags, folders,
+archive, images, reading-time sorting and other exploratory work are outside these two slices.
+The newsletter-triage transfer defect above remains open and separately tracked.

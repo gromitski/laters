@@ -90,6 +90,7 @@ interface PendingDeletion {
 
 let currentItems: SavedItem[] = [];
 let readingListView: ReadingListView = "all";
+let searchQuery = "";
 let pendingDeletion: PendingDeletion | undefined;
 let undoTimer: number | undefined;
 let collapseTimer: number | undefined;
@@ -107,6 +108,9 @@ const emptyState = requireElement<HTMLParagraphElement>("empty-state");
 const itemCount = requireElement<HTMLParagraphElement>("item-count");
 const listHeading = requireElement<HTMLHeadingElement>("list-heading");
 const articleFilterAction = requireElement<HTMLButtonElement>("article-filter-action");
+const searchForm = requireElement<HTMLFormElement>("article-search-form");
+const searchInput = requireElement<HTMLInputElement>("article-search");
+const searchClearAction = requireElement<HTMLButtonElement>("article-search-clear");
 const statusMessage = requireElement<HTMLDivElement>("status-message");
 const errorMessage = requireElement<HTMLParagraphElement>("error-message");
 const updateMessage = requireElement<HTMLDivElement>("update-message");
@@ -203,6 +207,29 @@ articleFilterAction.addEventListener("click", () => {
   readingListView = toggleReadingListView(readingListView);
   renderItems();
 });
+searchForm.addEventListener("submit", (event) => event.preventDefault());
+searchInput.addEventListener("input", () => {
+  searchQuery = searchInput.value;
+  renderItems();
+});
+searchClearAction.addEventListener("click", clearArticleSearch);
+searchInput.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && searchInput.value) {
+    event.preventDefault();
+    clearArticleSearch();
+  }
+});
+
+function resetArticleSearch(): void {
+  searchQuery = "";
+  searchInput.value = "";
+}
+
+function clearArticleSearch(): void {
+  resetArticleSearch();
+  renderItems();
+  searchInput.focus({ preventScroll: true });
+}
 articleFilterAction.addEventListener("pointerdown", () => {
   articleFilterAction.classList.add("is-pointer-focus");
 });
@@ -525,6 +552,7 @@ async function commitReadingListImport(
     const result = await store.importNew(plan.items);
     currentItems = result.items;
     readingListView = "all";
+    resetArticleSearch();
     renderItems();
     syncArticlesToGoogleDrive("Syncing imported articles to Google Drive…");
     return {
@@ -884,8 +912,18 @@ async function refreshList(): Promise<void> {
 }
 
 function renderItems(animateEntries = false): void {
+  const active = document.activeElement;
+  const focusedRow = active instanceof HTMLElement
+    ? active.closest<HTMLElement>(".article-row-shell[data-item-id]")
+    : null;
+  const focusedId = focusedRow?.dataset.itemId;
+  const focusedIndex = focusedId ? getVisibleArticleIndex(focusedId) : -1;
+  const focusedAction = active instanceof HTMLElement
+    ? ["article-link", "bookmark-action", "delete-action", "more-actions"]
+        .find((className) => active.classList.contains(className))
+    : undefined;
   const allEntries = createReadingListEntries(currentItems, pendingDeletion?.item);
-  const entries = filterReadingListEntries(allEntries, readingListView);
+  const entries = filterReadingListEntries(allEntries, readingListView, searchQuery);
   const rows = entries.map((entry, index) =>
     entry.isGhost
       ? createGhostRow(entry.item, pendingDeletion?.isLeaving ?? false)
@@ -894,22 +932,30 @@ function renderItems(animateEntries = false): void {
 
   list.replaceChildren(pasteRow, ...rows);
   updateListSummary(entries);
+  if (focusedId && focusedAction) {
+    const replacement = findRow(focusedId)?.querySelector<HTMLElement>(`.${focusedAction}`);
+    if (replacement) replacement.focus({ preventScroll: true });
+    else focusAfterFilteredRemoval(focusedIndex);
+  }
 }
 
 function updateListSummary(
   visibleEntries = filterReadingListEntries(
     createReadingListEntries(currentItems, pendingDeletion?.item),
     readingListView,
+    searchQuery,
   ),
 ): void {
   const visibleCount = countVisibleReadingListItems(
-    createReadingListEntries(currentItems),
+    visibleEntries,
     readingListView,
+    searchQuery,
   );
   const presentation = getReadingListViewPresentation(
     readingListView,
     currentItems.length,
     visibleCount,
+    searchQuery,
   );
 
   listHeading.textContent = presentation.heading;
@@ -918,7 +964,8 @@ function updateListSummary(
   articleFilterAction.hidden = readingListView === "all" && currentItems.length === 0;
   itemCount.textContent = presentation.countLabel;
   emptyState.textContent = presentation.emptyMessage;
-  emptyState.hidden = visibleEntries.length > 0;
+  emptyState.hidden = visibleCount > 0;
+  searchClearAction.hidden = searchInput.value.length === 0;
 }
 
 function createPasteToAddRow(): HTMLLIElement {
@@ -1078,6 +1125,7 @@ function createPasteToAddRow(): HTMLLIElement {
     try {
       const result = await saveCapturedItem(candidate, store);
       currentItems = result.items;
+      resetArticleSearch();
       if (result.item.bookmarked !== true) {
         readingListView = "all";
       }
@@ -1278,6 +1326,7 @@ async function setArticleTitle(
 ): Promise<SavedItem | undefined> {
   clearFeedback();
   setRowActionsDisabled(row, true);
+  const filteredIndex = getVisibleArticleIndex(item.id);
 
   try {
     const updatedItem = await store.setTitle(item.id, title);
@@ -1293,6 +1342,14 @@ async function setArticleTitle(
     );
     deleteButton.setAttribute("aria-label", `Delete “${updatedItem.title}”`);
     announceHiddenStatus(`Title changed to “${updatedItem.title}”.`);
+    if (searchQuery.trim()) {
+      // Let the existing title dialog close before replacing its source row.
+      window.requestAnimationFrame(() => {
+        const restoreFocus = row.contains(document.activeElement);
+        renderItems();
+        if (restoreFocus && !findRow(item.id)) focusAfterFilteredRemoval(filteredIndex);
+      });
+    }
     return updatedItem;
   } catch {
     return undefined;
@@ -1618,7 +1675,10 @@ async function restoreArticle(item: SavedItem): Promise<void> {
     const restoredIndex = currentItems.findIndex((candidate) => candidate.id === item.id);
     const restoredRow = createArticleRow(item, false, restoredIndex);
 
-    if (ghostRow?.isConnected) {
+    const remainsVisible = filterReadingListEntries(
+      [{ item, isGhost: false }], readingListView, searchQuery,
+    ).length > 0;
+    if (ghostRow?.isConnected && remainsVisible) {
       ghostRow.replaceWith(restoredRow);
       updateListSummary();
     } else {
@@ -1626,7 +1686,10 @@ async function restoreArticle(item: SavedItem): Promise<void> {
     }
 
     showStatus(`Restored “${item.title}”.`);
-    window.requestAnimationFrame(() => focusArticle(item.id, true));
+    window.requestAnimationFrame(() => {
+      if (remainsVisible) focusArticle(item.id, true);
+      else searchInput.focus({ preventScroll: true });
+    });
   } catch (error) {
     pendingDeletion = undefined;
     renderItems();
@@ -1656,7 +1719,7 @@ function focusAfterFilteredRemoval(removedIndex: number): void {
   const focusIndex = getFocusIndexAfterRemoval(removedIndex, rows.length);
 
   if (focusIndex === undefined) {
-    articleFilterAction.focus({ preventScroll: true });
+    (searchQuery.trim() ? searchInput : articleFilterAction).focus({ preventScroll: true });
     return;
   }
 
@@ -1737,6 +1800,8 @@ function showShareResult(): void {
 function setBusy(isBusy: boolean): void {
   list.setAttribute("aria-busy", String(isBusy));
   articleFilterAction.disabled = isBusy;
+  searchInput.disabled = isBusy;
+  searchClearAction.disabled = isBusy;
 
   list
     .querySelectorAll<HTMLButtonElement | HTMLInputElement>("button, input")

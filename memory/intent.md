@@ -274,9 +274,13 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   behaviour.
 - Preserve Paste, capture and Import reveal behaviour, accessibility, Delete/Undo, swipe directions,
   bookmark actions, article menus and exact URL-only sharing.
-- Grouping and tagging may be explored after `v1.0.0`, but they are not currently necessary,
-  approved or versioned. Search, sorting, archive, automatic tidy rules and other future ideas remain
-  outside the closing MVP slice.
+- Grouping and tagging were left for possible later exploration, outside the closing MVP slice.
+  The user's subsequent filing, organisation/sorting and article-search requests are recorded for
+  discovery in `docs/future-ideas.md`. Search and publisher grouping or sorting are now selected
+  for sprint planning in `docs/planning/search-and-publisher-sprint-plan.md`; optional article
+  images are low priority. Search was subsequently authorised as the bounded `v1.3.0` slice in
+  `docs/planning/article-search-plan.md`; publisher presentation and version remain open.
+  Archive, automatic tidy rules and other future ideas also remain outside the closing MVP slice.
 - The detailed contract in `docs/planning/bookmark-filter-plan.md` is accepted and implemented as
   the published candidate. The maintainer accepted the installed Android and macOS result and
   authorised `v1.0.0` release closure.

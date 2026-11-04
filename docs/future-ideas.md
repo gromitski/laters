@@ -4,8 +4,9 @@
 
 The subtle Bookmark filter was released as the final MVP slice in `v1.0.0`; its accepted contract
 and evidence are maintained in [`bookmark-filter-plan.md`](planning/bookmark-filter-plan.md).
-Published acceptance passed and the exact verified release is complete. Nothing remaining in this
-file is approved for implementation or assigned a version. Each idea needs evidence, a privacy and
+Published acceptance passed and the exact verified release is complete. Search has since been
+authorised as the bounded `v1.3.0` slice linked below. Other ideas are not approved for implementation
+or assigned a version. Each later idea needs evidence, a privacy and
 compatibility review, clear exclusions, acceptance criteria and a separately agreed bounded release
 before work begins.
 
@@ -13,17 +14,24 @@ Laters should remain a fast, local-first personal reading queue. A future idea m
 a Laters account, public reading list, shared database, analytics, committed credential, automatic
 cloud upload or paid service.
 
+Priority update, 2026-11-03: search and publisher-based organisation are selected for the next
+feature sprint. The maintainer subsequently authorised documenting the slices and starting
+[Search](planning/article-search-plan.md). [Publisher organisation](planning/publisher-organisation-plan.md)
+remains the documented follow-on. The [sprint plan](planning/search-and-publisher-sprint-plan.md)
+records the sequence. Optional article images are low priority and outside this sprint.
+
 ## Open possibilities
 
 | Idea | Potential value | Questions and constraints to resolve first |
 | --- | --- | --- |
-| Order by reading time | Makes quick reads easier to prioritise. | `v1.1.0` can store supplied estimates, but many articles may have none. Newest-first must remain available, and its default must not change without evidence. |
-| Grouping and tagging | Groups a larger collection by subject, purpose or a small user-defined label. | This is the only direction currently identified for possible post-1.0 exploration, but it is not considered necessary. It risks turning a temporary reading queue into a filing system that needs naming, moving, sync, import/export and empty-group rules. |
+| Article search | Authorised `v1.3.0` slice: find saved articles by title or publisher. User-reported need on 2026-11-03. | Implementation and verification follow the linked Search slice. Temporary local matching composes with bookmarks and preserves Undo; no full-content fetching or backend. Published human acceptance remains separate. |
+| Filing, organisation and sorting | Priority for the next sprint: the user selected grouping or sorting by publisher on 2026-11-03 to help manage articles they have not had time to read. Expands the existing organisation idea. | Proposed second slice in the sprint plan. Agree a flat publisher sort versus grouped headings, source identity and interaction with search/bookmarks. Tags, folders and manual filing remain later possibilities, not selected designs for this sprint. |
+| Order by reading time | Makes quick reads easier to prioritise; remains a later sorting possibility outside the publisher-focused sprint. | `v1.1.0` can store supplied estimates, but many articles may have none. Newest-first must remain available, and its default must not change without evidence. |
 | Archive | Retains completed or deferred links outside the active queue. | Needs a clear distinction from Delete and Bookmark, plus storage, sync, export/import and list-growth rules. |
-| Optional article images | Adds visual recognition. | Must be controlled by one global setting. Remote fetching can introduce tracking, bandwidth, layout, caching and unreliable-image concerns. |
 | More capture paths and bulk intake | Makes desktop and multi-link capture easier beyond Paste, CSV Import and the selected `v1.2.0` add-link candidate. | Browser extensions and other capture routes require separate security, maintenance and distribution decisions. Existing add-only CSV Import remains bounded to 1,000 rows and 10 MB. The bounded add-link handoff is governed separately by the roadmap. |
 | Automatic title enrichment | Improves Android news-feed shares that provide weak titles. | Fetching or extracting metadata has the same privacy, security, cross-origin and reliability concerns as reading-time and image enrichment. Manual title editing already provides a local fallback. |
 | Automatic tidy rules | Reduces long-term list growth. | Automatic movement or deletion could undermine the local-first recovery model. Any rule would need explicit control, reversibility and sync semantics. |
+| Optional article images | Low priority; deferred beyond search and publisher organisation. Could add visual recognition later. | Must be controlled by one global setting. Remote fetching can introduce tracking, bandwidth, layout, caching and unreliable-image concerns. |
 
 ## Delivered context
 
