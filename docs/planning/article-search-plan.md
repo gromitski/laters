@@ -7,6 +7,8 @@ Implement a complete bounded first Search candidate using the sprint proposal's 
 defaults below. This supersedes the sprint's planning-only status for Search. Publisher organisation
 remains a documented follow-on slice. Version `1.3.0` identifies the Search candidate; implementation
 verification and published human acceptance are separate. No tag or GitHub release is authorised.
+Current status: implemented, technically verified and published as a candidate; real Android and
+desktop maintainer acceptance remains.
 
 ## User outcome and interface
 
@@ -92,6 +94,12 @@ views then measuring 320px document width at a 320px viewport. A separate 1,000-
 measurement over 25 runs gave a 0.46 ms median and 1.26 ms maximum with unchanged input data;
 this measures filtering only, not DOM rendering or physical-device performance.
 
-Publication verification and real Android/desktop human acceptance remain. Live Google Drive,
-offline device behaviour and real triage-generated links were not exercised in the isolated
-browser; Search does not change the existing connection or handoff contracts.
+Candidate commit `abe6795` passed [Pages workflow `41809072005`](https://github.com/gromitski/laters/actions/runs/41809072005).
+The public HTML, both JavaScript assets and stylesheet exactly match the verified production build.
+A production browser offered the normal **Update** action; applying it retained its existing
+fictional article, displayed the Search field and showed **Version 1.3.0** in the menu. A local
+title query on that public candidate returned **1 match**, and Clear restored the initial list.
+
+Real Android/desktop maintainer acceptance remains. Live Google Drive, offline device behaviour
+and real triage-generated links were not exercised; Search does not change their existing
+contracts. No tag or GitHub release was created.

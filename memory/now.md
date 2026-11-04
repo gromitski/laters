@@ -105,8 +105,8 @@ GitHub release; its tag resolves to verified release commit `1e95804`.
 
 ## Active focus
 
-Publish the technically verified [Search slice](../docs/planning/article-search-plan.md), then
-obtain human acceptance before starting the documented
+Obtain human acceptance of the published [Search slice](../docs/planning/article-search-plan.md)
+before starting the documented
 [publisher organisation slice](../docs/planning/publisher-organisation-plan.md). The
 [sprint plan](../docs/planning/search-and-publisher-sprint-plan.md) records the sequence.
 Optional article images are low priority. Preserve the local-first reading
@@ -128,7 +128,9 @@ matching counts. Pending-deletion Undo remains available across view/query chang
 capture/import clears Search for the existing reveal flow. No storage, Drive or CSV schema changes.
 All 262 tests, type checking, build and focused browser checks pass. The required dependency gate
 passes after a narrow Vite patch; 14 low/moderate development-tree findings remain, production zero.
-Publication verification and human acceptance remain; no tag or GitHub release is claimed.
+The candidate is published and its exact assets verified; the normal Update path retained the
+production browser's fictional article and showed **Version 1.3.0**. Publication receipts are in
+the Search plan. Real Android/desktop maintainer acceptance remains; no tag or release is claimed.
 The add-link candidate below remains unaccepted; its reported defect is tracked separately.
 
 ### Published add-link candidate
@@ -220,9 +222,11 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Follow the checked implementation-slice commit/push workflow and verify Search's Pages publication.
-Obtain a
-short Android/desktop acceptance check before proceeding to publisher organisation. Its flat sort
+Use the visible Update path to load **Version 1.3.0** on Android and desktop. Search for a saved
+title or publisher, try the Bookmark filter, then Clear; results should remain usable and the
+ordinary list should return. Check a Delete/Undo while changing the query. Missing Undo, lost
+typing focus, hidden new captures or horizontal overflow are failures to investigate.
+Obtain this maintainer acceptance before proceeding to publisher organisation. Its flat sort
 versus grouped presentation remains a product choice; do not bundle it into Search.
 
 For the reported triage-transfer defect, establish the failing step and privacy-safe reproduction
@@ -246,6 +250,11 @@ failure cleared access. Any connection-behaviour change follows that evidence; a
 approved.
 
 ## Last meaningful update
+
+2026-11-04 — Published Search candidate `abe6795` through the successful checked Pages workflow.
+Exact live HTML/assets match the verified build. Production Update retained the fictional local
+article and displayed **Version 1.3.0**; Search and Clear worked. Real Android/desktop maintainer
+acceptance remains. Publisher organisation is documented but not started; no tag/release created.
 
 2026-11-04 — Implemented the Search candidate and passed 262 tests, type/build/public-build checks,
 focused local browser interaction checks and Light/Dark layouts. The 1,000-match narrow-heading

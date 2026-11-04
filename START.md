@@ -9,9 +9,9 @@ Read these in order before repository-dependent work:
 - [Exploratory future ideas](docs/future-ideas.md) when discussing later product scope
 
 Laters `v1.1.0` is the latest accepted tagged release. The authorised `v1.3.0`
-[Search slice](docs/planning/article-search-plan.md) is implemented and technically verified;
-publication verification and human acceptance remain.
-[publisher organisation](docs/planning/publisher-organisation-plan.md) is the documented follow-on.
+[Search slice](docs/planning/article-search-plan.md) is implemented, technically verified and
+published as a candidate; real Android/desktop maintainer acceptance remains.
+[Publisher organisation](docs/planning/publisher-organisation-plan.md) is the documented follow-on.
 The `v1.2.1` candidate adds manual device
 pairing to the optional private add-link handoff after article triage; real-chat/device acceptance remains.
 It retains the `v1.1.2` connection diagnostics and **Reconnecting…** progress correction.

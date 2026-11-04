@@ -250,8 +250,9 @@ organisation, as two independently reviewable slices. The maintainer subsequentl
 documenting both slices and starting Search. The bounded
 [`v1.3.0` Search contract](planning/article-search-plan.md) uses local title/publisher matching,
 temporary query state and the existing Bookmark filter. The implemented candidate passes its
-technical checks; publication verification and human acceptance remain. No tag or GitHub release
-is authorised.
+technical checks and is published with exact live assets verified; real Android/desktop maintainer
+acceptance remains. The Search plan records the deployment and update-path evidence. No tag or
+GitHub release is authorised.
 
 [Publisher organisation](planning/publisher-organisation-plan.md) is documented but not started;
 flat sorting versus grouped headings and its version remain open.
