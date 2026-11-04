@@ -243,9 +243,15 @@ It correctly skipped the three already-saved URLs, retained the 100-item list an
 private fragment, without a file download or picker. Evidence and remaining limits are in the
 [add-link plan](planning/add-links-plan.md#real-chat-desktop-handoff-verified).
 
-Follow-up: confirm the next fresh accepted batch and intended phone browser/PWA routing. Preserve
+Follow-up: confirm intended phone browser/PWA routing. Preserve
 the existing add-only workflow; do not treat generated links as proof of saving or record private
 codes/payloads. No application-code change, version bump, tag or release was needed for this repair.
+
+The next fresh batch then added two articles in Chrome (100 to 102). A normal click in the chat
+first opened its separate in-app browser and was rejected there. The original link must reach
+the configured Chrome profile; copying the already-consumed error-page address cannot retry the
+import. That desktop routing limitation and the verified recovery are recorded in the add-link
+plan. Phone routing/pairing remains unchecked.
 
 ## Next feature sprint — search and publisher organisation
 

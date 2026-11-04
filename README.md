@@ -91,7 +91,10 @@ invalidates links only in that browser, without deleting articles; paired device
 To revoke a shared code everywhere, turn off add-links on each paired device. Enabling again creates
 a fresh code: pair it on the other devices and replace the chat instructions. An in-app browser
 may open a separate, unconfigured list: use a browser where you enabled or paired the feature.
-The browser controls whether a link opens the installed PWA window or an ordinary tab.
+The browser controls whether a link opens the installed PWA window or an ordinary tab. If a chat
+opens it inside a separate built-in browser, copy the **original import link from the chat** and
+paste it into your configured Chrome browser. The address on an already-failed Laters page no
+longer contains the import batch. Pairing another browser does not share your existing local list.
 
 Links carry at most 25 articles and 8,000 fragment characters. The sending chat needs a code tool to
 encode links reliably and may split a large batch across numbered links. If it cannot generate a

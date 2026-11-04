@@ -49,7 +49,27 @@ and read back the saved completion rule with its private prefix redacted.
 
 No private code, generated URL or accepted article payload is retained here. The application
 remains Version `1.3.0`; this was a private sending-workflow repair, not an application-code change.
-Phone routing/pairing and the next fresh accepted batch remain practical acceptance checks.
+Phone routing/pairing remains a practical acceptance check.
+
+### Fresh batch and in-app browser mismatch
+
+The next two-article accepted batch exposed a user-route gap: clicking its link in the desktop
+chat opened the separate in-app browser, which held a fictional one-item test list and did not
+have the configured Chrome add-link authorisation. Its rejection was correct. The earlier
+Chrome-directed test did not cover that normal in-app click path.
+
+The same original chat link was validated and opened in the intended Chrome installation. It
+reported **Added 2 articles**, increasing the list from 100 to 102 without a CSV file or picker.
+The accepted batch remained awaiting handoff after rejection and was confirmed back to the chat
+only after Chrome saving succeeded. Google Drive was paused; the new local additions await normal
+deliberate resume rather than being claimed as synced.
+
+Completion guidance now distinguishes the original chat import link from the consumed error-page
+address. If a click opens the embedded browser, copy the ORIGINAL link from the chat and paste it
+into the configured Chrome profile. Copying the failed page's address only opens Laters because
+its fragment has already been cleared. Pairing an embedded browser authorises additions there but
+does not make it the Chrome list. Ordinary in-app link clicks are not proven to route to Chrome;
+no global browser preference, new pairing or browser-forcing mechanism was introduced.
 
 ## Agreed scope
 

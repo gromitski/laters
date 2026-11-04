@@ -84,3 +84,9 @@ devices and self-hosted origins have separate storage and need deliberate enabli
 shared code does not share reading lists or change the link's destination host. The copyable
 instructions use the current host, so a root-hosted fork does not need the public service's origin
 or the maintainer's code.
+
+If a chat opens its import link inside a separate embedded browser and Laters rejects the code,
+copy the ORIGINAL import link from the chat and paste it into the configured browser's address
+bar. Do not copy the failed Laters page's address: its private import fragment has already been
+removed, so that address no longer contains the batch. Pairing an additional browser permits
+imports into its own local list; it does not connect that list to another browser's storage.

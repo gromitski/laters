@@ -107,8 +107,10 @@ GitHub release; its tag resolves to verified release commit `1e95804`.
 
 The completed-triage sending workflow has been repaired to produce direct Laters links. The
 [real-chat Chrome handoff](../docs/planning/add-links-plan.md#real-chat-desktop-handoff-verified)
-was verified without CSV download/import. The test batch was already saved, so all three URLs
-were skipped and the 100-item list retained. Confirm the next fresh batch and phone routing.
+was verified without CSV download/import. The duplicate-only test retained 100 items; the next
+fresh batch then added two in Chrome, reaching 102. Clicking in the chat had first opened a
+separate embedded browser and correctly failed there. Use the ORIGINAL chat link in the configured
+Chrome profile; the consumed error-page address cannot retry it. Phone routing remains unchecked.
 Search is published but maintainer acceptance remains; publisher organisation has not started.
 The [sprint plan](../docs/planning/search-and-publisher-sprint-plan.md) retains that feature sequence.
 Optional article images are low priority. Preserve the local-first reading
@@ -233,8 +235,10 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 ## Next safe action
 
 At the next completed triage, open **Add accepted articles to Laters** in the configured browser;
-no CSV download or file picker should be needed. Confirm new accepted articles and the phone
-browser route. Use the existing explicit pairing controls if the phone uses a different code.
+no CSV download or file picker should be needed. If a normal click opens the embedded browser,
+copy the ORIGINAL import link from the chat and paste it into configured Chrome. Pairing that
+embedded browser alone would not make it the existing Chrome list. Confirm the phone browser
+route; use the existing explicit pairing controls if the phone uses a different code.
 Keep private setup/payloads out of repository evidence and distinguish generated, imported and
 synced states. Do not claim a queued local import has already reached Google Drive.
 
@@ -268,6 +272,12 @@ failure cleared access. Any connection-behaviour change follows that evidence; a
 approved.
 
 ## Last meaningful update
+
+2026-11-04 — Recovered a fresh two-article batch after an embedded-browser code mismatch. Opened
+the original link in configured Chrome: **Added 2 articles**, with the list increasing 100 to 102.
+Confirmed success back to triage. Documented that normal in-app clicks may choose a separate list
+and that retry needs the ORIGINAL chat link, not the consumed error-page address. No code/version,
+pairing or global-browser-preference change; Drive additions remain local until normal resume.
 
 2026-11-04 — Repaired the authorised private triage completion setup and exercised its actual
 three-article link in the intended Chrome browser. It reported zero additions and three duplicates
