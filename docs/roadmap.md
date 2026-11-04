@@ -255,6 +255,11 @@ plan. Phone routing/pairing remains unchecked.
 
 ## Next feature sprint — search and publisher organisation
 
+On 2026-11-04 the maintainer accepted Search's functionality and authorised a quieter presentation:
+a small **Search** disclosure beside **Show bookmarks**, with the field shown only while in use.
+Closing clears the query. The [Search plan](planning/article-search-plan.md) governs this refinement;
+the wider presentation of list controls may be reconsidered as more functionality is added.
+
 On 2026-11-03 the maintainer prioritised search and sorting, selected publisher grouping or sorting
 as the useful organisation direction, and deprioritised optional article images. The
 [sprint plan](planning/search-and-publisher-sprint-plan.md) proposes search first, then publisher

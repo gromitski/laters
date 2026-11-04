@@ -13,14 +13,24 @@ desktop maintainer acceptance remains.
 ## User outcome and interface
 
 Find a saved article by a remembered title or publisher without leaving the local reading queue.
-Place a labelled **Search articles** field below the list heading and above the existing Paste row.
-Its placeholder is **Search titles or publishers**. Keep the established typography, colour tokens,
-Bookmark filter and article actions; no new toolbar, page, tab or navigation system is needed.
+The maintainer accepted the matching behaviour but rejected the permanently visible Search field
+as visually overpowering on 2026-11-04. The authorised refinement replaces that initial placement
+with one subtle **Search** action beside **Show bookmarks** in the existing heading. The field is
+hidden initially and occupies no space. Activating Search reveals and focuses it below the heading,
+above Paste; the action becomes **Close search**. Closing clears the query, restores the selected
+all/bookmarked view and returns focus to the action. The input retains its accessible **Search
+articles** label without a separate visible label; its placeholder is **Search titles or publishers**.
+Expose the disclosure state and relationship to assistive technology. Keep the established typography,
+colour tokens, Bookmark filter and article actions; no new toolbar, page, tab or navigation system.
 
 Provide a visible **Clear** button whenever the input contains text. Clear and Escape empty the
-query and leave focus in the search field. Enter does not navigate or submit data. Search is
-temporary page state: reload returns to the ordinary newest-first full list. The field is not
+query and leave focus in the search field. Escape with an empty field closes Search. Enter does not
+navigate or submit data. Search is temporary page state: reload returns to the ordinary newest-first
+full list with Search collapsed. The field is not
 replaced when the results render, so typing and cursor position remain stable.
+
+Reconsider the presentation of heading actions when more list functionality arrives; this refinement
+does not prescribe a general controls/menu design or implement publisher organisation.
 
 ## Matching and presentation
 
@@ -103,3 +113,21 @@ title query on that public candidate returned **1 match**, and Clear restored th
 Real Android/desktop maintainer acceptance remains. Live Google Drive, offline device behaviour
 and real triage-generated links were not exercised; Search does not change their existing
 contracts. No tag or GitHub release was created.
+
+### Quieter Search refinement — 2026-11-04
+
+The authorised refinement is implemented with the existing matching and storage behaviour. Search
+starts collapsed, opens with input focus, and Close search clears/hides it and restores focus to
+the disclosure. Clear and Escape clear in place; a second Escape closes the empty field. Heading
+actions retain 44px touch targets. At narrow widths the heading/count stay together above the two
+quiet text actions, avoiding cramped controls or horizontal overflow. Focus recovery after an
+out-of-view Undo now chooses the visible Search action when its field is collapsed.
+
+An isolated fictional list checked keyboard opening, title/publisher matching, Clear, both Escape
+steps, closing an active query within bookmarks, Delete/Undo across closing and view changes,
+visible focus recovery, and collapsed/empty query state after reload. Light/Dark 320px and 1024px
+desktop layouts were checked. No production articles or pairing settings were used or changed.
+All 262 existing tests across 34 files, type checking, production build, public-build/repository
+privacy audits and attribution self-test pass. The dependency gate reports no high/critical
+findings; the current full audit reports 3 low and 7 moderate development findings, production zero.
+Publication is pending; maintainer visual and physical-device acceptance remain separate.

@@ -108,6 +108,7 @@ const emptyState = requireElement<HTMLParagraphElement>("empty-state");
 const itemCount = requireElement<HTMLParagraphElement>("item-count");
 const listHeading = requireElement<HTMLHeadingElement>("list-heading");
 const articleFilterAction = requireElement<HTMLButtonElement>("article-filter-action");
+const searchAction = requireElement<HTMLButtonElement>("article-search-action");
 const searchForm = requireElement<HTMLFormElement>("article-search-form");
 const searchInput = requireElement<HTMLInputElement>("article-search");
 const searchClearAction = requireElement<HTMLButtonElement>("article-search-clear");
@@ -208,15 +209,29 @@ articleFilterAction.addEventListener("click", () => {
   renderItems();
 });
 searchForm.addEventListener("submit", (event) => event.preventDefault());
+searchAction.addEventListener("click", () => {
+  const opening = searchForm.hidden;
+  searchForm.hidden = !opening;
+  searchAction.setAttribute("aria-expanded", String(opening));
+  searchAction.textContent = opening ? "Close search" : "Search";
+  if (opening) {
+    searchInput.focus({ preventScroll: true });
+  } else {
+    resetArticleSearch();
+    renderItems();
+    searchAction.focus({ preventScroll: true });
+  }
+});
 searchInput.addEventListener("input", () => {
   searchQuery = searchInput.value;
   renderItems();
 });
 searchClearAction.addEventListener("click", clearArticleSearch);
-searchInput.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && searchInput.value) {
+searchForm.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
     event.preventDefault();
-    clearArticleSearch();
+    if (searchInput.value) clearArticleSearch();
+    else searchAction.click();
   }
 });
 
@@ -230,15 +245,17 @@ function clearArticleSearch(): void {
   renderItems();
   searchInput.focus({ preventScroll: true });
 }
-articleFilterAction.addEventListener("pointerdown", () => {
-  articleFilterAction.classList.add("is-pointer-focus");
-});
-articleFilterAction.addEventListener("keydown", () => {
-  articleFilterAction.classList.remove("is-pointer-focus");
-});
-articleFilterAction.addEventListener("blur", () => {
-  articleFilterAction.classList.remove("is-pointer-focus");
-});
+for (const action of [articleFilterAction, searchAction]) {
+  action.addEventListener("pointerdown", () => {
+    action.classList.add("is-pointer-focus");
+  });
+  action.addEventListener("keydown", () => {
+    action.classList.remove("is-pointer-focus");
+  });
+  action.addEventListener("blur", () => {
+    action.classList.remove("is-pointer-focus");
+  });
+}
 
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
@@ -1688,7 +1705,7 @@ async function restoreArticle(item: SavedItem): Promise<void> {
     showStatus(`Restored “${item.title}”.`);
     window.requestAnimationFrame(() => {
       if (remainsVisible) focusArticle(item.id, true);
-      else searchInput.focus({ preventScroll: true });
+      else (searchForm.hidden ? searchAction : searchInput).focus({ preventScroll: true });
     });
   } catch (error) {
     pendingDeletion = undefined;
@@ -1719,7 +1736,10 @@ function focusAfterFilteredRemoval(removedIndex: number): void {
   const focusIndex = getFocusIndexAfterRemoval(removedIndex, rows.length);
 
   if (focusIndex === undefined) {
-    (searchQuery.trim() ? searchInput : articleFilterAction).focus({ preventScroll: true });
+    const fallback = searchForm.hidden
+      ? (articleFilterAction.hidden ? searchAction : articleFilterAction)
+      : searchInput;
+    fallback.focus({ preventScroll: true });
     return;
   }
 
@@ -1800,6 +1820,7 @@ function showShareResult(): void {
 function setBusy(isBusy: boolean): void {
   list.setAttribute("aria-busy", String(isBusy));
   articleFilterAction.disabled = isBusy;
+  searchAction.disabled = isBusy;
   searchInput.disabled = isBusy;
   searchClearAction.disabled = isBusy;
 

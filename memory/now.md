@@ -111,7 +111,10 @@ was verified without CSV download/import. The duplicate-only test retained 100 i
 fresh batch then added two in Chrome, reaching 102. Clicking in the chat had first opened a
 separate embedded browser and correctly failed there. Use the ORIGINAL chat link in the configured
 Chrome profile; the consumed error-page address cannot retry it. Phone routing remains unchecked.
-Search is published but maintainer acceptance remains; publisher organisation has not started.
+Search's matching behaviour was accepted on 2026-11-04, but its permanent field was rejected as too
+dominant. The authorised refinement puts a small Search disclosure beside Show bookmarks; its
+field appears only when requested, and closing clears the query. Verification/publication and
+maintainer visual acceptance of this refinement remain. Publisher organisation has not started.
 The [sprint plan](../docs/planning/search-and-publisher-sprint-plan.md) retains that feature sequence.
 Optional article images are low priority. Preserve the local-first reading
 list and memory-only Google credential contracts. The separate connection diagnostics
@@ -126,11 +129,15 @@ direction for the next feature plan, without approving tags, folders or manual f
 
 ## Active slice
 
-Completed the authorised private setup transfer, completion-rule update and real accepted-batch
-handoff test using the existing add-only route. The chat reports its saved recurring completion
-wording was also updated with timing/intake rules unchanged; that saved configuration is not
-independently inspectable from this repository. The real Chrome result and preserved visible
-titles/bookmarks were checked directly. Version remains `1.3.0`; no application code changed.
+Implement the authorised quieter Search refinement within candidate `1.3.0`: one small Search
+action beside Show bookmarks, a field revealed/focused only on request, and Close search clearing
+and hiding it. Matching/filtering behaviour is retained. Narrow headings put the count above the
+text actions; keyboard, bookmark, Undo, focus recovery and reload checks pass on an isolated
+fictional list, with 320px Light/Dark and desktop layout checks. All 262 tests, type/build and privacy
+gates pass; the dependency gate has no high/critical findings (10 lower-severity development
+findings, production zero). Publication and maintainer visual/device acceptance remain.
+Wider list-control presentation is deferred until more functionality justifies reconsidering it;
+publisher organisation has not started.
 
 ### Published Search candidate
 
