@@ -56,37 +56,49 @@
         <button id="update-action" class="update-action" type="button">Update</button>
       </div>
 
+      <section id="reading-tools" class="reading-tools" aria-label="Reading tools" data-tool="add">
+        <div class="reading-tool-actions" role="group" aria-label="Choose a tool">
+          <button id="add-link-action" class="reading-tool-action" type="button"
+            aria-controls="add-link-panel" aria-pressed="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+            <span>Add link</span>
+          </button>
+          <button id="article-search-action" class="reading-tool-action" type="button"
+            aria-controls="article-search-form" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+            <span>Search</span>
+          </button>
+        </div>
+        <div class="reading-tool-slot">
+          <div id="add-link-panel" class="reading-tool-panel"></div>
+          <form id="article-search-form" class="article-search reading-tool-panel" role="search" aria-label="Saved articles" hidden>
+            <label for="article-search" class="visually-hidden">Search articles</label>
+            <div class="article-search-controls">
+              <svg class="search-field-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+              <input id="article-search" type="search" placeholder="Search titles or publishers"
+                maxlength="240" autocomplete="off" spellcheck="false" enterkeyhint="search"
+                aria-controls="article-list" />
+              <button id="article-search-clear" type="button" hidden>Clear</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
       <section id="saved-articles" class="reading-list" aria-labelledby="list-heading">
         <div class="list-heading-row">
-          <h2 id="list-heading" tabindex="-1">Saved articles</h2>
-          <div class="list-heading-summary">
-            <button
-              id="article-search-action"
-              class="article-filter-action"
-              type="button"
-              aria-controls="article-search-form"
-              aria-expanded="false"
-            >Search</button>
+          <div class="list-heading-title">
+            <h2 id="list-heading" tabindex="-1">Saved articles</h2>
+            <p id="item-count" class="item-count" aria-live="polite"></p>
+          </div>
             <button
               id="article-filter-action"
               class="article-filter-action"
               type="button"
               aria-controls="article-list"
+              aria-pressed="false"
               hidden
-            >Show bookmarks</button>
-          </div>
-          <p id="item-count" class="item-count" aria-live="polite"></p>
+            ><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.6 4.4 1.1 6.3-5.6-3-5.6 3 1.1-6.3L2.9 9.6l6.3-.9z"></path></svg><span id="article-filter-label">Bookmarks</span></button>
         </div>
-
-        <form id="article-search-form" class="article-search" role="search" aria-label="Saved articles" hidden>
-          <label for="article-search" class="visually-hidden">Search articles</label>
-          <div class="article-search-controls">
-            <input id="article-search" type="search" placeholder="Search titles or publishers"
-              maxlength="240" autocomplete="off" spellcheck="false" enterkeyhint="search"
-              aria-controls="article-list" />
-            <button id="article-search-clear" type="button" hidden>Clear</button>
-          </div>
-        </form>
 
         <p id="loading-state" class="state-card">Loading your saved articles…</p>
         <ul id="article-list" class="articles" aria-label="Saved articles"></ul>

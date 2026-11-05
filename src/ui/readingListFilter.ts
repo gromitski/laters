@@ -59,13 +59,13 @@ export function getReadingListViewPresentation(
         emptyMessage: totalCount === 0
           ? WHOLE_LIST_EMPTY_MESSAGE
           : view === "bookmarked"
-            ? "No bookmarked articles match. Try another search, clear it or show all articles."
+            ? "No bookmarked articles match. Try another search, clear it or turn off Bookmarks."
             : "No articles match. Try another search or clear it to see your saved articles.",
       }
     : {};
   if (view === "bookmarked") {
     return {
-      actionLabel: "Show all",
+      actionLabel: "Bookmarks",
       countLabel: `${visibleCount} ${visibleCount === 1 ? "bookmark" : "bookmarks"}`,
       emptyMessage:
         totalCount === 0
@@ -78,7 +78,7 @@ export function getReadingListViewPresentation(
   }
 
   return {
-    actionLabel: "Show bookmarks",
+    actionLabel: "Bookmarks",
     countLabel: `${visibleCount} ${visibleCount === 1 ? "item" : "items"}`,
     emptyMessage: WHOLE_LIST_EMPTY_MESSAGE,
     heading: "Saved articles",

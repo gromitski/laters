@@ -255,6 +255,11 @@ plan. Phone routing/pairing remains unchecked.
 
 ## Next feature sprint — search and publisher organisation
 
+On 2026-11-05 the maintainer selected the Shared tool space design and authorised implementation
+with smooth, reduced-motion-aware transitions. Add link/Search share one panel above the actual
+article heading; Bookmarks is an independent labelled toggle beside the list summary. This
+supersedes the disclosure placement below. The Search plan contains the current bounded contract.
+
 On 2026-11-04 the maintainer accepted Search's functionality and authorised a quieter presentation:
 a small **Search** disclosure beside **Show bookmarks**, with the field shown only while in use.
 Closing clears the query. The [Search plan](planning/article-search-plan.md) governs this refinement;

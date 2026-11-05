@@ -39,12 +39,12 @@ describe("reading-list filter", () => {
 
   it("presents restrained labels and view-specific counts", () => {
     expect(getReadingListViewPresentation("all", 12, 12)).toMatchObject({
-      actionLabel: "Show bookmarks",
+      actionLabel: "Bookmarks",
       countLabel: "12 items",
       heading: "Saved articles",
     });
     expect(getReadingListViewPresentation("bookmarked", 12, 3)).toMatchObject({
-      actionLabel: "Show all",
+      actionLabel: "Bookmarks",
       countLabel: "3 bookmarks",
       heading: "Bookmarked articles",
     });
@@ -119,6 +119,7 @@ describe("reading-list filter", () => {
     expect(getReadingListViewPresentation("bookmarked", 4, 2, "walk").countLabel).toBe("2 matches");
     expect(getReadingListViewPresentation("all", 4, 0, "walk").emptyMessage).toMatch(/^No articles match/);
     expect(getReadingListViewPresentation("bookmarked", 4, 0, "walk").emptyMessage).toMatch(/^No bookmarked articles match/);
+    expect(getReadingListViewPresentation("bookmarked", 4, 0, "walk").emptyMessage).toContain("turn off Bookmarks");
     expect(getReadingListViewPresentation("all", 0, 0, "walk").emptyMessage).toMatch(/^Nothing saved yet/);
     expect(getReadingListViewPresentation("all", 4, 4, "  ").countLabel).toBe("4 items");
   });

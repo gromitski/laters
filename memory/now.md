@@ -111,11 +111,13 @@ was verified without CSV download/import. The duplicate-only test retained 100 i
 fresh batch then added two in Chrome, reaching 102. Clicking in the chat had first opened a
 separate embedded browser and correctly failed there. Use the ORIGINAL chat link in the configured
 Chrome profile; the consumed error-page address cannot retry it. Phone routing remains unchecked.
-Search's matching behaviour was accepted on 2026-11-04, but its permanent field was rejected as too
-dominant. The authorised refinement puts a small Search disclosure beside Show bookmarks; its
-field appears only when requested, and closing clears the query. The refinement is technically
-verified and published; maintainer visual/device acceptance remains. Publisher organisation has
-not started.
+Search's matching behaviour is accepted. After rejecting the earlier layouts, the maintainer chose
+the first Shared tool space concept on 2026-11-05 and authorised implementation with smooth
+transitions. Visible icon-and-label Add link/Search controls share one panel above the article
+heading; Search replaces Paste, and Bookmarks filters the list independently. Add link is the load
+default. Brief motion must respect reduced-motion preferences and preserve input/focus, Undo and
+the list position. Technical verification and published visual/device acceptance remain.
+Publisher organisation has not started.
 The [sprint plan](../docs/planning/search-and-publisher-sprint-plan.md) retains that feature sequence.
 Optional article images are low priority. Preserve the local-first reading
 list and memory-only Google credential contracts. The separate connection diagnostics
@@ -129,6 +131,16 @@ the real-chat Chrome route is verified; phone acceptance remains. The broader fi
 direction for the next feature plan, without approving tags, folders or manual filing.
 
 ## Active slice
+
+Implement the authorised Shared tool space within candidate `1.3.0`, following the updated Search
+plan. Preserve the existing matching, capture/manual-entry, Bookmark, Delete/Undo, local storage,
+Drive and CSV contracts. The compact icon-only alternative is not selected. The implementation
+passes 262 tests, type/build, privacy and dependency gates, plus isolated keyboard, capture,
+Bookmark/Undo and desktop/320px Light/Dark checks. Tool changes keep a 52px shared slot and stable
+article-heading position, with 180ms entrance motion and reduced-motion disabling rules. Publish
+through the normal workflow, then obtain maintainer visual/motion and device acceptance.
+
+### Previous refinement — technically verified, visual acceptance rejected
 
 Published the authorised quieter Search refinement within candidate `1.3.0`: one small Search
 action beside Show bookmarks, a field revealed/focused only on request, and Close search clearing

@@ -91,6 +91,7 @@ interface PendingDeletion {
 let currentItems: SavedItem[] = [];
 let readingListView: ReadingListView = "all";
 let searchQuery = "";
+let readingTool: "add" | "search" = "add";
 let pendingDeletion: PendingDeletion | undefined;
 let undoTimer: number | undefined;
 let collapseTimer: number | undefined;
@@ -108,6 +109,10 @@ const emptyState = requireElement<HTMLParagraphElement>("empty-state");
 const itemCount = requireElement<HTMLParagraphElement>("item-count");
 const listHeading = requireElement<HTMLHeadingElement>("list-heading");
 const articleFilterAction = requireElement<HTMLButtonElement>("article-filter-action");
+const articleFilterLabel = requireElement<HTMLSpanElement>("article-filter-label");
+const readingTools = requireElement<HTMLElement>("reading-tools");
+const addLinkAction = requireElement<HTMLButtonElement>("add-link-action");
+const addLinkPanel = requireElement<HTMLDivElement>("add-link-panel");
 const searchAction = requireElement<HTMLButtonElement>("article-search-action");
 const searchForm = requireElement<HTMLFormElement>("article-search-form");
 const searchInput = requireElement<HTMLInputElement>("article-search");
@@ -161,7 +166,8 @@ const importDataCancelAction = requireElement<HTMLButtonElement>(
   "import-data-cancel-action",
 );
 const importDataStatus = requireElement<HTMLParagraphElement>("import-data-status");
-const pasteRow = createPasteToAddRow();
+const pastePanel = createPasteToAddPanel();
+addLinkPanel.append(pastePanel);
 
 let applicationInstallPrompt: ApplicationInstallPrompt | undefined;
 
@@ -209,18 +215,13 @@ articleFilterAction.addEventListener("click", () => {
   renderItems();
 });
 searchForm.addEventListener("submit", (event) => event.preventDefault());
+addLinkAction.addEventListener("click", () => {
+  clearFeedback();
+  selectReadingTool("add");
+});
 searchAction.addEventListener("click", () => {
-  const opening = searchForm.hidden;
-  searchForm.hidden = !opening;
-  searchAction.setAttribute("aria-expanded", String(opening));
-  searchAction.textContent = opening ? "Close search" : "Search";
-  if (opening) {
-    searchInput.focus({ preventScroll: true });
-  } else {
-    resetArticleSearch();
-    renderItems();
-    searchAction.focus({ preventScroll: true });
-  }
+  clearFeedback();
+  selectReadingTool("search");
 });
 searchInput.addEventListener("input", () => {
   searchQuery = searchInput.value;
@@ -231,9 +232,27 @@ searchForm.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     event.preventDefault();
     if (searchInput.value) clearArticleSearch();
-    else searchAction.click();
+    else selectReadingTool("add");
   }
 });
+
+function selectReadingTool(tool: "add" | "search", focus = true): void {
+  if (tool !== readingTool) readingTools.classList.add("has-switched");
+  readingTool = tool;
+  readingTools.dataset.tool = tool;
+  addLinkPanel.hidden = tool !== "add";
+  searchForm.hidden = tool !== "search";
+  addLinkAction.setAttribute("aria-pressed", String(tool === "add"));
+  searchAction.setAttribute("aria-pressed", String(tool === "search"));
+  if (tool === "add") {
+    const hadQuery = searchQuery.length > 0;
+    resetArticleSearch();
+    if (hadQuery) renderItems();
+  }
+  if (focus) {
+    (tool === "search" ? searchInput : addLinkAction).focus({ preventScroll: true });
+  }
+}
 
 function resetArticleSearch(): void {
   searchQuery = "";
@@ -245,7 +264,7 @@ function clearArticleSearch(): void {
   renderItems();
   searchInput.focus({ preventScroll: true });
 }
-for (const action of [articleFilterAction, searchAction]) {
+for (const action of [articleFilterAction, addLinkAction, searchAction]) {
   action.addEventListener("pointerdown", () => {
     action.classList.add("is-pointer-focus");
   });
@@ -570,6 +589,7 @@ async function commitReadingListImport(
     currentItems = result.items;
     readingListView = "all";
     resetArticleSearch();
+    selectReadingTool("add", false);
     renderItems();
     syncArticlesToGoogleDrive("Syncing imported articles to Google Drive…");
     return {
@@ -947,7 +967,7 @@ function renderItems(animateEntries = false): void {
       : createArticleRow(entry.item, animateEntries, index),
   );
 
-  list.replaceChildren(pasteRow, ...rows);
+  list.replaceChildren(...rows);
   updateListSummary(entries);
   if (focusedId && focusedAction) {
     const replacement = findRow(focusedId)?.querySelector<HTMLElement>(`.${focusedAction}`);
@@ -977,7 +997,8 @@ function updateListSummary(
 
   listHeading.textContent = presentation.heading;
   list.setAttribute("aria-label", presentation.listLabel);
-  articleFilterAction.textContent = presentation.actionLabel;
+  articleFilterLabel.textContent = presentation.actionLabel;
+  articleFilterAction.setAttribute("aria-pressed", String(readingListView === "bookmarked"));
   articleFilterAction.hidden = readingListView === "all" && currentItems.length === 0;
   itemCount.textContent = presentation.countLabel;
   emptyState.textContent = presentation.emptyMessage;
@@ -985,10 +1006,9 @@ function updateListSummary(
   searchClearAction.hidden = searchInput.value.length === 0;
 }
 
-function createPasteToAddRow(): HTMLLIElement {
-  const row = document.createElement("li");
-  row.className = "paste-row";
-  row.setAttribute("role", "presentation");
+function createPasteToAddPanel(): HTMLDivElement {
+  const row = document.createElement("div");
+  row.className = "paste-panel";
 
   const pasteButton = document.createElement("button");
   pasteButton.className = "paste-action";
@@ -1086,7 +1106,9 @@ function createPasteToAddRow(): HTMLLIElement {
     controls.append(input, addButton);
     form.append(inputLabel, controls, error);
     row.replaceChildren(form);
-    window.requestAnimationFrame(() => input.focus());
+    window.requestAnimationFrame(() => {
+      if (!addLinkPanel.hidden) input.focus({ preventScroll: true });
+    });
   };
 
   pasteButton.addEventListener("click", () => {
@@ -1143,6 +1165,7 @@ function createPasteToAddRow(): HTMLLIElement {
       const result = await saveCapturedItem(candidate, store);
       currentItems = result.items;
       resetArticleSearch();
+      selectReadingTool("add", false);
       if (result.item.bookmarked !== true) {
         readingListView = "all";
       }
@@ -1820,15 +1843,17 @@ function showShareResult(): void {
 function setBusy(isBusy: boolean): void {
   list.setAttribute("aria-busy", String(isBusy));
   articleFilterAction.disabled = isBusy;
+  addLinkAction.disabled = isBusy;
   searchAction.disabled = isBusy;
   searchInput.disabled = isBusy;
   searchClearAction.disabled = isBusy;
 
-  list
-    .querySelectorAll<HTMLButtonElement | HTMLInputElement>("button, input")
-    .forEach((control) => {
-      control.disabled = isBusy;
-    });
+  for (const container of [list, pastePanel]) {
+    container.querySelectorAll<HTMLButtonElement | HTMLInputElement>("button, input")
+      .forEach((control) => {
+        control.disabled = isBusy;
+      });
+  }
 }
 
 function clearFeedback(): void {

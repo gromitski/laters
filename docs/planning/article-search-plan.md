@@ -7,27 +7,39 @@ Implement a complete bounded first Search candidate using the sprint proposal's 
 defaults below. This supersedes the sprint's planning-only status for Search. Publisher organisation
 remains a documented follow-on slice. Version `1.3.0` identifies the Search candidate; implementation
 verification and published human acceptance are separate. No tag or GitHub release is authorised.
-Current status: implemented, technically verified and published as a candidate; real Android and
-desktop maintainer acceptance remains.
+Current status: on 2026-11-05 the maintainer selected the first, Shared tool space concept and
+authorised implementation with smooth state transitions. This supplies the agreed hierarchy after
+the rejected refinements below. The complete bounded candidate remains `1.3.0`; published visual
+and physical-device acceptance follow technical verification.
 
 ## User outcome and interface
 
 Find a saved article by a remembered title or publisher without leaving the local reading queue.
-The maintainer accepted the matching behaviour but rejected the permanently visible Search field
-as visually overpowering on 2026-11-04. The authorised refinement replaces that initial placement
-with one subtle **Search** action beside **Show bookmarks** in the existing heading. The field is
-hidden initially and occupies no space. Activating Search reveals and focuses it below the heading,
-above Paste; the action becomes **Close search**. Closing clears the query, restores the selected
-all/bookmarked view and returns focus to the action. The input retains its accessible **Search
-articles** label without a separate visible label; its placeholder is **Search titles or publishers**.
-Expose the disclosure state and relationship to assistive technology. Keep the established typography,
-colour tokens, Bookmark filter and article actions; no new toolbar, page, tab or navigation system.
+The accepted Shared tool space has visible icon-and-label **Add link** and **Search** buttons above
+the list. Add link is selected on load and shows the existing Paste action/manual fallback. Search
+replaces that panel with a focused input in the same space; Paste is unavailable while searching.
+Returning to Add link clears the query and preserves the all/bookmarked view. An unfinished manual
+URL entry survives tool switches. Inputs are not rebuilt on result updates.
+
+Place **Saved articles** (or **Bookmarked articles**) and its count directly above the articles,
+with an independent **Bookmarks** toggle alongside. Its label stays Bookmarks; pressed state and
+the star treatment indicate the active filter. Keep existing article actions, typography and colours.
+The search input retains its accessible **Search articles** label and **Search titles or publishers**
+placeholder. Tool buttons expose their controlled panel and pressed state; hidden panels leave the
+tab order and accessibility tree. There is no separate page or navigation system.
 
 Provide a visible **Clear** button whenever the input contains text. Clear and Escape empty the
-query and leave focus in the search field. Escape with an empty field closes Search. Enter does not
-navigate or submit data. Search is temporary page state: reload returns to the ordinary newest-first
-full list with Search collapsed. The field is not
-replaced when the results render, so typing and cursor position remain stable.
+query and leave focus in the search field. Enter does not navigate or submit data. Escape with an
+empty query selects Add link and focuses that action.
+Search is temporary page state: reload returns to the ordinary newest-first full list with Add link
+selected. Query updates preserve typing and cursor position.
+
+Use a short fade/4px entrance for the incoming tool and a gliding selection underline, with immediate
+focus and input availability. Do not animate results on each keystroke or make the list slide when
+switching tools. Both ordinary tool surfaces are 52px high; URL-validation feedback uses the existing
+space below the tool. Rapid switches must leave only the selected panel available. Reduced-motion
+preference removes the tool animation and underline/selection transitions. No animation dependency,
+timer-based navigation or new storage is needed.
 
 Reconsider the presentation of heading actions when more list functionality arrives; this refinement
 does not prescribe a general controls/menu design or implement publisher organisation.
@@ -44,14 +56,14 @@ does not prescribe a general controls/menu design or implement publisher organis
 - Show **1 match** or **N matches** while a non-blank query is active, using the existing polite
   count announcement. Keep the list heading and Bookmark action appropriate to the selected view.
 - Distinguish the empty library, no bookmarks and no search matches. No-match guidance explains
-  clearing or changing the query; the bookmarked case also offers the existing **Show all** path.
+  clearing or changing the query; the bookmarked case explains turning off **Bookmarks**.
 - Queries are bounded to 240 characters in the field and are never persisted, synced, exported,
   placed in the address, logged, sent to an index or transmitted to a publisher.
 
 ## Interaction and preservation
 
 - Successful Paste clears Search and retains the existing bookmark-view reveal rules. Committed
-  CSV and add-link imports clear Search and return to the full list before the normal reveal.
+  CSV and add-link imports clear Search, select Add link and return to the full list before reveal.
   Invalid input and cancelled reviews preserve the query. Duplicate-only committed imports keep
   their existing completion semantics. Android Share Target navigation starts a fresh page.
 - Title edits, bookmark changes and resolved sync data update the same derived results and count.
@@ -135,3 +147,44 @@ The public HTML, both JavaScript assets and stylesheet exactly match the checked
 The normal public Update prompt applied the refinement and retained the isolated browser's existing
 fictional article. Search started collapsed, found that article and closed back to the unchanged list.
 Maintainer visual and physical-device acceptance remain separate; no tag or release was created.
+
+### Layout review — 2026-11-04
+
+The maintainer reports that the page is cluttered: Saved articles is separated from its articles,
+opening Search pushes Paste down, and Paste is unnecessary during Search. The previous refinement
+has not passed visual acceptance. Stop incremental production adjustments and review the overall
+hierarchy before another implementation attempt.
+
+Explore a shared Add link/Search space above the list: Add link is selected initially and shows
+Paste; Search replaces that surface instead of adding a second field. Keep Saved articles directly
+above the actual articles. Explore the shorter Bookmarks label as an independent list filter, with
+search composition retained. Compare visible icon-and-label controls with compact icons and
+supplementary reveal; essential touch actions must remain understandable without hover. Future
+list controls need a coherent placement rather than an ever-growing line of links.
+
+Two interactive concepts are being reviewed outside the application. These are proposals, not
+accepted product decisions or authorisation for another production change. Matching, capture,
+Bookmark, Delete/Undo, local storage, sync and privacy contracts remain the implementation boundary.
+
+### Accepted Shared tool space — 2026-11-05
+
+The maintainer selected the first concept and authorised implementation plus smooth transitions.
+The candidate now implements the current interface contract above. Paste/manual capture lives
+outside the article list, so Saved articles directly labels the actual saved rows. Selected tools
+and Bookmarks expose pressed state; only the active tool panel is available.
+
+All 262 tests across 34 files, type checking, production build, repository/public-build privacy
+audits and attribution self-test pass. The high/critical dependency gate passes, production
+dependencies have zero findings, and the development tree retains 3 low and 7 moderate findings.
+No dependency, article schema, storage, Drive or CSV changes were introduced.
+
+An isolated fictional collection checked safe clipboard fallback, invalid/manual capture, draft
+preservation across tool switches, title/publisher matching, query and cursor focus, Clear/Escape/
+Enter, hidden-panel tab order, Bookmark composition, empty-state guidance, Delete/Undo across tool
+changes, import reveal, rapid switching and reload reset. At 320px in Light/Dark and on desktop,
+there is no horizontal overflow. Tool switches retain a 52px slot and unchanged article-heading
+position; controls retain 44px touch height. The computed incoming animation is 180ms, initial
+load has no tool animation, and reduced-motion disabling rules are included in the production CSS.
+Browser automation does not establish physical Android or maintainer motion/visual acceptance.
+
+Publication and maintainer acceptance are pending. No tag or GitHub release is authorised.
