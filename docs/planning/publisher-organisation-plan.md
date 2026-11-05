@@ -5,8 +5,8 @@
 Current candidate: **1.5.0**. On 2026-11-05 the maintainer accepted the polished picker/list
 transition and requested **Oldest → Newest** alongside **Newest → Oldest**, plus current
 project documentation/memory and advancing application versions. The three-choice contract
-below supersedes the original two-choice `1.4.0` labels. Implementation and technical checks pass;
-publication verification and oldest-first/device acceptance follow. Historical receipts retain their original versions.
+below supersedes the original two-choice `1.4.0` labels. Implementation, technical checks and publication verification pass;
+maintainer oldest-first/device acceptance remains. Historical receipts retain their original versions.
 
 On 2026-11-05 the maintainer compared publisher sorting and grouping in the accepted Shared tool
 space layout, selected **grouping**, and authorised implementation with **newest first still the
@@ -208,3 +208,13 @@ Newest → Oldest and Add link with all four articles retained. Three-choice key
 500ms animation and theme/reduced-motion rules are retained. A screenshot shows sample articles
 with keyboard focus visible; it is not the maintainer's saved collection. Publication and normal
 Update verification follow; physical-device acceptance and any tag/release remain separate.
+
+### `1.5.0` publication
+
+Commit `7aea0f8` passed
+[Pages workflow `42113481269`](https://github.com/gromitski/laters/actions/runs/42113481269).
+Public HTML, both JavaScript assets, stylesheet and service worker match the checked 1.5.0 build.
+The normal public Update retained the isolated browser's fictional article, exposed all three
+menu choices, selected Oldest → Newest correctly and returned to Newest → Oldest on reload.
+The main menu visibly reported **Version 1.5.0**. No maintainer article data or pairing setup was
+changed. Maintainer oldest-first/device acceptance remains; no tag or release was created.

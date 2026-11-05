@@ -9,8 +9,8 @@ Read these in order before repository-dependent work:
 - [Exploratory future ideas](docs/future-ideas.md) when discussing later product scope
 
 Current application candidate: **1.5.0**. [Article views and publisher organisation](docs/planning/publisher-organisation-plan.md)
-provide Newest → Oldest (load default), Oldest → Newest and Publisher groups. Local implementation
-and technical checks pass; publication verification and oldest-first/device acceptance follow.
+provide Newest → Oldest (load default), Oldest → Newest and Publisher groups. Implementation, technical checks
+and publication verification pass; maintainer oldest-first/device acceptance remains.
 The maintainer accepts the styled picker, tight label/chevron, shared Add link/Search layout and
 500ms panel/list transitions. [Search](docs/planning/article-search-plan.md) is retained.
 App-code slices must advance the version under the working agreements; docs-only receipts do not.

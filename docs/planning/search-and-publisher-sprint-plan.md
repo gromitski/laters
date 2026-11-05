@@ -32,7 +32,7 @@ acceptance remains. Optional images remain low priority. No tag or
 release is authorised; triage routing is deferred under its separate plan.
 
 The maintainer subsequently accepted the styled picker/500ms list transition and authorised
-candidate `1.5.0` adding Oldest → Newest, with Newest → Oldest still the default and Publisher
+candidate `1.5.0` (now implemented and published) adding Oldest → Newest, with Newest → Oldest still the default and Publisher
 groups unchanged. The article-view plan governs this addition; earlier proposals below remain history.
 
 ## Scope decisions before implementation

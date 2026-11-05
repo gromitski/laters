@@ -19,7 +19,7 @@ cloud upload or paid service.
 Priority update, 2026-11-03: search and publisher-based organisation are selected for the next
 feature sprint. The maintainer subsequently authorised documenting the slices and starting
 [Search](planning/article-search-plan.md). [Publisher organisation](planning/publisher-organisation-plan.md)
-was delivered as candidate `1.4.0`; the accepted picker/motion and authorised `1.5.0` oldest-first
+was delivered as candidate `1.4.0`; the accepted picker/motion and published `1.5.0` oldest-first
 addition share its linked plan, with Newest → Oldest remaining the default. The [sprint plan](planning/search-and-publisher-sprint-plan.md)
 records the sequence. Optional article images are low priority and outside this sprint.
 

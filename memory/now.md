@@ -120,8 +120,10 @@ transient and composes with Search/Bookmarks/Undo; groups stay A–Z with newest
 The accepted Add link/Search space and 500ms panel motion remain. No storage/CSV/Drive changes.
 Oldest-first implementation passes 272 tests/35 files, type/build, privacy/attribution and
 dependency gates. Isolated checks cover ascending order, filtering, Undo, unchanged grouping,
-three-option keyboard/320px layout, reload default and visible Version 1.5.0. Publication
-verification and maintainer oldest-first/device acceptance follow. Earlier `1.4.0` receipts and remaining checks are in the plan.
+three-option keyboard/320px layout, reload default and visible Version 1.5.0. Implementation `7aea0f8` passed
+Pages workflow `42113481269`; exact public assets/service worker and normal Update were verified.
+The live footer shows Version 1.5.0, all three choices work and reload returns to the default.
+Maintainer oldest-first/device acceptance remains. Earlier `1.4.0` receipts and remaining checks are in the plan.
 
 The owner explicitly requests advancing application versions. Search moved to `1.3.0`, grouping
 to `1.4.0`, and its polish stayed at `1.4.0`; this new feature moves to `1.5.0`. Working agreements
@@ -254,9 +256,9 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Complete and publish `1.5.0` oldest-first order through the standing checked-slice workflow.
-Verify Newest → Oldest on load, all three menu choices, ascending saved-time order, filtering,
-Undo and the normal Update path with visible Version 1.5.0. Maintainer acceptance of the preceding
+Obtain maintainer oldest-first/device acceptance of published `1.5.0`: apply Update, confirm
+Version 1.5.0, try Oldest → Newest with Search/Bookmarks and Undo, then reload to confirm the
+Newest → Oldest default. Technical checks, exact live assets and the normal Update path pass. Maintainer acceptance of the preceding
 menu/layout/motion is already recorded; oldest-first and physical-device scenarios remain separate.
 Do not re-open grouping versus flat publisher sorting or persist the temporary view selection.
 Keep the accepted 500ms transitions and all existing article/data behaviour.
@@ -276,8 +278,9 @@ access lifetime and rejected requests. No backend or credential-persistence chan
 chronological order. Candidate 1.5.0 adds Oldest → Newest, relabels the default Newest → Oldest and
 retains Publisher groups. Documented version progression and a per-app-code-slice bump rule;
 package/lockfile now agree on 1.5.0. All 272 tests/35 files and type/build/privacy/attribution/dependency gates pass. Isolated UI checks
-verified oldest-first/filter/Undo/grouping/default and visible Version 1.5.0. Publication verification
-follows; no tagged release is claimed.
+verified oldest-first/filter/Undo/grouping/default and visible Version 1.5.0. Commit `7aea0f8`
+passed Pages `42113481269`; live assets/service worker match and normal Update retained the
+isolated article. Three choices, reload default and Version 1.5.0 were verified publicly. No tag/release.
 
 2026-11-05 — Authorised the Article view picker polish and 500ms Newest first/Publisher groups
 transition. Implemented a right-aligned label/tight chevron, styled accessible native-popover menu
