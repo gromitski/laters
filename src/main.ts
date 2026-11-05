@@ -52,7 +52,13 @@ import {
   installApplicationMenu,
   setApplicationMenuSyncState,
 } from "./ui/applicationMenu";
-import { createReadingListEntries } from "./ui/readingListPresentation";
+import {
+  createReadingListEntries,
+  groupReadingListEntries,
+  type PublisherGroup,
+  type ReadingListEntry,
+  type ReadingListOrder,
+} from "./ui/readingListPresentation";
 import {
   countVisibleReadingListItems,
   filterReadingListEntries,
@@ -90,6 +96,7 @@ interface PendingDeletion {
 
 let currentItems: SavedItem[] = [];
 let readingListView: ReadingListView = "all";
+let readingListOrder: ReadingListOrder = "newest";
 let searchQuery = "";
 let readingTool: "add" | "search" = "add";
 let pendingDeletion: PendingDeletion | undefined;
@@ -108,6 +115,7 @@ const loadingState = requireElement<HTMLParagraphElement>("loading-state");
 const emptyState = requireElement<HTMLParagraphElement>("empty-state");
 const itemCount = requireElement<HTMLParagraphElement>("item-count");
 const listHeading = requireElement<HTMLHeadingElement>("list-heading");
+const articleView = requireElement<HTMLSelectElement>("article-view");
 const articleFilterAction = requireElement<HTMLButtonElement>("article-filter-action");
 const articleFilterLabel = requireElement<HTMLSpanElement>("article-filter-label");
 const readingTools = requireElement<HTMLElement>("reading-tools");
@@ -213,6 +221,14 @@ articleFilterAction.addEventListener("click", () => {
   clearFeedback();
   readingListView = toggleReadingListView(readingListView);
   renderItems();
+});
+articleView.addEventListener("change", () => {
+  clearFeedback();
+  readingListOrder = articleView.value === "publisher" ? "publisher" : "newest";
+  renderItems();
+  announceHiddenStatus(readingListOrder === "publisher"
+    ? "Grouped by publisher, A to Z. Newest articles first within each publisher."
+    : "Showing newest articles first.");
 });
 searchForm.addEventListener("submit", (event) => event.preventDefault());
 addLinkAction.addEventListener("click", () => {
@@ -963,11 +979,15 @@ function renderItems(animateEntries = false): void {
     : undefined;
   const allEntries = createReadingListEntries(currentItems, pendingDeletion?.item);
   const entries = filterReadingListEntries(allEntries, readingListView, searchQuery);
-  const rows = entries.map((entry, index) =>
+  const createRow = (entry: ReadingListEntry, index: number): HTMLLIElement =>
     entry.isGhost
       ? createGhostRow(entry.item, pendingDeletion?.isLeaving ?? false)
-      : createArticleRow(entry.item, animateEntries, index),
-  );
+      : createArticleRow(entry.item, animateEntries, index);
+  let rowIndex = 0;
+  const rows = readingListOrder === "publisher"
+    ? groupReadingListEntries(entries).map((group, index) =>
+        createPublisherGroup(group, index, (entry) => createRow(entry, rowIndex++)))
+    : entries.map(createRow);
 
   list.replaceChildren(...rows);
   updateListSummary(entries);
@@ -975,6 +995,45 @@ function renderItems(animateEntries = false): void {
     const replacement = findRow(focusedId)?.querySelector<HTMLElement>(`.${focusedAction}`);
     if (replacement) replacement.focus({ preventScroll: true });
     else focusAfterFilteredRemoval(focusedIndex);
+  }
+}
+
+function createPublisherGroup(
+  group: PublisherGroup,
+  index: number,
+  createRow: (entry: ReadingListEntry) => HTMLLIElement,
+): HTMLLIElement {
+  const container = document.createElement("li");
+  container.className = "publisher-group";
+  const section = document.createElement("section");
+  const header = document.createElement("header");
+  header.className = "publisher-group-heading";
+  const heading = document.createElement("h3");
+  heading.id = `publisher-heading-${index}`;
+  heading.textContent = group.hostname;
+  section.setAttribute("aria-labelledby", heading.id);
+  const count = document.createElement("span");
+  count.className = "publisher-group-count";
+  header.append(heading, count);
+  const articles = document.createElement("ul");
+  articles.className = "publisher-articles";
+  articles.setAttribute("aria-label", `Articles from ${group.hostname}`);
+  articles.append(...group.entries.map(createRow));
+  section.append(header, articles);
+  container.append(section);
+  return container;
+}
+
+function updatePublisherGroups(): void {
+  for (const group of list.querySelectorAll<HTMLElement>(".publisher-group")) {
+    // Retain a ghost-only group until its Undo route expires, without counting it as saved.
+    if (!group.querySelector("[data-item-id]")) {
+      group.remove();
+      continue;
+    }
+    const count = group.querySelectorAll(".article-link").length;
+    group.querySelector(".publisher-group-count")!.textContent =
+      `${count} ${count === 1 ? "article" : "articles"}`;
   }
 }
 
@@ -998,7 +1057,10 @@ function updateListSummary(
   );
 
   listHeading.textContent = presentation.heading;
-  list.setAttribute("aria-label", presentation.listLabel);
+  articleView.value = readingListOrder;
+  updatePublisherGroups();
+  list.setAttribute("aria-label", readingListOrder === "publisher"
+    ? `${presentation.listLabel}, grouped by publisher` : presentation.listLabel);
   articleFilterLabel.textContent = presentation.actionLabel;
   articleFilterAction.setAttribute("aria-pressed", String(readingListView === "bookmarked"));
   articleFilterAction.hidden = readingListView === "all" && currentItems.length === 0;
@@ -1293,7 +1355,8 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
   const savedTime = document.createElement("span");
   savedTime.textContent = formatSavedTime(item.savedAt);
 
-  metaText.append(hostname, separator, savedTime);
+  if (readingListOrder === "newest") metaText.append(hostname, separator);
+  metaText.append(savedTime);
 
   if (item.readTimeMinutes !== undefined) {
     const readTimeSeparator = document.createElement("span");
@@ -1780,9 +1843,13 @@ function getVisibleArticleRows(): HTMLElement[] {
 }
 
 function focusBesideRow(row: HTMLElement | undefined): void {
+  const rows = [...list.querySelectorAll<HTMLElement>("[data-item-id]")];
+  const index = row ? rows.indexOf(row) : -1;
   const adjacentLink =
-    row?.nextElementSibling?.querySelector<HTMLAnchorElement>(".article-link") ??
-    row?.previousElementSibling?.querySelector<HTMLAnchorElement>(".article-link");
+    rows.slice(index + 1).find((candidate) => candidate.querySelector(".article-link"))
+      ?.querySelector<HTMLAnchorElement>(".article-link") ??
+    rows.slice(0, index).reverse().find((candidate) => candidate.querySelector(".article-link"))
+      ?.querySelector<HTMLAnchorElement>(".article-link");
 
   if (adjacentLink) {
     adjacentLink.focus({ preventScroll: true });
@@ -1845,6 +1912,7 @@ function showShareResult(): void {
 function setBusy(isBusy: boolean): void {
   list.setAttribute("aria-busy", String(isBusy));
   articleFilterAction.disabled = isBusy;
+  articleView.disabled = isBusy;
   addLinkAction.disabled = isBusy;
   searchAction.disabled = isBusy;
   searchInput.disabled = isBusy;

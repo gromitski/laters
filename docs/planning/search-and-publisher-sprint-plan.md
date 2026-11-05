@@ -25,8 +25,9 @@ matching, the Shared tool space hierarchy and its final 500ms panel fade/movemen
 [Search plan](article-search-plan.md) owns the current contract and acceptance record; the
 proposal below is historical planning context for Search, not a request to re-decide its controls
 or matching. Remaining physical-device scenarios stay distinct from accepted visual/motion feedback.
-Publisher organisation has not started: flat sorting versus grouped headings, controls and version
-still need agreement and implementation authority. Optional images remain low priority. No tag or
+The maintainer then selected grouping and authorised the `1.4.0` publisher slice, retaining Newest
+first as the default view. Its current plan supersedes the flat-sort proposal below. Implementation and technical checks
+are complete; publication verification and maintainer device acceptance follow. Optional images remain low priority. No tag or
 release is authorised; triage routing is deferred under its separate plan.
 
 ## Scope decisions before implementation

@@ -264,8 +264,11 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   receipts and acceptance boundary. Published candidate `1.3.0` has accepted matching, hierarchy
   and panel motion; remaining physical-device scenarios are not inferred from that feedback.
   No `v1.3.0` tag or release is authorised.
-- Publisher organisation remains the next planned feature. Agree flat sorting versus grouped
-  headings and controls before implementation; optional images remain low priority.
+- On 2026-11-05 the maintainer selected **Publisher grouping** and authorised its bounded `1.4.0`
+  implementation. **Newest first** remains the load default; a temporary Article view select beside
+  Bookmarks offers Publisher groups. Use A–Z normalised-hostname headings/counts and newest-first
+  rows within each group; Search/Bookmarks compose. The publisher plan owns detailed behaviour.
+  Flat sorting is not selected and optional images remain low priority.
 
 ## Accepted v0.8.0 dark-mode direction
 

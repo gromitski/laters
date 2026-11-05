@@ -17,7 +17,7 @@ Release `v0.5.7` consolidates the accepted code, configuration and documentation
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
 appearance. Release `v1.0.0` records the accepted subtle Bookmark filter that completes the intended
 personal reading queue. Release `v1.1.0` adds optional CSV-supplied reading-time estimates. Package
-metadata is now `1.3.0` for the published Search candidate, retaining the add-link pairing,
+metadata is now `1.4.0` for the authorised publisher-grouping candidate, retaining the add-link pairing,
 diagnostics and progress-label maintenance work. `v1.1.0` remains the latest tagged
 GitHub release; its tag resolves to verified release commit `1e95804`.
 
@@ -112,11 +112,14 @@ noticeable. Candidate `1.3.0` is published; `v1.1.0` remains the latest tagged r
 publication/acceptance record. Earlier always-visible and disclosure-only Search layouts are
 superseded; do not restore them or treat their rejected visual reviews as pending work.
 
-[Publisher organisation](../docs/planning/publisher-organisation-plan.md) is the documented next
-feature, not started or authorised for implementation. Flat sorting versus grouped headings and
-its version remain open. The [sprint plan](../docs/planning/search-and-publisher-sprint-plan.md)
-retains Search first, publisher organisation second; optional article images remain low priority.
-Tags, folders, manual filing and reading-time sorting are not selected for this sprint.
+[Publisher organisation](../docs/planning/publisher-organisation-plan.md) is now authorised:
+on 2026-11-05 the maintainer selected the grouping concept and required Newest first to remain
+the load default. Candidate `1.4.0` adds an optional Publisher groups view beside Bookmarks,
+with A–Z hostname headings, visible saved-article counts and newest-first rows within each group.
+Its choice is temporary; Search/Bookmarks compose and the accepted Add link/Search layout and
+500ms panel motion remain. The earlier flat-sort proposal is not selected. Implementation and
+technical verification are complete; publication verification and device acceptance follow. Optional images
+remain low priority; tags, folders, manual filing and reading-time sorting are outside this slice.
 
 The real-chat Chrome triage handoff is verified. Automatic Chrome routing from the desktop chat
 remains unresolved; the maintainer chose to leave the setup as it is. Further routing work is
@@ -129,7 +132,7 @@ Preserve local-first storage, add-only imports and memory-only Google credential
 connection investigation remains open: desktop/Android reconnection after 15–20 minutes is
 reported, but its cause is unknown. Search and UI acceptance do not resolve that investigation.
 
-## Current Search candidate — accepted interface, published
+## Retained Search baseline — accepted interface, published
 
 - Visible icon-and-label **Add link** and **Search** controls share one panel above the list.
   Add link is the load default; Search replaces Paste. The article heading/count directly label
@@ -241,16 +244,17 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-No further feature implementation or routing work is currently authorised.
-Keep the accepted Search interface and 500ms timing. Before calling the whole candidate's device
+Complete the authorised publisher-grouping slice, run its focused and existing checks, and follow
+the standing commit/push, Pages verification and maintainer-acceptance workflow. Preserve the
+accepted Search interface and 500ms timing. Before calling the whole candidate's device
 acceptance complete, retain the existing checks on Android/desktop: title/publisher search,
 Bookmark composition, Clear/Escape, capture/import reveal, Delete/Undo while changing query,
 keyboard focus and narrow-layout overflow. Maintainer visual/motion acceptance is already recorded;
 do not ask for it again as though it were outstanding. Live Drive and offline device scenarios
 must be recorded separately if exercised. Tags/releases still need explicit authority.
 
-When publisher organisation is reopened, agree flat A–Z sorting versus publisher headings and
-how its controls fit the accepted layout before implementation. Do not assume a design or version.
+Publisher grouping is selected and implemented under the `1.4.0` plan; do not reopen flat sorting
+as an undecided design or persist the view choice. Newest first remains the load default.
 
 Leave triage routing/setup as requested. If the maintainer reopens it, preserve accepted selections
 until saving is confirmed, retry with the original chat link in the configured browser, and keep
@@ -262,6 +266,14 @@ background interval before proposing behaviour changes. Distinguish a restarted 
 access lifetime and rejected requests. No backend or credential-persistence change is approved.
 
 ## Last meaningful update
+
+2026-11-05 — The maintainer selected Publisher grouping after comparing the two concepts and
+authorised implementation with Newest first as the default. The bounded `1.4.0` plan records
+controls, grouping/count rules, transient state, Undo/focus and capture/import reveal behaviour.
+Implementation passes 266 tests/34 files, type/build, privacy/attribution and dependency gates.
+Isolated browser checks cover groups/counts, Search/Bookmarks, Undo/expiry/focus, title edits,
+capture/Import reveal and Light/Dark 320px/desktop layouts. Reload resets to Newest first.
+Publication verification and maintainer device acceptance follow; no tag or release is authorised.
 
 Dated entries retain the status at the time; the current sections above supersede older pending
 acceptance, timing and planning statements. Detailed implementation receipts live in the slice plans.

@@ -13,7 +13,9 @@ Laters `v1.1.0` is the latest accepted tagged release. The authorised `v1.3.0`
 published as a candidate. The maintainer accepts Search matching, the Shared tool space layout
 and the 500ms panel transition. Remaining Android/desktop scenario checks are listed in the
 Search plan; no tag or release is authorised.
-[Publisher organisation](docs/planning/publisher-organisation-plan.md) is the documented follow-on.
+[Publisher grouping](docs/planning/publisher-organisation-plan.md) is the authorised `1.4.0`
+candidate, implemented and technically verified with Newest first as the default. Publication
+verification and maintainer device acceptance follow.
 The `v1.2.1` candidate adds manual device
 pairing to the optional private add-link handoff after article triage. Its sending workflow was
 repaired and a [real-chat Chrome handoff](docs/planning/add-links-plan.md#real-chat-desktop-handoff-verified)

@@ -55,6 +55,10 @@ is investigated.
   Search replaces Paste with a field for saved titles or publishers. Returning to Add link clears
   the query. **Clear** or Escape clears it in place; Escape with an empty field selects Add link.
   Search also works within bookmarks and resets on reload. Tool transitions respect reduced motion.
+- **Newest first** is the default article view. Choose **Publisher groups** beside Bookmarks to
+  browse A–Z publisher headings with newest-first articles in each. Search and Bookmarks narrow
+  those groups and their counts. Returning to Newest first preserves your current filters;
+  reloading resets the article view to Newest first.
 - Select **Delete** to remove an article; **Undo** remains available for seven seconds.
 - On Android, swipe right to change the bookmark or left to reveal Delete.
 - Long-press an article for Read, Edit title, Bookmark, Share and Delete. Sharing sends only its URL.
