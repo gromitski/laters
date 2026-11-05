@@ -34,7 +34,7 @@ empty query selects Add link and focuses that action.
 Search is temporary page state: reload returns to the ordinary newest-first full list with Add link
 selected. Query updates preserve typing and cursor position.
 
-Crossfade both tool panels over 240ms with 4px of gentle movement, while retaining the accepted
+Crossfade both tool panels over 500ms with 4px of gentle movement, while retaining the accepted
 button/selection underline transition. Panels share one grid slot; the outgoing surface remains
 painted until its fade finishes, then becomes invisible. Only the selected panel accepts input or
 appears in the accessibility tree: set the other inert and aria-hidden immediately. Focus and input
@@ -220,3 +220,7 @@ The normal public Update path retained the isolated browser's fictional article.
 confirmed both panels fading (approximately 0.98/0.02 then 0.95/0.05 opacity), immediate Search
 focus and a matching result, followed by a cleared query on return to Add link. Maintainer
 fade/device acceptance remains; no tag or release is authorised.
+
+The maintainer requested a slower panel transition on 2026-11-05: both fade and movement now
+last 500ms, with outgoing visibility delayed to match. Button timing and reduced-motion
+behaviour are retained. This supersedes the original 240ms timing above.

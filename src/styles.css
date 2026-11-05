@@ -372,9 +372,9 @@ h1 {
 
 .reading-tools.has-switched .reading-tool-panel {
   transition:
-    opacity 240ms ease,
-    transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    visibility 0s linear 240ms;
+    opacity 500ms ease,
+    transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    visibility 0s linear 500ms;
 }
 
 .reading-tools[data-tool="add"] #add-link-panel,

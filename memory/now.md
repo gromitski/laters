@@ -118,7 +118,8 @@ heading; Search replaces Paste, and Bookmarks filters the list independently. Ad
 default. The maintainer accepts the layout and subtle button transition; the remaining refinement
 crossfades the Paste/Search boxes with gentle movement. It must retain reduced-motion support,
 input/focus, Undo and stable list position. The panel follow-up is technically verified and
-published; maintainer fade and device acceptance remain.
+published. The maintainer subsequently requested 500ms panel fades/movement; that timing
+refinement is authorised, with button timing retained. Maintainer device acceptance remains.
 Publisher organisation has not started.
 The [sprint plan](../docs/planning/search-and-publisher-sprint-plan.md) retains that feature sequence.
 Optional article images are low priority. Preserve the local-first reading
