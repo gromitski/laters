@@ -31,6 +31,10 @@ and publication are complete; the publisher plan records the receipts. Maintaine
 acceptance remains. Optional images remain low priority. No tag or
 release is authorised; triage routing is deferred under its separate plan.
 
+The maintainer subsequently accepted the styled picker/500ms list transition and authorised
+candidate `1.5.0` adding Oldest → Newest, with Newest → Oldest still the default and Publisher
+groups unchanged. The article-view plan governs this addition; earlier proposals below remain history.
+
 ## Scope decisions before implementation
 
 Agree these together using a small mobile and desktop layout proposal, not a broad redesign:

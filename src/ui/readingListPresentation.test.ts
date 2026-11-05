@@ -41,6 +41,29 @@ describe("createReadingListEntries", () => {
       { item: pendingItem, isGhost: true },
     ]);
   });
+
+  it("orders oldest first with deterministic ascending ties without mutating saved data", () => {
+    const items = [item("new", 300), item("b", 100), item("a", 100)];
+    const before = structuredClone(items);
+    expect(createReadingListEntries(items, undefined, "oldest").map(e => e.item.id))
+      .toEqual(["a", "b", "new"]);
+    expect(createReadingListEntries(items).map(e => e.item.id)).toEqual(["new", "b", "a"]);
+    expect(items).toEqual(before);
+  });
+
+  it("keeps a deletion ghost in oldest-first position across Search and Bookmarks", () => {
+    const kept = { ...item("old", 100), bookmarked: true };
+    const ghost = item("middle", 200);
+    const entries = createReadingListEntries([item("new", 300), kept], ghost, "oldest");
+    expect(entries.map(e => [e.item.id, e.isGhost])).toEqual([
+      ["old", false], ["middle", true], ["new", false],
+    ]);
+    expect(filterReadingListEntries(entries, "bookmarked", "old").map(e => e.item.id))
+      .toEqual(["old", "middle"]);
+    expect(countVisibleReadingListItems(entries, "bookmarked", "old")).toBe(1);
+    expect(createReadingListEntries([item("new", 300), ghost, kept], undefined, "oldest")
+      .map(e => e.item.id)).toEqual(["old", "middle", "new"]);
+  });
 });
 
 describe("publisher grouping", () => {

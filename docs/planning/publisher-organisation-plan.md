@@ -1,6 +1,12 @@
-# `v1.4.0` publisher organisation slice
+# Article views and publisher organisation
 
 ## Status and authority
+
+Current candidate: **1.5.0**. On 2026-11-05 the maintainer accepted the polished picker/list
+transition and requested **Oldest → Newest** alongside **Newest → Oldest**, plus current
+project documentation/memory and advancing application versions. The three-choice contract
+below supersedes the original two-choice `1.4.0` labels. Implementation and technical checks pass;
+publication verification and oldest-first/device acceptance follow. Historical receipts retain their original versions.
 
 On 2026-11-05 the maintainer compared publisher sorting and grouping in the accepted Shared tool
 space layout, selected **grouping**, and authorised implementation with **newest first still the
@@ -12,8 +18,10 @@ Publication and maintainer device acceptance follow technical verification; no t
 
 Browse saved articles under publisher headings, then return to the ordinary newest-first queue.
 Use a restrained, right-aligned **Article view** button beside Bookmarks in the article-heading
-area. A closely spaced chevron opens a styled two-choice menu with a selected checkmark:
-**Newest first** and **Publisher groups**. Newest first is selected on every fresh load/reload.
+area. A closely spaced chevron opens a styled three-choice menu with a selected checkmark:
+**Newest → Oldest**, **Oldest → Newest** and **Publisher groups**. Newest → Oldest is selected
+on every fresh load/reload. Oldest → Newest is a flat chronological view, not a change to ordering
+inside publisher groups. Its ties use ascending article IDs; newest-first retains descending IDs.
 The choice is temporary page state, never stored, synced or exported. Keep Add link/Search in
 their existing shared space, with the accepted 500ms panel transitions unchanged.
 
@@ -22,7 +30,7 @@ of visible saved articles in that group, with newest-first articles and the exis
 ID tie-break within it. Reuse the existing source identity: hostname case, a trailing dot and
 initial `www.` are ignored; other subdomains remain distinct. No publisher brand inference or lookup.
 In grouped view, omit the repeated publisher text/separator from row metadata; the group heading,
-source marker and existing article action sheet retain publisher context. Newest first retains
+source marker and existing article action sheet retain publisher context. Both chronological views retain
 the existing row metadata. Groups remain expanded; no collapse or publisher-management controls.
 
 ## Behaviour and preservation
@@ -163,3 +171,40 @@ The normal Update path retained the isolated browser's fictional article and loa
 menu. A live view change sampled approximately 0.86/0.14 old/new opacity at computed 0.5s duration.
 Reload retained the article and reset to Newest first; the live trigger's label-to-chevron gap
 is 6px. Maintainer polish/motion and device acceptance remains separate. No tag or release.
+
+## Oldest-first addition and version progression — 2026-11-05
+
+The maintainer accepts the `1.4.0` menu/animation polish and authorises adding oldest-first order.
+Candidate `1.5.0` adds the middle menu choice **Oldest → Newest**, renames the existing default
+**Newest → Oldest**, and retains Publisher groups. Use the same 500ms transition, menu alignment,
+checkmark, keyboard navigation and reduced-motion behaviour for every view change.
+
+Derive ascending saved-time order locally with ascending-ID ties; do not reverse/mutate stored
+items, change timestamps, persist a preference, alter CSV/Drive order or reorder articles within
+publisher groups. Search/Bookmarks compose, and ghost/Undo retains its correct chronological slot.
+Capture/import keeps the selected view and reveals the saved/imported row, which may be at the
+bottom in oldest-first mode. Reload returns to Newest → Oldest and Add link.
+
+Version history is explicit: Search advanced to `1.3.0`, grouping to `1.4.0`; its subsequent menu
+and motion refinement stayed at `1.4.0`. The owner's new version instruction takes effect with
+`1.5.0`: bump each delivered app-code slice (minor for compatible features, patch for fixes/polish),
+keep package/lockfile aligned and verify the menu footer. Docs-only receipts need no increment.
+This is the application version; `v1.1.0` remains the latest tagged release and no tag/release is
+authorised. Keep past version/publication receipts intact rather than rewriting their history.
+
+### `1.5.0` implementation verification
+
+All **272 tests across 35 files** pass, including ascending-time/tie/no-mutation and filtered
+oldest-first ghost/Undo tests. Type/build, public-build/repository privacy, no-attribution self-test
+and the high/critical dependency gate pass; production dependencies have zero findings and the
+unchanged development tree retains 3 low/7 moderate. Package and both lockfile version fields are
+1.5.0, and the local main-menu footer visibly reports **Version 1.5.0**.
+
+An isolated four-article fictional collection demonstrated exact ascending chronological order,
+Search/Bookmark composition, deletion at the oldest slot and restoration into that slot. Switching
+to Publisher groups retained A–Z hosts and newest-first order within each. Reload returned to
+Newest → Oldest and Add link with all four articles retained. Three-choice keyboard selection and
+320px popup bounds passed (200px wide, within the viewport, no horizontal overflow). The existing
+500ms animation and theme/reduced-motion rules are retained. A screenshot shows sample articles
+with keyboard focus visible; it is not the maintainer's saved collection. Publication and normal
+Update verification follow; physical-device acceptance and any tag/release remain separate.

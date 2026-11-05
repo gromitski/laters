@@ -1,7 +1,7 @@
 import type { SavedItem } from "../domain/savedItem";
 import { normaliseSourceHostname } from "../domain/sourceIdentity";
 
-export type ReadingListOrder = "newest" | "publisher";
+export type ReadingListOrder = "newest" | "oldest" | "publisher";
 
 export interface PublisherGroup {
   hostname: string;
@@ -32,6 +32,7 @@ export function groupReadingListEntries(entries: ReadingListEntry[]): PublisherG
 export function createReadingListEntries(
   items: SavedItem[],
   pendingItem?: SavedItem,
+  order: "newest" | "oldest" = "newest",
 ): ReadingListEntry[] {
   const entries = items.map((item) => ({ item, isGhost: false }));
 
@@ -41,6 +42,8 @@ export function createReadingListEntries(
 
   return entries.sort(
     (left, right) =>
-      right.item.savedAt - left.item.savedAt || right.item.id.localeCompare(left.item.id),
+      order === "oldest"
+        ? left.item.savedAt - right.item.savedAt || left.item.id.localeCompare(right.item.id)
+        : right.item.savedAt - left.item.savedAt || right.item.id.localeCompare(left.item.id),
   );
 }

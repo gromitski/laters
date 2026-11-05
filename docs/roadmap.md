@@ -279,3 +279,11 @@ Update/default-view checks passed. Maintainer visual/device acceptance remains. 
 The broader filing need remains in [future ideas](future-ideas.md#open-possibilities). Tags, folders,
 archive, images, reading-time sorting and other exploratory work are outside these two slices.
 The newsletter-triage transfer defect above remains open and separately tracked.
+
+### `1.5.0` — Oldest-first chronological view
+
+On 2026-11-05 the maintainer accepted the styled picker/500ms list transition and authorised
+Oldest → Newest alongside Newest → Oldest (default) and Publisher groups. Implementation and technical checks pass under the existing [article-view plan](planning/publisher-organisation-plan.md).
+Groups remain newest-first internally. View selection stays transient; no storage/CSV/Drive change.
+The application version advances to 1.5.0; future code slices must advance it under the working
+agreements. This does not authorise a tag or GitHub release.

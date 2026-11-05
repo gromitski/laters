@@ -272,6 +272,18 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   with a 500ms list-only fade/movement when views change and reduced-motion support.
   Flat sorting is not selected and optional images remain low priority.
 
+## Accepted `v1.5.0` chronological views and version progression
+
+- On 2026-11-05 the maintainer accepted the styled Article view picker/list transition and
+  authorised **Oldest → Newest** alongside the renamed **Newest → Oldest** default and
+  **Publisher groups**. The same 500ms transition, selected checkmark, keyboard and reduced-motion
+  behaviour applies; choice remains transient. Groups retain newest-first articles within A–Z hosts.
+- Ascending chronological order derives from existing saved time with ascending-ID ties; Search,
+  Bookmarks, Undo and capture/import reveal compose. Storage, Drive, CSV and export order remain.
+- Advance app versions with each delivered code slice: minor for compatible features, patch for
+  fixes/polish; docs-only receipts do not need a bump. `1.5.0` is the current candidate, not a tag
+  or release. The publisher/article-view plan owns detailed behaviour and delivery evidence.
+
 ## Accepted v0.8.0 dark-mode direction
 
 - Add an **Appearance** radio group to the bottom of the existing main menu, after Google Drive and

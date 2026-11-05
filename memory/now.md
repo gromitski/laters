@@ -17,7 +17,7 @@ Release `v0.5.7` consolidates the accepted code, configuration and documentation
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
 appearance. Release `v1.0.0` records the accepted subtle Bookmark filter that completes the intended
 personal reading queue. Release `v1.1.0` adds optional CSV-supplied reading-time estimates. Package
-metadata is now `1.4.0` for the authorised publisher-grouping candidate, retaining the add-link pairing,
+metadata is now `1.5.0` for the authorised oldest-first article-view candidate, retaining the add-link pairing,
 diagnostics and progress-label maintenance work. `v1.1.0` remains the latest tagged
 GitHub release; its tag resolves to verified release commit `1e95804`.
 
@@ -112,23 +112,24 @@ noticeable. Candidate `1.3.0` is published; `v1.1.0` remains the latest tagged r
 publication/acceptance record. Earlier always-visible and disclosure-only Search layouts are
 superseded; do not restore them or treat their rejected visual reviews as pending work.
 
-[Publisher organisation](../docs/planning/publisher-organisation-plan.md) is now authorised:
-on 2026-11-05 the maintainer selected the grouping concept and required Newest first to remain
-the load default. Candidate `1.4.0` adds an optional Publisher groups view beside Bookmarks,
-with A–Z hostname headings, visible saved-article counts and newest-first rows within each group.
-Its choice is temporary; Search/Bookmarks compose and the accepted Add link/Search layout and
-500ms panel motion remain. The earlier flat-sort proposal is not selected. The candidate is
-implemented, technically verified and published from `0997c47` through
-Pages workflow `42109442120`; exact live assets and the normal Update/default-view path are
-verified. The maintainer then requested a polished view menu and a 500ms list-view transition.
-That refinement is implemented, technically verified and published within `1.4.0`: tight right-aligned label,
-checked two-choice menu, keyboard/light-dismiss behaviour and list-only crossfade/movement.
-Newest-first load default, Search/Bookmarks/Undo and reduced motion are retained. Commit
-`6459048` passed Pages workflow `42112112847`; exact live assets, normal Update, intermediate
-0.5s fade frames, the 6px label/chevron gap and reload default were verified. The existing
-isolated-browser article was retained.
-Maintainer visual and device acceptance follows. Optional images
-remain low priority; tags, folders, manual filing and reading-time sorting are outside this slice.
+[Article views and publisher organisation](../docs/planning/publisher-organisation-plan.md)
+are now candidate **1.5.0**. The maintainer accepted the styled picker, tight right-aligned label,
+checked menu and 500ms list fade/movement, then authorised **Oldest → Newest** alongside
+**Newest → Oldest** (the load default) and **Publisher groups**. Flat chronological order is
+transient and composes with Search/Bookmarks/Undo; groups stay A–Z with newest-first rows.
+The accepted Add link/Search space and 500ms panel motion remain. No storage/CSV/Drive changes.
+Oldest-first implementation passes 272 tests/35 files, type/build, privacy/attribution and
+dependency gates. Isolated checks cover ascending order, filtering, Undo, unchanged grouping,
+three-option keyboard/320px layout, reload default and visible Version 1.5.0. Publication
+verification and maintainer oldest-first/device acceptance follow. Earlier `1.4.0` receipts and remaining checks are in the plan.
+
+The owner explicitly requests advancing application versions. Search moved to `1.3.0`, grouping
+to `1.4.0`, and its polish stayed at `1.4.0`; this new feature moves to `1.5.0`. Working agreements
+now require a version increment per delivered app-code slice (minor features, patch fixes/polish),
+aligned package/lockfile and visible footer verification. Docs-only receipts need no bump.
+`v1.1.0` remains the latest tagged release; no new tag/release authority is implied.
+Optional images remain low priority; tags, folders, archive, manual filing and reading-time sorting
+are outside the delivered article-view work. Flat publisher sorting was not selected.
 
 The real-chat Chrome triage handoff is verified. Automatic Chrome routing from the desktop chat
 remains unresolved; the maintainer chose to leave the setup as it is. Further routing work is
@@ -253,19 +254,12 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Obtain maintainer acceptance of the published `1.4.0` publisher-grouping candidate: apply Update,
-confirm Newest first on load, choose Publisher groups and check its headings/counts with Search
-and Bookmarks. Try Delete/Undo and returning to Newest first. Technical checks and publication
-are complete; preserve the accepted Search interface and 500ms panel timing. Before calling the
-whole candidate's device
-acceptance complete, retain the existing checks on Android/desktop: title/publisher search,
-Bookmark composition, Clear/Escape, capture/import reveal, Delete/Undo while changing query,
-keyboard focus and narrow-layout overflow. Search visual/panel-motion acceptance is already recorded; do not ask for it again as though it
-were outstanding. Publisher-grouping acceptance is separate and remains pending. Live Drive and offline device scenarios
-must be recorded separately if exercised. Tags/releases still need explicit authority.
-
-Publisher grouping is selected and implemented under the `1.4.0` plan; do not reopen flat sorting
-as an undecided design or persist the view choice. Newest first remains the load default.
+Complete and publish `1.5.0` oldest-first order through the standing checked-slice workflow.
+Verify Newest → Oldest on load, all three menu choices, ascending saved-time order, filtering,
+Undo and the normal Update path with visible Version 1.5.0. Maintainer acceptance of the preceding
+menu/layout/motion is already recorded; oldest-first and physical-device scenarios remain separate.
+Do not re-open grouping versus flat publisher sorting or persist the temporary view selection.
+Keep the accepted 500ms transitions and all existing article/data behaviour.
 
 Leave triage routing/setup as requested. If the maintainer reopens it, preserve accepted selections
 until saving is confirmed, retry with the original chat link in the configured browser, and keep
@@ -277,6 +271,13 @@ background interval before proposing behaviour changes. Distinguish a restarted 
 access lifetime and rejected requests. No backend or credential-persistence change is approved.
 
 ## Last meaningful update
+
+2026-11-05 — The maintainer accepted the polished picker/list animation and authorised oldest-first
+chronological order. Candidate 1.5.0 adds Oldest → Newest, relabels the default Newest → Oldest and
+retains Publisher groups. Documented version progression and a per-app-code-slice bump rule;
+package/lockfile now agree on 1.5.0. All 272 tests/35 files and type/build/privacy/attribution/dependency gates pass. Isolated UI checks
+verified oldest-first/filter/Undo/grouping/default and visible Version 1.5.0. Publication verification
+follows; no tagged release is claimed.
 
 2026-11-05 — Authorised the Article view picker polish and 500ms Newest first/Publisher groups
 transition. Implemented a right-aligned label/tight chevron, styled accessible native-popover menu

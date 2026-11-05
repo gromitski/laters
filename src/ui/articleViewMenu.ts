@@ -63,7 +63,8 @@ export function installArticleViewMenu(
     option.addEventListener("click", () => {
       menu.hidePopover();
       trigger.focus({ preventScroll: true });
-      onSelect(option.dataset.view === "publisher" ? "publisher" : "newest");
+      const order = option.dataset.view;
+      onSelect(order === "publisher" || order === "oldest" ? order : "newest");
     });
   }
   const close = () => { if (isOpen()) menu.hidePopover(); };
@@ -71,7 +72,8 @@ export function installArticleViewMenu(
   document.addEventListener("scroll", close, true);
   return (order) => {
     current = order;
-    const text = order === "publisher" ? "Publisher groups" : "Newest first";
+    const text = order === "publisher" ? "Publisher groups"
+      : order === "oldest" ? "Oldest → Newest" : "Newest → Oldest";
     label.textContent = text;
     trigger.setAttribute("aria-label", `Article view: ${text}`);
     for (const option of options) {

@@ -239,6 +239,7 @@ const updateArticleView = installArticleViewMenu(
       renderItemsContent(false, true);
       announceHiddenStatus(readingListOrder === "publisher"
         ? "Grouped by publisher, A to Z. Newest articles first within each publisher."
+        : readingListOrder === "oldest" ? "Showing oldest articles first."
         : "Showing newest articles first.");
     });
   },
@@ -997,7 +998,9 @@ function renderItemsContent(animateEntries = false, reuseRows = false): void {
     ? ["article-link", "bookmark-action", "delete-action", "more-actions"]
         .find((className) => active.classList.contains(className))
     : undefined;
-  const allEntries = createReadingListEntries(currentItems, pendingDeletion?.item);
+  const allEntries = createReadingListEntries(
+    currentItems, pendingDeletion?.item, readingListOrder === "oldest" ? "oldest" : "newest",
+  );
   const entries = filterReadingListEntries(allEntries, readingListView, searchQuery);
   // A view-only change moves existing controls, so a key already pressed on Undo keeps its target.
   const existingRows = reuseRows

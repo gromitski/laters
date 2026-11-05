@@ -50,15 +50,16 @@ is investigated.
 - Select an article title or the open space in its row to read the original page.
 - Select the star to bookmark an article without moving it.
 - Select **Bookmarks** beside the article heading to filter bookmarked articles; select it again
-  to return to the complete newest-first queue.
+  to return to the full list in your current view.
 - **Add link** and **Search** share the space above the article list. Add link is selected on load;
   Search replaces Paste with a field for saved titles or publishers. Returning to Add link clears
   the query. **Clear** or Escape clears it in place; Escape with an empty field selects Add link.
   Search also works within bookmarks and resets on reload. Tool transitions respect reduced motion.
-- **Newest first** is the default article view. Choose **Publisher groups** beside Bookmarks to
-  browse A–Z publisher headings with newest-first articles in each. Search and Bookmarks narrow
-  those groups and their counts. Returning to Newest first preserves your current filters;
-  reloading resets the article view to Newest first.
+- **Newest → Oldest** is the default article view. The picker beside Bookmarks also offers
+  **Oldest → Newest** and **Publisher groups**. Groups run A–Z with newest-first articles in each.
+  Search and Bookmarks work in every view; switching preserves your filters and uses a gentle
+  0.5-second transition. The menu supports keyboard controls and reduced motion. Reloading
+  returns to Newest → Oldest. The main menu shows the installed application version.
 - Select **Delete** to remove an article; **Undo** remains available for seven seconds.
 - On Android, swipe right to change the bookmark or left to reveal Delete.
 - Long-press an article for Read, Edit title, Bookmark, Share and Delete. Sharing sends only its URL.

@@ -8,14 +8,13 @@ Read these in order before repository-dependent work:
 - [Accepted roadmap](docs/roadmap.md)
 - [Exploratory future ideas](docs/future-ideas.md) when discussing later product scope
 
-Laters `v1.1.0` is the latest accepted tagged release. The authorised `v1.3.0`
-[Search slice](docs/planning/article-search-plan.md) is implemented, technically verified and
-published as a candidate. The maintainer accepts Search matching, the Shared tool space layout
-and the 500ms panel transition. Remaining Android/desktop scenario checks are listed in the
-Search plan; no tag or release is authorised.
-[Publisher grouping](docs/planning/publisher-organisation-plan.md) is the authorised `1.4.0`
-candidate, implemented, technically verified and published with Newest first as the default.
-The normal Update path is verified; maintainer visual/device acceptance remains.
+Current application candidate: **1.5.0**. [Article views and publisher organisation](docs/planning/publisher-organisation-plan.md)
+provide Newest → Oldest (load default), Oldest → Newest and Publisher groups. Local implementation
+and technical checks pass; publication verification and oldest-first/device acceptance follow.
+The maintainer accepts the styled picker, tight label/chevron, shared Add link/Search layout and
+500ms panel/list transitions. [Search](docs/planning/article-search-plan.md) is retained.
+App-code slices must advance the version under the working agreements; docs-only receipts do not.
+`v1.1.0` remains the latest accepted tagged release. No new tag or release is authorised.
 The `v1.2.1` candidate adds manual device
 pairing to the optional private add-link handoff after article triage. Its sending workflow was
 repaired and a [real-chat Chrome handoff](docs/planning/add-links-plan.md#real-chat-desktop-handoff-verified)
