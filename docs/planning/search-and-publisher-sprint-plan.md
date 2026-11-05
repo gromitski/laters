@@ -18,6 +18,17 @@ bounded contract and delivery evidence now live in [the Search slice](article-se
 its final presentation remains open. The proposal below is context; the slice documents govern
 their current status and detailed behaviour.
 
+## Current delivery status — 2026-11-05
+
+Search candidate `1.3.0` is implemented, technically verified and published. The maintainer accepts
+matching, the Shared tool space hierarchy and its final 500ms panel fade/movement. The
+[Search plan](article-search-plan.md) owns the current contract and acceptance record; the
+proposal below is historical planning context for Search, not a request to re-decide its controls
+or matching. Remaining physical-device scenarios stay distinct from accepted visual/motion feedback.
+Publisher organisation has not started: flat sorting versus grouped headings, controls and version
+still need agreement and implementation authority. Optional images remain low priority. No tag or
+release is authorised; triage routing is deferred under its separate plan.
+
 ## Scope decisions before implementation
 
 Agree these together using a small mobile and desktop layout proposal, not a broad redesign:

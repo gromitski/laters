@@ -17,7 +17,7 @@ Release `v0.5.7` consolidates the accepted code, configuration and documentation
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
 appearance. Release `v1.0.0` records the accepted subtle Bookmark filter that completes the intended
 personal reading queue. Release `v1.1.0` adds optional CSV-supplied reading-time estimates. Package
-metadata is now `1.3.0` for the authorised local Search candidate, retaining the add-link pairing,
+metadata is now `1.3.0` for the published Search candidate, retaining the add-link pairing,
 diagnostics and progress-label maintenance work. `v1.1.0` remains the latest tagged
 GitHub release; its tag resolves to verified release commit `1e95804`.
 
@@ -105,79 +105,51 @@ GitHub release; its tag resolves to verified release commit `1e95804`.
 
 ## Active focus
 
-The completed-triage sending workflow has been repaired to produce direct Laters links. The
-[real-chat Chrome handoff](../docs/planning/add-links-plan.md#real-chat-desktop-handoff-verified)
-was verified without CSV download/import. The duplicate-only test retained 100 items; the next
-fresh batch then added two in Chrome, reaching 102. Clicking in the chat had first opened a
-separate embedded browser and correctly failed there. Use the ORIGINAL chat link in the configured
-Chrome profile; the consumed error-page address cannot retry it. Phone routing remains unchecked.
-Search's matching behaviour is accepted. After rejecting the earlier layouts, the maintainer chose
-the first Shared tool space concept on 2026-11-05 and authorised implementation with smooth
-transitions. Visible icon-and-label Add link/Search controls share one panel above the article
-heading; Search replaces Paste, and Bookmarks filters the list independently. Add link is the load
-default. The maintainer accepts the layout and subtle button transition; the remaining refinement
-crossfades the Paste/Search boxes with gentle movement. It must retain reduced-motion support,
-input/focus, Undo and stable list position. The panel follow-up is technically verified and
-published. The maintainer subsequently requested 500ms panel fades/movement; that timing
-refinement is authorised, with button timing retained. Maintainer device acceptance remains.
-Publisher organisation has not started.
-The [sprint plan](../docs/planning/search-and-publisher-sprint-plan.md) retains that feature sequence.
-Optional article images are low priority. Preserve the local-first reading
-list and memory-only Google credential contracts. The separate connection diagnostics
-investigation remains open: frequent desktop and Android reconnection after 15–20 minutes is
-reported; its cause is still unknown.
+Search matching, the Shared tool space layout and the final 500ms panel animation are accepted
+by the maintainer as of 2026-11-05. The maintainer describes half a second as visually quick but
+noticeable. Candidate `1.3.0` is published; `v1.1.0` remains the latest tagged release. The
+[Search plan](../docs/planning/article-search-plan.md) is the authoritative interface contract and
+publication/acceptance record. Earlier always-visible and disclosure-only Search layouts are
+superseded; do not restore them or treat their rejected visual reviews as pending work.
 
-The user reported that newsletter triage transfer still did not work. Its repair and remaining
-device checks are tracked under the [existing add-link roadmap entry](../docs/roadmap.md#open-defect--newsletter-triage-transfer);
-the real-chat Chrome route is verified; phone acceptance remains. The broader filing need remains in
-[future ideas](../docs/future-ideas.md#open-possibilities); publisher organisation is the selected
-direction for the next feature plan, without approving tags, folders or manual filing.
+[Publisher organisation](../docs/planning/publisher-organisation-plan.md) is the documented next
+feature, not started or authorised for implementation. Flat sorting versus grouped headings and
+its version remain open. The [sprint plan](../docs/planning/search-and-publisher-sprint-plan.md)
+retains Search first, publisher organisation second; optional article images remain low priority.
+Tags, folders, manual filing and reading-time sorting are not selected for this sprint.
 
-## Active slice
+The real-chat Chrome triage handoff is verified. Automatic Chrome routing from the desktop chat
+remains unresolved; the maintainer chose to leave the setup as it is. Further routing work is
+deferred unless reopened. Phone routing/pairing remains unverified. Failure retains accepted
+selections in the sending workflow until saving is confirmed; use the original chat link for a
+retry, since the receiver clears its fragment. Details and evidence belong in the
+[add-link plan](../docs/planning/add-links-plan.md#real-chat-desktop-handoff-verified).
 
-Published the authorised Shared tool space within candidate `1.3.0`, following the updated Search
-plan. Preserve the existing matching, capture/manual-entry, Bookmark, Delete/Undo, local storage,
-Drive and CSV contracts. The compact icon-only alternative is not selected. The implementation
-passes 262 tests, type/build, privacy and dependency gates, plus isolated keyboard, capture,
-Bookmark/Undo and desktop/320px Light/Dark checks. Tool changes keep a 52px shared slot and stable
-article-heading position, with 180ms entrance motion and reduced-motion disabling rules. Commit
-`56ac48a` passed Pages workflow `42001408407`, and live assets match the checked build. The normal
-Update path retained the isolated browser's fictional article and live Search/Add switching passed.
-The maintainer now accepts the layout and subtle button motion, but reports that the panel swap
-looks abrupt. The authorised follow-up crossfades both panels in the same 52px slot with gentle
-movement, retaining button motion. Inactive panels must be inert/aria-hidden during their fade;
-focus, draft preservation and reduced motion remain required. Intermediate painted opacity was
-verified in both directions, with exclusive accessible/interactive state, rapid switching, typing,
-draft and Undo/focus checks. The slot and heading remain stable at 320px in Light/Dark. All 262
-tests, type/build, privacy/attribution and dependency gates pass. Correction commit `5aeeaef` passed
-Pages workflow `42003637767`, with exact public assets verified. Maintainer panel-motion/device
-acceptance remains.
+Preserve local-first storage, add-only imports and memory-only Google credentials. The separate
+connection investigation remains open: desktop/Android reconnection after 15–20 minutes is
+reported, but its cause is unknown. Search and UI acceptance do not resolve that investigation.
 
-### Previous refinement — technically verified, visual acceptance rejected
+## Current Search candidate — accepted interface, published
 
-Published the authorised quieter Search refinement within candidate `1.3.0`: one small Search
-action beside Show bookmarks, a field revealed/focused only on request, and Close search clearing
-and hiding it. Matching/filtering behaviour is retained. Narrow headings put the count above the
-text actions; keyboard, bookmark, Undo, focus recovery and reload checks pass on an isolated
-fictional list, with 320px Light/Dark and desktop layout checks. All 262 tests, type/build and privacy
-gates pass; the dependency gate has no high/critical findings (10 lower-severity development
-findings, production zero). Commit `37afd27` passed Pages workflow `41906585865`; public application
-assets match the checked build. Maintainer visual/device acceptance remains.
-Wider list-control presentation is deferred until more functionality justifies reconsidering it;
-publisher organisation has not started.
-
-### Published Search candidate
-
-The maintainer authorised starting Search on 2026-11-03. Version `1.3.0` adds temporary local
-title/publisher matching with Clear/Escape, existing Bookmark-filter composition and truthful
-matching counts. Pending-deletion Undo remains available across view/query changes. Successful
-capture/import clears Search for the existing reveal flow. No storage, Drive or CSV schema changes.
-All 262 tests, type checking, build and focused browser checks pass. The required dependency gate
-passes after a narrow Vite patch; 14 low/moderate development-tree findings remain, production zero.
-The candidate is published and its exact assets verified; the normal Update path retained the
-production browser's fictional article and showed **Version 1.3.0**. Publication receipts are in
-the Search plan. Real Android/desktop maintainer acceptance remains; no tag or release is claimed.
-The add-link candidate below now has a real-chat Chrome handoff check; phone routing remains.
+- Visible icon-and-label **Add link** and **Search** controls share one panel above the list.
+  Add link is the load default; Search replaces Paste. The article heading/count directly label
+  the saved rows; **Bookmarks** is an independent list filter.
+- Both panels crossfade with 4px movement over **500ms** in a stable 52px grid slot. Button timing
+  is retained. Inactive panels become inert/aria-hidden immediately; focus and typing do not wait
+  for motion. Reduced-motion settings remove the transitions. Manual drafts, query clearing,
+  Bookmark composition, capture/import reveal and Delete/Undo are preserved.
+- Latest implementation `bc5cc0e` passed
+  [Pages workflow `42094753747`](https://github.com/gromitski/laters/actions/runs/42094753747).
+  All 262 tests across 34 files, type/build, public-build/repository privacy, attribution and
+  dependency gates passed. The last audit reports zero production findings and 3 low/7 moderate
+  development findings; no dependency change was part of the timing refinement.
+- The published stylesheet exactly matches the checked build. The normal Update path retained
+  the isolated browser's fictional article; live computed fade/movement durations are 0.5s and
+  outgoing visibility waits 0.5s. Earlier checks cover intermediate opacity, rapid switching,
+  exclusive accessible controls, drafts, Undo/focus and desktop/320px Light/Dark layout.
+- Maintainer acceptance covers matching, layout, subtle buttons and final panel timing. It does
+  not establish a completed physical Android/desktop scenario matrix, live Drive/offline device
+  checks or a new release. Remaining checks are listed below. No tag/release was authorised.
 
 ### Published add-link candidate
 
@@ -193,15 +165,15 @@ make no changes. Ordinary CSV review and the existing Google connection behaviou
 The public contract is in `docs/add-link-format.md` and the bounded plan in
 `docs/planning/add-links-plan.md`. Automated and isolated-browser verification is recorded below;
 `v1.2.1` candidate commit `7e924c5` passed Pages workflow `37984824896`; live HTML and application
-assets match the verified build. Real-chat/device acceptance remains. No tag or
-release is authorised.
+assets match the verified build. The configured Chrome real-chat route is verified as described
+in the add-link plan; phone checks remain unverified and further routing work is deferred. No tag or release is authorised.
 
 ### Retained progress-label maintenance
 
 The `v1.1.2` maintenance candidate changes the Google Drive button to **Reconnecting…** during
 an attempt or automatic Drive check for an existing connection, then restores its idle action when
 the check completes or fails. First-time connection still says **Connecting…** and the explicit
-Disconnect flow keeps its existing presentation. The existing menu footer shows **Version 1.1.2**.
+Disconnect flow keeps its existing presentation. At that candidate stage the menu footer showed **Version 1.1.2**; the current footer is **Version 1.3.0**.
 The maintainer reported the diagnostics working and requested this small progress-label correction;
 the root cause of the original background interruption is still unconfirmed. No Google permission,
 credential, storage, sync or retry behaviour changes. All 225 tests, type checking, production
@@ -212,7 +184,7 @@ progress wording remains.
 ### Connection diagnostics baseline
 
 The published `v1.1.1` candidate adds collapsed **Connection details** in the Google Drive menu card and
-shows **Version 1.1.1** in the existing menu footer. It keeps at most eight local tab-session
+showed **Version 1.1.1** in the menu footer at that stage. The current footer is **Version 1.3.0**. It keeps at most eight local tab-session
 events through reloads, plus the last supplied access lifetime and planned expiry. It distinguishes
 new/reloaded/discarded pages, background returns, planned expiry, Google request rejection and
 interruption. HTTP status and allowlisted Drive error reasons are recorded without credentials,
@@ -257,55 +229,54 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 - Some Android news-feed shares do not supply a useful article title. Remote title enrichment is a possible later product slice with privacy, security and reliability implications; it is not part of the current design handoff.
 - The 100-operation housekeeping threshold and interruption path are covered by deterministic
   automation rather than manually manufacturing 100 changes or a forced Drive failure.
-- Whether Google treats the new production project as the same `appDataFolder` application identity
-  is not documented precisely enough to assume; the controlled seed-device transition is the gate.
-- Google currently shows `dustyb.in`, rather than `Laters`, on public consent. Its Verification
+- General cross-project `appDataFolder` identity must not be assumed. The controlled production
+  client transition is already accepted; it is not an outstanding gate. Evidence is in the
+  [production project plan](../docs/planning/google-drive-production-project-plan.md).
+- At the last recorded consent check, Google showed `dustyb.in`, rather than `Laters`. Its Verification
   Centre says branding is not shown, but the Branding page exposes no **Verify branding** action for
   the current no-logo, one-domain, non-sensitive configuration.
-- GitHub has not yet displayed the repository Sponsor button even though Sponsorships is enabled and
+- At the last recorded check, GitHub had not displayed the repository Sponsor button even though Sponsorships was enabled and
   `.github/FUNDING.yml` contains the same valid Buy Me a Coffee entry as working repositories. This
   is a GitHub indexing or repository-administration issue, not unfinished application work.
 
 ## Next safe action
 
-At the next completed triage, open **Add accepted articles to Laters** in the configured browser;
-no CSV download or file picker should be needed. If a normal click opens the embedded browser,
-copy the ORIGINAL import link from the chat and paste it into configured Chrome. Pairing that
-embedded browser alone would not make it the existing Chrome list. Confirm the phone browser
-route; use the existing explicit pairing controls if the phone uses a different code.
-Keep private setup/payloads out of repository evidence and distinguish generated, imported and
-synced states. Do not claim a queued local import has already reached Google Drive.
+No further feature implementation or routing work is currently authorised.
+Keep the accepted Search interface and 500ms timing. Before calling the whole candidate's device
+acceptance complete, retain the existing checks on Android/desktop: title/publisher search,
+Bookmark composition, Clear/Escape, capture/import reveal, Delete/Undo while changing query,
+keyboard focus and narrow-layout overflow. Maintainer visual/motion acceptance is already recorded;
+do not ask for it again as though it were outstanding. Live Drive and offline device scenarios
+must be recorded separately if exercised. Tags/releases still need explicit authority.
 
-The separate Search acceptance check remains:
+When publisher organisation is reopened, agree flat A–Z sorting versus publisher headings and
+how its controls fit the accepted layout before implementation. Do not assume a design or version.
 
-Use the visible Update path to load **Version 1.3.0** on Android and desktop. Search for a saved
-title or publisher, try the Bookmark filter, then Clear; results should remain usable and the
-ordinary list should return. Check a Delete/Undo while changing the query. Missing Undo, lost
-typing focus, hidden new captures or horizontal overflow are failures to investigate.
-Obtain this maintainer acceptance before proceeding to publisher organisation. Its flat sort
-versus grouped presentation remains a product choice; do not bundle it into Search.
+Leave triage routing/setup as requested. If the maintainer reopens it, preserve accepted selections
+until saving is confirmed, retry with the original chat link in the configured browser, and keep
+private codes/payloads out of repository material. Adding locally does not establish Drive sync.
+Do not resume browser-forcing experiments, pair another browser or change defaults unasked.
 
-For the reported triage-transfer defect, establish the failing step and privacy-safe reproduction
-evidence before proposing a correction. The existing acceptance path below describes the expected
-handoff; its success must not be assumed from previous automated checks.
-
-Use the visible Update path to load the published **Version 1.2.1** candidate on both intended
-devices. On the configured browser, select **Copy code for another device**; on the
-second, choose **Use code from another device**, paste and submit. Keep the existing triage chat's
-instructions when the shared code is unchanged. Open a generated accepted-article link on each
-device. Success adds only selected new URLs
-without a file picker or second confirmation; malformed links, missing metadata, unexpected browser
-routing or missing articles are failures to investigate. Do not paste a live code into public
-repository material. Physical Android routing and the real chat's ability to generate clickable
-links remain human acceptance checks.
-
-Separately check that the Google Drive button says **Reconnecting…**
-while a connection attempt or Drive check is active. Connect normally, return after the usual
-background interval and inspect **Connection details** before reconnecting. Establish whether the page restarted, Google's supplied lifetime elapsed or a request
-failure cleared access. Any connection-behaviour change follows that evidence; a backend is not
-approved.
+For the separate connection issue, collect the existing **Connection details** after the usual
+background interval before proposing behaviour changes. Distinguish a restarted page, expired
+access lifetime and rejected requests. No backend or credential-persistence change is approved.
 
 ## Last meaningful update
+
+Dated entries retain the status at the time; the current sections above supersede older pending
+acceptance, timing and planning statements. Detailed implementation receipts live in the slice plans.
+
+2026-11-05 — Recorded maintainer acceptance of Search matching, the Shared tool space hierarchy,
+subtle button motion and final 500ms panel fade/movement. The timing refinement `bc5cc0e` passed
+Pages workflow `42094753747`; the published stylesheet and live computed durations were verified
+through the normal Update path. The earlier shared-layout (`56ac48a`) and crossfade (`5aeeaef`)
+checks are retained in the Search plan. Updated current context, intent, roadmap and sprint links
+so rejected layouts and earlier timings no longer appear as active work. No tag or release.
+
+2026-11-05 — Recorded the maintainer's decision to leave triage routing as it is. The configured
+Chrome route works, automatic desktop-chat-to-Chrome routing remains unresolved, and further
+routing work is deferred. Phone routing is unverified; retained selections and original-link
+retry guidance remain. Publisher organisation is the unstarted follow-on and images stay low priority.
 
 2026-11-04 — Recovered a fresh two-article batch after an embedded-browser code mismatch. Opened
 the original link in configured Chrome: **Added 2 articles**, with the list increasing 100 to 102.

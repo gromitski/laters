@@ -7,10 +7,10 @@ Implement a complete bounded first Search candidate using the sprint proposal's 
 defaults below. This supersedes the sprint's planning-only status for Search. Publisher organisation
 remains a documented follow-on slice. Version `1.3.0` identifies the Search candidate; implementation
 verification and published human acceptance are separate. No tag or GitHub release is authorised.
-Current status: on 2026-11-05 the maintainer selected the first, Shared tool space concept and
-authorised implementation with smooth state transitions. This supplies the agreed hierarchy after
-the rejected refinements below. The complete bounded candidate remains `1.3.0`; published visual
-and physical-device acceptance follow technical verification.
+Current status, 2026-11-05: the Shared tool space is implemented and published. The maintainer
+accepts Search matching, the hierarchy, subtle button motion and final 500ms panel fade/movement.
+This supersedes the earlier rejected layouts and shorter panel timings. Remaining physical-device
+scenario checks are listed in the latest acceptance record below; no tag or release is authorised.
 
 ## User outcome and interface
 
@@ -101,6 +101,9 @@ verification establishes real-device usability or that Search repairs triage tra
 
 ## Delivery evidence
 
+The dated records below preserve each implementation stage. The latest acceptance record at the
+end governs current status; earlier pending/rejected reviews are historical, not reopened tasks.
+
 The implemented candidate passes all 262 tests across 34 files, type checking, production build,
 service-worker generation, public-build audit and no-attribution self-test. Repository privacy
 and commit metadata are checked again before publication. The required high-severity dependency
@@ -164,8 +167,8 @@ search composition retained. Compare visible icon-and-label controls with compac
 supplementary reveal; essential touch actions must remain understandable without hover. Future
 list controls need a coherent placement rather than an ever-growing line of links.
 
-Two interactive concepts are being reviewed outside the application. These are proposals, not
-accepted product decisions or authorisation for another production change. Matching, capture,
+At this review stage, two interactive concepts were proposals outside the application, without
+authorisation for production changes. The Shared tool space was subsequently selected below. Matching, capture,
 Bookmark, Delete/Undo, local storage, sync and privacy contracts remain the implementation boundary.
 
 ### Accepted Shared tool space — 2026-11-05
@@ -224,3 +227,26 @@ fade/device acceptance remains; no tag or release is authorised.
 The maintainer requested a slower panel transition on 2026-11-05: both fade and movement now
 last 500ms, with outgoing visibility delayed to match. Button timing and reduced-motion
 behaviour are retained. This supersedes the original 240ms timing above.
+
+### Final 500ms timing and maintainer acceptance — 2026-11-05
+
+The timing refinement `bc5cc0e` passed
+[Pages workflow `42094753747`](https://github.com/gromitski/laters/actions/runs/42094753747).
+All 262 tests across 34 files, type checking/build, public-build/repository privacy audits,
+attribution checks and the high/critical dependency gate passed for that implementation.
+Production dependencies had zero findings; the development tree retained 3 low and 7 moderate.
+The published stylesheet exactly matched the checked build. Applying the normal Update prompt
+retained the isolated browser's fictional article. Live computed styles showed 0.5s opacity and
+movement durations for both panels, with the outgoing visibility delay also 0.5s. Search remained
+immediately focused. The button animation and reduced-motion disabling rules were retained.
+
+The maintainer accepted the result: “0.5 seconds is a visually quick but noticeable animation
+time.” Matching, the shared layout, subtle button transition and final panel timing are accepted.
+Keep this hierarchy and motion; do not restore the superseded permanent Search field or the
+Search disclosure that stacked Search and Paste above the articles.
+
+This feedback does not claim completion of every physical Android/desktop scenario. Retain the
+existing device checks for combined Search/Bookmarks, capture/import reveal, Delete/Undo and
+focus while changing queries, plus offline and live Drive scenarios if exercised. Do not request
+another generic visual/motion sign-off as though the accepted feedback were missing. No tag,
+release, publisher implementation or wider animation redesign is authorised by this acceptance.

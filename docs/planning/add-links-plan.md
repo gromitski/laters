@@ -1,6 +1,20 @@
 # Add-links candidate
 
-## Current triage investigation — 2026-11-04
+## Current status — recorded 2026-11-05
+
+The sending workflow now supplies direct add-only links and retains accepted selections until
+saving is confirmed. Real-chat duplicate-only and fresh-batch imports into the configured Chrome
+installation are verified below. Automatic Chrome routing from the desktop chat remains
+unresolved; the maintainer chose to leave the setup as it is because the route is too cumbersome.
+Further routing work is deferred unless reopened. Phone routing/pairing remains unverified.
+Do not change defaults, pair another browser or introduce a browser-forcing mechanism unasked.
+This decision retains the working handoff and original-link retry guidance; it does not claim a
+one-click desktop route or cross-device acceptance.
+
+## Historical triage investigation — 2026-11-04
+
+The following investigation and repair authority record is historical. Its completed steps are
+not instructions to message the chat again or repeat private setup transfer.
 
 The maintainer prioritised removing the CSV download/import steps from completed newsletter
 triage. Inspection of the current sending chat found that its final-batch request still asks for

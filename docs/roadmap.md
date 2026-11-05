@@ -229,8 +229,10 @@ browser pairing checks pass. Status: published candidate from commit `7e924c5`, 
 
 #### Open defect — newsletter triage transfer
 
-Status on 2026-11-04: the sending workflow is repaired and a real Chrome handoff is verified.
-Phone routing/pairing remains to be checked; the stable heading is retained for existing links.
+Current status, recorded 2026-11-05: the sending workflow is repaired and a real Chrome handoff
+is verified. Automatic desktop-chat routing to Chrome remains unresolved; the maintainer chose
+to leave the setup as it is. Further routing work is deferred unless reopened. Phone checks remain
+unverified; the stable heading is retained for existing links.
 
 Reported on 2026-11-03: direct import/transfer from newsletter triage to Laters still does not work
 for the user. This was recorded against the existing add-link handoff, not another capture
@@ -243,7 +245,7 @@ It correctly skipped the three already-saved URLs, retained the 100-item list an
 private fragment, without a file download or picker. Evidence and remaining limits are in the
 [add-link plan](planning/add-links-plan.md#real-chat-desktop-handoff-verified).
 
-Follow-up: confirm intended phone browser/PWA routing. Preserve
+If reopened, confirm intended phone browser/PWA routing. Preserve
 the existing add-only workflow; do not treat generated links as proof of saving or record private
 codes/payloads. No application-code change, version bump, tag or release was needed for this repair.
 
@@ -255,26 +257,17 @@ plan. Phone routing/pairing remains unchecked.
 
 ## Next feature sprint — search and publisher organisation
 
-On 2026-11-05 the maintainer selected the Shared tool space design and authorised implementation
-with smooth, reduced-motion-aware transitions. Add link/Search share one panel above the actual
-article heading; Bookmarks is an independent labelled toggle beside the list summary. This
-supersedes the disclosure placement below. The Search plan contains the current bounded contract.
+Search candidate `1.3.0` is implemented and published. On 2026-11-05 the maintainer accepted
+Search matching, the Shared tool space layout, subtle buttons and final **500ms** panel motion.
+Add link/Search replace one another in a shared surface above the actual article heading;
+Bookmarks independently filters the list. Earlier permanent-field and disclosure-only designs
+are superseded. The [Search plan](planning/article-search-plan.md) records the bounded contract,
+technical/publication receipts and remaining device scenarios. The latest timing implementation
+`bc5cc0e` passed Pages workflow `42094753747`; no tag or GitHub release is authorised.
 
-On 2026-11-04 the maintainer accepted Search's functionality and authorised a quieter presentation:
-a small **Search** disclosure beside **Show bookmarks**, with the field shown only while in use.
-Closing clears the query. The [Search plan](planning/article-search-plan.md) governs this refinement;
-the wider presentation of list controls may be reconsidered as more functionality is added.
-
-On 2026-11-03 the maintainer prioritised search and sorting, selected publisher grouping or sorting
-as the useful organisation direction, and deprioritised optional article images. The
-[sprint plan](planning/search-and-publisher-sprint-plan.md) proposes search first, then publisher
-organisation, as two independently reviewable slices. The maintainer subsequently authorised
-documenting both slices and starting Search. The bounded
-[`v1.3.0` Search contract](planning/article-search-plan.md) uses local title/publisher matching,
-temporary query state and the existing Bookmark filter. The implemented candidate passes its
-technical checks and is published with exact live assets verified; real Android/desktop maintainer
-acceptance remains. The Search plan records the deployment and update-path evidence. No tag or
-GitHub release is authorised.
+The [sprint plan](planning/search-and-publisher-sprint-plan.md) retains the selected sequence:
+Search first, publisher organisation next, with optional images low priority. Matching stays
+local and temporary and composes with Bookmarks; storage, sync and CSV contracts are preserved.
 
 [Publisher organisation](planning/publisher-organisation-plan.md) is documented but not started;
 flat sorting versus grouped headings and its version remain open.

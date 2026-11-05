@@ -242,6 +242,30 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   acceptance, independently of automated and isolated-browser checks.
 - The format, limits, capability/privacy boundary and self-hosting guidance live in
   `docs/add-link-format.md`; the bounded candidate plan is in `docs/planning/add-links-plan.md`.
+- Current routing decision: the configured Chrome handoff is verified, but automatic routing from
+  the desktop chat remains unresolved. The maintainer chose to leave it as it is; defer further
+  routing work unless reopened. Retain accepted selections until saving is confirmed and use the
+  original chat link to retry. Phone routing/pairing is unverified.
+
+## Accepted `v1.3.0` Search and interface direction
+
+- Find saved articles locally by title and displayed publisher hostname, using literal,
+  case-insensitive terms. Preserve newest-first results and independent Bookmark filtering.
+  Search is transient; no article content fetching, backend, schema, Drive or CSV change.
+- Keep articles visually dominant. The accepted Shared tool space puts labelled **Add link** and
+  **Search** controls above one shared surface; Add link/Paste is the load default and Search
+  replaces it. The article heading/count sits directly above the rows. Use **Bookmarks** for the
+  separate labelled list toggle. Earlier permanent-field and disclosure-only layouts are superseded.
+- On 2026-11-05 the maintainer accepted the final **500ms** fade and gentle 4px movement as quick
+  but noticeable. Retain the accepted subtle button motion, stable list position, immediate
+  input/focus, preserved drafts and reduced-motion support. This timing is accepted for these
+  panels, not an instruction to slow every animation in the app.
+- The [Search plan](../docs/planning/article-search-plan.md) owns the detailed contract, technical
+  receipts and acceptance boundary. Published candidate `1.3.0` has accepted matching, hierarchy
+  and panel motion; remaining physical-device scenarios are not inferred from that feedback.
+  No `v1.3.0` tag or release is authorised.
+- Publisher organisation remains the next planned feature. Agree flat sorting versus grouped
+  headings and controls before implementation; optional images remain low priority.
 
 ## Accepted v0.8.0 dark-mode direction
 

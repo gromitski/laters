@@ -5,7 +5,9 @@
 The subtle Bookmark filter was released as the final MVP slice in `v1.0.0`; its accepted contract
 and evidence are maintained in [`bookmark-filter-plan.md`](planning/bookmark-filter-plan.md).
 Published acceptance passed and the exact verified release is complete. Search has since been
-authorised as the bounded `v1.3.0` slice linked below. Other ideas are not approved for implementation
+implemented and published as candidate `1.3.0`, with matching, the shared layout and 500ms panel
+motion accepted by the maintainer on 2026-11-05. Remaining device scenarios are tracked in its plan.
+Other ideas are not approved for implementation
 or assigned a version. Each later idea needs evidence, a privacy and
 compatibility review, clear exclusions, acceptance criteria and a separately agreed bounded release
 before work begins.
@@ -24,7 +26,7 @@ records the sequence. Optional article images are low priority and outside this 
 
 | Idea | Potential value | Questions and constraints to resolve first |
 | --- | --- | --- |
-| Article search | Authorised `v1.3.0` slice: find saved articles by title or publisher. User-reported need on 2026-11-03. | Implementation and verification follow the linked Search slice. Temporary local matching composes with bookmarks and preserves Undo; no full-content fetching or backend. Published human acceptance remains separate. |
+| Article search | Published candidate `1.3.0`: find saved articles by title or publisher. Matching, shared layout and 500ms panel motion accepted on 2026-11-05. | The Search plan records delivery and remaining device scenarios. Temporary local matching composes with bookmarks and preserves Undo; no full-content fetching or backend. No tag/release authorised. |
 | Filing, organisation and sorting | Priority for the next sprint: the user selected grouping or sorting by publisher on 2026-11-03 to help manage articles they have not had time to read. Expands the existing organisation idea. | Proposed second slice in the sprint plan. Agree a flat publisher sort versus grouped headings, source identity and interaction with search/bookmarks. Tags, folders and manual filing remain later possibilities, not selected designs for this sprint. |
 | Order by reading time | Makes quick reads easier to prioritise; remains a later sorting possibility outside the publisher-focused sprint. | `v1.1.0` can store supplied estimates, but many articles may have none. Newest-first must remain available, and its default must not change without evidence. |
 | Archive | Retains completed or deferred links outside the active queue. | Needs a clear distinction from Delete and Bookmark, plus storage, sync, export/import and list-growth rules. |
