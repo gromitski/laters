@@ -115,9 +115,10 @@ Search's matching behaviour is accepted. After rejecting the earlier layouts, th
 the first Shared tool space concept on 2026-11-05 and authorised implementation with smooth
 transitions. Visible icon-and-label Add link/Search controls share one panel above the article
 heading; Search replaces Paste, and Bookmarks filters the list independently. Add link is the load
-default. Brief motion respects reduced-motion preferences and preserves input/focus, Undo and
-the list position. The implementation is technically verified and published; maintainer
-visual/motion and device acceptance remain.
+default. The maintainer accepts the layout and subtle button transition; the remaining refinement
+crossfades the Paste/Search boxes with gentle movement. It must retain reduced-motion support,
+input/focus, Undo and stable list position. The prior candidate is published; the panel follow-up
+has passed focused browser checks and awaits final gates/publication and maintainer fade acceptance.
 Publisher organisation has not started.
 The [sprint plan](../docs/planning/search-and-publisher-sprint-plan.md) retains that feature sequence.
 Optional article images are low priority. Preserve the local-first reading
@@ -141,7 +142,14 @@ Bookmark/Undo and desktop/320px Light/Dark checks. Tool changes keep a 52px shar
 article-heading position, with 180ms entrance motion and reduced-motion disabling rules. Commit
 `56ac48a` passed Pages workflow `42001408407`, and live assets match the checked build. The normal
 Update path retained the isolated browser's fictional article and live Search/Add switching passed.
-Maintainer visual/motion and device acceptance remain.
+The maintainer now accepts the layout and subtle button motion, but reports that the panel swap
+looks abrupt. The authorised follow-up crossfades both panels in the same 52px slot with gentle
+movement, retaining button motion. Inactive panels must be inert/aria-hidden during their fade;
+focus, draft preservation and reduced motion remain required. Intermediate painted opacity was
+verified in both directions, with exclusive accessible/interactive state, rapid switching, typing,
+draft and Undo/focus checks. The slot and heading remain stable at 320px in Light/Dark. All 262
+tests, type/build, privacy/attribution and dependency gates pass. Publication and maintainer
+panel-motion/device acceptance remain.
 
 ### Previous refinement — technically verified, visual acceptance rejected
 

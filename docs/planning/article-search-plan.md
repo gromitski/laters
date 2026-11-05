@@ -34,12 +34,14 @@ empty query selects Add link and focuses that action.
 Search is temporary page state: reload returns to the ordinary newest-first full list with Add link
 selected. Query updates preserve typing and cursor position.
 
-Use a short fade/4px entrance for the incoming tool and a gliding selection underline, with immediate
-focus and input availability. Do not animate results on each keystroke or make the list slide when
-switching tools. Both ordinary tool surfaces are 52px high; URL-validation feedback uses the existing
-space below the tool. Rapid switches must leave only the selected panel available. Reduced-motion
-preference removes the tool animation and underline/selection transitions. No animation dependency,
-timer-based navigation or new storage is needed.
+Crossfade both tool panels over 240ms with 4px of gentle movement, while retaining the accepted
+button/selection underline transition. Panels share one grid slot; the outgoing surface remains
+painted until its fade finishes, then becomes invisible. Only the selected panel accepts input or
+appears in the accessibility tree: set the other inert and aria-hidden immediately. Focus and input
+availability do not wait for the fade. Do not animate results on each keystroke or move the list.
+Both ordinary surfaces retain their 52px slot, including manual URL-validation feedback. Rapid
+switches reverse the CSS transition without queued timers. Reduced motion removes panel and
+underline/selection transitions. No dependency, navigation timer or new storage is needed.
 
 Reconsider the presentation of heading actions when more list functionality arrives; this refinement
 does not prescribe a general controls/menu design or implement publisher organisation.
@@ -193,3 +195,23 @@ The normal Update prompt retained the isolated production browser's existing fic
 selected Add link on load, found that article through Search without showing Paste, and returned
 to the unchanged list when Add link was selected. No production reading data or pairing settings
 were altered. Maintainer visual/motion and physical-device acceptance remain; no tag or release.
+
+### Panel crossfade follow-up — 2026-11-05
+
+The maintainer accepts the layout and subtle button transition, but finds that Paste/Search boxes
+still appear to switch abruptly. The authorised correction retains the accepted buttons and uses
+a 240ms crossfade/4px movement for both panels in a shared grid slot. The outgoing panel becomes
+inert and aria-hidden immediately, remains painted while fading, then becomes invisible. Keyboard
+focus and typing remain immediate. CSS transitions reverse naturally on rapid changes; no timers
+or dependencies were added. Empty manual-entry cleanup must not replace a panel after Search has
+already been selected. Existing draft, query, Bookmark, Undo and capture/import behaviour remains.
+
+Browser checks sampled intermediate opacity in both directions, including approximately 0.02/0.98
+and 0.30/0.70 pairs, rather than checking only that an animation name exists. The inactive search
+field was absent from accessible controls while still painted; focus/typing, rapid reversals,
+non-empty manual drafts, Bookmark composition and Undo/focus recovery passed. At 320px the slot
+stayed 52px and the heading position was unchanged. Light/Dark appearance checks passed. Reduced
+motion disables the panel transitions. All 262 tests, type/build, privacy/attribution and dependency
+gates pass; production dependencies have zero findings and the unchanged development tree has
+3 low and 7 moderate findings. Compiled reduced-motion overrides were checked. Publication and
+maintainer fade/device acceptance remain; no tag or release is authorised.

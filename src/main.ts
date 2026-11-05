@@ -240,8 +240,10 @@ function selectReadingTool(tool: "add" | "search", focus = true): void {
   if (tool !== readingTool) readingTools.classList.add("has-switched");
   readingTool = tool;
   readingTools.dataset.tool = tool;
-  addLinkPanel.hidden = tool !== "add";
-  searchForm.hidden = tool !== "search";
+  addLinkPanel.inert = tool !== "add";
+  searchForm.inert = tool !== "search";
+  addLinkPanel.setAttribute("aria-hidden", String(tool !== "add"));
+  searchForm.setAttribute("aria-hidden", String(tool !== "search"));
   addLinkAction.setAttribute("aria-pressed", String(tool === "add"));
   searchAction.setAttribute("aria-pressed", String(tool === "search"));
   if (tool === "add") {
@@ -1082,7 +1084,7 @@ function createPasteToAddPanel(): HTMLDivElement {
 
     form.addEventListener("focusout", () => {
       window.setTimeout(() => {
-        if (!row.contains(document.activeElement) && !input.value.trim()) {
+        if (readingTool === "add" && !row.contains(document.activeElement) && !input.value.trim()) {
           showPasteButton();
         }
       }, 0);
@@ -1107,7 +1109,7 @@ function createPasteToAddPanel(): HTMLDivElement {
     form.append(inputLabel, controls, error);
     row.replaceChildren(form);
     window.requestAnimationFrame(() => {
-      if (!addLinkPanel.hidden) input.focus({ preventScroll: true });
+      if (readingTool === "add") input.focus({ preventScroll: true });
     });
   };
 
@@ -1728,7 +1730,7 @@ async function restoreArticle(item: SavedItem): Promise<void> {
     showStatus(`Restored “${item.title}”.`);
     window.requestAnimationFrame(() => {
       if (remainsVisible) focusArticle(item.id, true);
-      else (searchForm.hidden ? searchAction : searchInput).focus({ preventScroll: true });
+      else (readingTool === "search" ? searchInput : searchAction).focus({ preventScroll: true });
     });
   } catch (error) {
     pendingDeletion = undefined;
@@ -1759,7 +1761,7 @@ function focusAfterFilteredRemoval(removedIndex: number): void {
   const focusIndex = getFocusIndexAfterRemoval(removedIndex, rows.length);
 
   if (focusIndex === undefined) {
-    const fallback = searchForm.hidden
+    const fallback = readingTool === "add"
       ? (articleFilterAction.hidden ? searchAction : articleFilterAction)
       : searchInput;
     fallback.focus({ preventScroll: true });
