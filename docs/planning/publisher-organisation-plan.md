@@ -153,3 +153,13 @@ focuses the article. Light/Dark menu surfaces and 320px viewport placement/overf
 Compiled reduced-motion overrides and the reduced-motion controller path were checked; no physical
 OS motion setting, Android gesture or VoiceOver acceptance is claimed. A screenshot uses only the
 fictional test collection. Publication verification follows; no tag/release or version bump.
+
+### Refinement publication
+
+Commit `6459048` passed
+[Pages workflow `42112112847`](https://github.com/gromitski/laters/actions/runs/42112112847).
+Public HTML, both JavaScript assets, stylesheet and service worker match the checked build.
+The normal Update path retained the isolated browser's fictional article and loaded the styled
+menu. A live view change sampled approximately 0.86/0.14 old/new opacity at computed 0.5s duration.
+Reload retained the article and reset to Newest first; the live trigger's label-to-chevron gap
+is 6px. Maintainer polish/motion and device acceptance remains separate. No tag or release.

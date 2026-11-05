@@ -121,9 +121,12 @@ Its choice is temporary; Search/Bookmarks compose and the accepted Add link/Sear
 implemented, technically verified and published from `0997c47` through
 Pages workflow `42109442120`; exact live assets and the normal Update/default-view path are
 verified. The maintainer then requested a polished view menu and a 500ms list-view transition.
-That refinement is authorised within `1.4.0` and locally verified: tight right-aligned label,
+That refinement is implemented, technically verified and published within `1.4.0`: tight right-aligned label,
 checked two-choice menu, keyboard/light-dismiss behaviour and list-only crossfade/movement.
-Newest-first load default, Search/Bookmarks/Undo and reduced motion remain required.
+Newest-first load default, Search/Bookmarks/Undo and reduced motion are retained. Commit
+`6459048` passed Pages workflow `42112112847`; exact live assets, normal Update, intermediate
+0.5s fade frames, the 6px label/chevron gap and reload default were verified. The existing
+isolated-browser article was retained.
 Maintainer visual and device acceptance follows. Optional images
 remain low priority; tags, folders, manual filing and reading-time sorting are outside this slice.
 
@@ -281,7 +284,9 @@ and list-only snapshot fade/movement, with interruption handling and reduced mot
 and all feature/data contracts. All 270 tests/35 files, type/build, privacy/attribution and dependency gates pass. Isolated
 browser checks include actual intermediate fade frames on a 105-article fictional library,
 rapid changes, quick Undo, menu keys/dismissal and 320px Light/Dark layouts. Publication
-verification follows the normal checked-slice workflow.
+verification passed: `6459048` / Pages `42112112847`, exact assets/service worker and normal
+Update retained the isolated article. Live 0.5s fade frames and 6px gap were checked; reload
+returns to Newest first. Maintainer motion/polish/device acceptance remains.
 
 2026-11-05 — The maintainer selected Publisher grouping after comparing the two concepts and
 authorised implementation with Newest first as the default. The bounded `1.4.0` plan records
