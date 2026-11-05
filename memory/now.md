@@ -117,8 +117,8 @@ transitions. Visible icon-and-label Add link/Search controls share one panel abo
 heading; Search replaces Paste, and Bookmarks filters the list independently. Add link is the load
 default. The maintainer accepts the layout and subtle button transition; the remaining refinement
 crossfades the Paste/Search boxes with gentle movement. It must retain reduced-motion support,
-input/focus, Undo and stable list position. The prior candidate is published; the panel follow-up
-has passed focused browser checks and awaits final gates/publication and maintainer fade acceptance.
+input/focus, Undo and stable list position. The panel follow-up is technically verified and
+published; maintainer fade and device acceptance remain.
 Publisher organisation has not started.
 The [sprint plan](../docs/planning/search-and-publisher-sprint-plan.md) retains that feature sequence.
 Optional article images are low priority. Preserve the local-first reading
@@ -148,8 +148,9 @@ movement, retaining button motion. Inactive panels must be inert/aria-hidden dur
 focus, draft preservation and reduced motion remain required. Intermediate painted opacity was
 verified in both directions, with exclusive accessible/interactive state, rapid switching, typing,
 draft and Undo/focus checks. The slot and heading remain stable at 320px in Light/Dark. All 262
-tests, type/build, privacy/attribution and dependency gates pass. Publication and maintainer
-panel-motion/device acceptance remain.
+tests, type/build, privacy/attribution and dependency gates pass. Correction commit `5aeeaef` passed
+Pages workflow `42003637767`, with exact public assets verified. Maintainer panel-motion/device
+acceptance remains.
 
 ### Previous refinement — technically verified, visual acceptance rejected
 

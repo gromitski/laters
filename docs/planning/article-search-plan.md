@@ -213,5 +213,10 @@ non-empty manual drafts, Bookmark composition and Undo/focus recovery passed. At
 stayed 52px and the heading position was unchanged. Light/Dark appearance checks passed. Reduced
 motion disables the panel transitions. All 262 tests, type/build, privacy/attribution and dependency
 gates pass; production dependencies have zero findings and the unchanged development tree has
-3 low and 7 moderate findings. Compiled reduced-motion overrides were checked. Publication and
-maintainer fade/device acceptance remain; no tag or release is authorised.
+3 low and 7 moderate findings. Compiled reduced-motion overrides were checked.
+Candidate commit `5aeeaef` passed [Pages workflow `42003637767`](https://github.com/gromitski/laters/actions/runs/42003637767).
+The public HTML, both JavaScript assets and stylesheet exactly match the checked build.
+The normal public Update path retained the isolated browser's fictional article. Live samples
+confirmed both panels fading (approximately 0.98/0.02 then 0.95/0.05 opacity), immediate Search
+focus and a matching result, followed by a cleared query on return to Add link. Maintainer
+fade/device acceptance remains; no tag or release is authorised.
