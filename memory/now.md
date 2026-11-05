@@ -117,8 +117,10 @@ on 2026-11-05 the maintainer selected the grouping concept and required Newest f
 the load default. Candidate `1.4.0` adds an optional Publisher groups view beside Bookmarks,
 with A–Z hostname headings, visible saved-article counts and newest-first rows within each group.
 Its choice is temporary; Search/Bookmarks compose and the accepted Add link/Search layout and
-500ms panel motion remain. The earlier flat-sort proposal is not selected. Implementation and
-technical verification are complete; publication verification and device acceptance follow. Optional images
+500ms panel motion remain. The earlier flat-sort proposal is not selected. The candidate is
+implemented, technically verified and published from `0997c47` through
+Pages workflow `42109442120`; exact live assets and the normal Update/default-view path are
+verified. Maintainer visual and device acceptance follows. Optional images
 remain low priority; tags, folders, manual filing and reading-time sorting are outside this slice.
 
 The real-chat Chrome triage handoff is verified. Automatic Chrome routing from the desktop chat
@@ -244,13 +246,15 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Complete the authorised publisher-grouping slice, run its focused and existing checks, and follow
-the standing commit/push, Pages verification and maintainer-acceptance workflow. Preserve the
-accepted Search interface and 500ms timing. Before calling the whole candidate's device
+Obtain maintainer acceptance of the published `1.4.0` publisher-grouping candidate: apply Update,
+confirm Newest first on load, choose Publisher groups and check its headings/counts with Search
+and Bookmarks. Try Delete/Undo and returning to Newest first. Technical checks and publication
+are complete; preserve the accepted Search interface and 500ms panel timing. Before calling the
+whole candidate's device
 acceptance complete, retain the existing checks on Android/desktop: title/publisher search,
 Bookmark composition, Clear/Escape, capture/import reveal, Delete/Undo while changing query,
-keyboard focus and narrow-layout overflow. Maintainer visual/motion acceptance is already recorded;
-do not ask for it again as though it were outstanding. Live Drive and offline device scenarios
+keyboard focus and narrow-layout overflow. Search visual/panel-motion acceptance is already recorded; do not ask for it again as though it
+were outstanding. Publisher-grouping acceptance is separate and remains pending. Live Drive and offline device scenarios
 must be recorded separately if exercised. Tags/releases still need explicit authority.
 
 Publisher grouping is selected and implemented under the `1.4.0` plan; do not reopen flat sorting
@@ -273,7 +277,10 @@ controls, grouping/count rules, transient state, Undo/focus and capture/import r
 Implementation passes 266 tests/34 files, type/build, privacy/attribution and dependency gates.
 Isolated browser checks cover groups/counts, Search/Bookmarks, Undo/expiry/focus, title edits,
 capture/Import reveal and Light/Dark 320px/desktop layouts. Reload resets to Newest first.
-Publication verification and maintainer device acceptance follow; no tag or release is authorised.
+Implementation commit `0997c47` passed Pages workflow `42109442120`; exact live assets and
+normal Update retained the isolated browser's fictional article. Grouped Search worked; reload
+returned to Newest first and the menu showed Version 1.4.0. Maintainer visual/device acceptance
+remains; no tag or release is authorised.
 
 Dated entries retain the status at the time; the current sections above supersede older pending
 acceptance, timing and planning statements. Detailed implementation receipts live in the slice plans.

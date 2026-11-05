@@ -93,3 +93,14 @@ The accepted 500ms tool-panel CSS and reduced-motion overrides are unchanged.
 These checks used fictional articles and local storage isolated from the maintainer's installation.
 They do not establish physical Android gesture/motion acceptance, VoiceOver conformance, live
 Drive interaction or a new tag/release. Pages publication and the normal Update path follow.
+
+### Published candidate
+
+Implementation commit `0997c47` passed
+[Pages workflow `42109442120`](https://github.com/gromitski/laters/actions/runs/42109442120).
+The public HTML, both JavaScript assets and stylesheet exactly match the checked `1.4.0` build.
+The normal public Update path retained the isolated browser's existing fictional article and
+started in Newest first. Publisher groups showed its hostname and one-article count; a title
+search found it within that group. Reload reset to Newest first, Add link and the full list.
+The menu displayed **Version 1.4.0**. No maintainer reading data or pairing settings were changed.
+Maintainer visual and physical-device acceptance remains; no tag or release was created.

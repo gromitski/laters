@@ -14,8 +14,8 @@ published as a candidate. The maintainer accepts Search matching, the Shared too
 and the 500ms panel transition. Remaining Android/desktop scenario checks are listed in the
 Search plan; no tag or release is authorised.
 [Publisher grouping](docs/planning/publisher-organisation-plan.md) is the authorised `1.4.0`
-candidate, implemented and technically verified with Newest first as the default. Publication
-verification and maintainer device acceptance follow.
+candidate, implemented, technically verified and published with Newest first as the default.
+The normal Update path is verified; maintainer visual/device acceptance remains.
 The `v1.2.1` candidate adds manual device
 pairing to the optional private add-link handoff after article triage. Its sending workflow was
 repaired and a [real-chat Chrome handoff](docs/planning/add-links-plan.md#real-chat-desktop-handoff-verified)

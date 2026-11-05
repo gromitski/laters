@@ -273,7 +273,8 @@ The maintainer subsequently selected **Publisher grouping** on 2026-11-05 and au
 bounded [`1.4.0` implementation](planning/publisher-organisation-plan.md). Newest first stays the
 load default; an optional Publisher groups view uses A–Z hostname headings/counts and newest-first
 rows within each group. Search/Bookmarks compose; the view choice is temporary. All 266 tests, type/build, privacy/attribution and dependency gates pass; isolated interaction and
-layout checks passed. Publication verification and maintainer device acceptance follow. Flat sorting is not selected; no tag or release is authorised.
+layout checks passed. Commit `0997c47` passed Pages workflow `42109442120`; live assets and
+Update/default-view checks passed. Maintainer visual/device acceptance remains. Flat sorting is not selected; no tag or release is authorised.
 
 The broader filing need remains in [future ideas](future-ideas.md#open-possibilities). Tags, folders,
 archive, images, reading-time sorting and other exploratory work are outside these two slices.
