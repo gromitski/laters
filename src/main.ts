@@ -47,6 +47,8 @@ import { parseShareTarget } from "./share/parseShareTarget";
 import { shouldActivateArticleRow } from "./ui/articleRowActivation";
 import { createArticleShareData } from "./ui/articleShare";
 import { formatSavedTime } from "./ui/formatSavedTime";
+import { installArticleViewMenu } from "./ui/articleViewMenu";
+import { createReadingListTransition } from "./ui/readingListTransition";
 import { getBookmarkControlState } from "./ui/bookmarkPresentation";
 import {
   installApplicationMenu,
@@ -115,7 +117,9 @@ const loadingState = requireElement<HTMLParagraphElement>("loading-state");
 const emptyState = requireElement<HTMLParagraphElement>("empty-state");
 const itemCount = requireElement<HTMLParagraphElement>("item-count");
 const listHeading = requireElement<HTMLHeadingElement>("list-heading");
-const articleView = requireElement<HTMLSelectElement>("article-view");
+const articleView = requireElement<HTMLButtonElement>("article-view");
+const articleViewMenu = requireElement<HTMLDivElement>("article-view-menu");
+const listTransition = createReadingListTransition(list);
 const articleFilterAction = requireElement<HTMLButtonElement>("article-filter-action");
 const articleFilterLabel = requireElement<HTMLSpanElement>("article-filter-label");
 const readingTools = requireElement<HTMLElement>("reading-tools");
@@ -222,14 +226,25 @@ articleFilterAction.addEventListener("click", () => {
   readingListView = toggleReadingListView(readingListView);
   renderItems();
 });
-articleView.addEventListener("change", () => {
-  clearFeedback();
-  readingListOrder = articleView.value === "publisher" ? "publisher" : "newest";
-  renderItems();
-  announceHiddenStatus(readingListOrder === "publisher"
-    ? "Grouped by publisher, A to Z. Newest articles first within each publisher."
-    : "Showing newest articles first.");
-});
+const updateArticleView = installArticleViewMenu(
+  articleView,
+  requireElement<HTMLSpanElement>("article-view-label"),
+  articleViewMenu,
+  (order) => {
+    if (order === readingListOrder) return;
+    clearFeedback();
+    readingListOrder = order;
+    updateArticleView(order);
+    listTransition.run(() => {
+      renderItemsContent(false, true);
+      announceHiddenStatus(readingListOrder === "publisher"
+        ? "Grouped by publisher, A to Z. Newest articles first within each publisher."
+        : "Showing newest articles first.");
+    });
+  },
+);
+articleView.addEventListener("click", listTransition.cancel);
+articleView.addEventListener("keydown", listTransition.cancel);
 searchForm.addEventListener("submit", (event) => event.preventDefault());
 addLinkAction.addEventListener("click", () => {
   clearFeedback();
@@ -967,9 +982,14 @@ async function refreshList(): Promise<void> {
 }
 
 function renderItems(animateEntries = false): void {
+  listTransition.cancel();
+  renderItemsContent(animateEntries);
+}
+
+function renderItemsContent(animateEntries = false, reuseRows = false): void {
   const active = document.activeElement;
   const focusedRow = active instanceof HTMLElement
-    ? active.closest<HTMLElement>(".article-row-shell[data-item-id]")
+    ? active.closest<HTMLElement>("[data-item-id]")
     : null;
   const focusedId = focusedRow?.dataset.itemId;
   const focusedIndex = focusedId ? getVisibleArticleIndex(focusedId) : -1;
@@ -979,10 +999,15 @@ function renderItems(animateEntries = false): void {
     : undefined;
   const allEntries = createReadingListEntries(currentItems, pendingDeletion?.item);
   const entries = filterReadingListEntries(allEntries, readingListView, searchQuery);
+  // A view-only change moves existing controls, so a key already pressed on Undo keeps its target.
+  const existingRows = reuseRows
+    ? new Map([...list.querySelectorAll<HTMLLIElement>("[data-item-id]")]
+        .map((row) => [row.dataset.itemId!, row]))
+    : undefined;
   const createRow = (entry: ReadingListEntry, index: number): HTMLLIElement =>
-    entry.isGhost
+    existingRows?.get(entry.item.id) ?? (entry.isGhost
       ? createGhostRow(entry.item, pendingDeletion?.isLeaving ?? false)
-      : createArticleRow(entry.item, animateEntries, index);
+      : createArticleRow(entry.item, animateEntries, index));
   let rowIndex = 0;
   const rows = readingListOrder === "publisher"
     ? groupReadingListEntries(entries).map((group, index) =>
@@ -990,6 +1015,7 @@ function renderItems(animateEntries = false): void {
     : entries.map(createRow);
 
   list.replaceChildren(...rows);
+  list.classList.toggle("is-publisher-grouped", readingListOrder === "publisher");
   updateListSummary(entries);
   if (focusedId && focusedAction) {
     const replacement = findRow(focusedId)?.querySelector<HTMLElement>(`.${focusedAction}`);
@@ -1057,7 +1083,7 @@ function updateListSummary(
   );
 
   listHeading.textContent = presentation.heading;
-  articleView.value = readingListOrder;
+  updateArticleView(readingListOrder);
   updatePublisherGroups();
   list.setAttribute("aria-label", readingListOrder === "publisher"
     ? `${presentation.listLabel}, grouped by publisher` : presentation.listLabel);
@@ -1355,8 +1381,7 @@ function createArticleRow(item: SavedItem, animate: boolean, index: number): HTM
   const savedTime = document.createElement("span");
   savedTime.textContent = formatSavedTime(item.savedAt);
 
-  if (readingListOrder === "newest") metaText.append(hostname, separator);
-  metaText.append(savedTime);
+  metaText.append(hostname, separator, savedTime);
 
   if (item.readTimeMinutes !== undefined) {
     const readTimeSeparator = document.createElement("span");
@@ -1429,6 +1454,7 @@ async function setArticleTitle(
   bookmarkButton: HTMLButtonElement,
   deleteButton: HTMLButtonElement,
 ): Promise<SavedItem | undefined> {
+  listTransition.cancel();
   clearFeedback();
   setRowActionsDisabled(row, true);
   const filteredIndex = getVisibleArticleIndex(item.id);
@@ -1553,6 +1579,7 @@ async function setArticleBookmarked(
   row: HTMLElement,
   button: HTMLButtonElement,
 ): Promise<SavedItem | undefined> {
+  listTransition.cancel();
   clearFeedback();
   const filteredIndex = getVisibleArticleIndex(item.id);
   setRowActionsDisabled(row, true);
@@ -1692,6 +1719,7 @@ function createSvg(className: string, viewBox: string): SVGSVGElement {
 }
 
 async function deleteArticle(item: SavedItem, button: HTMLButtonElement): Promise<void> {
+  listTransition.cancel();
   clearFeedback();
   finalisePendingDeletion();
   const articleRow = findRow(item.id);
@@ -1769,6 +1797,7 @@ function expireUndo(item: SavedItem): void {
 }
 
 async function restoreArticle(item: SavedItem): Promise<void> {
+  listTransition.cancel();
   clearUndoTimer();
   const ghostRow = findRow(item.id);
 
@@ -1910,6 +1939,10 @@ function showShareResult(): void {
 }
 
 function setBusy(isBusy: boolean): void {
+  if (isBusy) {
+    listTransition.cancel();
+    if (articleViewMenu.matches(":popover-open")) articleViewMenu.hidePopover();
+  }
   list.setAttribute("aria-busy", String(isBusy));
   articleFilterAction.disabled = isBusy;
   articleView.disabled = isBusy;

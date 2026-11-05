@@ -265,9 +265,11 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   and panel motion; remaining physical-device scenarios are not inferred from that feedback.
   No `v1.3.0` tag or release is authorised.
 - On 2026-11-05 the maintainer selected **Publisher grouping** and authorised its bounded `1.4.0`
-  implementation. **Newest first** remains the load default; a temporary Article view select beside
+  implementation. **Newest first** remains the load default; a temporary Article view picker beside
   Bookmarks offers Publisher groups. Use A–Z normalised-hostname headings/counts and newest-first
   rows within each group; Search/Bookmarks compose. The publisher plan owns detailed behaviour.
+  The subsequent authorised polish uses a tight right-aligned label and styled checked menu,
+  with a 500ms list-only fade/movement when views change and reduced-motion support.
   Flat sorting is not selected and optional images remain low priority.
 
 ## Accepted v0.8.0 dark-mode direction

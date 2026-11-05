@@ -403,13 +403,12 @@ h1 {
   min-width: 0;
 }
 
-.article-view-label {
-  display: flex;
-  min-width: 0;
-}
-
 #article-view {
-  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.375rem;
+  min-width: 9rem;
   max-width: 100%;
   min-height: var(--target);
   border: 0;
@@ -420,10 +419,104 @@ h1 {
   font: inherit;
   font-size: 0.75rem;
   font-weight: 650;
+  cursor: pointer;
+}
+
+#article-view-label {
+  text-align: right;
   text-decoration: underline;
   text-decoration-color: var(--accent);
   text-underline-offset: 0.25rem;
+}
+
+.article-view-trigger svg,
+.article-view-menu svg {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.article-view-trigger svg { transition: transform 180ms ease; }
+.article-view-trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+.article-view-menu {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  width: 12.5rem;
+  max-width: calc(100vw - 1rem);
+  padding: 0.375rem;
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  background: var(--canvas);
+  color: var(--text);
+  box-shadow: 0 6px 24px var(--dialog-shadow);
+}
+
+.article-view-menu:popover-open { animation: article-view-menu-in 160ms ease-out; }
+
+.article-view-menu button {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  min-height: var(--target);
+  border: 0;
+  border-radius: 7px;
+  padding: 0.5rem 0.625rem;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-align: left;
   cursor: pointer;
+}
+
+.article-view-menu button[aria-checked="true"] { background: var(--bookmark-wash-hover); }
+.article-view-menu button:hover { background: var(--surface-hover); }
+.article-view-menu button:focus-visible { outline-offset: -2px; }
+.article-view-menu button[aria-checked="false"] svg { visibility: hidden; }
+
+@keyframes article-view-menu-in {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Snapshot only the article list: tools and the view picker stay live and still. */
+:root { view-transition-name: none; }
+.articles { view-transition-name: reading-list; }
+::view-transition { pointer-events: none; }
+::view-transition-group(reading-list) { animation: none; pointer-events: auto; }
+::view-transition-old(reading-list),
+::view-transition-new(reading-list) {
+  height: auto;
+  mix-blend-mode: normal;
+  animation-duration: 500ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation-fill-mode: both;
+}
+::view-transition-old(reading-list) { animation-name: list-view-out; }
+::view-transition-new(reading-list) { animation-name: list-view-in; }
+@keyframes list-view-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-4px); }
+}
+@keyframes list-view-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .article-view-menu:popover-open { animation: none; }
+  .article-view-trigger svg { transition: none; }
+  ::view-transition-old(reading-list),
+  ::view-transition-new(reading-list) { animation: none; }
 }
 
 #article-view:disabled {
@@ -435,6 +528,11 @@ h1 {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.is-publisher-grouped .article-hostname,
+.is-publisher-grouped .article-hostname + .article-meta-separator {
+  display: none;
 }
 
 .publisher-group-heading {
@@ -464,7 +562,6 @@ h1 {
   .list-heading-row { gap: 0; }
   .list-heading-title { flex-basis: 100%; }
   .list-heading-actions { width: 100%; justify-content: space-between; }
-  #article-view { font-size: 1rem; }
 }
 
 .list-heading-title {

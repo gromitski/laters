@@ -120,7 +120,11 @@ Its choice is temporary; Search/Bookmarks compose and the accepted Add link/Sear
 500ms panel motion remain. The earlier flat-sort proposal is not selected. The candidate is
 implemented, technically verified and published from `0997c47` through
 Pages workflow `42109442120`; exact live assets and the normal Update/default-view path are
-verified. Maintainer visual and device acceptance follows. Optional images
+verified. The maintainer then requested a polished view menu and a 500ms list-view transition.
+That refinement is authorised within `1.4.0` and locally verified: tight right-aligned label,
+checked two-choice menu, keyboard/light-dismiss behaviour and list-only crossfade/movement.
+Newest-first load default, Search/Bookmarks/Undo and reduced motion remain required.
+Maintainer visual and device acceptance follows. Optional images
 remain low priority; tags, folders, manual filing and reading-time sorting are outside this slice.
 
 The real-chat Chrome triage handoff is verified. Automatic Chrome routing from the desktop chat
@@ -270,6 +274,14 @@ background interval before proposing behaviour changes. Distinguish a restarted 
 access lifetime and rejected requests. No backend or credential-persistence change is approved.
 
 ## Last meaningful update
+
+2026-11-05 — Authorised the Article view picker polish and 500ms Newest first/Publisher groups
+transition. Implemented a right-aligned label/tight chevron, styled accessible native-popover menu
+and list-only snapshot fade/movement, with interruption handling and reduced motion. Kept `1.4.0`
+and all feature/data contracts. All 270 tests/35 files, type/build, privacy/attribution and dependency gates pass. Isolated
+browser checks include actual intermediate fade frames on a 105-article fictional library,
+rapid changes, quick Undo, menu keys/dismissal and 320px Light/Dark layouts. Publication
+verification follows the normal checked-slice workflow.
 
 2026-11-05 — The maintainer selected Publisher grouping after comparing the two concepts and
 authorised implementation with Newest first as the default. The bounded `1.4.0` plan records

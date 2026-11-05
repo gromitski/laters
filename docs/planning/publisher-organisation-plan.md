@@ -11,7 +11,8 @@ Publication and maintainer device acceptance follow technical verification; no t
 ## User outcome and interface
 
 Browse saved articles under publisher headings, then return to the ordinary newest-first queue.
-Use a restrained native **Article view** select beside Bookmarks in the article-heading area:
+Use a restrained, right-aligned **Article view** button beside Bookmarks in the article-heading
+area. A closely spaced chevron opens a styled two-choice menu with a selected checkmark:
 **Newest first** and **Publisher groups**. Newest first is selected on every fresh load/reload.
 The choice is temporary page state, never stored, synced or exported. Keep Add link/Search in
 their existing shared space, with the accepted 500ms panel transitions unchanged.
@@ -31,7 +32,7 @@ the existing row metadata. Groups remain expanded; no collapse or publisher-mana
 - A pending deletion is the sole exception to hiding groups without saved results: keep its
   ghost/Undo route within its publisher until expiry, showing zero saved articles when necessary.
   Ghosts never contribute to group or main counts. Remove an empty group when its ghost expires.
-- Changing Article view preserves Search query, Bookmark state and focus on the select. Typing
+- Changing Article view preserves Search query, Bookmark state and focus on the trigger. Typing
   never replaces the search input or animates the article list. Returning to Add link clears Search
   under the accepted contract and retains the current article view.
 - Delete/Undo retains the seven-second in-place behaviour. Restore into the current publisher
@@ -87,7 +88,8 @@ the query/view; completed Import retained grouping, cleared Search, selected Add
 the first imported row. Review deduplicated against the whole saved collection despite an empty
 search result. Reload returned to Newest first, Add link and the full list with saved data retained.
 Light/Dark 320px layouts and desktop were checked; the document stayed 320px wide at 320px and
-heading actions fit without overlap. Native select and group headings expose accessible names.
+heading actions fit without overlap. The original native select and group headings exposed accessible names; the refinement below
+supersedes the select.
 The accepted 500ms tool-panel CSS and reduced-motion overrides are unchanged.
 
 These checks used fictional articles and local storage isolated from the maintainer's installation.
@@ -104,3 +106,50 @@ started in Newest first. Publisher groups showed its hostname and one-article co
 search found it within that group. Reload reset to Newest first, Add link and the full list.
 The menu displayed **Version 1.4.0**. No maintainer reading data or pairing settings were changed.
 Maintainer visual and physical-device acceptance remains; no tag or release was created.
+
+## View-picker and transition refinement — 2026-11-05
+
+The maintainer requested a smooth 500ms transition between Newest first and Publisher groups,
+a right-aligned label without excess space before the chevron, and polished dropdown options.
+This authorises a focused presentation refinement within candidate `1.4.0`; matching, ordering,
+defaults, data and the accepted Add link/Search panel transition stay unchanged.
+
+Replace the native select with a labelled button and small opaque, theme-aware menu. Keep a
+constant trigger width, align its text to the right and keep a 6px chevron gap. The popup has two
+44px options, a clear selected checkmark, quiet lime selection, rounded corners and a restrained
+shadow. It aligns to the trigger's right edge, clamps to the viewport, and closes on selection,
+outside click, Escape, Tab, resize or scroll. Native popover handles top-layer placement and light
+dismissal. Menu radio semantics expose selection; arrow keys, Home/End and Enter/Space support
+keyboard use. Escape/selection return focus to the trigger; Tab continues to the next control.
+
+Crossfade only the article-list paint snapshots over 500ms with 4px movement in each direction.
+Use the browser's [same-document View Transition API](https://developer.chrome.com/docs/web-platform/view-transitions/same-document),
+without duplicating article DOM/IDs or fading the tools, heading or picker. Reuse existing article
+and Undo controls during view-only reparenting so a keypress cannot lose its target between
+capture and repaint. Rapid choices replace the previous animation; ordinary result updates,
+keyboard focus entering the list and article actions finish it. Search input stays immediate;
+never animate each keystroke. Browsers without native snapshots receive a 500ms entrance fallback.
+Reduced motion skips list animation and removes menu/chevron motion. No new dependency, stored
+preference, version bump, navigation delay or broader redesign.
+
+### Refinement verification
+
+All **270 tests across 35 files**, type checking/build, public-build/repository privacy, attribution
+self-test and dependency gates pass. The four added transition-controller tests cover reduced
+motion, native callback/cancellation, superseded completion and the interruptible 500ms fallback.
+Production dependencies have zero findings; the development tree remains 3 low/7 moderate.
+
+An isolated browser sampled actual old/new snapshot opacity and movement, including approximately
+0.86/0.14 and 0.60/0.40 opacity pairs, with computed 0.5s durations. A 105-article fictional library
+retained all 105 links and produced three correct publisher groups during the fade. This is a
+representative interaction check, not a general performance guarantee. No duplicate interactive
+DOM is introduced by the snapshots.
+
+Menu checks cover selection/checkmarks, Arrow/Home/Tab/Escape navigation, focus return, outside
+dismissal, query/Bookmark preservation, typing mid-transition, rapid reversal and reload default.
+A quick keyboard Undo interruption initially lost its target; reusing existing row controls and
+restoring ghost focus corrected it, and that exact fast-switch/Undo sequence now restores and
+focuses the article. Light/Dark menu surfaces and 320px viewport placement/overflow passed.
+Compiled reduced-motion overrides and the reduced-motion controller path were checked; no physical
+OS motion setting, Android gesture or VoiceOver acceptance is claimed. A screenshot uses only the
+fictional test collection. Publication verification follows; no tag/release or version bump.

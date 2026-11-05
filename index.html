@@ -91,13 +91,20 @@
             <p id="item-count" class="item-count" aria-live="polite"></p>
           </div>
           <div class="list-heading-actions">
-            <label class="article-view-label">
-              <span class="visually-hidden">Article view</span>
-              <select id="article-view" aria-controls="article-list">
-                <option value="newest">Newest first</option>
-                <option value="publisher">Publisher groups</option>
-              </select>
-            </label>
+            <button id="article-view" class="article-view-trigger" type="button"
+              popovertarget="article-view-menu" aria-haspopup="menu"
+              aria-controls="article-view-menu" aria-expanded="false" aria-label="Article view: Newest first">
+              <span id="article-view-label">Newest first</span>
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"></path></svg>
+            </button>
+            <div id="article-view-menu" class="article-view-menu" popover="auto" role="menu" aria-label="Article view">
+              <button type="button" role="menuitemradio" aria-checked="true" data-view="newest" tabindex="-1">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"></path></svg><span>Newest first</span>
+              </button>
+              <button type="button" role="menuitemradio" aria-checked="false" data-view="publisher" tabindex="-1">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"></path></svg><span>Publisher groups</span>
+              </button>
+            </div>
             <button
               id="article-filter-action"
               class="article-filter-action"
