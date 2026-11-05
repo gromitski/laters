@@ -73,7 +73,7 @@ does not prescribe a general controls/menu design or implement publisher organis
   existing seven-second Undo action stays usable. It never contributes to saved/matching counts.
   Undo respects the current query and bookmark view; if the restored item no longer matches, it
   stays saved outside the results and focus returns to Search.
-- Keep Paste, existing gestures, menus, sharing and original article navigation available. Search
+- Keep Paste available through Add link, and retain gestures, menus, sharing and original navigation. Search
   works offline over local data; external articles retain their existing network requirements.
 - No article schema, identifier, saved time, bookmark, credential, Drive operation or CSV contract
   changes. Export covers the complete saved collection; Import deduplicates against the complete
@@ -187,4 +187,9 @@ position; controls retain 44px touch height. The computed incoming animation is 
 load has no tool animation, and reduced-motion disabling rules are included in the production CSS.
 Browser automation does not establish physical Android or maintainer motion/visual acceptance.
 
-Publication and maintainer acceptance are pending. No tag or GitHub release is authorised.
+Candidate commit `56ac48a` passed [Pages workflow `42001408407`](https://github.com/gromitski/laters/actions/runs/42001408407).
+The public HTML, both JavaScript assets and stylesheet exactly match the checked production build.
+The normal Update prompt retained the isolated production browser's existing fictional article,
+selected Add link on load, found that article through Search without showing Paste, and returned
+to the unchanged list when Add link was selected. No production reading data or pairing settings
+were altered. Maintainer visual/motion and physical-device acceptance remain; no tag or release.

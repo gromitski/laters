@@ -115,8 +115,9 @@ Search's matching behaviour is accepted. After rejecting the earlier layouts, th
 the first Shared tool space concept on 2026-11-05 and authorised implementation with smooth
 transitions. Visible icon-and-label Add link/Search controls share one panel above the article
 heading; Search replaces Paste, and Bookmarks filters the list independently. Add link is the load
-default. Brief motion must respect reduced-motion preferences and preserve input/focus, Undo and
-the list position. Technical verification and published visual/device acceptance remain.
+default. Brief motion respects reduced-motion preferences and preserves input/focus, Undo and
+the list position. The implementation is technically verified and published; maintainer
+visual/motion and device acceptance remain.
 Publisher organisation has not started.
 The [sprint plan](../docs/planning/search-and-publisher-sprint-plan.md) retains that feature sequence.
 Optional article images are low priority. Preserve the local-first reading
@@ -132,13 +133,15 @@ direction for the next feature plan, without approving tags, folders or manual f
 
 ## Active slice
 
-Implement the authorised Shared tool space within candidate `1.3.0`, following the updated Search
+Published the authorised Shared tool space within candidate `1.3.0`, following the updated Search
 plan. Preserve the existing matching, capture/manual-entry, Bookmark, Delete/Undo, local storage,
 Drive and CSV contracts. The compact icon-only alternative is not selected. The implementation
 passes 262 tests, type/build, privacy and dependency gates, plus isolated keyboard, capture,
 Bookmark/Undo and desktop/320px Light/Dark checks. Tool changes keep a 52px shared slot and stable
-article-heading position, with 180ms entrance motion and reduced-motion disabling rules. Publish
-through the normal workflow, then obtain maintainer visual/motion and device acceptance.
+article-heading position, with 180ms entrance motion and reduced-motion disabling rules. Commit
+`56ac48a` passed Pages workflow `42001408407`, and live assets match the checked build. The normal
+Update path retained the isolated browser's fictional article and live Search/Add switching passed.
+Maintainer visual/motion and device acceptance remain.
 
 ### Previous refinement — technically verified, visual acceptance rejected
 
