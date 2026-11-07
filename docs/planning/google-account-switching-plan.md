@@ -56,7 +56,12 @@ manual sync and network retry. A simulated 401 produced Resume Google Drive; cli
 Resuming and requested a fresh token. Disconnecting → Connect was also verified. All Google calls
 were simulated with fictional data; maintainer credentials and lists were untouched.
 
-Publication and normal Update/version verification of this correction remain pending.
+Implementation `fee259f4ab976dc83a46816af4c92ab9efe2cccb` passed
+[Pages workflow 42415939411](https://github.com/gromitski/laters/actions/runs/42415939411).
+Published HTML, JavaScript, CSS and service worker match the tested build byte for byte. Normal
+Update on the isolated public-origin installation advanced Version 1.6.1 → 1.6.2 and retained its
+single existing fictional article and metadata. The live menu shows Version 1.6.2. Maintainer
+visual/real-account acceptance remains; no tag or GitHub release was created.
 
 ## Authority and evidence
 

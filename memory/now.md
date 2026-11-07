@@ -112,7 +112,9 @@ Switching account and Disconnecting remain explicit. Valid-session failures use 
 expired/rejected sessions use Resume. 283 tests/36 files, type/build, privacy, attribution and
 dependency gates pass. Browser checks observed correct progress and no extra authorisation for
 manual/automatic sync or network retry; simulated 401/resume and disconnect transitions pass.
-Publication and normal Update verification remain pending. Account
+Implementation `fee259f` passed Pages workflow `42415939411`; public HTML/JS/CSS/worker match the
+build. Normal Update from 1.6.1 to 1.6.2 retained the isolated existing article and showed Version
+1.6.2. Owner visual/real-account acceptance remains. Account
 isolation, Google scope, token lifetime/storage and 20-second polling remain unchanged.
 The current copy/verification contract is in the existing account-switching plan.
 
@@ -295,10 +297,11 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Ask the maintainer to apply normal Update, confirm Version 1.6.1, then Connect/Switch directly
-between their two Google accounts. Each account must show its own list without a list question.
-Check Android sharing after switching. Technical/publication/normal Update checks pass. No
-linking/adoption is required; older unassigned data stays in its separate local backup.
+Ask the maintainer to apply normal Update and confirm Version 1.6.2. While connected, Sync now
+must sync without a Google sign-in popup; manual/automatic sync must show Syncing…, then return to
+Sync now. Actual Google permission renewal alone uses Resume/Resuming. Retain the outstanding
+real-account A/B and Android share checks from the strict-separation plan; no linking/adoption is
+required and old unassigned data remains in its separate local backup.
 
 Obtain maintainer oldest-first/device acceptance of published `1.5.0`: apply Update, confirm
 Version 1.5.0, try Oldest → Newest with Search/Bookmarks and Undo, then reload to confirm the
@@ -321,7 +324,8 @@ access lifetime and rejected requests. No backend or credential-persistence chan
 2026-11-07 — Corrected the long-standing connection/sync wording as `1.6.2`: connected Sync now
 runs data sync with the current session, active sync says Syncing…, and Connect/Resume describe
 permission work only. Retry sync preserves valid credentials; expired/rejected permission restores
-Resume. Technical/browser checks pass; publication and owner acceptance remain.
+Resume. Published from `fee259f` with successful Pages run `42415939411`; normal Update retained
+the isolated article and showed Version 1.6.2. Technical/browser checks pass; owner acceptance remains.
 
 
 2026-11-07 — The maintainer rejected the `1.6.0` adoption interface and a proposed replacement

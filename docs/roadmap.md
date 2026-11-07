@@ -14,9 +14,10 @@ the bounded `v1.3.0` Search implementation is now authorised, with publisher org
 
 Authorised on 2026-11-07 after the maintainer reported confusing Reconnect/Reconnecting labels
 on a healthy connection. Use Sync now/Syncing… for article sync and Connect/Resume only for Google
-permission. The connected primary action performs manual sync using its current session. Preserve
-strict account isolation, credentials, data and polling. Technical verification/publication is in
-progress; the existing [account/sync plan](planning/google-account-switching-plan.md) records details.
+permission. The connected primary action performs manual sync using its current session. Strict
+account isolation, credentials, data and polling remain unchanged. Published from `fee259f` with
+technical and normal Update checks passing; the existing
+[account/sync plan](planning/google-account-switching-plan.md) records details. Owner acceptance remains.
 
 ## `1.6.1` — automatic account separation
 

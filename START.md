@@ -10,7 +10,7 @@ Read these in order before repository-dependent work:
 
 Current application candidate: **1.6.2**. [Strict Google account separation](docs/planning/google-account-switching-plan.md)
 separates connection/permission from data sync: connected **Sync now**, active **Syncing…**, and
-Connect/Resume only when authorisation is needed. Technical checks pass; publication is pending.
+Connect/Resume only when authorisation is needed. Technical, publication and normal Update checks pass.
 It retains strict account separation from **1.6.1**, which
 opens only the chosen account's list, with no linking/merging question or device-only mode. The
 maintainer rejected the `1.6.0` adoption interface. Older unassigned data stays local, available
