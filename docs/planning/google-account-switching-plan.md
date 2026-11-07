@@ -1,4 +1,62 @@
-# Google account switching — 1.6.1
+# Google accounts and sync status — 1.6.2
+
+## Sync action correction — 1.6.2, 2026-11-07
+
+The maintainer reported that a healthy connection says Reconnect Google Drive and normal syncing
+says Reconnecting. The shared checking state previously conflated authorisation with routine data
+sync, and the connected primary action unnecessarily reopened Google sign-in.
+
+The bounded correction preserves strict account separation, Drive files, polling, token lifetime,
+credential storage and Google scope. It changes the connected primary action to a manual sync
+using the current session, with separate progress copy. No new provider, backend, tag or release.
+
+### UX Copy: Google Drive connection and sync
+
+#### Recommended Copy
+
+| State | Primary action | Behaviour |
+| --- | --- | --- |
+| Not connected | Connect Google Drive | Open Google authorisation. |
+| Previous permission needs renewing | Resume Google Drive | Request fresh permission; show Resuming… while waiting. |
+| First authorisation | Connecting… | Disabled while permission is being requested. |
+| Switching account | Switching account… | Disabled while the chosen account is being opened. |
+| Connected and idle | Sync now | Check Drive using the existing session; no sign-in popup. |
+| Normal manual/automatic sync | Syncing… | Disabled until that sync finishes. |
+| Temporary sync failure, session still valid | Retry sync | Retry data sync without requesting Google permission. |
+| Disconnecting | Disconnecting… | Disabled until the revocation attempt finishes. |
+
+After Google grants permission, the initial data exchange also says Syncing…. On expiry/rejection,
+the action becomes Resume Google Drive again. Pending-change messages must not overwrite active
+progress; a superseded sync completion must not overwrite a new account's state.
+
+#### Alternatives
+
+| Option | Copy | Tone | Best For |
+| --- | --- | --- | --- |
+| A | Sync now | Direct | Selected connected action; names what the click actually does. |
+| B | Connected | Neutral | Status text rather than an actionable button. |
+| C | Reconnect Google Drive | Recovery | Superseded here; misleading for a healthy connection. |
+
+#### Rationale
+
+Use connection language only for permission work, and sync language for moving article changes.
+A healthy connection should not appear broken every time automatic polling runs. The selected
+copy matches the action, following UX copy guidance.
+
+#### Localization Notes
+
+Use a single ellipsis for progress. Keep labels action-led and allow expansion when translated;
+no fixed-width control or new animation is required.
+
+Technical checks pass: 283 tests/36 files, type/build, repository/public-build privacy,
+attribution self-tests and dependency gate (3 low/7 moderate development findings; zero production
+findings). Isolated production-build browser checks observed Connecting → Sync now, disabled
+Syncing during manual and automatic-save sync, and unchanged Google authorisation count during
+manual sync and network retry. A simulated 401 produced Resume Google Drive; clicking it showed
+Resuming and requested a fresh token. Disconnecting → Connect was also verified. All Google calls
+were simulated with fictional data; maintainer credentials and lists were untouched.
+
+Publication and normal Update/version verification of this correction remain pending.
 
 ## Authority and evidence
 

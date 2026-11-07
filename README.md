@@ -38,6 +38,10 @@ Drive files, and the maintainer cannot see your reading list.
 Closing, reloading or leaving Laters unused may end the short-lived Google session. Your local
 changes remain safe: open the menu and use **Resume Google Drive** to continue syncing.
 
+Once connected, **Sync now** checks Google Drive immediately using the existing connection.
+**Syncing…** means articles are being checked or saved. **Connect Google Drive** and
+**Resume Google Drive** are used only when Google authorisation is needed.
+
 Use **Disconnect** to stop sync, including while the connection is paused. It keeps the current
 list and pending changes on this device; with a live credential it also attempts Google permission
 revocation. **Switch account** opens Google's account chooser and loads that account's separate

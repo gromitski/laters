@@ -17,7 +17,7 @@ Release `v0.5.7` consolidates the accepted code, configuration and documentation
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
 appearance. Release `v1.0.0` records the accepted subtle Bookmark filter that completes the intended
 personal reading queue. Release `v1.1.0` adds optional CSV-supplied reading-time estimates. Package
-metadata is now `1.6.1` for the authorised strict Google account-separation correction, retaining the add-link pairing,
+metadata is now `1.6.2` for the authorised connection/sync action correction, retaining the add-link pairing,
 diagnostics and progress-label maintenance work. `v1.1.0` remains the latest tagged
 GitHub release; its tag resolves to verified release commit `1e95804`.
 
@@ -104,6 +104,19 @@ GitHub release; its tag resolves to verified release commit `1e95804`.
   housekeeping thresholds and application behaviour are unchanged.
 
 ## Active focus
+
+Candidate **1.6.2** corrects the maintainer-reported confusion between Google sign-in and article
+sync. A connected primary action says Sync now and uses the current session; routine sync says
+Syncing… while disabled. Permission requests alone use Connect/Resume and Connecting/Resuming;
+Switching account and Disconnecting remain explicit. Valid-session failures use Retry sync;
+expired/rejected sessions use Resume. 283 tests/36 files, type/build, privacy, attribution and
+dependency gates pass. Browser checks observed correct progress and no extra authorisation for
+manual/automatic sync or network retry; simulated 401/resume and disconnect transitions pass.
+Publication and normal Update verification remain pending. Account
+isolation, Google scope, token lifetime/storage and 20-second polling remain unchanged.
+The current copy/verification contract is in the existing account-switching plan.
+
+Retained 1.6.1 account-separation baseline:
 
 Candidate **1.6.1** implements the maintainer's 2026-11-07 correction: keep all Google account lists
 entirely separate. The `1.6.0` adoption/linking interface and a proposed replacement confirmation
@@ -304,6 +317,12 @@ background interval before proposing behaviour changes. Distinguish a restarted 
 access lifetime and rejected requests. No backend or credential-persistence change is approved.
 
 ## Last meaningful update
+
+2026-11-07 — Corrected the long-standing connection/sync wording as `1.6.2`: connected Sync now
+runs data sync with the current session, active sync says Syncing…, and Connect/Resume describe
+permission work only. Retry sync preserves valid credentials; expired/rejected permission restores
+Resume. Technical/browser checks pass; publication and owner acceptance remain.
+
 
 2026-11-07 — The maintainer rejected the `1.6.0` adoption interface and a proposed replacement
 confirmation, then explicitly selected entirely separate account lists. The `1.6.1` correction

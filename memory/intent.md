@@ -153,6 +153,19 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   delete and Undo sequence are working, closing the remaining human acceptance gates. Automated
   expiry, rejected-credential and failed-upload checks remain the evidence for those failure paths.
 
+## Accepted `v1.6.2` connection and sync copy
+
+- The maintainer reported healthy connections saying Reconnect and normal sync saying Reconnecting.
+- Connected primary action is **Sync now**, using the current session without opening Google sign-in.
+  Manual/automatic data work says **Syncing…**, with the primary action disabled until it completes.
+- Connect/Connecting and Resume/Resuming are reserved for Google permission work. Switch account
+  retains its explicit chooser and Switching account… progress; Disconnecting… names revocation.
+- Temporary sync failures keep a valid session and show **Retry sync**. Expiry/rejection clears the
+  session and restores **Resume Google Drive**. Preserve pending messages, cancellation and stale
+  completion guards. This supersedes the old shared Reconnecting… copy, without changing token
+  persistence, scopes, polling, data formats or account isolation.
+- Copy and verification are recorded in the existing account-switching plan.
+
 ## Accepted `v1.6.1` strict account separation
 
 - On 2026-11-07 the maintainer authorised paused-state Disconnect and safe Google account switching.
@@ -169,7 +182,7 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   it does not activate, link or merge lists. Normal Connect/Switch needs no further decision.
 - Android shares and imports target the active list; prevent stale operations or other windows
   from writing a previous account's articles into the new account.
-- The full contract, isolation contract and acceptance record live in
+- The isolation contract and acceptance record live in
   [Google account switching](../docs/planning/google-account-switching-plan.md). Provider expansion,
   persistent sign-in, native apps and billing remain separate proposals.
 

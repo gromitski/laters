@@ -10,6 +10,14 @@ Laters account, backend or public database. The maintainer has since selected th
 add-link handoff below. Search and publisher organisation are now prioritised for sprint planning;
 the bounded `v1.3.0` Search implementation is now authorised, with publisher organisation following.
 
+## `1.6.2` — distinguish sync from sign-in
+
+Authorised on 2026-11-07 after the maintainer reported confusing Reconnect/Reconnecting labels
+on a healthy connection. Use Sync now/Syncing… for article sync and Connect/Resume only for Google
+permission. The connected primary action performs manual sync using its current session. Preserve
+strict account isolation, credentials, data and polling. Technical verification/publication is in
+progress; the existing [account/sync plan](planning/google-account-switching-plan.md) records details.
+
 ## `1.6.1` — automatic account separation
 
 On 2026-11-07 the maintainer rejected the `1.6.0` linking/adoption interface and explicitly directed

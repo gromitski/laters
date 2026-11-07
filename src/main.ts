@@ -357,7 +357,10 @@ installAction.addEventListener("click", () => {
     .finally(hideInstallAction);
 });
 
-googleDriveConnectAction.addEventListener("click", () => { void changeGoogleDriveAccount(false); });
+googleDriveConnectAction.addEventListener("click", () => {
+  if (googleDriveSyncSession) syncArticlesToGoogleDrive("Syncing with Google Drive…");
+  else void changeGoogleDriveAccount(false);
+});
 googleDriveSwitchAction.addEventListener("click", () => { void changeGoogleDriveAccount(true); });
 
 async function changeGoogleDriveAccount(chooseAccount: boolean): Promise<void> {
@@ -373,7 +376,8 @@ async function changeGoogleDriveAccount(chooseAccount: boolean): Promise<void> {
   googleDriveSwitchAction.disabled = true;
   googleDriveDisconnectAction.disabled = true;
   setGoogleDriveMenuState("checking");
-  googleDriveConnectAction.textContent = chooseAccount ? "Switching account…" : "Connecting…";
+  googleDriveConnectAction.textContent = chooseAccount ? "Switching account…"
+    : hasRememberedGoogleDriveConnection() ? "Resuming…" : "Connecting…";
   googleDriveConnectionStatus.textContent = "Choose your Google account. Your lists will stay separate.";
   try {
     const boundList = workspaceState.accounts.some((account) => account.database === activeDatabase);
@@ -381,6 +385,8 @@ async function changeGoogleDriveAccount(chooseAccount: boolean): Promise<void> {
       GOOGLE_DRIVE_CLIENT_ID, window, document,
       chooseAccount || !hasRememberedGoogleDriveConnection() || !boundList,
     );
+    googleDriveConnectAction.textContent = "Syncing…";
+    googleDriveConnectionStatus.textContent = "Syncing this account’s articles…";
     await establishGoogleDriveLiveSync(connection.accessToken, calculateGoogleDriveCredentialExpiry(connection.expiresInSeconds));
     googleDriveDiagnostics.accessGranted(connection.expiresInSeconds, googleDriveCredentialExpiresAt);
   } catch (error) {
@@ -420,7 +426,7 @@ googleDriveDisconnectAction.addEventListener("click", () => {
   clearGoogleDriveSession();
   forgetGoogleDriveConnection();
   googleDriveConnectionStatus.textContent = "Disconnecting from Google Drive…";
-  googleDriveConnectAction.textContent = "Connect Google Drive";
+  googleDriveConnectAction.textContent = "Disconnecting…";
   setGoogleDriveMenuState("checking");
 
   void revokeGoogleDriveAccess(accessToken)
@@ -760,11 +766,11 @@ function showRememberedGoogleDriveConnection(): void {
       return;
     }
 
-    googleDriveConnectAction.textContent = "Reconnect Google Drive";
+    googleDriveConnectAction.textContent = "Resume Google Drive";
     googleDriveConnectionStatus.textContent = `Last connected ${connectedAt.toLocaleString("en-GB", {
       dateStyle: "medium",
       timeStyle: "short",
-    })}. Reconnect to load the Drive copy.`;
+    })}. Resume to load the Drive copy.`;
   } catch {
     // Connection history is optional and must never affect the local reading list.
   }
@@ -1050,17 +1056,13 @@ function setGoogleDriveMenuState(
   const knownList = workspaceState.accounts.some((account) => account.database === activeDatabase);
   googleDriveDisconnectAction.hidden = !(googleDriveSyncSession || hasRememberedGoogleDriveConnection());
   googleDriveSwitchAction.hidden = !(knownList || hasRememberedGoogleDriveConnection());
-  if (state === "checking" && !googleDriveDisconnectAction.disabled) {
-    googleDriveConnectAction.textContent = googleDriveSyncSession || hasRememberedGoogleDriveConnection()
-      ? "Reconnecting…"
-      : "Connecting…";
-  } else if (state === "connected") {
-    googleDriveConnectAction.textContent = "Reconnect Google Drive";
-  } else if (state === "disconnected" && !googleDriveConnectAction.disabled) {
-    googleDriveConnectAction.textContent = googleDriveSyncSession
-      ? "Reconnect Google Drive"
-      : hasRememberedGoogleDriveConnection() ? "Resume Google Drive" : "Connect Google Drive";
-  }
+  // Sign-in, switching and revocation set their own progress copy and lock the action.
+  if (isChangingAccount || googleDriveDisconnectAction.disabled) return;
+  const syncing = state === "checking" && !!googleDriveSyncSession;
+  googleDriveConnectAction.disabled = syncing;
+  googleDriveConnectAction.textContent = googleDriveSyncSession
+    ? syncing ? "Syncing…" : state === "disconnected" ? "Retry sync" : "Sync now"
+    : hasRememberedGoogleDriveConnection() ? "Resume Google Drive" : "Connect Google Drive";
 }
 
 function savedItemListsEqual(left: SavedItem[], right: SavedItem[]): boolean {
