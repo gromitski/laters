@@ -3,14 +3,13 @@
 import { clientsClaim } from "workbox-core";
 import { cleanupOutdatedCaches, precacheAndRoute } from "workbox-precaching";
 import { handleShareTargetRequest } from "./share/handleShareTargetRequest";
-import { IndexedDbReadingListStore } from "./storage/indexedDbReadingListStore";
+import { openActiveReadingList } from "./storage/googleDriveWorkspaces";
 
 declare const self: ServiceWorkerGlobalScope & {
   __WB_MANIFEST: Array<string | { revision: string | null; url: string }>;
 };
 
 const SHARE_TARGET_PATH = "/share-target";
-const store = new IndexedDbReadingListStore();
 
 clientsClaim();
 precacheAndRoute(self.__WB_MANIFEST);
@@ -30,6 +29,8 @@ self.addEventListener("fetch", (event) => {
     requestUrl.origin === self.location.origin &&
     requestUrl.pathname === SHARE_TARGET_PATH
   ) {
-    event.respondWith(handleShareTargetRequest(event.request, store));
+    event.respondWith(openActiveReadingList()
+      .then((store) => handleShareTargetRequest(event.request, store))
+      .catch(() => Response.redirect(new URL("/?share=storage-error", self.location.origin), 303)));
   }
 });

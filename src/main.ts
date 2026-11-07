@@ -25,6 +25,7 @@ import {
 } from "./pwa/installApplication";
 import { registerServiceWorker } from "./pwa/registerServiceWorker";
 import { IndexedDbReadingListStore } from "./storage/indexedDbReadingListStore";
+import { GoogleDriveWorkspaces } from "./storage/googleDriveWorkspaces";
 import { requestPersistentStorage } from "./storage/requestPersistentStorage";
 import {
   connectGoogleDrive,
@@ -84,7 +85,23 @@ import {
   createMobileArticleShell,
 } from "./ui/mobileArticleShell";
 
-const store = new IndexedDbReadingListStore();
+async function startApplication(): Promise<void> {
+const workspaces = new GoogleDriveWorkspaces();
+let workspaceState = await workspaces.read();
+let activeDatabase = workspaceState.active;
+let store = new IndexedDbReadingListStore(activeDatabase);
+let isChangingAccount = false;
+let listEpoch = 0;
+const importStores = new WeakMap<ReadingListImportPlan, IndexedDbReadingListStore>();
+const workspaceChannel = typeof BroadcastChannel === "undefined" ? undefined : new BroadcastChannel("laters-active-list");
+workspaceChannel?.addEventListener("message", () => {
+  void workspaces.read().then((state) => {
+    if (state.active !== activeDatabase) {
+      clearGoogleDriveSession();
+      window.location.reload();
+    }
+  }).catch(() => pauseGoogleDriveSync("Laters could not check the active list. Your articles remain saved locally."));
+});
 const UNDO_WINDOW_MS = 7_000;
 const ROW_COLLAPSE_MS = 460;
 const GOOGLE_DRIVE_POLL_MS = 20_000;
@@ -154,6 +171,9 @@ const googleDriveConnectAction = requireElement<HTMLButtonElement>(
 const googleDriveDisconnectAction = requireElement<HTMLButtonElement>(
   "google-drive-disconnect-action",
 );
+const googleDriveSwitchAction = requireElement<HTMLButtonElement>("google-drive-switch-action");
+const googleDriveLocalAction = requireElement<HTMLButtonElement>("google-drive-local-list");
+const googleDriveListChoice = requireElement<HTMLDivElement>("google-drive-list-choice");
 const googleDriveConnectionStatus = requireElement<HTMLParagraphElement>(
   "google-drive-connection-status",
 );
@@ -178,7 +198,7 @@ const importDataCancelAction = requireElement<HTMLButtonElement>(
   "import-data-cancel-action",
 );
 const importDataStatus = requireElement<HTMLParagraphElement>("import-data-status");
-const pastePanel = createPasteToAddPanel();
+let pastePanel = createPasteToAddPanel();
 addLinkPanel.append(pastePanel);
 
 let applicationInstallPrompt: ApplicationInstallPrompt | undefined;
@@ -339,52 +359,111 @@ installAction.addEventListener("click", () => {
     .finally(hideInstallAction);
 });
 
-googleDriveConnectAction.addEventListener("click", () => {
-  const activeSessionAtStart = googleDriveSyncSession;
-  googleDriveDiagnostics.record("permission_requested");
-  setGoogleDriveMenuState("checking");
-  googleDriveConnectAction.disabled = true;
-  googleDriveConnectionStatus.textContent = "Opening Google’s private permission screen…";
-
-  void connectGoogleDrive(GOOGLE_DRIVE_CLIENT_ID)
-    .then(async ({ accessToken, expiresInSeconds }) => {
-      const expiresAt = calculateGoogleDriveCredentialExpiry(expiresInSeconds);
-      googleDriveDiagnostics.accessGranted(expiresInSeconds, expiresAt);
-      await establishGoogleDriveLiveSync(accessToken, expiresAt);
-    })
-    .catch((error) => {
-      recordGoogleDriveFailure("connection_failed", error);
-      if (isGoogleDriveAuthorizationError(error)) {
-        pauseGoogleDriveSync(
-          "Google permission expired. Your changes are safe locally; resume sync to send them.",
-        );
-      } else if (
-        activeSessionAtStart &&
-        googleDriveSyncSession === activeSessionAtStart
-      ) {
-        setGoogleDriveMenuState("connected");
-        googleDriveConnectAction.textContent = "Reconnect Google Drive";
-        googleDriveConnectionStatus.textContent = `Up to date in Google Drive. Checking every ${GOOGLE_DRIVE_POLL_MS / 1_000} seconds while open.`;
-        startGoogleDrivePolling();
-      } else {
-        stopGoogleDrivePolling();
-        googleDriveSyncSession = undefined;
-        googleDriveAccessToken = undefined;
-        googleDriveCredentialExpiresAt = undefined;
-        googleDriveDisconnectAction.hidden = true;
-        setGoogleDriveMenuState("disconnected");
-        googleDriveConnectAction.textContent = hasRememberedGoogleDriveConnection()
-          ? "Resume Google Drive"
-          : "Connect Google Drive";
-        googleDriveConnectionStatus.textContent = googleDriveConnectionError(error);
-      }
-    })
-    .finally(() => {
-      googleDriveConnectAction.disabled = false;
-    });
+googleDriveConnectAction.addEventListener("click", () => { void changeGoogleDriveAccount(false); });
+googleDriveSwitchAction.addEventListener("click", () => { void changeGoogleDriveAccount(true); });
+googleDriveLocalAction.addEventListener("click", () => {
+  if (isChangingAccount) return;
+  void openDeviceOnlyList();
 });
 
+async function changeGoogleDriveAccount(chooseAccount: boolean): Promise<void> {
+  if (isChangingAccount) return;
+  googleDriveDiagnostics.record("permission_requested");
+  isChangingAccount = true;
+  const previous = { session: googleDriveSyncSession, token: googleDriveAccessToken, expiry: googleDriveCredentialExpiresAt, database: activeDatabase };
+  ++listEpoch;
+  finalisePendingDeletion();
+  clearGoogleDriveSession();
+  setBusy(true);
+  googleDriveConnectAction.disabled = true;
+  googleDriveSwitchAction.disabled = true;
+  googleDriveDisconnectAction.disabled = true;
+  googleDriveLocalAction.disabled = true;
+  setGoogleDriveMenuState("checking");
+  googleDriveConnectAction.textContent = chooseAccount ? "Switching account…" : "Connecting…";
+  googleDriveConnectionStatus.textContent = "Choose your Google account. Your lists will stay separate.";
+  try {
+    const boundList = workspaceState.accounts.some((account) => account.database === activeDatabase);
+    const connection = await connectGoogleDrive(
+      GOOGLE_DRIVE_CLIENT_ID, window, document,
+      chooseAccount || !hasRememberedGoogleDriveConnection() || !boundList,
+    );
+    await establishGoogleDriveLiveSync(connection.accessToken, calculateGoogleDriveCredentialExpiry(connection.expiresInSeconds));
+    googleDriveDiagnostics.accessGranted(connection.expiresInSeconds, googleDriveCredentialExpiresAt);
+  } catch (error) {
+    clearGoogleDriveSession();
+    recordGoogleDriveFailure("connection_failed", error);
+    googleDriveConnectionStatus.textContent = googleDriveConnectionError(error);
+    if (!isGoogleDriveAuthorizationError(error) && previous.session && previous.database === activeDatabase &&
+        (previous.expiry === undefined || previous.expiry > Date.now())) {
+      googleDriveSyncSession = previous.session;
+      googleDriveAccessToken = previous.token;
+      googleDriveCredentialExpiresAt = previous.expiry;
+      startGoogleDrivePolling();
+      googleDriveConnectionStatus.textContent = "Account change did not complete. The previous list is still connected; no lists were combined.";
+    }
+  } finally {
+    isChangingAccount = false;
+    googleDriveConnectAction.disabled = false;
+    googleDriveDisconnectAction.disabled = false;
+    googleDriveSwitchAction.disabled = false;
+    googleDriveLocalAction.disabled = false;
+    setBusy(false);
+    setGoogleDriveMenuState(googleDriveSyncSession ? "connected" : "disconnected");
+  }
+}
+
+function chooseExistingList(): Promise<boolean> {
+  googleDriveListChoice.hidden = false;
+  const separate = requireElement<HTMLButtonElement>("google-drive-list-separate");
+  const adopt = requireElement<HTMLButtonElement>("google-drive-list-adopt");
+  const cancel = requireElement<HTMLButtonElement>("google-drive-list-cancel");
+  separate.focus({ preventScroll: true });
+  return new Promise((resolve, reject) => {
+    const finish = (choice?: boolean) => {
+      googleDriveListChoice.hidden = true;
+      separate.removeEventListener("click", onSeparate);
+      adopt.removeEventListener("click", onAdopt);
+      cancel.removeEventListener("click", onCancel);
+      applicationMenu.removeEventListener("ionModalDidDismiss", onCancel);
+      if (choice === undefined) reject(new Error("google-popup-closed"));
+      else resolve(choice);
+    };
+    const onSeparate = () => finish(false);
+    const onAdopt = () => finish(true);
+    const onCancel = () => finish();
+    separate.addEventListener("click", onSeparate);
+    adopt.addEventListener("click", onAdopt);
+    cancel.addEventListener("click", onCancel);
+    applicationMenu.addEventListener("ionModalDidDismiss", onCancel);
+  });
+}
+
+async function openDeviceOnlyList(): Promise<void> {
+  isChangingAccount = true;
+  ++listEpoch;
+  clearGoogleDriveSession();
+  finalisePendingDeletion();
+  setBusy(true);
+  try {
+    const state = await workspaces.read();
+    const targetStore = new IndexedDbReadingListStore(state.local);
+    const items = await targetStore.listNewestFirst();
+    workspaceState = await workspaces.activate(state.local, state.revision);
+    showWorkspace(targetStore, state.local, items);
+    forgetGoogleDriveConnection();
+    googleDriveConnectionStatus.textContent = "Device-only list. Other accounts’ articles and pending changes remain saved separately.";
+  } catch (error) {
+    googleDriveConnectionStatus.textContent = readableError(error, "The device-only list could not be opened. Your lists remain saved.");
+  } finally {
+    isChangingAccount = false;
+    setBusy(false);
+    setGoogleDriveMenuState("disconnected");
+  }
+}
+
 googleDriveDisconnectAction.addEventListener("click", () => {
+  if (isChangingAccount) return;
   googleDriveDiagnostics.record("disconnected");
   const accessToken = googleDriveAccessToken;
 
@@ -414,7 +493,7 @@ googleDriveDisconnectAction.addEventListener("click", () => {
     .finally(() => {
       googleDriveConnectAction.disabled = false;
       googleDriveDisconnectAction.disabled = false;
-      googleDriveDisconnectAction.hidden = true;
+      googleDriveDisconnectAction.hidden = !hasRememberedGoogleDriveConnection();
       setGoogleDriveMenuState("disconnected");
     });
 });
@@ -446,6 +525,7 @@ installReadingListImportAction({
 });
 
 showRememberedGoogleDriveConnection();
+setGoogleDriveMenuState("disconnected");
 
 showShareResult();
 const initialListLoad = refreshList();
@@ -462,6 +542,9 @@ document.addEventListener("visibilitychange", () => {
       seconds: googleDriveBackgroundedAt === undefined ? undefined : (Date.now() - googleDriveBackgroundedAt) / 1_000,
     });
     googleDriveBackgroundedAt = undefined;
+    void workspaces.read().then((state) => {
+      if (state.active !== activeDatabase) { clearGoogleDriveSession(); window.location.reload(); }
+    }).catch(() => pauseGoogleDriveSync("Laters could not check the active list. Your articles remain saved locally."));
     if (googleDriveSyncSession) {
       syncArticlesToGoogleDrive("Checking Google Drive for changes…");
     } else {
@@ -517,11 +600,15 @@ function browserExportEnvironment(): ReadingListExportEnvironment {
 }
 
 async function prepareReadingListImport(file: File): Promise<ReadingListImportReview> {
+  const epoch = listEpoch;
   const csv = await readReadingListImportFile(file);
+  if (epoch !== listEpoch) throw new ReadingListImportError("The account changed. Choose the import file again.");
   return prepareReadingListImportCsv(csv);
 }
 
 async function prepareReadingListImportCsv(csv: string): Promise<ReadingListImportReview> {
+  if (isChangingAccount) throw new ReadingListImportError("Finish changing accounts before importing.");
+  const targetStore = store;
   createReadingListImportPlan(csv, []);
   const session = googleDriveSyncSession;
 
@@ -554,9 +641,9 @@ async function prepareReadingListImportCsv(csv: string): Promise<ReadingListImpo
   }
 
   const existingItems = await store.listNewestFirst();
+  if (store !== targetStore || isChangingAccount) throw new ReadingListImportError("The account changed. Review the import again.");
   const plan = createReadingListImportPlan(csv, existingItems);
-
-  return {
+  const review = {
     ...plan,
     ...(!session && hasRememberedGoogleDriveConnection()
       ? {
@@ -565,6 +652,8 @@ async function prepareReadingListImportCsv(csv: string): Promise<ReadingListImpo
         }
       : {}),
   };
+  importStores.set(review, targetStore);
+  return review;
 }
 
 function currentAddLinkCode(): string | undefined {
@@ -581,7 +670,12 @@ function receiveAddLink(): void {
     showError("Nothing was added. Laters could not clear this private add-link from the address.");
     return;
   }
+  const receiptStore = store;
   addLinkQueue = addLinkQueue.then(async () => {
+    if (receiptStore !== store || isChangingAccount) {
+      showError("Nothing was added. Finish changing accounts, then open the add-link again.");
+      return;
+    }
     try {
       clearFeedback();
       showStatus("Adding your accepted articles…");
@@ -614,12 +708,15 @@ function receiveAddLink(): void {
 async function commitReadingListImport(
   plan: ReadingListImportPlan,
 ): Promise<ReadingListImportResult> {
+  if (isChangingAccount || importStores.get(plan) !== store) throw new ReadingListImportError("The account changed. Review the import again.");
+  const epoch = listEpoch;
   clearFeedback();
   finalisePendingDeletion();
   setBusy(true);
 
   try {
     const result = await store.importNew(plan.items);
+    if (epoch !== listEpoch) throw new ReadingListImportError("The account changed. The import remains in its original list.");
     currentItems = result.items;
     readingListView = "all";
     resetArticleSearch();
@@ -676,6 +773,13 @@ function hideInstallAction(): void {
 }
 
 function showRememberedGoogleDriveConnection(): void {
+  const account = workspaceState.accounts.find((account) => account.database === activeDatabase);
+  if (account) {
+    googleDriveConnectionStatus.textContent = account.remembered
+      ? "Previously connected. Resume Google Drive to sync this account’s list."
+      : "Disconnected. This account’s local list and pending changes remain saved.";
+    return;
+  }
   try {
     const lastConnectedAt = window.localStorage.getItem("laters-google-drive-last-connected");
 
@@ -708,6 +812,8 @@ function rememberGoogleDriveConnection(lastConnectedAt: string): void {
 }
 
 function hasRememberedGoogleDriveConnection(): boolean {
+  const account = workspaceState.accounts.find((account) => account.database === activeDatabase);
+  if (account) return account.remembered;
   try {
     return window.localStorage.getItem("laters-google-drive-last-connected") !== null;
   } catch {
@@ -724,8 +830,10 @@ function removeStoredGoogleDriveCredential(): void {
 }
 
 async function showWaitingGoogleDriveChanges(): Promise<void> {
+  const epoch = listEpoch;
   try {
     const pendingOperations = await store.listPendingSyncOperations();
+    if (epoch !== listEpoch) return;
 
     if (pendingOperations.length > 0 && hasRememberedGoogleDriveConnection() &&
         !googleDriveConnectAction.disabled) {
@@ -737,38 +845,58 @@ async function showWaitingGoogleDriveChanges(): Promise<void> {
   }
 }
 
-async function establishGoogleDriveLiveSync(
-  accessToken: string,
-  expiresAt?: number,
-): Promise<void> {
-  setGoogleDriveMenuState("checking");
+async function establishGoogleDriveLiveSync(accessToken: string, expiresAt?: number): Promise<void> {
   const probe = await runGoogleDriveConnectionProbe(fetch, accessToken);
-  const localItems = await store.listNewestFirst();
+  let state = await workspaces.read();
+  if (state.active !== activeDatabase) throw new Error("The active list changed in another window. Reopen Laters and try again.");
+  const knownAccount = state.accounts.find((account) => account.key === probe.fileId);
+  let adopt = false;
+  if (!knownAccount && state.active === state.local) {
+    const [items, pending] = await Promise.all([store.listNewestFirst(), store.listPendingSyncOperations()]);
+    if (items.length || pending.length) adopt = await chooseExistingList();
+  }
+  state = await workspaces.account(probe.fileId, adopt, state.revision);
+  workspaceState = state;
+  const database = state.accounts.find((account) => account.key === probe.fileId)!.database;
+  const targetStore = new IndexedDbReadingListStore(database);
+  const localItems = await targetStore.listNewestFirst();
   const articles = await initialiseGoogleDriveArticles(fetch, accessToken, localItems);
-  const session = new GoogleDriveLiveSyncSession(
-    fetch,
-    accessToken,
-    articles.fileId,
-    articles,
-  );
+  const session = new GoogleDriveLiveSyncSession(fetch, accessToken, articles.fileId, articles);
+  const result = await session.sync(targetStore);
+  workspaceState = await workspaces.activate(database, state.revision, true);
+  showWorkspace(targetStore, database, result.items);
   googleDriveSyncSession = session;
   googleDriveAccessToken = accessToken;
   googleDriveCredentialExpiresAt = expiresAt;
-  const result = await session.sync(store);
-
-  finalisePendingDeletion();
-  currentItems = result.items;
-  renderItems();
   rememberGoogleDriveConnection(probe.lastConnectedAt);
   googleDriveDiagnostics.record("connected");
   startGoogleDrivePolling();
   setGoogleDriveMenuState("connected");
-  googleDriveDisconnectAction.hidden = false;
-  googleDriveConnectAction.textContent = "Reconnect Google Drive";
   googleDriveConnectionStatus.textContent = `Up to date in Google Drive. Checking every ${GOOGLE_DRIVE_POLL_MS / 1_000} seconds while open.`;
-  announceHiddenStatus(
-    `Google Drive sync is active with ${result.items.length} ${result.items.length === 1 ? "article" : "articles"}.`,
-  );
+  announceHiddenStatus(`Google Drive sync is active with ${result.items.length} ${result.items.length === 1 ? "article" : "articles"}.`);
+}
+
+function showWorkspace(targetStore: IndexedDbReadingListStore, database: string, items: SavedItem[]): void {
+  ++listEpoch;
+  finalisePendingDeletion();
+  store = targetStore;
+  activeDatabase = database;
+  currentItems = items;
+  readingListView = "all";
+  readingListOrder = "newest";
+  updateArticleView("newest");
+  resetArticleSearch();
+  selectReadingTool("add", false);
+  const nextPastePanel = createPasteToAddPanel();
+  pastePanel.replaceWith(nextPastePanel);
+  pastePanel = nextPastePanel;
+  clearFeedback();
+  importDataCancelAction.click();
+  importDataReview.hidden = true;
+  importDataStatus.textContent = "";
+  exportDataStatus.textContent = "";
+  renderItems();
+  workspaceChannel?.postMessage("changed");
 }
 
 function googleDriveConnectionError(error: unknown): string {
@@ -907,7 +1035,7 @@ function clearGoogleDriveSession(): void {
   googleDriveSyncSession = undefined;
   googleDriveAccessToken = undefined;
   googleDriveCredentialExpiresAt = undefined;
-  googleDriveDisconnectAction.hidden = true;
+  googleDriveDisconnectAction.hidden = !hasRememberedGoogleDriveConnection();
 }
 
 function disconnectGoogleDriveLocally(): void {
@@ -920,6 +1048,14 @@ function disconnectGoogleDriveLocally(): void {
 }
 
 function forgetGoogleDriveConnection(): void {
+  const disconnectedDatabase = activeDatabase;
+  const account = workspaceState.accounts.find((account) => account.database === disconnectedDatabase);
+  if (account) account.remembered = false;
+  void workspaces.disconnect(disconnectedDatabase).then((state) => {
+    if (activeDatabase === disconnectedDatabase) workspaceState = state;
+  }).catch(() => {
+    googleDriveConnectionStatus.textContent = "Sync stopped here. Laters could not save the disconnect preference; revoke access in Google Account permissions if needed.";
+  });
   try {
     window.localStorage.removeItem("laters-google-drive-last-connected");
   } catch {
@@ -947,6 +1083,10 @@ function setGoogleDriveMenuState(
   state: "connected" | "checking" | "disconnected",
 ): void {
   setApplicationMenuSyncState(applicationMenuAction, state);
+  const knownList = workspaceState.accounts.some((account) => account.database === activeDatabase);
+  googleDriveDisconnectAction.hidden = !(googleDriveSyncSession || hasRememberedGoogleDriveConnection());
+  googleDriveSwitchAction.hidden = !(knownList || hasRememberedGoogleDriveConnection());
+  googleDriveLocalAction.hidden = workspaceState.local === activeDatabase;
   if (state === "checking" && !googleDriveDisconnectAction.disabled) {
     googleDriveConnectAction.textContent = googleDriveSyncSession || hasRememberedGoogleDriveConnection()
       ? "Reconnecting…"
@@ -965,13 +1105,17 @@ function savedItemListsEqual(left: SavedItem[], right: SavedItem[]): boolean {
 }
 
 async function refreshList(): Promise<void> {
+  const epoch = listEpoch;
   setBusy(true);
 
   try {
-    currentItems = await store.listNewestFirst();
+    const items = await store.listNewestFirst();
+    if (epoch !== listEpoch) return;
+    currentItems = items;
     renderItems(!hasRenderedInitialItems);
     hasRenderedInitialItems = true;
   } catch (error) {
+    if (epoch !== listEpoch) return;
     list.replaceChildren();
     emptyState.hidden = true;
     itemCount.textContent = "";
@@ -1210,7 +1354,9 @@ function createPasteToAddPanel(): HTMLDivElement {
 
     const clipboard = "clipboard" in navigator ? navigator.clipboard : undefined;
 
+    const epoch = listEpoch;
     void readClipboardText(clipboard).then(async (clipboardText) => {
+      if (epoch !== listEpoch || isChangingAccount) return;
       if (!clipboardText) {
         pasteButton.disabled = false;
         showPasteEntryForm();
@@ -1233,6 +1379,8 @@ function createPasteToAddPanel(): HTMLDivElement {
     value: string,
     source: "clipboard" | "manual",
   ): Promise<"saved" | "invalid" | "storage-error"> {
+    if (isChangingAccount) return "storage-error";
+    const epoch = listEpoch;
     let candidate: SavedItem;
 
     try {
@@ -1256,6 +1404,7 @@ function createPasteToAddPanel(): HTMLDivElement {
 
     try {
       const result = await saveCapturedItem(candidate, store);
+      if (epoch !== listEpoch) return "saved";
       currentItems = result.items;
       resetArticleSearch();
       selectReadingTool("add", false);
@@ -1457,6 +1606,8 @@ async function setArticleTitle(
   bookmarkButton: HTMLButtonElement,
   deleteButton: HTMLButtonElement,
 ): Promise<SavedItem | undefined> {
+  if (isChangingAccount || !currentItems.includes(item)) return undefined;
+  const epoch = listEpoch;
   listTransition.cancel();
   clearFeedback();
   setRowActionsDisabled(row, true);
@@ -1464,6 +1615,7 @@ async function setArticleTitle(
 
   try {
     const updatedItem = await store.setTitle(item.id, title);
+    if (epoch !== listEpoch) return undefined;
     currentItems = currentItems.map((candidate) =>
       candidate.id === updatedItem.id ? updatedItem : candidate,
     );
@@ -1582,6 +1734,8 @@ async function setArticleBookmarked(
   row: HTMLElement,
   button: HTMLButtonElement,
 ): Promise<SavedItem | undefined> {
+  if (isChangingAccount || !currentItems.includes(item)) return undefined;
+  const epoch = listEpoch;
   listTransition.cancel();
   clearFeedback();
   const filteredIndex = getVisibleArticleIndex(item.id);
@@ -1594,6 +1748,7 @@ async function setArticleBookmarked(
 
   try {
     const updatedItem = await store.setBookmarked(item.id, bookmarked);
+    if (epoch !== listEpoch) return undefined;
     currentItems = currentItems.map((candidate) =>
       candidate.id === updatedItem.id ? updatedItem : candidate,
     );
@@ -1609,6 +1764,7 @@ async function setArticleBookmarked(
 
     return updatedItem;
   } catch {
+    if (epoch !== listEpoch) return undefined;
     setBookmarkPresentation(button, item, item.bookmarked === true);
     row.classList.toggle("is-bookmarked", item.bookmarked === true);
     row.dispatchEvent(
@@ -1722,6 +1878,8 @@ function createSvg(className: string, viewBox: string): SVGSVGElement {
 }
 
 async function deleteArticle(item: SavedItem, button: HTMLButtonElement): Promise<void> {
+  if (isChangingAccount || !currentItems.includes(item)) return;
+  const epoch = listEpoch;
   listTransition.cancel();
   clearFeedback();
   finalisePendingDeletion();
@@ -1731,6 +1889,7 @@ async function deleteArticle(item: SavedItem, button: HTMLButtonElement): Promis
 
   try {
     await store.delete(item.id);
+    if (epoch !== listEpoch) return;
     currentItems = currentItems.filter((candidate) => candidate.id !== item.id);
     syncArticlesToGoogleDrive();
     pendingDeletion = { item, isLeaving: false };
@@ -1748,6 +1907,7 @@ async function deleteArticle(item: SavedItem, button: HTMLButtonElement): Promis
     window.requestAnimationFrame(() => focusUndo(item.id, true));
     undoTimer = window.setTimeout(() => expireUndo(item), UNDO_WINDOW_MS);
   } catch (error) {
+    if (epoch !== listEpoch) return;
     activeButton.disabled = false;
     showError(readableError(error, "This article could not be deleted."));
   }
@@ -1800,12 +1960,15 @@ function expireUndo(item: SavedItem): void {
 }
 
 async function restoreArticle(item: SavedItem): Promise<void> {
+  if (isChangingAccount || pendingDeletion?.item !== item) return;
+  const epoch = listEpoch;
   listTransition.cancel();
   clearUndoTimer();
   const ghostRow = findRow(item.id);
 
   try {
     await store.restore(item);
+    if (epoch !== listEpoch) return;
     pendingDeletion = undefined;
     currentItems = createReadingListEntries([...currentItems, item]).map((entry) => entry.item);
     syncArticlesToGoogleDrive();
@@ -1828,6 +1991,7 @@ async function restoreArticle(item: SavedItem): Promise<void> {
       else (readingTool === "search" ? searchInput : searchAction).focus({ preventScroll: true });
     });
   } catch (error) {
+    if (epoch !== listEpoch) return;
     pendingDeletion = undefined;
     renderItems();
     showError(readableError(error, "This article could not be restored."));
@@ -1942,6 +2106,9 @@ function showShareResult(): void {
 }
 
 function setBusy(isBusy: boolean): void {
+  isBusy ||= isChangingAccount;
+  importDataAction.disabled = isBusy;
+  exportDataAction.disabled = isBusy;
   if (isBusy) {
     listTransition.cancel();
     if (articleViewMenu.matches(":popover-open")) articleViewMenu.hidePopover();
@@ -2015,3 +2182,10 @@ function requireElement<T extends HTMLElement>(id: string): T {
 
   return element as T;
 }
+
+}
+
+void startApplication().catch(() => {
+  const error = document.getElementById("error-message");
+  if (error) { error.hidden = false; error.textContent = "Laters could not open its saved lists. Your data has not been replaced. Close other Laters windows and try again."; }
+});

@@ -65,6 +65,7 @@ export async function connectGoogleDrive(
   clientId: string,
   targetWindow: Window = window,
   targetDocument: Document = document,
+  chooseAccount = false,
 ): Promise<GoogleDriveConnection> {
   const identity = await loadGoogleIdentityServices(targetWindow, targetDocument);
 
@@ -72,7 +73,7 @@ export async function connectGoogleDrive(
     const client = identity.accounts.oauth2.initTokenClient({
       client_id: clientId,
       scope: GOOGLE_DRIVE_SCOPE,
-      prompt: "",
+      prompt: chooseAccount ? "select_account" : "",
       callback: (response) => {
         if (!response.access_token) {
           reject(new Error(response.error || "google-connection-failed"));
@@ -215,13 +216,16 @@ async function findOrCreateConnectionFile(
     "q",
     `name = '${CONNECTION_FILE_NAME}' and 'appDataFolder' in parents and trashed = false`,
   );
-  listUrl.searchParams.set("fields", "files(id)");
-  listUrl.searchParams.set("pageSize", "1");
+  listUrl.searchParams.set("fields", "files(id),nextPageToken");
+  listUrl.searchParams.set("pageSize", "2");
 
   const listResponse = await request(listUrl, {
     headers: authorisationHeaders(accessToken),
   });
-  const listResult = await readJson<{ files?: Array<{ id?: string }> }>(listResponse);
+  const listResult = await readJson<{ files?: Array<{ id?: string }>; nextPageToken?: string }>(listResponse);
+  if (!Array.isArray(listResult.files) || listResult.files.length > 1 || listResult.nextPageToken) {
+    throw new Error("Google Drive contains ambiguous Laters connection data. No reading list was opened.");
+  }
   const existingId = listResult.files?.[0]?.id;
 
   if (existingId) {

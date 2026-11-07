@@ -38,6 +38,18 @@ Drive files, and the maintainer cannot see your reading list.
 Closing, reloading or leaving Laters unused may end the short-lived Google session. Your local
 changes remain safe: open the menu and use **Resume Google Drive** to continue syncing.
 
+Use **Disconnect** to stop sync, including while the connection is paused. It keeps the current
+list and pending changes on this device; with a live credential it also attempts Google permission
+revocation. **Switch account** opens Google's account chooser and loads that account's separate
+list. Switching back restores its own articles and pending changes; lists are never automatically
+combined. Android sharing and chat add-links save into the active list.
+
+On your first connection after upgrading, Laters may ask about the existing device-only list.
+Choose **Open separate list** to keep it apart, or **Link existing list** only after selecting its
+original Google account. **Open device-only list** returns to the retained unlinked list. Account
+selection is shown by Google; Laters does not request or store your email address. Switching lists
+reloads other open Laters windows. Keep those windows up to date.
+
 If the connection keeps dropping, expand **Connection details** under Google Drive in the menu.
 Version **1.1.1** shows page restarts, returns from the background, Google's supplied access
 lifetime and recent failures. This short history stays in that browser tab through reloads; it is

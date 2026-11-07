@@ -164,10 +164,21 @@
             <button id="google-drive-disconnect-action" class="secondary" type="button" hidden>
               Disconnect
             </button>
+            <button id="google-drive-switch-action" class="secondary" type="button" hidden>Switch account</button>
           </div>
           <p id="google-drive-connection-status" class="sync-experiment-status" role="status" aria-live="polite">
             Local only
           </p>
+          <div id="google-drive-list-choice" class="drive-list-choice" hidden>
+            <h3>Keep your lists separate</h3>
+            <p>Your current articles aren’t linked to a Google account yet. Keep them separate, or link them if you’ve selected the account they belong to.</p>
+            <div class="sync-experiment-actions">
+              <button id="google-drive-list-separate" type="button">Open separate list</button>
+              <button id="google-drive-list-adopt" class="secondary" type="button">Link existing list</button>
+              <button id="google-drive-list-cancel" class="secondary" type="button">Cancel</button>
+            </div>
+          </div>
+          <button id="google-drive-local-list" class="secondary" type="button" hidden>Open device-only list</button>
           <details class="connection-details">
             <summary>Connection details</summary>
             <p>A short history kept in this browser tab, including through reloads. No credentials or article data.</p>

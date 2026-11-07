@@ -17,7 +17,7 @@ Release `v0.5.7` consolidates the accepted code, configuration and documentation
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
 appearance. Release `v1.0.0` records the accepted subtle Bookmark filter that completes the intended
 personal reading queue. Release `v1.1.0` adds optional CSV-supplied reading-time estimates. Package
-metadata is now `1.5.0` for the authorised oldest-first article-view candidate, retaining the add-link pairing,
+metadata is now `1.6.0` for the authorised safe Google account-switching candidate, retaining the add-link pairing,
 diagnostics and progress-label maintenance work. `v1.1.0` remains the latest tagged
 GitHub release; its tag resolves to verified release commit `1e95804`.
 
@@ -104,6 +104,16 @@ GitHub release; its tag resolves to verified release commit `1e95804`.
   housekeeping thresholds and application behaviour are unchanged.
 
 ## Active focus
+
+Candidate **1.6.0** implements paused-state Disconnect and separate local account lists/queues,
+authorised on 2026-11-07 after the maintainer's successful second-Gmail incognito save/sync/reopen
+test left the normal account unaffected. The
+[account-switching plan](../docs/planning/google-account-switching-plan.md) owns the contract,
+first-adoption choice, verification and publication record. Other providers and persistent sign-in
+remain proposals; no new Google scope, token persistence, backend or billing is introduced.
+282 tests/36 files, type/build, privacy and dependency gates pass. Isolated production-build account
+round trips, pending-change isolation, cancelled/failed switching, other-window reload and CSV import
+pass. Publication/Update verification and real-account switching/Android acceptance remain.
 
 Search matching, the Shared tool space layout and the final 500ms panel animation are accepted
 by the maintainer as of 2026-11-05. The maintainer describes half a second as visually quick but
@@ -256,6 +266,10 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
+Complete `1.6.0` account-switching checks, publish under the standing end-of-slice agreement, verify
+normal Update/version, then obtain the real original/second-account round trip and Android share
+acceptance described in its plan. Preserve all original local articles and pending operations.
+
 Obtain maintainer oldest-first/device acceptance of published `1.5.0`: apply Update, confirm
 Version 1.5.0, try Oldest → Newest with Search/Bookmarks and Undo, then reload to confirm the
 Newest → Oldest default. Technical checks, exact live assets and the normal Update path pass. Maintainer acceptance of the preceding
@@ -273,6 +287,13 @@ background interval before proposing behaviour changes. Distinguish a restarted 
 access lifetime and rejected requests. No backend or credential-persistence change is approved.
 
 ## Last meaningful update
+
+2026-11-07 — Implemented the authorised `1.6.0` Google account separation and paused Disconnect
+candidate. The plan records the maintainer's independent second-account sync/reopen evidence,
+local registry/list isolation, deliberate legacy adoption, technical verification and remaining
+publication/real-account/device acceptance. No new provider, Google scope, backend or token
+persistence was introduced.
+
 
 2026-11-05 — The maintainer accepted the polished picker/list animation and authorised oldest-first
 chronological order. Candidate 1.5.0 adds Oldest → Newest, relabels the default Newest → Oldest and

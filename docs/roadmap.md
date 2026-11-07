@@ -10,6 +10,15 @@ Laters account, backend or public database. The maintainer has since selected th
 add-link handoff below. Search and publisher organisation are now prioritised for sprint planning;
 the bounded `v1.3.0` Search implementation is now authorised, with publisher organisation following.
 
+## `1.6.0` — safe Google account switching
+
+Authorised on 2026-11-07 following the maintainer's successful independent second-Gmail incognito
+sync/reopen test. Restore Disconnect for paused connections and keep each account's local list and
+pending queue separate when using Switch account. Preserve unlinked older data with an explicit
+first-adoption choice. The bounded [account-switching plan](planning/google-account-switching-plan.md)
+defines implementation, verification and publication/acceptance status. No new provider, persistent
+credential, Google scope, backend or release tag is included.
+
 ## `v0.5.x` — prepare for public use
 
 ### `v0.5.2` — connection security

@@ -26,7 +26,7 @@
         <a class="back-link" href="/" aria-label="Back to Laters">← Laters</a>
         <p class="eyebrow">Your data, plainly</p>
         <h1>Privacy policy</h1>
-        <p class="effective-date">Effective 9 October 2026</p>
+        <p class="effective-date">Effective 7 November 2026</p>
         <p class="summary">
           Laters is a local-first read-later app. Your reading list stays in your browser unless you
           choose the optional Google Drive sync. If connected, Laters stores a private copy in your
@@ -131,6 +131,24 @@
         </p>
       </section>
 
+      <section aria-labelledby="separate-accounts">
+        <h2 id="separate-accounts">Separate Google accounts</h2>
+        <p>
+          Switching Google accounts opens a separate local reading list, including a separate queue
+          of unsynced additions, edits and deletions. Previous lists remain saved in this browser.
+          A local registry remembers which list is active and associates each account's list with
+          its hidden Drive connection-file identifier. This registry contains no email address,
+          password or Google access token and is not uploaded or included in CSV exports.
+        </p>
+        <p>
+          Older versions did not record this association. On the first connection after upgrading,
+          an existing device-only list can be kept separate or deliberately linked to the selected
+          account. Only link it if you selected its original account. Android sharing and accepted
+          chat imports save into the active list; other open windows reload when a different list
+          becomes active. Clearing all Laters site data removes all local lists and their registry.
+        </p>
+      </section>
+
       <section aria-labelledby="connection-details">
         <h2 id="connection-details">Local connection diagnostics</h2>
         <p>
@@ -180,8 +198,10 @@
           either the changed article details or the identifier of a deleted article.
         </p>
         <p>
-          If no Drive reading list exists at first connection, Laters uploads the list from that
-          browser. Connected devices then combine additions and apply edits, restorations and
+          If no Drive reading list exists at first connection, Laters uploads the local list
+          associated with the selected account. An older unlinked list is included only when you
+          deliberately choose <strong>Link existing list</strong>. Connected devices using the same
+          account then combine additions and apply edits, restorations and
           deletion records over that base list. Laters checks Drive when it opens, returns to the
           foreground or comes online, and every 20 seconds while it is visible. A deletion record
           prevents an older copy from restoring the deleted article. Once 100 change records have
@@ -214,8 +234,9 @@
           </li>
           <li>Clear Laters’ site data in your browser to remove its local database and preferences.</li>
           <li>
-            Use <strong>Disconnect</strong> while connected to stop sync in that browser and ask
-            Google to revoke the active permission. You can also revoke Laters’ access from your
+            Use <strong>Disconnect</strong> to stop sync in that browser. When a live credential is
+            available, Laters also asks Google to revoke its permission. Disconnect remains available
+            when sync is paused; without a live credential it forgets the connection locally. You can also revoke Laters’ access from your
             <a href="https://myaccount.google.com/permissions">Google Account permissions</a>.
           </li>
           <li>

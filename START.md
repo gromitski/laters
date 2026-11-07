@@ -8,7 +8,12 @@ Read these in order before repository-dependent work:
 - [Accepted roadmap](docs/roadmap.md)
 - [Exploratory future ideas](docs/future-ideas.md) when discussing later product scope
 
-Current application candidate: **1.5.0**. [Article views and publisher organisation](docs/planning/publisher-organisation-plan.md)
+Current application candidate: **1.6.0**. [Safe Google account switching](docs/planning/google-account-switching-plan.md)
+restores paused-state Disconnect and separates local account lists and pending changes. Technical
+checks pass; publication and real-account/device acceptance remain. No new scope,
+persistent credential, backend or billing is included.
+
+Retained accepted article-view baseline: **1.5.0**. [Article views and publisher organisation](docs/planning/publisher-organisation-plan.md)
 provide Newest → Oldest (load default), Oldest → Newest and Publisher groups. Implementation, technical checks
 and publication verification pass; maintainer oldest-first/device acceptance remains.
 The maintainer accepts the styled picker, tight label/chevron, shared Add link/Search layout and

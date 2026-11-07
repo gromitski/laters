@@ -153,6 +153,20 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   delete and Undo sequence are working, closing the remaining human acceptance gates. Automated
   expiry, rejected-credential and failed-upload checks remain the evidence for those failure paths.
 
+## Accepted `v1.6.0` account separation
+
+- On 2026-11-07 the maintainer authorised paused-state Disconnect and safe Google account switching.
+- Each Google account keeps a separate local article list and pending-operation queue. Switching
+  must never automatically merge or upload another list; failed/cancelled switching retains the
+  current list. Access tokens remain memory-only, with the existing sole `drive.appdata` scope.
+- Older unlinked data needs an explicit first-adoption choice. Keep it separate by default; link
+  only when the user deliberately chooses its original account. Preserve the device-only list.
+- Android shares and imports target the active list; prevent stale operations or other windows
+  from writing a previous account's articles into the new account.
+- The full contract, first-adoption limitations and acceptance record live in
+  [Google account switching](../docs/planning/google-account-switching-plan.md). Provider expansion,
+  persistent sign-in, native apps and billing remain separate proposals.
+
 ## Accepted public-readiness direction
 
 - Keep public preparation in bounded `v0.5.x` slices before Export becomes `v0.6.0`.
