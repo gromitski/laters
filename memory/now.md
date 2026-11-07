@@ -112,7 +112,9 @@ all linking and device-only mode controls are removed. Older unassigned local da
 uploaded into an account and remains available as a recovery CSV in a collapsed Import/export
 section. Existing `1.6.0` account associations remain valid. 283 tests/36 files, type/build,
 privacy/attribution and dependency gates pass. Isolated A → B → A browser checks opened each account
-directly, uploaded no unassigned data and verified the separate backup CSV. Publication is pending.
+directly, uploaded no unassigned data and verified the separate backup CSV. Implementation `c156989`
+passed Pages workflow `42414882856`; live HTML/JS/CSS/worker/privacy match the build. Normal Update
+from 1.6.0 to 1.6.1 preserved the isolated existing article. Real-account/Android acceptance remains.
 The [account-switching plan](../docs/planning/google-account-switching-plan.md) owns the contract.
 
 Superseded `1.6.0` technical baseline (its adoption interface was rejected):
@@ -280,10 +282,10 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Complete `1.6.1` checks and publication, then verify normal Update and ask the maintainer to
-Connect/Switch directly between their two Google accounts. Each account must show its own list
-without a list question. Check Android sharing after switching. No linking/adoption is required;
-older unassigned data stays in its separate local backup.
+Ask the maintainer to apply normal Update, confirm Version 1.6.1, then Connect/Switch directly
+between their two Google accounts. Each account must show its own list without a list question.
+Check Android sharing after switching. Technical/publication/normal Update checks pass. No
+linking/adoption is required; older unassigned data stays in its separate local backup.
 
 Obtain maintainer oldest-first/device acceptance of published `1.5.0`: apply Update, confirm
 Version 1.5.0, try Oldest → Newest with Search/Bookmarks and Undo, then reload to confirm the
@@ -307,7 +309,8 @@ access lifetime and rejected requests. No backend or credential-persistence chan
 confirmation, then explicitly selected entirely separate account lists. The `1.6.1` correction
 removes adoption/linking and device-only mode controls, always gives each new account its own
 store, retains existing associations and preserves unassigned data as a local recovery backup.
-Technical verification passes; publication and real-account/device acceptance remain.
+Published from `c156989` with successful Pages run `42414882856`; normal Update to 1.6.1 retained
+the isolated existing article. Technical verification passes; real-account/device acceptance remains.
 
 
 2026-11-07 — Implemented the authorised `1.6.0` Google account separation and paused Disconnect

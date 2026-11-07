@@ -117,5 +117,12 @@ and switching back opened A empty again. No list question appeared and neither a
 an upload. The local recovery CSV contained only the old unassigned article, which remained outside
 both account lists. Paused Disconnect and the simplified menu were also observed.
 
-Publication/normal Update verification is pending. The rejected `1.6.0` historical technical receipts
-do not establish product acceptance. Real-account switching and Android acceptance remain pending.
+Implementation `c156989b0134548bea114a56bc621b9989ff7a73` was pushed to main and passed
+[Pages workflow 42414882856](https://github.com/gromitski/laters/actions/runs/42414882856).
+Published HTML, application JavaScript, CSS, service worker and privacy page match the tested build
+byte for byte; the rejected list-association controls are absent. Normal **Update** on the isolated
+public-origin installation advanced **Version 1.6.0** to **Version 1.6.1**, preserving its single
+existing fictional article and metadata.
+
+The rejected `1.6.0` historical technical receipts do not establish product acceptance. Real-account
+switching and Android acceptance of `1.6.1` remain pending. No tag or GitHub release was created.

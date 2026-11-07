@@ -11,7 +11,7 @@ Read these in order before repository-dependent work:
 Current application candidate: **1.6.1**. [Strict Google account separation](docs/planning/google-account-switching-plan.md)
 opens only the chosen account's list, with no linking/merging question or device-only mode. The
 maintainer rejected the `1.6.0` adoption interface. Older unassigned data stays local, available
-as a recovery CSV outside the sync flow. Technical checks pass; publication is pending. No new scope,
+as a recovery CSV outside the sync flow. Technical, publication and normal Update checks pass. No new scope,
 persistent credential, backend or billing is included. Real-account/device acceptance remains.
 
 Retained accepted article-view baseline: **1.5.0**. [Article views and publisher organisation](docs/planning/publisher-organisation-plan.md)

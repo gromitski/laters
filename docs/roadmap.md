@@ -17,7 +17,8 @@ that lists remain entirely separate with their accounts. Connect or Switch accou
 the chosen account's list, without a list question, linking option or device-only mode. Older
 unassigned articles/operations remain local, with a recovery CSV outside the sync flow. This
 bounded correction follows the [account-switching plan](planning/google-account-switching-plan.md).
-Verification/publication is in progress; no new provider, scope, backend or token persistence.
+Published from `c156989` with technical and normal Update checks passing. Real-account/device
+acceptance remains. No new provider, scope, backend or token persistence.
 
 ## `1.6.0` — safe Google account switching
 
