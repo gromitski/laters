@@ -113,7 +113,9 @@ first-adoption choice, verification and publication record. Other providers and 
 remain proposals; no new Google scope, token persistence, backend or billing is introduced.
 282 tests/36 files, type/build, privacy and dependency gates pass. Isolated production-build account
 round trips, pending-change isolation, cancelled/failed switching, other-window reload and CSV import
-pass. Publication/Update verification and real-account switching/Android acceptance remain.
+pass. Implementation `8dd4c28` passed Pages workflow `42413892504`; published HTML/JS/CSS/worker/privacy
+match the build. Normal Update from 1.5.0 retained the isolated single fictional article and showed
+Version 1.6.0. Real-account switching and Android acceptance remain.
 
 Search matching, the Shared tool space layout and the final 500ms panel animation are accepted
 by the maintainer as of 2026-11-05. The maintainer describes half a second as visually quick but
@@ -266,9 +268,11 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Complete `1.6.0` account-switching checks, publish under the standing end-of-slice agreement, verify
-normal Update/version, then obtain the real original/second-account round trip and Android share
-acceptance described in its plan. Preserve all original local articles and pending operations.
+Obtain `1.6.0` real-account switching and Android acceptance. Apply normal Update and confirm
+Version 1.6.0; first select the original account and choose **Link existing list** for that account,
+then Switch account to the tested second account and back. Confirm separate lists and preserved
+pending changes; check an Android share after switching. Technical/publication/normal Update checks
+pass. Preserve all original local articles and pending operations.
 
 Obtain maintainer oldest-first/device acceptance of published `1.5.0`: apply Update, confirm
 Version 1.5.0, try Oldest → Newest with Search/Bookmarks and Undo, then reload to confirm the
@@ -290,8 +294,9 @@ access lifetime and rejected requests. No backend or credential-persistence chan
 
 2026-11-07 — Implemented the authorised `1.6.0` Google account separation and paused Disconnect
 candidate. The plan records the maintainer's independent second-account sync/reopen evidence,
-local registry/list isolation, deliberate legacy adoption, technical verification and remaining
-publication/real-account/device acceptance. No new provider, Google scope, backend or token
+local registry/list isolation, deliberate legacy adoption, technical verification and publication
+from `8dd4c28`/Pages `42413892504`. Normal Update retained the isolated existing article and showed
+Version 1.6.0; real-account/device acceptance remains. No new provider, Google scope, backend or token
 persistence was introduced.
 
 

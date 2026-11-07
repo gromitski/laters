@@ -16,7 +16,8 @@ Authorised on 2026-11-07 following the maintainer's successful independent secon
 sync/reopen test. Restore Disconnect for paused connections and keep each account's local list and
 pending queue separate when using Switch account. Preserve unlinked older data with an explicit
 first-adoption choice. The bounded [account-switching plan](planning/google-account-switching-plan.md)
-defines implementation, verification and publication/acceptance status. No new provider, persistent
+defines the contract. Implemented and published from `8dd4c28` with technical and normal Update
+checks passing; real-account/device acceptance remains. No new provider, persistent
 credential, Google scope, backend or release tag is included.
 
 ## `v0.5.x` — prepare for public use

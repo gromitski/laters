@@ -10,7 +10,7 @@ Read these in order before repository-dependent work:
 
 Current application candidate: **1.6.0**. [Safe Google account switching](docs/planning/google-account-switching-plan.md)
 restores paused-state Disconnect and separates local account lists and pending changes. Technical
-checks pass; publication and real-account/device acceptance remain. No new scope,
+checks, publication and normal Update/version verification pass; real-account/device acceptance remains. No new scope,
 persistent credential, backend or billing is included.
 
 Retained accepted article-view baseline: **1.5.0**. [Article views and publisher organisation](docs/planning/publisher-organisation-plan.md)

@@ -91,4 +91,16 @@ page-memory-only and are discarded on reload; routine Resume is unchanged by thi
   dimensions, so a narrow-screen rendering check is not claimed. Physical Android acceptance remains.
 - No real Google authorisation, permission revocation or maintainer reading-list mutation was performed.
 
-Publication and normal Update/version verification remain to be recorded after push.
+## Publication — 2026-11-07
+
+Implementation commit `8dd4c284636c4dbfd1d34223dfba99ee9b564352` was pushed to main and passed
+[Pages workflow 42413892504](https://github.com/gromitski/laters/actions/runs/42413892504).
+The published HTML, both application JavaScript assets, CSS, service worker and privacy page match
+the local production build byte for byte. On an isolated public-origin browser installation,
+the normal **Update** action advanced the menu from **Version 1.5.0** to **Version 1.6.0** while
+retaining its existing single fictional article and metadata.
+
+Documentation, canonical project memory and the public privacy policy are updated. No tag or
+GitHub release was created. The earlier incognito round trip is maintainer-reported evidence for
+the previous connection flow; real-account switching and physical Android acceptance of this
+new feature remain pending. No maintainer account was connected or modified during agent checks.
