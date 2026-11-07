@@ -21,31 +21,37 @@ describe("separate Google Drive reading lists", () => {
     expect(await legacy.listPendingSyncOperations()).toEqual(pending);
   });
 
-  it("links the legacy list once, preserving its exact queue, and keeps a second account empty", async () => {
+  it("opens every new account separately and never adopts the old local list or queue", async () => {
     const registry = new GoogleDriveWorkspaces();
     const original = new IndexedDbReadingListStore();
     const item = article("pending-original");
     await original.save(item);
     const pending = await original.listPendingSyncOperations();
-    let state = await registry.account("drive-a", true, 0);
-    state = await registry.activate("laters", state.revision, true);
-    const local = state.local;
-    state = await registry.account("drive-b", false, state.revision);
-    const other = state.accounts.find((account) => account.key === "drive-b")!;
-    state = await registry.activate(other.database, state.revision, true);
+    let state = await registry.account("drive-a", 0);
+    const a = state.accounts[0]!.database;
+    expect(a).not.toBe(state.local);
+    state = await registry.activate(a, state.revision, true);
+    expect(await (await openActiveReadingList()).listNewestFirst()).toEqual([]);
+    expect(await (await openActiveReadingList()).listPendingSyncOperations()).toEqual([]);
+    const aItem = article("only-a");
+    await (await openActiveReadingList()).save(aItem);
+    const aPending = await (await openActiveReadingList()).listPendingSyncOperations();
+    state = await registry.account("drive-b", state.revision);
+    state = await registry.activate(state.accounts[1]!.database, state.revision, true);
     expect(await (await openActiveReadingList()).listNewestFirst()).toEqual([]);
     expect(await (await openActiveReadingList()).listPendingSyncOperations()).toEqual([]);
     expect(await original.listNewestFirst()).toEqual([item]);
     expect(await original.listPendingSyncOperations()).toEqual(pending);
-    expect(local).not.toBe("laters");
-    state = await registry.activate("laters", state.revision, true);
-    expect(await (await openActiveReadingList()).listPendingSyncOperations()).toEqual(pending);
+    expect(state.local).toBe("laters");
+    await registry.activate(a, state.revision, true);
+    expect(await (await openActiveReadingList()).listNewestFirst()).toEqual([aItem]);
+    expect(await (await openActiveReadingList()).listPendingSyncOperations()).toEqual(aPending);
   });
 
   it("keeps matching article IDs, bookmarks, edits and deletions in their own account", async () => {
     const registry = new GoogleDriveWorkspaces();
     let state = await registry.account("drive-a");
-    state = await registry.account("drive-b", false, state.revision);
+    state = await registry.account("drive-b", state.revision);
     const a = new IndexedDbReadingListStore(state.accounts[0]!.database);
     const b = new IndexedDbReadingListStore(state.accounts[1]!.database);
     const first = { ...article("a"), id: "same-id" };
@@ -63,10 +69,10 @@ describe("separate Google Drive reading lists", () => {
 
   it("routes a new Android share to the active list while an older capture stays in its original list", async () => {
     const registry = new GoogleDriveWorkspaces();
-    let state = await registry.account("drive-a", true);
-    state = await registry.activate("laters", state.revision, true);
+    let state = await registry.account("drive-a");
+    state = await registry.activate(state.accounts[0]!.database, state.revision, true);
     const olderCapture = await openActiveReadingList();
-    state = await registry.account("drive-b", false, state.revision);
+    state = await registry.account("drive-b", state.revision);
     state = await registry.activate(state.accounts[1]!.database, state.revision, true);
     const newCapture = await openActiveReadingList();
     const a = article("older-capture");
@@ -76,21 +82,49 @@ describe("separate Google Drive reading lists", () => {
     expect(await newCapture.listNewestFirst()).toEqual([b]);
   });
 
-  it("retains the device-only list when opening an account separately", async () => {
+  it("retains an old local backup independently of the active account", async () => {
     const registry = new GoogleDriveWorkspaces();
-    const item = article("device-only");
+    const item = article("local-backup");
     await (await openActiveReadingList()).save(item);
     let state = await registry.account("drive-a");
     state = await registry.activate(state.accounts[0]!.database, state.revision, true);
-    expect(await (await openActiveReadingList()).listNewestFirst()).toEqual([]);
-    await registry.activate(state.local, state.revision);
-    expect(await (await openActiveReadingList()).listNewestFirst()).toEqual([item]);
+    await (await openActiveReadingList()).save(article("account-only"));
+    expect(await new IndexedDbReadingListStore(state.local).listNewestFirst()).toEqual([item]);
+    expect(await (await openActiveReadingList()).listNewestFirst()).toHaveLength(1);
+    expect((await (await openActiveReadingList()).listNewestFirst())[0]!.title).toBe("account-only");
+  });
+
+  it("retains an account association already created by 1.6.0 without adopting any new list", async () => {
+    const registry = new GoogleDriveWorkspaces();
+    await registry.read();
+    const local = `laters-local-${crypto.randomUUID()}`;
+    await new Promise<void>((resolve, reject) => {
+      const request = indexedDB.open("laters-workspaces", 1);
+      request.onsuccess = () => {
+        const database = request.result;
+        const transaction = database.transaction("workspace", "readwrite");
+        transaction.objectStore("workspace").put({
+          revision: 2, active: "laters", local,
+          accounts: [{ key: "previously-linked-account", database: "laters", remembered: true }],
+        }, "state");
+        transaction.oncomplete = () => { database.close(); resolve(); };
+        transaction.onerror = () => { database.close(); reject(transaction.error); };
+      };
+      request.onerror = () => reject(request.error);
+    });
+    const item = article("already-linked");
+    await new IndexedDbReadingListStore().save(item);
+    let state = await registry.account("previously-linked-account");
+    expect(state.accounts[0]!.database).toBe("laters");
+    state = await registry.account("second-account", state.revision);
+    expect(state.accounts[1]!.database).not.toBe("laters");
+    expect(await new IndexedDbReadingListStore().listNewestFirst()).toEqual([item]);
   });
 
   it("persists disconnect without removing articles or queued changes", async () => {
     const registry = new GoogleDriveWorkspaces();
-    let state = await registry.account("drive-a", true);
-    state = await registry.activate("laters", state.revision, true);
+    let state = await registry.account("drive-a");
+    state = await registry.activate(state.accounts[0]!.database, state.revision, true);
     const store = await openActiveReadingList();
     const item = article("offline");
     await store.save(item);
@@ -102,10 +136,10 @@ describe("separate Google Drive reading lists", () => {
     expect(await store.listPendingSyncOperations()).toEqual(pending);
   });
 
-  it("rejects competing adoption and stale activation without replacing a list", async () => {
+  it("rejects competing account creation and stale activation without replacing a list", async () => {
     const registry = new GoogleDriveWorkspaces();
     const results = await Promise.allSettled([
-      registry.account("drive-a", true, 0), registry.account("drive-b", true, 0),
+      registry.account("drive-a", 0), registry.account("drive-b", 0),
     ]);
     expect(results.filter((result) => result.status === "fulfilled")).toHaveLength(1);
     const state = await registry.read();

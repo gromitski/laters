@@ -1,4 +1,4 @@
-# Google account switching — 1.6.0
+# Google account switching — 1.6.1
 
 ## Authority and evidence
 
@@ -13,71 +13,73 @@ without mixing reading lists. This is a complete bounded compatible feature cand
 End-of-slice verification, commit and push to main follow the standing working agreement. No tag,
 release, additional provider, backend, billing, Google scope or persistent credential is authorised.
 
+## Current decision — 1.6.1, 2026-11-07
+
+The maintainer rejected the published `1.6.0` adoption question as unusable. A proposed simpler
+confirmation was also rejected, followed by the explicit instruction: keep lists entirely separate
+with their accounts. This provides agreement for the bounded correction after reassessing the
+failed interaction. The first-adoption design below is historical, not accepted current behaviour.
+
 ## User-visible contract
 
-- Disconnect is available for an active or remembered/paused connection. It stops the local session,
-  retains the list and its pending changes, forgets the connection hint and attempts Google
-  revocation only when a live access token is available. Without one it explains local disconnection;
-  Google Account permissions remain the explicit remote revocation path.
-- Switch account opens Google's explicit account chooser. The chosen account's existing local
-  list and queue are reused, or a separate empty local list is prepared before loading its Drive
-  list. No articles or pending operations are carried automatically between accounts.
-- The active list changes only after the selected account's initial sync and registry commit
-  succeed. A cancelled/failed connection keeps the displayed list. A still-valid previous session
-  is restored when possible; otherwise the previous list stays local and can be resumed.
-- Initial adoption: older versions never recorded account identity. An unlinked non-empty list,
-  including a pending-only queue, gets a one-time choice: **Open separate list** (focused default),
-  **Link existing list**, or **Cancel**. Linking is deliberate adoption, and the copy explicitly says
-  to choose the list's original account. Laters cannot infer the original account retroactively.
-- The unlinked list remains available through **Open device-only list**. Disconnect keeps the
-  current account's list on screen; switching back restores that account's local changes.
-- Google displays the selected account. Laters adds no email/profile permission and stores no
-  email address. Shared capture, CSV import/export and chat add-links target the active list.
-- Switching resets transient Search/Bookmark/order state, ends Undo presentation and invalidates
-  a prepared import. In-flight actions retain their original store; stale completions cannot
-  update a new list. Other updated open windows reload after an active-list change, with a registry
-  check on foreground as well. Unsaved input in those windows can be dismissed by that reload.
-- Account partitioning is not a device security boundary: someone with access to the same browser
-  profile can still view locally retained articles. Separate browser/OS profiles remain appropriate
-  for people sharing a device.
+- **Connect Google Drive** or **Switch account** → choose a Google account → its own list opens.
+  There is no linking, adoption, merge or separate-list question and no device-only mode control.
+- Every new account starts with a separate local database before its Drive list loads. Never seed
+  it with the device's old unassigned list or queue. Existing account associations created by
+  `1.6.0` remain valid, so already-bound lists and pending operations remain with their account.
+- Disconnect remains available for an active or remembered/paused connection. It stops local sync,
+  retains the current account's local list and queue, forgets the connection hint and attempts Google
+  revocation only if a live access token is available. Google Account permissions remain the remote
+  revocation route when no live token is available.
+- Switching back opens that account's local list and resumes only its own queued changes. Failed
+  or cancelled switching keeps the displayed list and restores a still-valid previous session
+  when possible. The active list changes only after successful sync and an atomic registry commit.
+- Older unassigned articles and operations remain on the device as a separate backup and are never
+  uploaded into an account. A collapsed **Previous local backup** under Import/export offers a
+  recovery CSV of those articles when the backup is non-empty. It does not open, link or activate
+  a list. CSV excludes pending operations; those stay retained locally and are not automatically
+  replayed, including old deletions. Recovering a particular unsynced change is a separate deliberate
+  recovery action, not part of normal Connect or Switch.
+- Google displays the selected account. No email/profile permission, persistent credential, backend,
+  provider expansion, billing or tag/release is included. Access tokens remain page-memory-only.
+- Android sharing and accepted chat/CSV imports target the active account list. Switching resets
+  transient views, Undo presentation and prepared imports; stale completions retain their original
+  store and cannot update the new list. Other updated windows reload after a different list becomes
+  active and check the registry on foreground. Unsaved input can be dismissed by that reload.
+- Local account separation is not a device security boundary: someone with the same browser profile
+  can view locally retained articles. Separate OS/browser profiles remain appropriate for shared devices.
 
 ## Implementation boundary
 
-The original `laters` IndexedDB stays intact. A small separate IndexedDB registry records the active
-database, the unlinked local database and account/list associations. Dedicated list databases use
-the existing article and pending-operation stores unchanged. Adoption associates the original
-database once, without copying, clearing or regenerating pending operations. Atomic registry
-transactions and revision checks reject competing adoption or activation.
+A small separate IndexedDB registry records the active database, the retained unassigned database
+and account/list associations. Each account uses the existing article and pending-operation stores
+in its own database. There is no new adoption API; registering an unknown account always creates
+its own database. Atomic registry transactions/revisions reject competing creation or activation.
+Existing `1.6.0` metadata remains readable without a schema migration or data deletion.
 
-The account key is the opaque ID of `laters-connection.json` in the selected account's existing
-hidden Drive app-data area. Resolve it before initialising any article sync. Ambiguous connection
-files fail closed. No new Google permission, identity endpoint, Drive article format or sync
-operation schema is needed. If that remote connection file is deleted/recreated, its new ID is
-treated as a separate workspace; no old list is silently uploaded. Older local account databases
-are retained, but automatic recovery of an orphaned association is outside this slice.
+The account key is the opaque ID of `laters-connection.json` in that account's existing hidden Drive
+app-data area, resolved before article sync. Ambiguous probes fail closed. No new identity endpoint,
+Google scope, article file format or operation schema is needed. If the connection file is deleted
+and recreated, its new ID is treated separately; previous local data is retained and never uploaded
+silently. Automatic recovery of orphaned associations remains outside this slice.
 
-The page holds a fixed store for each in-flight operation/session and changes its active store
-only after successful connection. Android's worker resolves the active database once per share
-request; a share already underway remains in its original list. The registry and connection hints
-are local metadata, excluded from CSV, Drive uploads and diagnostics. All access tokens remain
-page-memory-only and are discarded on reload; routine Resume is unchanged by this feature.
+Each in-flight operation/session keeps its original store. Android's worker resolves the active
+store once per share request; an already-running share stays in its original list. The registry,
+backup association and connection hints stay outside Drive uploads, CSV and diagnostics.
 
 ## Verification and acceptance
 
-- Focused tests cover original-list preservation; exact queue retention through adoption and return;
-  independent articles/edits/bookmarks/deletions even with matching IDs; active share routing and
-  in-flight capture isolation; retained device-only lists; persistent Disconnect; competing
-  adoption/stale activation; prepared-but-failed connection; chooser prompt and ambiguous probes.
-- Production-build browser checks use fictional articles and simulated Google responses on an
-  isolated local origin. Real credentials/accounts and the maintainer's installed list are untouched.
-- Run the complete existing test suite, type/build checks, dependency audits, repository/build
-  privacy audits and attribution guards. Verify the published version through normal Update.
-- Maintainer acceptance after publication: resume the original account and choose **Link existing
-  list** only for that account; switch to the tested second account, confirm its one-link list;
-  switch back and confirm the original list. Also check Disconnect after reopening and an Android
-  share after switching. These real-account and physical-device checks remain owner acceptance.
+- Verify strict isolation with a populated unassigned list and queue: both newly chosen accounts
+  must start independently, and neither may receive an old article or operation. Preserve exact
+  account-specific queues and the backup, including compatibility with existing `1.6.0` associations.
+- Preserve the existing tests for edits/bookmarks/deletions with matching IDs, capture isolation,
+  persistent Disconnect, competing registry changes, cancellation/failure and explicit Google chooser.
+- Browser-check direct A → B → A with no list question, retained backup download and normal Update.
+  Use fictional articles and simulated Google responses; do not touch maintainer credentials/data.
+- Run the existing test/build, dependency, privacy and attribution checks. Publish under the standing
+  end-of-slice agreement, then ask for direct real-account switching and Android sharing acceptance.
 
-## Technical verification — 2026-11-07
+## Historical 1.6.0 technical verification — 2026-11-07
 
 - 282 tests across 36 files pass, including the ten added isolation/chooser/probe cases.
 - Type checking, production build, repository privacy, public-build privacy and attribution self-tests pass.
@@ -91,7 +93,7 @@ page-memory-only and are discarded on reload; routine Resume is unchanged by thi
   dimensions, so a narrow-screen rendering check is not claimed. Physical Android acceptance remains.
 - No real Google authorisation, permission revocation or maintainer reading-list mutation was performed.
 
-## Publication — 2026-11-07
+## Historical 1.6.0 publication — 2026-11-07
 
 Implementation commit `8dd4c284636c4dbfd1d34223dfba99ee9b564352` was pushed to main and passed
 [Pages workflow 42413892504](https://github.com/gromitski/laters/actions/runs/42413892504).
@@ -104,3 +106,16 @@ Documentation, canonical project memory and the public privacy policy are update
 GitHub release was created. The earlier incognito round trip is maintainer-reported evidence for
 the previous connection flow; real-account switching and physical Android acceptance of this
 new feature remain pending. No maintainer account was connected or modified during agent checks.
+
+## 1.6.1 correction status
+
+Implementation passes 283 tests across 36 files, type/build, repository/public-build privacy,
+attribution self-tests and the dependency gate (3 low/7 moderate development findings; zero
+production findings). An isolated production-build browser test started with an old unassigned
+article and queued addition: account A opened empty, account B opened its one remote article,
+and switching back opened A empty again. No list question appeared and neither account received
+an upload. The local recovery CSV contained only the old unassigned article, which remained outside
+both account lists. Paused Disconnect and the simplified menu were also observed.
+
+Publication/normal Update verification is pending. The rejected `1.6.0` historical technical receipts
+do not establish product acceptance. Real-account switching and Android acceptance remain pending.

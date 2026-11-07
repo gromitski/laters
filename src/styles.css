@@ -1847,17 +1847,7 @@ ion-action-sheet.article-action-sheet .action-sheet-group-cancel .action-sheet-b
   margin-top: 0.85rem;
 }
 
-.drive-list-choice {
-  margin: 1rem 0;
-  padding: 1rem;
-  border: 1px solid var(--hairline);
-  border-radius: 12px;
-  background: var(--canvas);
-}
 
-.drive-list-choice h3 { margin: 0 0 0.5rem; font-size: 1rem; }
-.drive-list-choice p { margin-bottom: 1rem; font-size: 0.86rem; line-height: 1.5; }
-#google-drive-local-list { margin: 0.75rem 0; }
 
 .sync-experiment button,
 .data-export button {

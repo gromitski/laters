@@ -172,8 +172,6 @@ const googleDriveDisconnectAction = requireElement<HTMLButtonElement>(
   "google-drive-disconnect-action",
 );
 const googleDriveSwitchAction = requireElement<HTMLButtonElement>("google-drive-switch-action");
-const googleDriveLocalAction = requireElement<HTMLButtonElement>("google-drive-local-list");
-const googleDriveListChoice = requireElement<HTMLDivElement>("google-drive-list-choice");
 const googleDriveConnectionStatus = requireElement<HTMLParagraphElement>(
   "google-drive-connection-status",
 );
@@ -361,10 +359,6 @@ installAction.addEventListener("click", () => {
 
 googleDriveConnectAction.addEventListener("click", () => { void changeGoogleDriveAccount(false); });
 googleDriveSwitchAction.addEventListener("click", () => { void changeGoogleDriveAccount(true); });
-googleDriveLocalAction.addEventListener("click", () => {
-  if (isChangingAccount) return;
-  void openDeviceOnlyList();
-});
 
 async function changeGoogleDriveAccount(chooseAccount: boolean): Promise<void> {
   if (isChangingAccount) return;
@@ -378,7 +372,6 @@ async function changeGoogleDriveAccount(chooseAccount: boolean): Promise<void> {
   googleDriveConnectAction.disabled = true;
   googleDriveSwitchAction.disabled = true;
   googleDriveDisconnectAction.disabled = true;
-  googleDriveLocalAction.disabled = true;
   setGoogleDriveMenuState("checking");
   googleDriveConnectAction.textContent = chooseAccount ? "Switching account…" : "Connecting…";
   googleDriveConnectionStatus.textContent = "Choose your Google account. Your lists will stay separate.";
@@ -407,58 +400,8 @@ async function changeGoogleDriveAccount(chooseAccount: boolean): Promise<void> {
     googleDriveConnectAction.disabled = false;
     googleDriveDisconnectAction.disabled = false;
     googleDriveSwitchAction.disabled = false;
-    googleDriveLocalAction.disabled = false;
     setBusy(false);
     setGoogleDriveMenuState(googleDriveSyncSession ? "connected" : "disconnected");
-  }
-}
-
-function chooseExistingList(): Promise<boolean> {
-  googleDriveListChoice.hidden = false;
-  const separate = requireElement<HTMLButtonElement>("google-drive-list-separate");
-  const adopt = requireElement<HTMLButtonElement>("google-drive-list-adopt");
-  const cancel = requireElement<HTMLButtonElement>("google-drive-list-cancel");
-  separate.focus({ preventScroll: true });
-  return new Promise((resolve, reject) => {
-    const finish = (choice?: boolean) => {
-      googleDriveListChoice.hidden = true;
-      separate.removeEventListener("click", onSeparate);
-      adopt.removeEventListener("click", onAdopt);
-      cancel.removeEventListener("click", onCancel);
-      applicationMenu.removeEventListener("ionModalDidDismiss", onCancel);
-      if (choice === undefined) reject(new Error("google-popup-closed"));
-      else resolve(choice);
-    };
-    const onSeparate = () => finish(false);
-    const onAdopt = () => finish(true);
-    const onCancel = () => finish();
-    separate.addEventListener("click", onSeparate);
-    adopt.addEventListener("click", onAdopt);
-    cancel.addEventListener("click", onCancel);
-    applicationMenu.addEventListener("ionModalDidDismiss", onCancel);
-  });
-}
-
-async function openDeviceOnlyList(): Promise<void> {
-  isChangingAccount = true;
-  ++listEpoch;
-  clearGoogleDriveSession();
-  finalisePendingDeletion();
-  setBusy(true);
-  try {
-    const state = await workspaces.read();
-    const targetStore = new IndexedDbReadingListStore(state.local);
-    const items = await targetStore.listNewestFirst();
-    workspaceState = await workspaces.activate(state.local, state.revision);
-    showWorkspace(targetStore, state.local, items);
-    forgetGoogleDriveConnection();
-    googleDriveConnectionStatus.textContent = "Device-only list. Other accounts’ articles and pending changes remain saved separately.";
-  } catch (error) {
-    googleDriveConnectionStatus.textContent = readableError(error, "The device-only list could not be opened. Your lists remain saved.");
-  } finally {
-    isChangingAccount = false;
-    setBusy(false);
-    setGoogleDriveMenuState("disconnected");
   }
 }
 
@@ -504,6 +447,30 @@ installReadingListExportAction({
   beforeExport: clearFeedback,
   runExport: () => exportReadingList(store, browserExportEnvironment()),
 });
+
+const previousLocalBackup = requireElement<HTMLDetailsElement>("previous-local-backup");
+const previousLocalBackupStatus = requireElement<HTMLParagraphElement>("previous-local-backup-status");
+installReadingListExportAction({
+  action: requireElement<HTMLButtonElement>("previous-local-backup-export"),
+  status: previousLocalBackupStatus,
+  runExport: async () => {
+    const state = await workspaces.read();
+    return exportReadingList(new IndexedDbReadingListStore(state.local), browserExportEnvironment());
+  },
+});
+void refreshPreviousLocalBackup();
+
+async function refreshPreviousLocalBackup(): Promise<void> {
+  const epoch = listEpoch;
+  try {
+    const items = await new IndexedDbReadingListStore(workspaceState.local).listNewestFirst();
+    if (epoch !== listEpoch) return;
+    previousLocalBackup.hidden = workspaceState.local === activeDatabase || items.length === 0;
+  } catch {
+    // A recovery-export check must never prevent opening the account's reading list.
+    previousLocalBackup.hidden = workspaceState.local === activeDatabase;
+  }
+}
 
 installReadingListImportAction({
   action: importDataAction,
@@ -849,13 +816,7 @@ async function establishGoogleDriveLiveSync(accessToken: string, expiresAt?: num
   const probe = await runGoogleDriveConnectionProbe(fetch, accessToken);
   let state = await workspaces.read();
   if (state.active !== activeDatabase) throw new Error("The active list changed in another window. Reopen Laters and try again.");
-  const knownAccount = state.accounts.find((account) => account.key === probe.fileId);
-  let adopt = false;
-  if (!knownAccount && state.active === state.local) {
-    const [items, pending] = await Promise.all([store.listNewestFirst(), store.listPendingSyncOperations()]);
-    if (items.length || pending.length) adopt = await chooseExistingList();
-  }
-  state = await workspaces.account(probe.fileId, adopt, state.revision);
+  state = await workspaces.account(probe.fileId, state.revision);
   workspaceState = state;
   const database = state.accounts.find((account) => account.key === probe.fileId)!.database;
   const targetStore = new IndexedDbReadingListStore(database);
@@ -896,6 +857,9 @@ function showWorkspace(targetStore: IndexedDbReadingListStore, database: string,
   importDataStatus.textContent = "";
   exportDataStatus.textContent = "";
   renderItems();
+  previousLocalBackup.open = false;
+  previousLocalBackupStatus.textContent = "";
+  void refreshPreviousLocalBackup();
   workspaceChannel?.postMessage("changed");
 }
 
@@ -1086,7 +1050,6 @@ function setGoogleDriveMenuState(
   const knownList = workspaceState.accounts.some((account) => account.database === activeDatabase);
   googleDriveDisconnectAction.hidden = !(googleDriveSyncSession || hasRememberedGoogleDriveConnection());
   googleDriveSwitchAction.hidden = !(knownList || hasRememberedGoogleDriveConnection());
-  googleDriveLocalAction.hidden = workspaceState.local === activeDatabase;
   if (state === "checking" && !googleDriveDisconnectAction.disabled) {
     googleDriveConnectAction.textContent = googleDriveSyncSession || hasRememberedGoogleDriveConnection()
       ? "Reconnecting…"

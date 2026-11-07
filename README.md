@@ -44,11 +44,11 @@ revocation. **Switch account** opens Google's account chooser and loads that acc
 list. Switching back restores its own articles and pending changes; lists are never automatically
 combined. Android sharing and chat add-links save into the active list.
 
-On your first connection after upgrading, Laters may ask about the existing device-only list.
-Choose **Open separate list** to keep it apart, or **Link existing list** only after selecting its
-original Google account. **Open device-only list** returns to the retained unlinked list. Account
-selection is shown by Google; Laters does not request or store your email address. Switching lists
-reloads other open Laters windows. Keep those windows up to date.
+Choosing a Google account always opens that account's own list. There are no linking or merging
+questions. Older unassigned local articles are never uploaded into an account; they remain on the
+device, with a recovery CSV under **Import and export → Previous local backup** when needed.
+Account selection is shown by Google; Laters does not request or store your email address.
+Switching accounts reloads other open Laters windows. Keep those windows up to date.
 
 If the connection keeps dropping, expand **Connection details** under Google Drive in the menu.
 Version **1.1.1** shows page restarts, returns from the background, Google's supplied access

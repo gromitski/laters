@@ -10,12 +10,21 @@ Laters account, backend or public database. The maintainer has since selected th
 add-link handoff below. Search and publisher organisation are now prioritised for sprint planning;
 the bounded `v1.3.0` Search implementation is now authorised, with publisher organisation following.
 
+## `1.6.1` — automatic account separation
+
+On 2026-11-07 the maintainer rejected the `1.6.0` linking/adoption interface and explicitly directed
+that lists remain entirely separate with their accounts. Connect or Switch account now opens only
+the chosen account's list, without a list question, linking option or device-only mode. Older
+unassigned articles/operations remain local, with a recovery CSV outside the sync flow. This
+bounded correction follows the [account-switching plan](planning/google-account-switching-plan.md).
+Verification/publication is in progress; no new provider, scope, backend or token persistence.
+
 ## `1.6.0` — safe Google account switching
 
 Authorised on 2026-11-07 following the maintainer's successful independent second-Gmail incognito
 sync/reopen test. Restore Disconnect for paused connections and keep each account's local list and
-pending queue separate when using Switch account. Preserve unlinked older data with an explicit
-first-adoption choice. The bounded [account-switching plan](planning/google-account-switching-plan.md)
+pending queue separate when using Switch account. Its explicit
+first-adoption choice was subsequently rejected and superseded by `1.6.1` above. The bounded [account-switching plan](planning/google-account-switching-plan.md)
 defines the contract. Implemented and published from `8dd4c28` with technical and normal Update
 checks passing; real-account/device acceptance remains. No new provider, persistent
 credential, Google scope, backend or release tag is included.

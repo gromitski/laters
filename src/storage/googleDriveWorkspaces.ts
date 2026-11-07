@@ -17,7 +17,7 @@ export class GoogleDriveWorkspaces {
     return this.update((state) => state);
   }
 
-  account(key: string, adoptLocal = false, expectedRevision?: number): Promise<WorkspaceState> {
+  account(key: string, expectedRevision?: number): Promise<WorkspaceState> {
     if (!key || key.length > 256) return Promise.reject(new Error("Invalid Drive workspace."));
     return this.update((state) => {
       if (expectedRevision !== undefined && state.revision !== expectedRevision) {
@@ -25,8 +25,7 @@ export class GoogleDriveWorkspaces {
       }
       const existing = state.accounts.find((account) => account.key === key);
       if (existing) return state;
-      const database = adoptLocal ? state.local : `laters-list-${crypto.randomUUID()}`;
-      if (adoptLocal) state.local = `laters-local-${crypto.randomUUID()}`;
+      const database = `laters-list-${crypto.randomUUID()}`;
       state.accounts.push({ key, database, remembered: false });
       state.revision++;
       return state;

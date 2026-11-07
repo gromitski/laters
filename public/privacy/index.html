@@ -141,11 +141,13 @@
           password or Google access token and is not uploaded or included in CSV exports.
         </p>
         <p>
-          Older versions did not record this association. On the first connection after upgrading,
-          an existing device-only list can be kept separate or deliberately linked to the selected
-          account. Only link it if you selected its original account. Android sharing and accepted
-          chat imports save into the active list; other open windows reload when a different list
-          becomes active. Clearing all Laters site data removes all local lists and their registry.
+          Each Google account always opens its own separate list. Older unassigned local articles
+          and their queued changes are retained on the device and are never automatically uploaded
+          to an account. A local CSV recovery download of those articles is available under
+          <strong>Previous local backup</strong> in Import and export. The export contains articles,
+          not queued sync operations. Android sharing and accepted chat imports save into the active
+          list; other open windows reload when a different list becomes active. Clearing all Laters
+          site data removes all local lists and their registry.
         </p>
       </section>
 
@@ -199,8 +201,8 @@
         </p>
         <p>
           If no Drive reading list exists at first connection, Laters uploads the local list
-          associated with the selected account. An older unlinked list is included only when you
-          deliberately choose <strong>Link existing list</strong>. Connected devices using the same
+          associated with the selected account. Older unassigned local articles are kept separate.
+          Connected devices using the same
           account then combine additions and apply edits, restorations and
           deletion records over that base list. Laters checks Drive when it opens, returns to the
           foreground or comes online, and every 20 seconds while it is visible. A deletion record

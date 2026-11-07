@@ -17,7 +17,7 @@ Release `v0.5.7` consolidates the accepted code, configuration and documentation
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
 appearance. Release `v1.0.0` records the accepted subtle Bookmark filter that completes the intended
 personal reading queue. Release `v1.1.0` adds optional CSV-supplied reading-time estimates. Package
-metadata is now `1.6.0` for the authorised safe Google account-switching candidate, retaining the add-link pairing,
+metadata is now `1.6.1` for the authorised strict Google account-separation correction, retaining the add-link pairing,
 diagnostics and progress-label maintenance work. `v1.1.0` remains the latest tagged
 GitHub release; its tag resolves to verified release commit `1e95804`.
 
@@ -104,6 +104,18 @@ GitHub release; its tag resolves to verified release commit `1e95804`.
   housekeeping thresholds and application behaviour are unchanged.
 
 ## Active focus
+
+Candidate **1.6.1** implements the maintainer's 2026-11-07 correction: keep all Google account lists
+entirely separate. The `1.6.0` adoption/linking interface and a proposed replacement confirmation
+were rejected. Connect/Switch now opens the chosen account's list without further list decisions;
+all linking and device-only mode controls are removed. Older unassigned local data is never
+uploaded into an account and remains available as a recovery CSV in a collapsed Import/export
+section. Existing `1.6.0` account associations remain valid. 283 tests/36 files, type/build,
+privacy/attribution and dependency gates pass. Isolated A → B → A browser checks opened each account
+directly, uploaded no unassigned data and verified the separate backup CSV. Publication is pending.
+The [account-switching plan](../docs/planning/google-account-switching-plan.md) owns the contract.
+
+Superseded `1.6.0` technical baseline (its adoption interface was rejected):
 
 Candidate **1.6.0** implements paused-state Disconnect and separate local account lists/queues,
 authorised on 2026-11-07 after the maintainer's successful second-Gmail incognito save/sync/reopen
@@ -268,11 +280,10 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Obtain `1.6.0` real-account switching and Android acceptance. Apply normal Update and confirm
-Version 1.6.0; first select the original account and choose **Link existing list** for that account,
-then Switch account to the tested second account and back. Confirm separate lists and preserved
-pending changes; check an Android share after switching. Technical/publication/normal Update checks
-pass. Preserve all original local articles and pending operations.
+Complete `1.6.1` checks and publication, then verify normal Update and ask the maintainer to
+Connect/Switch directly between their two Google accounts. Each account must show its own list
+without a list question. Check Android sharing after switching. No linking/adoption is required;
+older unassigned data stays in its separate local backup.
 
 Obtain maintainer oldest-first/device acceptance of published `1.5.0`: apply Update, confirm
 Version 1.5.0, try Oldest → Newest with Search/Bookmarks and Undo, then reload to confirm the
@@ -291,6 +302,13 @@ background interval before proposing behaviour changes. Distinguish a restarted 
 access lifetime and rejected requests. No backend or credential-persistence change is approved.
 
 ## Last meaningful update
+
+2026-11-07 — The maintainer rejected the `1.6.0` adoption interface and a proposed replacement
+confirmation, then explicitly selected entirely separate account lists. The `1.6.1` correction
+removes adoption/linking and device-only mode controls, always gives each new account its own
+store, retains existing associations and preserves unassigned data as a local recovery backup.
+Technical verification passes; publication and real-account/device acceptance remain.
+
 
 2026-11-07 — Implemented the authorised `1.6.0` Google account separation and paused Disconnect
 candidate. The plan records the maintainer's independent second-account sync/reopen evidence,

@@ -153,17 +153,23 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   delete and Undo sequence are working, closing the remaining human acceptance gates. Automated
   expiry, rejected-credential and failed-upload checks remain the evidence for those failure paths.
 
-## Accepted `v1.6.0` account separation
+## Accepted `v1.6.1` strict account separation
 
 - On 2026-11-07 the maintainer authorised paused-state Disconnect and safe Google account switching.
 - Each Google account keeps a separate local article list and pending-operation queue. Switching
   must never automatically merge or upload another list; failed/cancelled switching retains the
   current list. Access tokens remain memory-only, with the existing sole `drive.appdata` scope.
-- Older unlinked data needs an explicit first-adoption choice. Keep it separate by default; link
-  only when the user deliberately chooses its original account. Preserve the device-only list.
+- The maintainer rejected the `1.6.0` linking/separate-list question and a replacement confirmation
+  on 2026-11-07, then explicitly instructed: keep lists entirely separate with the accounts.
+- Choosing an account opens only its list automatically. Remove all adoption, linking and
+  device-only mode controls. New accounts always get their own list database, even if the device
+  already contains articles. Preserve existing account associations made by `1.6.0`.
+- Keep older unassigned articles and operations on the device without uploading them to any
+  account. A recovery CSV is available under a collapsed Previous local backup in Import/export;
+  it does not activate, link or merge lists. Normal Connect/Switch needs no further decision.
 - Android shares and imports target the active list; prevent stale operations or other windows
   from writing a previous account's articles into the new account.
-- The full contract, first-adoption limitations and acceptance record live in
+- The full contract, isolation contract and acceptance record live in
   [Google account switching](../docs/planning/google-account-switching-plan.md). Provider expansion,
   persistent sign-in, native apps and billing remain separate proposals.
 

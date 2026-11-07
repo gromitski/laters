@@ -169,16 +169,6 @@
           <p id="google-drive-connection-status" class="sync-experiment-status" role="status" aria-live="polite">
             Local only
           </p>
-          <div id="google-drive-list-choice" class="drive-list-choice" hidden>
-            <h3>Keep your lists separate</h3>
-            <p>Your current articles aren’t linked to a Google account yet. Keep them separate, or link them if you’ve selected the account they belong to.</p>
-            <div class="sync-experiment-actions">
-              <button id="google-drive-list-separate" type="button">Open separate list</button>
-              <button id="google-drive-list-adopt" class="secondary" type="button">Link existing list</button>
-              <button id="google-drive-list-cancel" class="secondary" type="button">Cancel</button>
-            </div>
-          </div>
-          <button id="google-drive-local-list" class="secondary" type="button" hidden>Open device-only list</button>
           <details class="connection-details">
             <summary>Connection details</summary>
             <p>A short history kept in this browser tab, including through reloads. No credentials or article data.</p>
@@ -209,6 +199,12 @@
           </div>
           <p id="import-data-status" class="data-export-status" role="status" aria-live="polite"></p>
           <p id="export-data-status" class="data-export-status" role="status" aria-live="polite"></p>
+          <details id="previous-local-backup" class="add-links-setup" hidden>
+            <summary>Previous local backup</summary>
+            <p>Articles saved before account separation are still stored on this device. You can download a copy to recover anything that hadn’t synced. This backup is never added to a Google account automatically.</p>
+            <button id="previous-local-backup-export" class="secondary" type="button">Download CSV</button>
+            <p id="previous-local-backup-status" class="data-export-status" role="status" aria-live="polite"></p>
+          </details>
           <details class="add-links-setup">
             <summary>Add from a chat</summary>
             <p>Accept articles in your chat, then open its add-link to save them here without downloading a file.</p>
