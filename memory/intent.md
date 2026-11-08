@@ -2,11 +2,11 @@
 
 ## Purpose
 
-Provide an extremely simple personal read-later app that accepts shared article links on Android and keeps them available locally for later reading.
+Provide an extremely simple, local-first read-later product, distributed free to other users. Accept shared article links on Android and keep them available locally for later reading.
 
 ## Audience and value
 
-The initial audience is one person using an Android phone. The app removes the overhead of a bookmarking or knowledge-management system: share an article to Laters, then open a short newest-first list and continue to the original page.
+The initial audience was one person using an Android phone. The current direction is a free product for other users, with usability and the maintainer’s reputation central to acceptance. The app removes the overhead of a bookmarking or knowledge-management system: share an article to Laters, then open a short newest-first list and continue to the original page.
 
 The core job is intentionally narrow: capture a link at the moment it is discovered without interrupting the current activity, then make that small queue easy to consume or clear later. Success is fewer interesting articles being lost without creating a second organisational system to maintain.
 
@@ -133,7 +133,7 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   while visible. It does not promise OS background execution after the app is closed.
 - A short-lived Google access token remains only in page memory until Google's supplied expiry,
   with a safety margin. Reload, full close, disconnect, expiry or rejection discards it; local
-  changes then wait for one deliberate resume action.
+  changes then wait for a deliberate Connect action.
 - OAuth is public and **In production** after the accepted `v0.5.6` gate. Google currently presents
   the verified `dustyb.in` domain rather than the unverified `Laters` brand.
 - Automatic Drive housekeeping starts at 100 operation files. Laters must write the resolved list
@@ -153,44 +153,22 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   delete and Undo sequence are working, closing the remaining human acceptance gates. Automated
   expiry, rejected-credential and failed-upload checks remain the evidence for those failure paths.
 
-## Accepted `v1.6.2` connection and sync copy
+## Accepted `1.6.3` sync interaction and account separation
 
-- The maintainer reported healthy connections saying Reconnect and normal sync saying Reconnecting.
-- Connected primary action is **Sync now**, using the current session without opening Google sign-in.
-  Manual/automatic data work says **Syncing…**, with the primary action disabled until it completes.
-- Connect/Connecting and Resume/Resuming are reserved for Google permission work. Switch account
-  retains its explicit chooser and Switching account… progress; Disconnecting… names revocation.
-- Temporary sync failures keep a valid session and show **Retry sync**. Expiry/rejection clears the
-  session and restores **Resume Google Drive**. Preserve pending messages, cancellation and stale
-  completion guards. This supersedes the old shared Reconnecting… copy, without changing token
-  persistence, scopes, polling, data formats or account isolation.
-- Copy and verification are recorded in the existing account-switching plan.
-
-## Accepted `v1.6.1` strict account separation
-
-- On 2026-11-07 the maintainer authorised paused-state Disconnect and safe Google account switching.
-- Each Google account keeps a separate local article list and pending-operation queue. Switching
-  must never automatically merge or upload another list; failed/cancelled switching retains the
-  current list. Access tokens remain memory-only, with the existing sole `drive.appdata` scope.
-- The maintainer rejected the `1.6.0` linking/separate-list question and a replacement confirmation
-  on 2026-11-07, then explicitly instructed: keep lists entirely separate with the accounts.
-- Choosing an account opens only its list automatically. Remove all adoption, linking and
-  device-only mode controls. New accounts always get their own list database, even if the device
-  already contains articles. Preserve existing account associations made by `1.6.0`.
-- Keep older unassigned articles and operations on the device without uploading them to any
-  account. A recovery CSV is available under a collapsed Previous local backup in Import/export;
-  it does not activate, link or merge lists. Normal Connect/Switch needs no further decision.
-- Android shares and imports target the active list; prevent stale operations or other windows
-  from writing a previous account's articles into the new account.
-- The isolation contract and acceptance record live in
-  [Google account switching](../docs/planning/google-account-switching-plan.md). Provider expansion,
-  persistent sign-in, native apps and billing remain separate proposals.
+- Explicitly approved on 2026-11-08: remove Switch account; show Disconnect only for a live connection; stop sync on this installation without revoking Google permission; keep each account's list entirely separate.
+- Disconnected/reopened/expired/rejected permission: **Connect Google Drive** only. Every Connect opens Google's account chooser. Authorising says **Connecting…**; initial list loading says **Syncing…**; neither exposes Disconnect.
+- Connected: **Sync now** and **Disconnect**. Routine sync says **Syncing…**; valid-session failures say **Retry sync**. Offline disables network actions, keeps local articles usable and allows a connected installation to Disconnect locally.
+- Disconnect clears the in-memory credential, polling and expiry timers, and cancels ongoing requests. Other open windows in the same browser profile stop too. Late callbacks cannot restart that session. Already-sent requests may have reached Google. No provider revocation, cloud/local deletion or account-wide sign-out occurs.
+- Disconnect → Connect chooses another account. Lists and pending queues remain separate per account; a new account never adopts an unassigned list. Existing associations remain readable, and older unassigned data remains available as a separate recovery CSV outside the sync flow.
+- Failed/cancelled connection retains the displayed local list. Shares/imports/add-links continue to use the active list with existing stale-operation guards. No new Google scope, token persistence, provider, backend or billing.
+- The menu section is **Sync**, without experimental framing. The [sync interaction contract](../docs/planning/google-account-switching-plan.md) owns the state matrix and verification; older 1.6.0–1.6.2 decisions are historical evidence, superseded wherever they conflict.
+- Usability is EVERYTHING for this free product and the maintainer's reputation. The durable working agreement requires complete journey checks and distinguishes technical verification from owner acceptance.
 
 ## Accepted public-readiness direction
 
 - Keep public preparation in bounded `v0.5.x` slices before Export becomes `v0.6.0`.
 - Harden the connection first: access tokens are memory-only, old stored tokens are removed, users
-  can disconnect and attempt permission revocation in-app, and the static PWA gains a restrictive
+  can stop sync locally using Disconnect (the original in-app revocation behaviour is superseded by 1.6.3), and the static PWA gains a restrictive
   Content Security Policy.
 - Publish Terms and acceptable-use wording before configuring a separate production Google project
   with conservative quota and cost safeguards.
@@ -320,7 +298,7 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
 ## Accepted v0.8.0 dark-mode direction
 
 - Add an **Appearance** radio group to the bottom of the existing main menu, after Google Drive and
-  Import and Export, with **System**, **Light** and **Dark**. Experimental sync remains the first menu
+  Import and Export, with **System**, **Light** and **Dark**. Sync remains the first menu
   section. System is the default, follows the current operating-system preference and reacts while
   selected.
 - Retain a manual override only in that browser. Do not sync, import or export it, and do not touch

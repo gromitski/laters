@@ -33,26 +33,23 @@ Google Drive sync is optional and available to any Google Account.
 Google currently labels the permission screen **dustyb.in**. Laters cannot see or alter your normal
 Drive files, and the maintainer cannot see your reading list.
 
-![The Laters menu showing the optional Google Drive connection](docs/screenshots/laters-google-drive-menu.png)
+![The Laters menu showing the optional Google Drive connection](docs/screenshots/laters-google-drive-menu.jpg)
 
-Closing, reloading or leaving Laters unused may end the short-lived Google session. Your local
-changes remain safe: open the menu and use **Resume Google Drive** to continue syncing.
+When disconnected, the only sync action is **Connect Google Drive**. It always lets you choose
+which Google account to use. Closing, reloading or permission expiry can end the short-lived
+connection; your articles and pending changes remain saved on the device.
 
-Once connected, **Sync now** checks Google Drive immediately using the existing connection.
-**Syncing…** means articles are being checked or saved. **Connect Google Drive** and
-**Resume Google Drive** are used only when Google authorisation is needed.
+Once connected, **Sync now** checks Drive using the existing connection; **Syncing…** means work
+is in progress. **Disconnect** appears only while a live connection exists. It stops sync on this
+installation, including its other open windows, without revoking Google permission or deleting
+local or cloud data. To use another account, Disconnect, then Connect and choose it. Each account's
+list and pending changes remain entirely separate. An offline app saves locally and syncs when
+online again if its connection is still valid.
 
-Use **Disconnect** to stop sync, including while the connection is paused. It keeps the current
-list and pending changes on this device; with a live credential it also attempts Google permission
-revocation. **Switch account** opens Google's account chooser and loads that account's separate
-list. Switching back restores its own articles and pending changes; lists are never automatically
-combined. Android sharing and chat add-links save into the active list.
-
-Choosing a Google account always opens that account's own list. There are no linking or merging
-questions. Older unassigned local articles are never uploaded into an account; they remain on the
-device, with a recovery CSV under **Import and export → Previous local backup** when needed.
-Account selection is shown by Google; Laters does not request or store your email address.
-Switching accounts reloads other open Laters windows. Keep those windows up to date.
+Choosing an account opens only its own list, with no linking or merging questions. Older
+unassigned local articles remain on the device, with a recovery CSV under **Import and export →
+Previous local backup** when needed. Google displays account selection; Laters does not request
+or store an email address. A different active list reloads other open Laters windows.
 
 If the connection keeps dropping, expand **Connection details** under Google Drive in the menu.
 Version **1.1.1** shows page restarts, returns from the background, Google's supplied access
@@ -123,7 +120,7 @@ Links carry at most 25 articles and 8,000 fragment characters. The sending chat 
 encode links reliably and may split a large batch across numbered links. If it cannot generate a
 valid clickable link, use CSV. The fragment is processed locally and cleared from the address;
 your chat provider can still see instructions and links. Ordinary optional Drive sync applies after
-local saving; a newly opened page may require **Resume Google Drive** before sending additions to
+local saving; a newly opened page may require **Connect Google Drive** before sending additions to
 another device. See the [add-link format](docs/add-link-format.md) for generators and self-hosting.
 
 ### CSV files
@@ -151,8 +148,9 @@ Drive sync. The complete column rules and a manual example are in the
 
 ## Disconnect or delete data
 
-- **Stop syncing this browser:** open the menu and select **Disconnect**. Laters also asks Google to
-  revoke the active permission, but does not delete data already stored in Drive.
+- **Stop syncing this installation:** while connected, open the menu and select **Disconnect**.
+  This stops sync in its open windows, retains local articles/queues and leaves Google permission
+  and cloud data unchanged. Other devices can continue syncing.
 - **Delete one article:** use its **Delete** control and let the Undo period finish. A connected
   device sends that deletion to Drive.
 - **Delete local Laters data:** clear the site data for `laters.dustyb.in` in that browser. Do this

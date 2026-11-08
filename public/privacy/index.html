@@ -26,7 +26,7 @@
         <a class="back-link" href="/" aria-label="Back to Laters">← Laters</a>
         <p class="eyebrow">Your data, plainly</p>
         <h1>Privacy policy</h1>
-        <p class="effective-date">Effective 7 November 2026</p>
+        <p class="effective-date">Effective 8 November 2026</p>
         <p class="summary">
           Laters is a local-first read-later app. Your reading list stays in your browser unless you
           choose the optional Google Drive sync. If connected, Laters stores a private copy in your
@@ -111,7 +111,7 @@
         <p>
           Opening an authorised link saves only new, validated article URLs in the current browser.
           Existing articles are not replaced or deleted. Optional Drive sync processes ordinary
-          additions under the connection rules below; a new page may require you to resume it.
+          additions under the connection rules below; a new page may require you to connect Google Drive again.
           Other browsers and profiles require their own setup.
         </p>
       </section>
@@ -215,7 +215,7 @@
           The short-lived Google access token remains only in page memory until the expiry time
           Google supplies, with a one-minute safety margin. It is discarded on reload, full close,
           disconnect, expiry or rejection. Local changes remain queued until you choose
-          <strong>Resume Google Drive</strong>. Laters does not receive a refresh token and has no
+          <strong>Connect Google Drive</strong>. Laters does not receive a refresh token and has no
           server-side access.
         </p>
         <p>
@@ -236,9 +236,12 @@
           </li>
           <li>Clear Laters’ site data in your browser to remove its local database and preferences.</li>
           <li>
-            Use <strong>Disconnect</strong> to stop sync in that browser. When a live credential is
-            available, Laters also asks Google to revoke its permission. Disconnect remains available
-            when sync is paused; without a live credential it forgets the connection locally. You can also revoke Laters’ access from your
+            Use <strong>Disconnect</strong> while connected to stop sync on this installation,
+            including other open Laters windows in the same browser profile. Laters clears its
+            in-memory credential, stops polling and cancels ongoing requests. Local articles,
+            pending changes, Google permission and cloud data remain intact. Requests already sent
+            may have reached Google before cancellation. Other devices retain their access.
+            To revoke Laters’ Google permission separately, use
             <a href="https://myaccount.google.com/permissions">Google Account permissions</a>.
           </li>
           <li>

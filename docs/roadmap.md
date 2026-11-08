@@ -5,10 +5,20 @@
 The accepted delivery roadmap includes the released `v1.1.0` optional CSV-supplied reading-time
 estimates. Exact release commit `1e95804` passed GitHub Pages workflow `33206076911` before tagging
 and publication. The version sections below preserve the bounded delivery record: completing one
-never silently authorised work from the next. Laters remains a local-first personal tool with no
+never silently authorised work from the next. Laters is now a free local-first product with no
 Laters account, backend or public database. The maintainer has since selected the bounded `v1.2.0`
 add-link handoff below. Search and publisher organisation are now prioritised for sprint planning;
 the bounded `v1.3.0` Search implementation is now authorised, with publisher organisation following.
+
+## `1.6.3` — product sync usability
+
+Explicitly approved on 2026-11-08 after reassessment. Remove Switch account; show Disconnect only
+with a live connection; stop sync on this installation without provider revocation; keep all account
+lists and queues separate. Connect always opens the Google chooser. Complete states, cancellation,
+offline behaviour and expiry are defined in the [interaction contract](planning/google-account-switching-plan.md).
+Usability is EVERYTHING for this free product and the maintainer's reputation; it is no longer
+experimental. Implementation/verification in progress. Earlier sections are dated delivery history;
+their conflicting controls are superseded. No new provider, persistent credential, backend or billing.
 
 ## `1.6.2` — distinguish sync from sign-in
 

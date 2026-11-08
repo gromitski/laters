@@ -497,3 +497,9 @@ async function readText(response: Response): Promise<string> {
 function isString(value: string | undefined): value is string {
   return value !== undefined;
 }
+export function abortableGoogleDriveRequest(request: typeof fetch, signal: AbortSignal): typeof fetch {
+  return (input, options) => {
+    signal.throwIfAborted();
+    return request(input, { ...options, signal });
+  };
+}

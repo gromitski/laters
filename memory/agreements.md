@@ -87,6 +87,10 @@ Universal rules for humans and agents working on this project. Canonical vendor-
 
 ## Accessibility and usability
 
+- Usability is a core product acceptance requirement. On 2026-11-08 the maintainer stated that usability is EVERYTHING: Laters is a product being given away, their reputation depends on it, and it is no longer experimental. Apply this standard to the whole product; do not excuse confusing behaviour with experimental wording.
+- Before delivery, review the complete affected journey: first use, reopened/remembered state, active work, cancellation, temporary failure, offline use, expired permission and account changes. Controls must describe the current state and perform the action they name. Prefer the fewest clear decisions that safely complete the user's task.
+- Passing automated checks does not establish understandable product behaviour or maintainer acceptance. Verify the interface transitions as well as individual actions, and record the remaining real-account/device or owner judgement checks honestly.
+
 - User interfaces should aim for WCAG AA.
 - Apply semantic structure, keyboard access, visible focus, accessible names, readable contrast and usable error handling from the start.
 - Accessibility is not a later bolt-on.

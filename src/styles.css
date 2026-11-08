@@ -1665,7 +1665,7 @@ ion-action-sheet.article-action-sheet .action-sheet-group-cancel .action-sheet-b
   display: none;
 }
 
-.sync-experiment {
+.drive-sync {
   margin: 1.5rem var(--gutter) 0;
   border: 1.5px dashed var(--hairline-strong);
   border-radius: 12px;
@@ -1722,7 +1722,7 @@ ion-action-sheet.article-action-sheet .action-sheet-group-cancel .action-sheet-b
   letter-spacing: -0.025em;
 }
 
-.application-menu-modal .sync-experiment {
+.application-menu-modal .drive-sync {
   margin: 0;
 }
 
@@ -1807,16 +1807,16 @@ ion-action-sheet.article-action-sheet .action-sheet-group-cancel .action-sheet-b
   background: var(--canvas);
 }
 
-.sync-experiment-kicker,
+.drive-sync-kicker,
 .data-export-kicker,
-.sync-experiment h2,
+.drive-sync h2,
 .data-export h2,
-.sync-experiment p,
+.drive-sync p,
 .data-export p {
   margin: 0;
 }
 
-.sync-experiment-kicker,
+.drive-sync-kicker,
 .data-export-kicker {
   color: var(--accent-text);
   font-size: 0.68rem;
@@ -1825,13 +1825,13 @@ ion-action-sheet.article-action-sheet .action-sheet-group-cancel .action-sheet-b
   text-transform: uppercase;
 }
 
-.sync-experiment h2,
+.drive-sync h2,
 .data-export h2 {
   margin-top: 0.2rem;
   font-size: 1rem;
 }
 
-.sync-experiment > p:not(.sync-experiment-kicker):not(.sync-experiment-status),
+.drive-sync > p:not(.drive-sync-kicker):not(.drive-sync-status),
 .data-export > p:not(.data-export-kicker):not(.data-export-status) {
   max-width: 32rem;
   margin-top: 0.35rem;
@@ -1840,7 +1840,7 @@ ion-action-sheet.article-action-sheet .action-sheet-group-cancel .action-sheet-b
   line-height: 1.45;
 }
 
-.sync-experiment-actions {
+.drive-sync-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
@@ -1849,7 +1849,7 @@ ion-action-sheet.article-action-sheet .action-sheet-group-cancel .action-sheet-b
 
 
 
-.sync-experiment button,
+.drive-sync button,
 .data-export button {
   min-height: var(--target);
   border: 0;
@@ -1863,26 +1863,26 @@ ion-action-sheet.article-action-sheet .action-sheet-group-cancel .action-sheet-b
   font-weight: 800;
 }
 
-.sync-experiment button.secondary,
+.drive-sync button.secondary,
 .data-export button.secondary {
   border: 1px solid var(--hairline-strong);
   color: var(--text);
   background: transparent;
 }
 
-.sync-experiment button:focus-visible,
+.drive-sync button:focus-visible,
 .data-export button:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 3px;
 }
 
-.sync-experiment button:disabled,
+.drive-sync button:disabled,
 .data-export button:disabled {
   cursor: wait;
   opacity: 0.6;
 }
 
-.sync-experiment-status {
+.drive-sync-status {
   margin-top: 0.55rem !important;
   color: var(--text-meta);
   font-size: 0.72rem;

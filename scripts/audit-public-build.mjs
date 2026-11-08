@@ -52,7 +52,7 @@ const REQUIRED_PUBLIC_CONTENT = new Map([
     "privacy/index.html",
     [
       "mailto:hello@dustyb.in",
-      "Effective 7 November 2026",
+      "Effective 8 November 2026",
       "Separate Google accounts",
       "laters-connection.json",
       "laters-reading-list.json",

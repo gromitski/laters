@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Track the current state and next safe action for the Laters personal read-later PWA.
+Track the current state and next safe action for the Laters free, local-first read-later product.
 
 ## Lifecycle
 
@@ -17,7 +17,7 @@ Release `v0.5.7` consolidates the accepted code, configuration and documentation
 accepted reviewed CSV Import, and release `v0.8.0` records the accepted System, Light and Dark
 appearance. Release `v1.0.0` records the accepted subtle Bookmark filter that completes the intended
 personal reading queue. Release `v1.1.0` adds optional CSV-supplied reading-time estimates. Package
-metadata is now `1.6.2` for the authorised connection/sync action correction, retaining the add-link pairing,
+metadata is now `1.6.3` for the authorised product sync-usability correction, retaining the add-link pairing,
 diagnostics and progress-label maintenance work. `v1.1.0` remains the latest tagged
 GitHub release; its tag resolves to verified release commit `1e95804`.
 
@@ -105,46 +105,19 @@ GitHub release; its tag resolves to verified release commit `1e95804`.
 
 ## Active focus
 
-Candidate **1.6.2** corrects the maintainer-reported confusion between Google sign-in and article
-sync. A connected primary action says Sync now and uses the current session; routine sync says
-Syncing… while disabled. Permission requests alone use Connect/Resume and Connecting/Resuming;
-Switching account and Disconnecting remain explicit. Valid-session failures use Retry sync;
-expired/rejected sessions use Resume. 283 tests/36 files, type/build, privacy, attribution and
-dependency gates pass. Browser checks observed correct progress and no extra authorisation for
-manual/automatic sync or network retry; simulated 401/resume and disconnect transitions pass.
-Implementation `fee259f` passed Pages workflow `42415939411`; public HTML/JS/CSS/worker match the
-build. Normal Update from 1.6.1 to 1.6.2 retained the isolated existing article and showed Version
-1.6.2. Owner visual/real-account acceptance remains. Account
-isolation, Google scope, token lifetime/storage and 20-second polling remain unchanged.
-The current copy/verification contract is in the existing account-switching plan.
-
-Retained 1.6.1 account-separation baseline:
-
-Candidate **1.6.1** implements the maintainer's 2026-11-07 correction: keep all Google account lists
-entirely separate. The `1.6.0` adoption/linking interface and a proposed replacement confirmation
-were rejected. Connect/Switch now opens the chosen account's list without further list decisions;
-all linking and device-only mode controls are removed. Older unassigned local data is never
-uploaded into an account and remains available as a recovery CSV in a collapsed Import/export
-section. Existing `1.6.0` account associations remain valid. 283 tests/36 files, type/build,
-privacy/attribution and dependency gates pass. Isolated A → B → A browser checks opened each account
-directly, uploaded no unassigned data and verified the separate backup CSV. Implementation `c156989`
-passed Pages workflow `42414882856`; live HTML/JS/CSS/worker/privacy match the build. Normal Update
-from 1.6.0 to 1.6.1 preserved the isolated existing article. Real-account/Android acceptance remains.
-The [account-switching plan](../docs/planning/google-account-switching-plan.md) owns the contract.
-
-Superseded `1.6.0` technical baseline (its adoption interface was rejected):
-
-Candidate **1.6.0** implements paused-state Disconnect and separate local account lists/queues,
-authorised on 2026-11-07 after the maintainer's successful second-Gmail incognito save/sync/reopen
-test left the normal account unaffected. The
-[account-switching plan](../docs/planning/google-account-switching-plan.md) owns the contract,
-first-adoption choice, verification and publication record. Other providers and persistent sign-in
-remain proposals; no new Google scope, token persistence, backend or billing is introduced.
-282 tests/36 files, type/build, privacy and dependency gates pass. Isolated production-build account
-round trips, pending-change isolation, cancelled/failed switching, other-window reload and CSV import
-pass. Implementation `8dd4c28` passed Pages workflow `42413892504`; published HTML/JS/CSS/worker/privacy
-match the build. Normal Update from 1.5.0 retained the isolated single fictional article and showed
-Version 1.6.0. Real-account switching and Android acceptance remain.
+Candidate **1.6.3** implements the maintainer's explicit 2026-11-08 approval after reassessment:
+remove Switch account; Connect only while disconnected; Disconnect only with a live connection;
+Disconnect stops local sync without revoking Google permission; all account lists and queues remain
+entirely separate. Menu section **Sync** replaces experimental wording. In-flight cancellation,
+expiry, offline and same-profile window transitions follow the
+[product interaction contract](../docs/planning/google-account-switching-plan.md).
+Usability is EVERYTHING for this free product: the maintainer's reputation depends on it. This is
+now a durable working agreement, including full-journey verification before delivery. Implementation
+passes 288 tests/37 files, build and privacy/attribution gates. Isolated browser checks cover
+account/queue separation, request cancellation, same-profile windows, stale callbacks, offline,
+expiry, rejection, retry and reopen. Publication/Update receipt pending. No new provider, scope, credential persistence, backend or billing.
+Older 1.6.0–1.6.2 delivery evidence and rejected controls are preserved in
+[historical evidence](../evidence/delivery/google-drive-usability-1.6.0-1.6.2.md), not current instructions.
 
 Search matching, the Shared tool space layout and the final 500ms panel animation are accepted
 by the maintainer as of 2026-11-05. The maintainer describes half a second as visually quick but
@@ -297,11 +270,11 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Ask the maintainer to apply normal Update and confirm Version 1.6.2. While connected, Sync now
-must sync without a Google sign-in popup; manual/automatic sync must show Syncing…, then return to
-Sync now. Actual Google permission renewal alone uses Resume/Resuming. Retain the outstanding
-real-account A/B and Android share checks from the strict-separation plan; no linking/adoption is
-required and old unassigned data remains in its separate local backup.
+Finish technical and browser verification of 1.6.3, publish the bounded tested slice under standing
+authority, verify normal Update and record exact evidence. Then obtain short owner/real-account
+acceptance: Connect → Sync now → Disconnect → Connect another account → return to the first.
+Only that account's list should appear; no extra linking decisions, premature Disconnect or
+experimental copy. Physical Android share checks remain owner checks, not automated acceptance.
 
 Obtain maintainer oldest-first/device acceptance of published `1.5.0`: apply Update, confirm
 Version 1.5.0, try Oldest → Newest with Search/Bookmarks and Undo, then reload to confirm the
@@ -320,6 +293,12 @@ background interval before proposing behaviour changes. Distinguish a restarted 
 access lifetime and rejected requests. No backend or credential-persistence change is approved.
 
 ## Last meaningful update
+
+2026-11-08 — The maintainer approved the simplified local-only Disconnect/account model and
+made product usability a permanent top-level requirement. Candidate 1.6.3 implements it; verification
+and publication receipt pending. Older dated entries below are historical and do not override the
+current interaction contract.
+
 
 2026-11-07 — Corrected the long-standing connection/sync wording as `1.6.2`: connected Sync now
 runs data sync with the current session, active sync says Syncing…, and Connect/Resume describe

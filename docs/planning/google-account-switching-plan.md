@@ -1,191 +1,116 @@
-# Google accounts and sync status — 1.6.2
+# Google Drive sync — product interaction contract (1.6.3)
 
-## Sync action correction — 1.6.2, 2026-11-07
+## Authority and product standard
 
-The maintainer reported that a healthy connection says Reconnect Google Drive and normal syncing
-says Reconnecting. The shared checking state previously conflated authorisation with routine data
-sync, and the connected primary action unnecessarily reopened Google sign-in.
+On 2026-11-08 the maintainer approved one coherent correction after the usability reassessment:
+remove Switch account; show Disconnect only when actually connected; make Disconnect stop syncing
+on this device without revoking provider permission; keep every account's list entirely separate.
+The maintainer explicitly states that usability is everything, Laters is a product being given away,
+and their reputation depends on it. It is no longer experimental. These are acceptance requirements,
+not optional presentation preferences. The working agreements carry the durable product policy.
 
-The bounded correction preserves strict account separation, Drive files, polling, token lifetime,
-credential storage and Google scope. It changes the connected primary action to a manual sync
-using the current session, with separate progress copy. No new provider, backend, tag or release.
+This is a bounded complete correction, candidate **1.6.3**, with end-of-slice publication authorised
+under the standing agreement. No new provider, scope, credential persistence, backend, billing,
+tag or GitHub release is included. Historical 1.6.0–1.6.2 records and rejected designs are preserved
+in [delivery evidence](../../evidence/delivery/google-drive-usability-1.6.0-1.6.2.md); they do not
+override this contract. The maintainer's renewed explicit agreement ends the prior reassessment pause.
 
-### UX Copy: Google Drive connection and sync
+## Complete user journey
 
-#### Recommended Copy
-
-| State | Primary action | Behaviour |
-| --- | --- | --- |
-| Not connected | Connect Google Drive | Open Google authorisation. |
-| Previous permission needs renewing | Resume Google Drive | Request fresh permission; show Resuming… while waiting. |
-| First authorisation | Connecting… | Disabled while permission is being requested. |
-| Switching account | Switching account… | Disabled while the chosen account is being opened. |
-| Connected and idle | Sync now | Check Drive using the existing session; no sign-in popup. |
-| Normal manual/automatic sync | Syncing… | Disabled until that sync finishes. |
-| Temporary sync failure, session still valid | Retry sync | Retry data sync without requesting Google permission. |
-| Disconnecting | Disconnecting… | Disabled until the revocation attempt finishes. |
-
-After Google grants permission, the initial data exchange also says Syncing…. On expiry/rejection,
-the action becomes Resume Google Drive again. Pending-change messages must not overwrite active
-progress; a superseded sync completion must not overwrite a new account's state.
-
-#### Alternatives
-
-| Option | Copy | Tone | Best For |
+| Situation | Primary control | Disconnect | Expected outcome |
 | --- | --- | --- | --- |
-| A | Sync now | Direct | Selected connected action; names what the click actually does. |
-| B | Connected | Neutral | Status text rather than an actionable button. |
-| C | Reconnect Google Drive | Recovery | Superseded here; misleading for a healthy connection. |
+| First visit / no connection | Connect Google Drive | Hidden | Google account chooser, then only that account's list. |
+| Reopen / remembered account but no live permission | Connect Google Drive | Hidden | Same chooser; local articles and pending changes remain intact. |
+| Asking Google for permission | Connecting… (disabled) | Hidden | No premature account controls; cancellation returns to Connect. |
+| First list load after permission | Syncing… (disabled) | Hidden | Become connected only after the account's list has loaded successfully. |
+| Connected and up to date | Sync now | Visible | Manual sync uses the current session, without another Google login. |
+| Connected and syncing | Syncing… (disabled) | Visible | Connection remains active; Disconnect can stop the ongoing sync. |
+| Temporary network/server failure, permission valid | Retry sync | Visible | Retry using the same account/session. |
+| Offline, live connection retained | Sync now / Retry sync (disabled) | Visible | Clear Offline status; save locally and sync when online. Disconnect works locally. |
+| Offline, no active connection | Connect Google Drive (disabled) | Hidden | Clear Offline status; articles stay usable locally. |
+| Permission expires / is rejected | Connect Google Drive | Hidden | Stop polling and requests; preserve local changes for that same account. |
+| Disconnecting locally | Disconnecting… briefly (disabled) | Hidden immediately | Abort this installation's work and return to Connect. |
+| Cancelled or failed connection | Connect Google Drive | Hidden | Keep the previous local list; no partial active connection or stuck busy controls. |
 
-#### Rationale
+The menu section is **Sync**, headed Google Drive. There is no Switch account, Resume, Reconnect,
+linking/adoption question or device-only list mode. To choose another account, Disconnect → Connect.
+The chooser is explicit on every connection. A stored account association is never an active
+connection and cannot cause a Disconnect button to appear.
 
-Use connection language only for permission work, and sync language for moving article changes.
-A healthy connection should not appear broken every time automatic polling runs. The selected
-copy matches the action, following UX copy guidance.
+## Local Disconnect and cancellation
 
-#### Localization Notes
+- Disconnect clears the page's credential, stops polling/expiry timers and aborts ongoing Drive
+  requests. Every later request on that old session is refused. Already-sent requests may have
+  reached Google; Disconnect cannot undo a server-confirmed operation. Immutable operation IDs
+  retain safe retry behaviour.
+- It does not call Google's revoke API, delete Drive files, clear local articles, remove pending
+  operations, erase an account/list association or affect another device's Google permission.
+- Other open Laters windows in the same browser profile receive the local disconnect signal and
+  stop their sessions too. A late Google popup callback cannot silently restart sync. Other browser
+  profiles/installations are independent; this is not an account-wide sign-out.
+- Full provider-permission revocation is a separate deliberate action in Google Account permissions,
+  linked from the privacy policy. It is not part of routine Disconnect or changing accounts.
 
-Use a single ellipsis for progress. Keep labels action-led and allow expansion when translated;
-no fixed-width control or new animation is required.
+## Account and data safety
 
-Technical checks pass: 283 tests/36 files, type/build, repository/public-build privacy,
-attribution self-tests and dependency gate (3 low/7 moderate development findings; zero production
-findings). Isolated production-build browser checks observed Connecting → Sync now, disabled
-Syncing during manual and automatic-save sync, and unchanged Google authorisation count during
-manual sync and network retry. A simulated 401 produced Resume Google Drive; clicking it showed
-Resuming and requested a fresh token. Disconnecting → Connect was also verified. All Google calls
-were simulated with fictional data; maintainer credentials and lists were untouched.
+Each account continues to have its own IndexedDB articles and pending-operation store, selected
+using its opaque private Drive connection-file ID. New accounts never adopt an unassigned list.
+Selecting A, then B, then A restores A's list and only A's queued changes. Existing 1.6.0 associations
+remain readable; older unassigned data stays in its separate local recovery backup. CSV/import,
+chat add-links and Android shares keep their established active-list boundaries. Neither Disconnect
+nor Connect exports, copies or merges another account's list. No new email/profile permission.
 
-Implementation `fee259f4ab976dc83a46816af4c92ab9efe2cccb` passed
-[Pages workflow 42415939411](https://github.com/gromitski/laters/actions/runs/42415939411).
-Published HTML, JavaScript, CSS and service worker match the tested build byte for byte. Normal
-Update on the isolated public-origin installation advanced Version 1.6.1 → 1.6.2 and retained its
-single existing fictional article and metadata. The live menu shows Version 1.6.2. Maintainer
-visual/real-account acceptance remains; no tag or GitHub release was created.
+Failure and cancellation leave the currently displayed local list intact. The active list changes
+only after the selected account's initial sync and registry activation succeed. Cancellation,
+expiry and other-window signals invalidate pending connection attempts, so stale callbacks cannot
+replace a later state. Access tokens remain in page memory only; reload/close still requires Connect.
+This slice does not introduce durable sign-in or promise OS background sync while the app is closed.
 
-## Authority and evidence
+## Implementation and verification
 
-On 2026-11-07 the maintainer reported a successful second-account test: connect in an incognito
-window, add and sync one link, close the window, verify the normal account was unaffected, reopen
-incognito, reconnect the second account and retrieve the single link. This is maintainer evidence
-for independent accounts and durable Drive storage, not independent-user usability or Android
-acceptance of account switching.
+A small control presenter takes only current connection validity, connectivity and activity.
+Stored history is deliberately absent from its inputs. Focused tests cover first/reopened/expired,
+authorising/loading, active/syncing/retry, offline and disconnect/cancel transitions. The new
+abortable request boundary is used by the probe, initial load and every subsequent sync. Tests
+verify cancellation of an in-flight request and refusal to start a later one. Existing isolation,
+queue retention, import and capture tests remain required.
 
-The maintainer then authorised fixing the missing Disconnect button and easy account switching
-without mixing reading lists. This is a complete bounded compatible feature candidate, **1.6.0**.
-End-of-slice verification, commit and push to main follow the standing working agreement. No tag,
-release, additional provider, backend, billing, Google scope or persistent credential is authorised.
+Before publication, exercise the full table using the production build with fictional accounts:
+first and remembered visits, cancelled/failed login, manual/automatic sync, network errors,
+permission rejection/expiry, offline use, local Disconnect during a running request, other open
+windows, ignored late callbacks, A/B/A with queued changes, and reconnect/reopen. Assert zero
+provider revocation calls and no upload to the wrong account. Verify keyboard controls and narrow
+layout where the browser permits, and record actual dimensions rather than assuming emulation.
 
-## Current decision — 1.6.1, 2026-11-07
+Run the repository's test/type/build, dependency, public/repository privacy and attribution gates.
+Verify the published assets and normal Update/version with an existing fictional local article.
+Keep technical and simulated-provider evidence distinct from real-account and physical Android
+acceptance. Do not equate removal of experimental wording with proof that every device scenario
+has passed. No maintainer credential or reading list is to be used in automated fixtures.
 
-The maintainer rejected the published `1.6.0` adoption question as unusable. A proposed simpler
-confirmation was also rejected, followed by the explicit instruction: keep lists entirely separate
-with their accounts. This provides agreement for the bounded correction after reassessing the
-failed interaction. The first-adoption design below is historical, not accepted current behaviour.
+## Status
 
-## User-visible contract
+Candidate **1.6.3** passes **288 tests in 37 files**, TypeScript/build and the public-build,
+repository-privacy and attribution checks. Production dependencies have zero audit findings.
+The production build was exercised in isolated browser profiles with fictional provider responses:
 
-- **Connect Google Drive** or **Switch account** → choose a Google account → its own list opens.
-  There is no linking, adoption, merge or separate-list question and no device-only mode control.
-- Every new account starts with a separate local database before its Drive list loads. Never seed
-  it with the device's old unassigned list or queue. Existing account associations created by
-  `1.6.0` remain valid, so already-bound lists and pending operations remain with their account.
-- Disconnect remains available for an active or remembered/paused connection. It stops local sync,
-  retains the current account's local list and queue, forgets the connection hint and attempts Google
-  revocation only if a live access token is available. Google Account permissions remain the remote
-  revocation route when no live token is available.
-- Switching back opens that account's local list and resumes only its own queued changes. Failed
-  or cancelled switching keeps the displayed list and restores a still-valid previous session
-  when possible. The active list changes only after successful sync and an atomic registry commit.
-- Older unassigned articles and operations remain on the device as a separate backup and are never
-  uploaded into an account. A collapsed **Previous local backup** under Import/export offers a
-  recovery CSV of those articles when the backup is non-empty. It does not open, link or activate
-  a list. CSV excludes pending operations; those stay retained locally and are not automatically
-  replayed, including old deletions. Recovering a particular unsynced change is a separate deliberate
-  recovery action, not part of normal Connect or Switch.
-- Google displays the selected account. No email/profile permission, persistent credential, backend,
-  provider expansion, billing or tag/release is included. Access tokens remain page-memory-only.
-- Android sharing and accepted chat/CSV imports target the active account list. Switching resets
-  transient views, Undo presentation and prepared imports; stale completions retain their original
-  store and cannot update the new list. Other updated windows reload after a different list becomes
-  active and check the registry on foreground. Unsaved input can be dismissed by that reload.
-- Local account separation is not a device security boundary: someone with the same browser profile
-  can view locally retained articles. Separate OS/browser profiles remain appropriate for shared devices.
+- A remembered legacy installation showed only Connect; authorising and initial loading kept
+  Disconnect hidden. Cancel and initial connection failure returned to usable Connect.
+- Connected manual sync showed Syncing… with Disconnect available; temporary failure showed
+  Retry sync without another Google login; rejected permission and timed expiry returned to Connect.
+- Offline before connection disabled Connect; returning online enabled it. Offline while connected
+  retained local Disconnect. An offline bookmark queued for A uploaded only after returning to A,
+  with B's remote queue empty and its own article intact. Older unassigned data was not uploaded.
+- A → B → A restored the correct articles and bookmark. Reopening retained A's local list and
+  presented Connect only, without requesting Google permission automatically.
+- Disconnect during a delayed request aborted it. Another same-profile window also aborted and
+  made no later requests during the observation interval (more than one polling period). A stale
+  Google popup callback after the other window disconnected made zero Drive requests.
+- Provider revocation calls remained zero. Actual maintainer accounts and articles were untouched.
 
-## Implementation boundary
-
-A small separate IndexedDB registry records the active database, the retained unassigned database
-and account/list associations. Each account uses the existing article and pending-operation stores
-in its own database. There is no new adoption API; registering an unknown account always creates
-its own database. Atomic registry transactions/revisions reject competing creation or activation.
-Existing `1.6.0` metadata remains readable without a schema migration or data deletion.
-
-The account key is the opaque ID of `laters-connection.json` in that account's existing hidden Drive
-app-data area, resolved before article sync. Ambiguous probes fail closed. No new identity endpoint,
-Google scope, article file format or operation schema is needed. If the connection file is deleted
-and recreated, its new ID is treated separately; previous local data is retained and never uploaded
-silently. Automatic recovery of orphaned associations remains outside this slice.
-
-Each in-flight operation/session keeps its original store. Android's worker resolves the active
-store once per share request; an already-running share stays in its original list. The registry,
-backup association and connection hints stay outside Drive uploads, CSV and diagnostics.
-
-## Verification and acceptance
-
-- Verify strict isolation with a populated unassigned list and queue: both newly chosen accounts
-  must start independently, and neither may receive an old article or operation. Preserve exact
-  account-specific queues and the backup, including compatibility with existing `1.6.0` associations.
-- Preserve the existing tests for edits/bookmarks/deletions with matching IDs, capture isolation,
-  persistent Disconnect, competing registry changes, cancellation/failure and explicit Google chooser.
-- Browser-check direct A → B → A with no list question, retained backup download and normal Update.
-  Use fictional articles and simulated Google responses; do not touch maintainer credentials/data.
-- Run the existing test/build, dependency, privacy and attribution checks. Publish under the standing
-  end-of-slice agreement, then ask for direct real-account switching and Android sharing acceptance.
-
-## Historical 1.6.0 technical verification — 2026-11-07
-
-- 282 tests across 36 files pass, including the ten added isolation/chooser/probe cases.
-- Type checking, production build, repository privacy, public-build privacy and attribution self-tests pass.
-- Dependency gate passes: 3 low and 7 moderate development findings; production dependencies have zero findings. No dependency upgrades were included.
-- Isolated production-build UI checks pass: paused Disconnect after reopening; legacy adoption;
-  A → B → A with an unsent A addition retained and uploaded only to A; B-only additions; cancellation
-  and network failure with the previous valid connection retained; another window reloading onto
-  the newly active list; cancellation of initial adoption; opening a separate empty account list
-  and returning to the retained device-only list; reviewed CSV import into that list.
-- Browser inspection used a desktop viewport. The browser viewport override did not alter its actual
-  dimensions, so a narrow-screen rendering check is not claimed. Physical Android acceptance remains.
-- No real Google authorisation, permission revocation or maintainer reading-list mutation was performed.
-
-## Historical 1.6.0 publication — 2026-11-07
-
-Implementation commit `8dd4c284636c4dbfd1d34223dfba99ee9b564352` was pushed to main and passed
-[Pages workflow 42413892504](https://github.com/gromitski/laters/actions/runs/42413892504).
-The published HTML, both application JavaScript assets, CSS, service worker and privacy page match
-the local production build byte for byte. On an isolated public-origin browser installation,
-the normal **Update** action advanced the menu from **Version 1.5.0** to **Version 1.6.0** while
-retaining its existing single fictional article and metadata.
-
-Documentation, canonical project memory and the public privacy policy are updated. No tag or
-GitHub release was created. The earlier incognito round trip is maintainer-reported evidence for
-the previous connection flow; real-account switching and physical Android acceptance of this
-new feature remain pending. No maintainer account was connected or modified during agent checks.
-
-## 1.6.1 correction status
-
-Implementation passes 283 tests across 36 files, type/build, repository/public-build privacy,
-attribution self-tests and the dependency gate (3 low/7 moderate development findings; zero
-production findings). An isolated production-build browser test started with an old unassigned
-article and queued addition: account A opened empty, account B opened its one remote article,
-and switching back opened A empty again. No list question appeared and neither account received
-an upload. The local recovery CSV contained only the old unassigned article, which remained outside
-both account lists. Paused Disconnect and the simplified menu were also observed.
-
-Implementation `c156989b0134548bea114a56bc621b9989ff7a73` was pushed to main and passed
-[Pages workflow 42414882856](https://github.com/gromitski/laters/actions/runs/42414882856).
-Published HTML, application JavaScript, CSS, service worker and privacy page match the tested build
-byte for byte; the rejected list-association controls are absent. Normal **Update** on the isolated
-public-origin installation advanced **Version 1.6.0** to **Version 1.6.1**, preserving its single
-existing fictional article and metadata.
-
-The rejected `1.6.0` historical technical receipts do not establish product acceptance. Real-account
-switching and Android acceptance of `1.6.1` remain pending. No tag or GitHub release was created.
+The README screenshot is captured from the actual built UI with fictional saved data and a
+collapsed fixture panel. It shows the disconnected state without premature controls. Desktop
+browser verification does not establish physical Android, narrow-screen, keyboard or real-provider
+acceptance; those remain explicit limits. Existing semantic buttons/focus styles are retained.
+Publication and normal Update receipt pending. No tag/release is authorised. The agreed contract
+requires no further design confirmation.

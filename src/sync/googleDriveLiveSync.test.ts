@@ -5,9 +5,26 @@ import {
   GOOGLE_DRIVE_OPERATION_COMPACTION_THRESHOLD,
   GOOGLE_DRIVE_OPERATION_DOWNLOAD_CONCURRENCY,
   GoogleDriveLiveSyncSession,
+  abortableGoogleDriveRequest,
 } from "./googleDriveLiveSync";
 
 describe("Google Drive live sync", () => {
+  it("cancels an in-flight request and refuses any later requests after local Disconnect", async () => {
+    const controller = new AbortController();
+    const request = vi.fn<typeof fetch>((_input, options) => new Promise((_resolve, reject) => {
+      options!.signal!.addEventListener("abort", () => reject(new DOMException("Cancelled", "AbortError")));
+    }));
+    const connectionRequest = abortableGoogleDriveRequest(request, controller.signal);
+    const response = connectionRequest("https://www.googleapis.com/drive/v3/files", {
+      headers: { Authorization: "Bearer temporary-token" }, method: "GET",
+    });
+    const rejected = expect(response).rejects.toMatchObject({ name: "AbortError" });
+    controller.abort();
+    await rejected;
+    expect(() => connectionRequest("https://www.googleapis.com/drive/v3/files")).toThrow();
+    expect(request).toHaveBeenCalledOnce();
+    expect(request.mock.calls[0]![1]).toMatchObject({ signal: controller.signal, method: "GET" });
+  });
   it("starts automatic housekeeping at one hundred Drive changes", () => {
     expect(GOOGLE_DRIVE_OPERATION_COMPACTION_THRESHOLD).toBe(100);
   });
