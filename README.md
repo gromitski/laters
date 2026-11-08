@@ -209,6 +209,8 @@ Project records: [MVP definition](docs/mvp-definition.md),
 [`v1.0.0` completed personal-reading-queue release](docs/releases/v1.0.0.md),
 [`v1.1.0` CSV reading-time release](docs/releases/v1.1.0.md),
 [Google Drive live sync](docs/planning/google-drive-live-sync-plan.md),
+[planned sign-in service](docs/planning/sign-in-service-plan.md),
+[planned service privacy and security](docs/sign-in-service-privacy-security.md),
 [CSV export format](docs/export-format.md), [CSV import contract](docs/import-format.md),
 [roadmap](docs/roadmap.md),
 [current project truth](memory/now.md), and

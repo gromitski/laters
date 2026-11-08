@@ -121,6 +121,25 @@ Detailed MVP behaviour, acceptance criteria and delivery slices live in `docs/mv
   authorised the consolidated `v0.4.2` tag and GitHub release. `v0.4.0` and `v0.4.1` remain candidate
   version numbers within this line rather than separate historical releases.
 
+## Persistent sign-in service — planning direction, 2026-11-08
+
+- The maintainer selected Google Drive, Dropbox and OneDrive for further sync exploration, asked
+  to explore Dropbox first, then requested a documented shared sign-in-service plan constrained to
+  the free tier with understandable privacy and security implications.
+- Target: connect once per installation, reopen and sync through automatic renewal; preserve local
+  use, per-provider/account lists and queues, device-only Disconnect and no separate Laters password.
+- Workers/D1 Free is the proposed service. The illustrated direct-sync/token-mediation architecture
+  must be compared with a full BFF before implementation. Security, measured free-tier capacity,
+  privacy/retention and processing-location decisions belong in the linked plan, not assumptions.
+- Authorised work is documentation/planning only. Current memory-only credentials, no backend and
+  the shipped privacy policy remain true. Server-held renewal credentials and provider setup are
+  not yet authorised or implemented; owner understanding of operator access is required before code.
+  The maintainer subsequently authorised committing and pushing all documentation changes.
+- The maintainer accepts the improved 1.6.3 sync UI as much better; wider menu UI work is deferred.
+- The [sign-in service plan](../docs/planning/sign-in-service-plan.md) and
+  [privacy/security explanation](../docs/sign-in-service-privacy-security.md) are authoritative for
+  this planned work. No native app, cross-provider merging, billing or release is implied.
+
 ## Accepted private Google Drive direction
 
 - Local IndexedDB remains fully usable without Google Drive. Laters has no backend, account database

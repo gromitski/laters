@@ -13,12 +13,17 @@ you can provide. Do not include access tokens, private reading lists, account de
 person's data, and do not test against accounts or devices you do not control.
 
 Please allow reasonable time to investigate before publishing a working exploit. This is a small,
-free, open-source personal project rather than a staffed security service, but credible reports will
+free, open-source product rather than a staffed security service, but credible reports will
 be assessed and addressed proportionately.
 
 ## Security model
 
-- Laters has no application account, backend, database or analytics service.
+This section describes the shipped application. The proposed
+[sign-in service](docs/planning/sign-in-service-plan.md) and
+[privacy/security design](docs/sign-in-service-privacy-security.md) are documentation only; they
+would introduce server-held credentials and materially change this model if implemented.
+
+- Laters has no separate application account, backend, server database or analytics service.
 - Reading lists stay in browser storage unless the user deliberately connects Google Drive.
 - Drive access uses Google's short-lived browser token and the narrow `drive.appdata` permission.
 - Access tokens remain in page memory and are not written to browser storage, Drive or the repository.

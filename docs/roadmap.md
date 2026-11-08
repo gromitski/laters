@@ -2,13 +2,24 @@
 
 ## Status
 
-The accepted delivery roadmap includes the released `v1.1.0` optional CSV-supplied reading-time
-estimates. Exact release commit `1e95804` passed GitHub Pages workflow `33206076911` before tagging
-and publication. The version sections below preserve the bounded delivery record: completing one
-never silently authorised work from the next. Laters is now a free local-first product with no
-Laters account, backend or public database. The maintainer has since selected the bounded `v1.2.0`
-add-link handoff below. Search and publisher organisation are now prioritised for sprint planning;
-the bounded `v1.3.0` Search implementation is now authorised, with publisher organisation following.
+The current published application is **1.6.3**. Search, publisher groups and chronological views
+are delivered; their plans and canonical memory retain acceptance evidence and remaining device
+checks. The latest tagged release remains `v1.1.0` (exact release commit `1e95804`, Pages workflow
+`33206076911`). Version sections below preserve delivery history: completing one never silently
+authorises the next. Laters is a free local-first product with no Laters account, backend or public
+database. The current planning focus is persistent sign-in and three sync providers below;
+documentation delivery is authorised, implementation is not.
+
+## Planned persistent sign-in and provider expansion
+
+On 2026-11-08 the maintainer requested a documented shared sign-in service supporting Google Drive,
+Dropbox and OneDrive on the free tier, with privacy/security explained. The
+[service plan](planning/sign-in-service-plan.md) and
+[privacy/security review](sign-in-service-privacy-security.md) define the proposed scope, architecture
+decision and acceptance sequence. Dropbox is the first new provider to explore. No implementation,
+provisioning, persistent credential, billing change or version is authorised. The current app remains
+1.6.3; wider menu UI changes and native applications remain separate. This planning request does
+not supersede the shipped no-backend/security model until a bounded implementation is agreed.
 
 ## `1.6.3` — product sync usability
 

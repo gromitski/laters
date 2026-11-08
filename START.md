@@ -8,7 +8,14 @@ Read these in order before repository-dependent work:
 - [Accepted roadmap](docs/roadmap.md)
 - [Exploratory future ideas](docs/future-ideas.md) when discussing later product scope
 
-Current application candidate: **1.6.3**. The maintainer explicitly approved the
+Current planning focus: [persistent sign-in service](docs/planning/sign-in-service-plan.md) and its
+[privacy/security explanation](docs/sign-in-service-privacy-security.md), requested on 2026-11-08.
+Plan support for Google Drive, Dropbox and OneDrive within Workers/D1 Free; connect once per device
+and renew automatically, with separate account lists. Documentation only is authorised. Architecture,
+retention, privacy changes and implementation remain decisions; no service or credential is provisioned.
+The maintainer authorised committing and pushing the documentation on 2026-11-08.
+
+Current application version: **1.6.3**. The maintainer explicitly approved the
 [Google Drive product interaction contract](docs/planning/google-account-switching-plan.md):
 Connect only while disconnected; Sync now and Disconnect only with a live connection; no Switch
 account. Disconnect stops this installation's work, including other windows in the same browser
@@ -17,7 +24,8 @@ Usability is EVERYTHING: Laters is a free product, no longer experimental, and t
 reputation depends on it. Apply the complete-journey requirements in the working agreements.
 Published from `ea3e837` after Pages run `42474639900`; 288 tests/37 files, privacy/build gates,
 isolated browser journeys and normal Update 1.6.2 → 1.6.3 pass. Existing articles were retained.
-Owner usability/real-account/Android acceptance remains; see current project truth.
+The maintainer subsequently said the sync interface is much better; real-account/Android checks
+remain separate. The rest of the menu UI is deferred; see current project truth.
 No new scope, persistent credential, backend or billing is included.
 
 Retained accepted article-view baseline: **1.5.0**. [Article views and publisher organisation](docs/planning/publisher-organisation-plan.md)

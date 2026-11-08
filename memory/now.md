@@ -105,7 +105,18 @@ GitHub release; its tag resolves to verified release commit `1e95804`.
 
 ## Active focus
 
-Candidate **1.6.3** implements the maintainer's explicit 2026-11-08 approval after reassessment:
+On 2026-11-08 the maintainer requested documentation/planning for persistent sign-in supporting
+Google Drive, Dropbox and OneDrive, constrained to free-tier operation, with privacy/security made
+understandable. The [sign-in service plan](../docs/planning/sign-in-service-plan.md) owns the target,
+architecture comparison, cost boundary and delivery slices; the
+[privacy/security document](../docs/sign-in-service-privacy-security.md) owns data, retention,
+operator access, technical controls and incidents. Dropbox remains the first new provider to test.
+No application/Cloudflare/provider-console work, credential persistence or billing is authorised.
+The current app is still 1.6.3. The maintainer said its sync UI is much better; the wider menu UI is
+deferred. The completed planning baseline is approved for documentation commit/push on 2026-11-08;
+no service has been provisioned or tested. Package/lockfile remain 1.6.3.
+
+Published **1.6.3** implements the maintainer's explicit 2026-11-08 approval after reassessment:
 remove Switch account; Connect only while disconnected; Disconnect only with a live connection;
 Disconnect stops local sync without revoking Google permission; all account lists and queues remain
 entirely separate. Menu section **Sync** replaces experimental wording. In-flight cancellation,
@@ -117,7 +128,8 @@ passes 288 tests/37 files, build and privacy/attribution gates. Isolated browser
 account/queue separation, request cancellation, same-profile windows, stale callbacks, offline,
 expiry, rejection, retry and reopen. Published from `ea3e837` through successful Pages run
 `42474639900`; seven public assets match the build. Normal Update 1.6.2 → 1.6.3 retained the existing
-fictional article and showed Version 1.6.3. Owner usability/real-account/Android acceptance remains.
+fictional article and showed Version 1.6.3. The maintainer subsequently accepted the improved sync
+interface as much better; real-account/Android acceptance of the changed flow remains unrecorded.
 No new provider, scope, credential persistence, backend or billing.
 Older 1.6.0–1.6.2 delivery evidence and rejected controls are preserved in
 [historical evidence](../evidence/delivery/google-drive-usability-1.6.0-1.6.2.md), not current instructions.
@@ -130,7 +142,7 @@ publication/acceptance record. Earlier always-visible and disclosure-only Search
 superseded; do not restore them or treat their rejected visual reviews as pending work.
 
 [Article views and publisher organisation](../docs/planning/publisher-organisation-plan.md)
-are now candidate **1.5.0**. The maintainer accepted the styled picker, tight right-aligned label,
+were delivered in **1.5.0**, retained in the current 1.6.3 application. The maintainer accepted the styled picker, tight right-aligned label,
 checked menu and 500ms list fade/movement, then authorised **Oldest → Newest** alongside
 **Newest → Oldest** (the load default) and **Publisher groups**. Flat chronological order is
 transient and composes with Search/Bookmarks/Undo; groups stay A–Z with newest-first rows.
@@ -139,11 +151,12 @@ Oldest-first implementation passes 272 tests/35 files, type/build, privacy/attri
 dependency gates. Isolated checks cover ascending order, filtering, Undo, unchanged grouping,
 three-option keyboard/320px layout, reload default and visible Version 1.5.0. Implementation `7aea0f8` passed
 Pages workflow `42113481269`; exact public assets/service worker and normal Update were verified.
-The live footer shows Version 1.5.0, all three choices work and reload returns to the default.
+At that slice's verification the footer showed Version 1.5.0, all three choices worked and reload
+returned to the default; the current published application version is 1.6.3.
 Maintainer oldest-first/device acceptance remains. Earlier `1.4.0` receipts and remaining checks are in the plan.
 
 The owner explicitly requests advancing application versions. Search moved to `1.3.0`, grouping
-to `1.4.0`, and its polish stayed at `1.4.0`; this new feature moves to `1.5.0`. Working agreements
+to `1.4.0`, and its polish stayed at `1.4.0`; oldest-first subsequently moved to `1.5.0`. Working agreements
 now require a version increment per delivered app-code slice (minor features, patch fixes/polish),
 aligned package/lockfile and visible footer verification. Docs-only receipts need no bump.
 `v1.1.0` remains the latest tagged release; no new tag/release authority is implied.
@@ -273,10 +286,14 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Published 1.6.3 passes technical, isolated-browser and normal Update verification. Obtain short
-owner/real-account acceptance: Connect → Sync now → Disconnect → Connect another account → return to the first.
-Only that account's list should appear; no extra linking decisions, premature Disconnect or
-experimental copy. Physical Android share checks remain owner checks, not automated acceptance.
+Review the completed sign-in service plan and privacy/security explanation. Before implementation,
+agree the mediation/BFF choice, proposed retention/session policy, location/privacy responsibilities
+and a measured £0 operating boundary. Then authorise one bounded slice. Do not create resources,
+persist credentials or change the live privacy policy as a consequence of documentation alone.
+
+Published 1.6.3's improved sync interface is accepted as much better. Real-account/Android checks
+remain separate: Connect → Sync now → Disconnect → Connect another account → return to the first,
+with separate lists and no premature controls. Do not restart the deferred wider-menu redesign.
 
 Obtain maintainer oldest-first/device acceptance of published `1.5.0`: apply Update, confirm
 Version 1.5.0, try Oldest → Newest with Search/Bookmarks and Undo, then reload to confirm the
@@ -295,6 +312,16 @@ background interval before proposing behaviour changes. Distinguish a restarted 
 access lifetime and rejected requests. No backend or credential-persistence change is approved.
 
 ## Last meaningful update
+
+2026-11-08 — Documented the requested free-tier shared sign-in service plan and privacy/security
+review baseline, including three providers, architecture alternatives, provider setup, operating
+costs, account/device isolation, offline Disconnect, credential access/retention and incidents.
+The maintainer subsequently authorised bringing all documentation up to date and committing/pushing
+the complete documentation change. No code, infrastructure, credentials, billing or public policy
+changed; package/lockfile remain 1.6.3. Implementation requires an agreed bounded slice. The maintainer accepted the improved
+sync interface and deferred the rest of the menu UI.
+Documentation review checked 115 local links/anchors across nine Markdown files, code-fence and
+whitespace checks, repository privacy (194 tracked files) and the attribution guard self-test.
 
 2026-11-08 — The maintainer approved the simplified local-only Disconnect/account model and
 made product usability a permanent top-level requirement. Version 1.6.3 implements it and is
@@ -723,6 +750,8 @@ the final physical acceptance check for automatic Drive housekeeping.
 
 ## Pointers
 
+- [Planned persistent sign-in service](../docs/planning/sign-in-service-plan.md)
+- [Proposed service privacy and security](../docs/sign-in-service-privacy-security.md)
 - [Working agreements](agreements.md)
 - [Product intent](intent.md)
 - [Original project idea](../evidence/origin/2026-08-21-origin.md)
