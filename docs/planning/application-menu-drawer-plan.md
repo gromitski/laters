@@ -1,5 +1,9 @@
 # Application menu drawer
 
+> Current sync controls and indicator semantics are superseded by the
+> [1.6.3 product interaction contract](google-account-switching-plan.md). The section is now Sync;
+> the historical Experimental label and latest-request error colour below are not current guidance.
+
 ## Status
 
 Accepted, implemented and deployed as a bounded interface move after the private Google Drive

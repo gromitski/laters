@@ -115,7 +115,10 @@ Usability is EVERYTHING for this free product: the maintainer's reputation depen
 now a durable working agreement, including full-journey verification before delivery. Implementation
 passes 288 tests/37 files, build and privacy/attribution gates. Isolated browser checks cover
 account/queue separation, request cancellation, same-profile windows, stale callbacks, offline,
-expiry, rejection, retry and reopen. Publication/Update receipt pending. No new provider, scope, credential persistence, backend or billing.
+expiry, rejection, retry and reopen. Published from `ea3e837` through successful Pages run
+`42474639900`; seven public assets match the build. Normal Update 1.6.2 → 1.6.3 retained the existing
+fictional article and showed Version 1.6.3. Owner usability/real-account/Android acceptance remains.
+No new provider, scope, credential persistence, backend or billing.
 Older 1.6.0–1.6.2 delivery evidence and rejected controls are preserved in
 [historical evidence](../evidence/delivery/google-drive-usability-1.6.0-1.6.2.md), not current instructions.
 
@@ -270,9 +273,8 @@ the remote lightweight tag resolves exactly to it and the GitHub release is publ
 
 ## Next safe action
 
-Finish technical and browser verification of 1.6.3, publish the bounded tested slice under standing
-authority, verify normal Update and record exact evidence. Then obtain short owner/real-account
-acceptance: Connect → Sync now → Disconnect → Connect another account → return to the first.
+Published 1.6.3 passes technical, isolated-browser and normal Update verification. Obtain short
+owner/real-account acceptance: Connect → Sync now → Disconnect → Connect another account → return to the first.
 Only that account's list should appear; no extra linking decisions, premature Disconnect or
 experimental copy. Physical Android share checks remain owner checks, not automated acceptance.
 
@@ -295,8 +297,12 @@ access lifetime and rejected requests. No backend or credential-persistence chan
 ## Last meaningful update
 
 2026-11-08 — The maintainer approved the simplified local-only Disconnect/account model and
-made product usability a permanent top-level requirement. Candidate 1.6.3 implements it; verification
-and publication receipt pending. Older dated entries below are historical and do not override the
+made product usability a permanent top-level requirement. Version 1.6.3 implements it and is
+published from `ea3e837` after successful Pages run `42474639900`. All 288 tests/37 files and the
+required gates pass. Browser tests covered account/queue isolation, offline/retry/expiry/rejection,
+in-flight cancellation, same-profile windows and ignored late callbacks. Seven public assets match
+the build; normal Update from 1.6.2 retained the existing fictional article and showed Version 1.6.3.
+Owner usability/real-account/Android acceptance remains. Older dated entries below are historical and do not override the
 current interaction contract.
 
 

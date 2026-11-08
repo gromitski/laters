@@ -3,8 +3,8 @@
 ## Product contract
 
 `v0.8.0` adds an **Appearance** control to the bottom of the existing main menu, after Google Drive
-and Import and Export, with three choices: **System**, **Light** and **Dark**. Experimental Google
-Drive sync remains the first menu section. System is the default. A manual choice applies
+and Import and Export, with three choices: **System**, **Light** and **Dark**. Google
+Drive sync remains the first menu section (labelled **Sync** since 1.6.3). System is the default. A manual choice applies
 immediately and is retained only in that browser. It is not synced through Google Drive or included
 in CSV Import or Export.
 

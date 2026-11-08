@@ -35,7 +35,9 @@ override this contract. The maintainer's renewed explicit agreement ends the pri
 The menu section is **Sync**, headed Google Drive. There is no Switch account, Resume, Reconnect,
 linking/adoption question or device-only list mode. To choose another account, Disconnect → Connect.
 The chooser is explicit on every connection. A stored account association is never an active
-connection and cannot cause a Disconnect button to appear.
+connection and cannot cause a Disconnect button to appear. The menu indicator is checking during
+authorisation/data work, connected while a valid session is retained, and disconnected otherwise;
+Offline and temporary failures have explicit card status without pretending the user signed out.
 
 ## Local Disconnect and cancellation
 
@@ -70,7 +72,7 @@ This slice does not introduce durable sign-in or promise OS background sync whil
 
 A small control presenter takes only current connection validity, connectivity and activity.
 Stored history is deliberately absent from its inputs. Focused tests cover first/reopened/expired,
-authorising/loading, active/syncing/retry, offline and disconnect/cancel transitions. The new
+authorising/loading, active/syncing/retry, offline and disconnect/cancel transitions. A new
 abortable request boundary is used by the probe, initial load and every subsequent sync. Tests
 verify cancellation of an in-flight request and refusal to start a later one. Existing isolation,
 queue retention, import and capture tests remain required.
@@ -96,7 +98,8 @@ The production build was exercised in isolated browser profiles with fictional p
 
 - A remembered legacy installation showed only Connect; authorising and initial loading kept
   Disconnect hidden. Cancel and initial connection failure returned to usable Connect.
-- Connected manual sync showed Syncing… with Disconnect available; temporary failure showed
+- Connected manual sync, including closing/reopening its menu mid-request, showed Syncing…
+  with Disconnect available; temporary failure showed
   Retry sync without another Google login; rejected permission and timed expiry returned to Connect.
 - Offline before connection disabled Connect; returning online enabled it. Offline while connected
   retained local Disconnect. An offline bookmark queued for A uploaded only after returning to A,
@@ -112,5 +115,17 @@ The README screenshot is captured from the actual built UI with fictional saved 
 collapsed fixture panel. It shows the disconnected state without premature controls. Desktop
 browser verification does not establish physical Android, narrow-screen, keyboard or real-provider
 acceptance; those remain explicit limits. Existing semantic buttons/focus styles are retained.
-Publication and normal Update receipt pending. No tag/release is authorised. The agreed contract
-requires no further design confirmation.
+## Publication and remaining acceptance
+
+Implementation **`ea3e8374abd027dd2f976c8d7296ffbf366dbbb9`** passed
+[Pages workflow 42474639900](https://github.com/gromitski/laters/actions/runs/42474639900) on
+2026-11-08. Published HTML, both JavaScript assets, CSS, service worker, Privacy and Terms match
+local build bytes. The normal Update action upgraded an existing isolated installation from
+**1.6.2 to 1.6.3**, retaining its fictional article, saved time and reading estimate. The menu showed
+Version 1.6.3, Sync and Connect only, without Disconnect or Switch account before connection.
+
+A documentation-only follow-up records this receipt without an application bump. No tag/release.
+Owner visual/usability acceptance, real-account A/B use and physical Android checks remain separate;
+the maintainer can apply Update and try Connect → Sync now → Disconnect → Connect another account
+→ return to the first. Only the selected account's list should appear. Technical/simulated-provider
+checks do not establish those owner acceptance results.

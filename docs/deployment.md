@@ -211,11 +211,12 @@ back successfully. This closes the final housekeeping acceptance check.
 
 1. On Android, confirm the circular menu control appears at the top right without clipping the
    wordmark or an available **Install** action.
-2. Open it and confirm the unchanged Experimental sync card and **Privacy** link are visible in the
+2. Open it and confirm the Sync card and **Privacy** link are visible in the
    bottom drawer without scrolling through the article list.
-3. Confirm the menu button is pale green after a successful Drive check, white while connecting or
-   checking, and pale red when disconnected or offline. Its accessible name must report the same
-   state.
+3. Confirm the menu button is pale green with a live Drive connection, white while connecting or
+   syncing, and pale red without a live connection. Offline/retry status is explained in the card;
+   a retained valid session still offers local Disconnect. Its accessible name reports the same
+   connection state. The current 1.6.3 contract supersedes the original latest-check colour meaning.
 4. Close with the visible close control, the backdrop and a downward swipe. Confirm the menu trigger
    remains usable, the article-list position does not change and the centred page does not move
    sideways when the drawer opens or closes.

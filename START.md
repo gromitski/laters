@@ -15,7 +15,9 @@ account. Disconnect stops this installation's work, including other windows in t
 profile, without revoking Google permission. Every account retains its own list and pending queue.
 Usability is EVERYTHING: Laters is a free product, no longer experimental, and the maintainer's
 reputation depends on it. Apply the complete-journey requirements in the working agreements.
-Implementation and verification are in progress; see current project truth for the delivery receipt.
+Published from `ea3e837` after Pages run `42474639900`; 288 tests/37 files, privacy/build gates,
+isolated browser journeys and normal Update 1.6.2 → 1.6.3 pass. Existing articles were retained.
+Owner usability/real-account/Android acceptance remains; see current project truth.
 No new scope, persistent credential, backend or billing is included.
 
 Retained accepted article-view baseline: **1.5.0**. [Article views and publisher organisation](docs/planning/publisher-organisation-plan.md)

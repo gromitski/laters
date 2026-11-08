@@ -17,7 +17,9 @@ with a live connection; stop sync on this installation without provider revocati
 lists and queues separate. Connect always opens the Google chooser. Complete states, cancellation,
 offline behaviour and expiry are defined in the [interaction contract](planning/google-account-switching-plan.md).
 Usability is EVERYTHING for this free product and the maintainer's reputation; it is no longer
-experimental. Implementation/verification in progress. Earlier sections are dated delivery history;
+experimental. Published from `ea3e837` through Pages run `42474639900`; 288 tests/37 files,
+build/privacy gates, isolated browser journeys and normal Update 1.6.2 → 1.6.3 pass. Owner
+usability/real-account/Android acceptance remains. Earlier sections are dated delivery history;
 their conflicting controls are superseded. No new provider, persistent credential, backend or billing.
 
 ## `1.6.2` — distinguish sync from sign-in
